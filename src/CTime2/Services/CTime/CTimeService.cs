@@ -28,21 +28,27 @@ namespace CTime2.Services.CTime
                 return null;
 
             var responseContentAsString = await response.Content.ReadAsStringAsync();
-            var responseJson = JsonObject.Parse(responseContentAsString);
+            var responseJson = JObject.Parse(responseContentAsString);
 
-            var state = (int)responseJson.GetNamedNumber("State");
+            var state = responseJson.Value<int>("State");
 
             if (state != 0)
                 return null;
 
-            var user = responseJson.GetNamedArray("Result").GetObjectAt(0);
+            var user = responseJson
+                .Value<JArray>("Result")
+                .OfType<JObject>()
+                .FirstOrDefault();
+
+            if (user == null)
+                return null;
 
             return new User
             {
-                Id = user.GetNamedString("EmployeeGUID"),
-                Email = user.GetNamedString("LoginName"),
-                FirstName = user.GetNamedString("EmployeeFirstName"),
-                Name = user.GetNamedString("EmployeeName")
+                Id = user.Value<string>("EmployeeGUID"),
+                Email = user.Value<string>("LoginName"),
+                FirstName = user.Value<string>("EmployeeFirstName"),
+                Name = user.Value<string>("EmployeeName")
             };
         }
 
