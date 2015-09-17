@@ -64,7 +64,7 @@ namespace CTime2
             this._container.BuildUp(instance);
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             if (args.PreviousExecutionState == ApplicationExecutionState.Running ||
                 args.PreviousExecutionState == ApplicationExecutionState.Suspended)
@@ -75,6 +75,9 @@ namespace CTime2
             var view = new ShellView();
             this._container.RegisterNavigationService(view.ContentFrame);
 
+            var stateService = this._container.GetInstance<ISessionStateService>();
+            await stateService.RestoreStateAsync();
+
             var viewModel = IoC.Get<ShellViewModel>();
             ViewModelBinder.Bind(viewModel, view, null);
 
@@ -82,6 +85,16 @@ namespace CTime2
 
             Window.Current.Content = view;
             Window.Current.Activate();
+        }
+
+        protected override async void OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            var deferral = e.SuspendingOperation.GetDeferral();
+
+            var stateService = this._container.GetInstance<ISessionStateService>();
+            await stateService.SaveStateAsync();
+
+            deferral.Complete();
         }
     }
 }
