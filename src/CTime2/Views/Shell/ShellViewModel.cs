@@ -1,24 +1,46 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
+using CTime2.Views.Login;
+using CTime2.Views.Shell.States;
 
 namespace CTime2.Views.Shell
 {
     public class ShellViewModel : Screen
     {
+        private readonly INavigationService _navigationService;
+
+        private ShellState _currentState;
+        
         public BindableCollection<NavigationItemViewModel> Actions { get; }
         public BindableCollection<NavigationItemViewModel> SecondaryActions { get; }
 
-        public ShellViewModel()
+        public ShellState CurrentState
         {
-            this.Actions = new BindableCollection<NavigationItemViewModel>();
-            this.SecondaryActions = new BindableCollection<NavigationItemViewModel>();
+            get { return this._currentState; }
+            set
+            {
+                this._currentState?.Leave();
 
-            this.Actions.Add(new NavigationItemViewModel(this.Login) { Label = "Login", Symbol = Symbol.Add });
+                this._currentState = value;
+                this._currentState.ViewModel = this;
+
+                this._currentState?.Enter();
+
+                this._navigationService.BackStack.Clear();
+            }
         }
 
-        private void Login()
+        public ShellViewModel(INavigationService navigationService)
         {
-            throw new System.NotImplementedException();
+            this._navigationService = navigationService;
+
+            this.Actions = new BindableCollection<NavigationItemViewModel>();
+            this.SecondaryActions = new BindableCollection<NavigationItemViewModel>();
+        }
+
+        protected override void OnActivate()
+        {
+            this.CurrentState = IoC.Get<LoggedOutShellState>();
         }
     }
 }

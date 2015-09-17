@@ -7,7 +7,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Caliburn.Micro;
+using CTime2.Services.CTime;
+using CTime2.Services.SessionState;
+using CTime2.Views.Login;
+using CTime2.Views.Overview;
 using CTime2.Views.Shell;
+using CTime2.Views.Shell.States;
 
 namespace CTime2
 {
@@ -25,7 +30,21 @@ namespace CTime2
             this._container = new WinRTContainer();
             this._container.RegisterWinRTServices();
 
-            this._container.Singleton<ShellViewModel>();
+            //ViewModels
+            this._container
+                .Singleton<ShellViewModel>()
+                .PerRequest<LoginViewModel>()
+                .PerRequest<OverviewViewModel>();
+
+            //ShellStates
+            this._container
+                .PerRequest<LoggedOutShellState>()
+                .PerRequest<LoggedInShellState>();
+
+            //Services
+            this._container
+                .Singleton<ICTimeService, CTimeService>()
+                .Singleton<ISessionStateService, SessionStateService>();
         }
 
         protected override object GetInstance(Type service, string key)
