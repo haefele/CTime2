@@ -13,6 +13,7 @@ using CTime2.Views.Login;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
 using CTime2.Views.Shell.States;
+using CTime2.Views.YourTimes;
 
 namespace CTime2
 {
@@ -34,7 +35,8 @@ namespace CTime2
             this._container
                 .Singleton<ShellViewModel>()
                 .PerRequest<LoginViewModel>()
-                .PerRequest<OverviewViewModel>();
+                .PerRequest<OverviewViewModel>()
+                .PerRequest<YourTimesViewModel>();
 
             //ShellStates
             this._container

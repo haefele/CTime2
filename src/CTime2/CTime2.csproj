@@ -102,6 +102,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CTime\CTimeService.cs" />
     <Compile Include="Services\CTime\ICTimeService.cs" />
+    <Compile Include="Services\CTime\Time.cs" />
     <Compile Include="Services\CTime\User.cs" />
     <Compile Include="Services\SessionState\ISessionStateService.cs" />
     <Compile Include="Services\SessionState\SessionStateService.cs" />
@@ -122,6 +123,10 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell\ShellViewModel.cs" />
+    <Compile Include="Views\YourTimes\YourTimesView.xaml.cs">
+      <DependentUpon>YourTimesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\YourTimes\YourTimesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -159,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shell\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\YourTimes\YourTimesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
