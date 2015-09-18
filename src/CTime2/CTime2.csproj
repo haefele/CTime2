@@ -99,6 +99,7 @@
     <Compile Include="Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\FormatStringConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CTime\CTimeService.cs" />
     <Compile Include="Services\CTime\ICTimeService.cs" />
