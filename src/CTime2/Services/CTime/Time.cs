@@ -8,6 +8,8 @@ namespace CTime2.Services.CTime
         public DateTime Day { get; set; }
         public TimeSpan Hours { get; set; }
         public TimeState? State { get; set; }
+        public DateTime? ClockInTime { get; set; }
+        public DateTime? ClockOutTime { get; set; }
     }
 
     public enum TimeState

@@ -85,6 +85,8 @@ namespace CTime2.Services.CTime
                     Day = f.Value<DateTime>("day"),
                     Hours = TimeSpan.FromHours(double.Parse(f.Value<string>("DayHours") ?? "0")),
                     State = (TimeState?)f.Value<int?>("TimeTrackType"),
+                    ClockInTime = f.Value<DateTime?>("TimeTrackIn"),
+                    ClockOutTime = f.Value<DateTime?>("TimeTrackOut"),
                 })
                 .ToList();
         }
