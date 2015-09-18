@@ -13,10 +13,10 @@
     >
 
     <StackPanel  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox Header="Company Id" Text="{Binding CompanyId, Mode=TwoWay}" />
-        <TextBox Header="Email address" Text="{Binding EmailAddress, Mode=TwoWay}" />
-        <PasswordBox Header="Password" Password="{Binding Password, Mode=TwoWay}" />
+        <TextBox Header="Firmen ID" Text="{Binding CompanyId, Mode=TwoWay}" />
+        <TextBox Header="E-Mail-Adresse" Text="{Binding EmailAddress, Mode=TwoWay}" />
+        <PasswordBox Header="Passwort" Password="{Binding Password, Mode=TwoWay}" />
         
-        <Button Content="Login" micro:Message.Attach="Login" />
+        <Button Content="Anmelden" micro:Message.Attach="Login" />
     </StackPanel>
 </Page>

@@ -11,7 +11,7 @@ namespace CTime2.Views.Overview
         {
             this._sessionStateService = sessionStateService;
 
-            this.WelcomeMessage = $"Hello {this._sessionStateService.CurrentUser.Name}";
+            this.WelcomeMessage = $"Hallo {this._sessionStateService.CurrentUser.FirstName}";
         }
 
         public string WelcomeMessage { get; set; }
