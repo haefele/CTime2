@@ -7,12 +7,14 @@ namespace CTime2.Services.SessionState
 {
     public class SessionStateService : ISessionStateService
     {
+        public string CompanyId { get; set; }
         public User CurrentUser { get; set; }
         public Task SaveStateAsync()
         {
             var container = this.GetStateContainer();
 
             container.Values[nameof(this.CurrentUser)] = JsonConvert.SerializeObject(this.CurrentUser);
+            container.Values[nameof(this.CompanyId)] = this.CompanyId;
 
             return Task.CompletedTask;
         }
@@ -21,9 +23,12 @@ namespace CTime2.Services.SessionState
         {
             var container = this.GetStateContainer();
 
+            if (container.Values.ContainsKey(nameof(this.CompanyId)))
+                this.CompanyId = (string)container.Values[nameof(this.CompanyId)];
+
             if (container.Values.ContainsKey(nameof(this.CurrentUser)))
                 this.CurrentUser = JsonConvert.DeserializeObject<User>((string)container.Values[nameof(this.CurrentUser)]);
-
+            
             return Task.CompletedTask;
         }
 

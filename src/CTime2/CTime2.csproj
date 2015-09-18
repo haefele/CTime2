@@ -124,6 +124,10 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell\ShellViewModel.cs" />
+    <Compile Include="Views\StampTime\StampTimeView.xaml.cs">
+      <DependentUpon>StampTimeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StampTime\StampTimeViewModel.cs" />
     <Compile Include="Views\YourTimes\YourTimesView.xaml.cs">
       <DependentUpon>YourTimesView.xaml</DependentUpon>
     </Compile>
@@ -165,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shell\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StampTime\StampTimeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

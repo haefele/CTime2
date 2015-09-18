@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Chat;
 using Windows.Data.Json;
 using Windows.Web.Http;
 using Newtonsoft.Json.Linq;
@@ -89,6 +90,33 @@ namespace CTime2.Services.CTime
                     ClockOutTime = f.Value<DateTime?>("TimeTrackOut"),
                 })
                 .ToList();
+        }
+
+        public async Task<bool> SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("/ctimetrack/php/SaveTimer.php"))
+            {
+                Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "RFID", string.Empty },
+                    { "TimerKind", ((int)state).ToString() },
+                    { "TimerText", string.Empty },
+                    { "TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss") },
+                    { "EmployeeGUID", employeeGuid },
+                    { "GUID", companyId }
+                })
+            };
+
+            var response = await this.GetClient().SendRequestAsync(request);
+
+            if (response.StatusCode != HttpStatusCode.Ok)
+                return false;
+
+            var responseContentAsString = await response.Content.ReadAsStringAsync();
+            var responseJson = JObject.Parse(responseContentAsString);
+
+            var responseState = responseJson.Value<int>("State");
+            return responseState == 0;
         }
 
         private Uri BuildUri(string path)

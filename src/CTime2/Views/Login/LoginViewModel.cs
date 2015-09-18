@@ -48,7 +48,9 @@ namespace CTime2.Views.Login
 
             if (user != null)
             {
+                this._sessionStateService.CompanyId = this.CompanyId;
                 this._sessionStateService.CurrentUser = user;
+
                 this._shellViewModel.CurrentState = IoC.Get<LoggedInShellState>();
             }
         }

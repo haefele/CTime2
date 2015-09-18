@@ -11,5 +11,6 @@ namespace CTime2.Services.CTime
     {
         Task<User> Login(string companyId, string emailAddress, string password);
         Task<IList<Time>> GetTimes(string employeeGuid, DateTime start, DateTime end);
+        Task<bool> SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state);
     }
 }
