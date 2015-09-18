@@ -83,7 +83,7 @@ namespace CTime2.Services.CTime
                 .Select(f => new Time
                 {
                     Day = f.Value<DateTime>("day"),
-                    Hours = TimeSpan.FromHours(double.Parse(f.Value<string>("DayHours") ?? "0")),
+                    Hours = TimeSpan.FromHours(double.Parse((f.Value<string>("DayHours") ?? "0").Replace(".", ","))),
                     State = (TimeState?)f.Value<int?>("TimeTrackType"),
                     ClockInTime = f.Value<DateTime?>("TimeTrackIn"),
                     ClockOutTime = f.Value<DateTime?>("TimeTrackOut"),
