@@ -96,15 +96,22 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\DisposableAction.cs" />
     <Compile Include="Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LoadingOverlay.xaml.cs">
+      <DependentUpon>LoadingOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CTime\CTimeService.cs" />
     <Compile Include="Services\CTime\ICTimeService.cs" />
     <Compile Include="Services\CTime\Time.cs" />
     <Compile Include="Services\CTime\User.cs" />
+    <Compile Include="Services\Loading\ILoadingService.cs" />
+    <Compile Include="Services\Loading\LoadingService.cs" />
     <Compile Include="Services\SessionState\ISessionStateService.cs" />
     <Compile Include="Services\SessionState\SessionStateService.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
@@ -157,6 +164,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LoadingOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

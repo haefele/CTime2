@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using CTime2.Extensions;
 using CTime2.Services.CTime;
+using CTime2.Services.Loading;
 using CTime2.Services.SessionState;
 using CTime2.Views.Shell;
 using CTime2.Views.Shell.States;
@@ -11,6 +12,7 @@ namespace CTime2.Views.Login
     {
         private readonly ICTimeService _cTimeService;
         private readonly ISessionStateService _sessionStateService;
+        private readonly ILoadingService _loadingService;
         private readonly ShellViewModel _shellViewModel;
 
         private string _companyId;
@@ -35,23 +37,27 @@ namespace CTime2.Views.Login
             set { this.SetProperty(ref this._password, value); }
         }
 
-        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ShellViewModel shellViewModel)
+        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, ShellViewModel shellViewModel)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
+            this._loadingService = loadingService;
             this._shellViewModel = shellViewModel;
         }
 
         public async void Login()
         {
-            var user = await this._cTimeService.Login(this.CompanyId, this.EmailAddress, this.Password);
-
-            if (user != null)
+            using (this._loadingService.Show("Logging in..."))
             {
-                this._sessionStateService.CompanyId = this.CompanyId;
-                this._sessionStateService.CurrentUser = user;
+                var user = await this._cTimeService.Login(this.CompanyId, this.EmailAddress, this.Password);
 
-                this._shellViewModel.CurrentState = IoC.Get<LoggedInShellState>();
+                if (user != null)
+                {
+                    this._sessionStateService.CompanyId = this.CompanyId;
+                    this._sessionStateService.CurrentUser = user;
+
+                    this._shellViewModel.CurrentState = IoC.Get<LoggedInShellState>();
+                }
             }
         }
     }

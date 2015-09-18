@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Caliburn.Micro;
 using CTime2.Services.CTime;
+using CTime2.Services.Loading;
 using CTime2.Services.SessionState;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
@@ -76,10 +77,11 @@ namespace CTime2
 
             var view = new ShellView();
             this._container.RegisterNavigationService(view.ContentFrame);
+            this._container.Instance((ILoadingService)new LoadingService(view.LoadingOverlay));
 
             var stateService = this._container.GetInstance<ISessionStateService>();
             await stateService.RestoreStateAsync();
-
+            
             var viewModel = IoC.Get<ShellViewModel>();
             ViewModelBinder.Bind(viewModel, view, null);
 

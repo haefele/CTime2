@@ -70,5 +70,7 @@
             </SplitView.Content>
         </SplitView>
         
+        <controls:LoadingOverlay x:Name="LoadingOverlay" 
+                                 x:FieldModifier="Public" />
     </Grid>
 </Page>
