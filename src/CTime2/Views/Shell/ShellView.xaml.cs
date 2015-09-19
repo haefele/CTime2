@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace CTime2.Views.Shell
@@ -20,6 +21,14 @@ namespace CTime2.Views.Shell
         public ShellView()
         {
             this.InitializeComponent();
+
+            this.ContentFrame.ContentTransitions = new TransitionCollection
+            {
+                new NavigationThemeTransition
+                {
+                    DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo()
+                }
+            };
         }
 
         private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
