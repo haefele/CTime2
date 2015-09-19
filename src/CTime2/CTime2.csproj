@@ -105,11 +105,15 @@
     </Compile>
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
+    <Compile Include="Extensions\DialogServiceExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CTime\CTimeService.cs" />
     <Compile Include="Services\CTime\ICTimeService.cs" />
     <Compile Include="Services\CTime\Time.cs" />
     <Compile Include="Services\CTime\User.cs" />
+    <Compile Include="Services\Dialog\DialogService.cs" />
+    <Compile Include="Services\Dialog\IDialogService.cs" />
     <Compile Include="Services\Loading\ILoadingService.cs" />
     <Compile Include="Services\Loading\LoadingService.cs" />
     <Compile Include="Services\SessionState\ISessionStateService.cs" />

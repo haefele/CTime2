@@ -1,9 +1,9 @@
 ﻿using System;
-using Windows.UI.Popups;
 using Caliburn.Micro;
+using CTime2.Extensions;
 using CTime2.Services.CTime;
+using CTime2.Services.Dialog;
 using CTime2.Services.SessionState;
-using CTime2.Views.Overview;
 
 namespace CTime2.Views.StampTime
 {
@@ -11,21 +11,22 @@ namespace CTime2.Views.StampTime
     {
         private readonly ICTimeService _cTimeService;
         private readonly ISessionStateService _sessionStateService;
+        private readonly IDialogService _dialogService;
+
         public static bool IsCheckedIn { get; set; }
 
-
-        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService)
+        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, IDialogService dialogService)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
+            this._dialogService = dialogService;
         }
 
         public async void CheckIn()
         {
             if (IsCheckedIn)
             {
-                var loggedInMessage = new MessageDialog("Sie sind bereits eingestempelt!");
-                await loggedInMessage.ShowAsync();
+                await this._dialogService.ShowAsync("Sie sind bereits eingestempelt!");
                 return;
             }
 
@@ -35,8 +36,7 @@ namespace CTime2.Views.StampTime
                 this._sessionStateService.CompanyId, 
                 TimeState.Entered);
 
-            var dialog = new MessageDialog($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
-            await dialog.ShowAsync();
+            await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
             IsCheckedIn = true;
         }
@@ -45,8 +45,7 @@ namespace CTime2.Views.StampTime
         {
             if (!IsCheckedIn)
             {
-                var loggedOutMessage = new MessageDialog("Sie sind bereits ausgestempelt!");
-                await loggedOutMessage.ShowAsync();
+                await this._dialogService.ShowAsync("Sie sind bereits ausgestempelt!");
                 return;
             }
 
@@ -56,8 +55,7 @@ namespace CTime2.Views.StampTime
                 this._sessionStateService.CompanyId,
                 TimeState.Left);
 
-            var dialog = new MessageDialog($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
-            await dialog.ShowAsync();
+            await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
             IsCheckedIn = false;
         }

@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Caliburn.Micro;
 using CTime2.Services.CTime;
+using CTime2.Services.Dialog;
 using CTime2.Services.Loading;
 using CTime2.Services.SessionState;
 using CTime2.Views.Login;
@@ -49,7 +50,8 @@ namespace CTime2
             //Services
             this._container
                 .Singleton<ICTimeService, CTimeService>()
-                .Singleton<ISessionStateService, SessionStateService>();
+                .Singleton<ISessionStateService, SessionStateService>()
+                .Singleton<IDialogService, DialogService>();
         }
 
         protected override object GetInstance(Type service, string key)
