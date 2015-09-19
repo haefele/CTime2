@@ -118,6 +118,7 @@
     <Compile Include="Services\Loading\LoadingService.cs" />
     <Compile Include="Services\SessionState\ISessionStateService.cs" />
     <Compile Include="Services\SessionState\SessionStateService.cs" />
+    <Compile Include="States\IApplication.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -128,9 +129,9 @@
     <Compile Include="Views\Overview\OverviewViewModel.cs" />
     <Compile Include="Views\Shell\NavigationItemViewModel.cs" />
     <Compile Include="Extensions\PropertyChangedBaseExtensions.cs" />
-    <Compile Include="Views\Shell\States\LoggedInShellState.cs" />
-    <Compile Include="Views\Shell\States\LoggedOutShellState.cs" />
-    <Compile Include="Views\Shell\States\ShellState.cs" />
+    <Compile Include="States\LoggedInApplicationState.cs" />
+    <Compile Include="States\LoggedOutApplicationState.cs" />
+    <Compile Include="States\ApplicationState.cs" />
     <Compile Include="Views\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>

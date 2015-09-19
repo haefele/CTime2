@@ -1,22 +1,22 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using CTime2.Services.SessionState;
+using CTime2.States;
 using CTime2.Views.Login;
-using CTime2.Views.Shell.States;
 
 namespace CTime2.Views.Shell
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Screen, IApplication
     {
         private readonly INavigationService _navigationService;
         private readonly ISessionStateService _sessionStateService;
 
-        private ShellState _currentState;
+        private ApplicationState _currentState;
         
         public BindableCollection<NavigationItemViewModel> Actions { get; }
         public BindableCollection<NavigationItemViewModel> SecondaryActions { get; }
 
-        public ShellState CurrentState
+        public ApplicationState CurrentState
         {
             get { return this._currentState; }
             set
@@ -24,7 +24,7 @@ namespace CTime2.Views.Shell
                 this._currentState?.Leave();
 
                 this._currentState = value;
-                this._currentState.ViewModel = this;
+                this._currentState.Application = this;
 
                 this._currentState?.Enter();
 
@@ -43,14 +43,6 @@ namespace CTime2.Views.Shell
 
         protected override void OnActivate()
         {
-            if (this._sessionStateService.CurrentUser != null)
-            {
-                this.CurrentState = IoC.Get<LoggedInShellState>();
-            }
-            else
-            {
-                this.CurrentState = IoC.Get<LoggedOutShellState>();
-            }
         }
     }
 }

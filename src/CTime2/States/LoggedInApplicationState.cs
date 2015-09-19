@@ -2,12 +2,13 @@
 using Caliburn.Micro;
 using CTime2.Services.SessionState;
 using CTime2.Views.Overview;
+using CTime2.Views.Shell;
 using CTime2.Views.StampTime;
 using CTime2.Views.YourTimes;
 
-namespace CTime2.Views.Shell.States
+namespace CTime2.States
 {
-    public class LoggedInShellState : ShellState
+    public class LoggedInApplicationState : ApplicationState
     {
         private readonly INavigationService _navigationService;
         private readonly ISessionStateService _sessionStateService;
@@ -17,7 +18,7 @@ namespace CTime2.Views.Shell.States
         private readonly NavigationItemViewModel _stampTimeNavigationItem;
         private readonly NavigationItemViewModel _logoutNavigationItem;
 
-        public LoggedInShellState(INavigationService navigationService, ISessionStateService sessionStateService)
+        public LoggedInApplicationState(INavigationService navigationService, ISessionStateService sessionStateService)
         {
             this._navigationService = navigationService;
             this._sessionStateService = sessionStateService;
@@ -30,20 +31,20 @@ namespace CTime2.Views.Shell.States
 
         public override void Enter()
         {
-            this.ViewModel.Actions.Add(this._overviewNavigationItem);
-            this.ViewModel.Actions.Add(this._myTimesNavigationItem);
-            this.ViewModel.Actions.Add(this._stampTimeNavigationItem);
-            this.ViewModel.SecondaryActions.Add(this._logoutNavigationItem);
+            this.Application.Actions.Add(this._overviewNavigationItem);
+            this.Application.Actions.Add(this._myTimesNavigationItem);
+            this.Application.Actions.Add(this._stampTimeNavigationItem);
+            this.Application.SecondaryActions.Add(this._logoutNavigationItem);
 
             this.Overview();
         }
 
         public override void Leave()
         {
-            this.ViewModel.Actions.Remove(this._overviewNavigationItem);
-            this.ViewModel.Actions.Remove(this._myTimesNavigationItem);
-            this.ViewModel.Actions.Remove(this._stampTimeNavigationItem);
-            this.ViewModel.SecondaryActions.Remove(this._logoutNavigationItem);
+            this.Application.Actions.Remove(this._overviewNavigationItem);
+            this.Application.Actions.Remove(this._myTimesNavigationItem);
+            this.Application.Actions.Remove(this._stampTimeNavigationItem);
+            this.Application.SecondaryActions.Remove(this._logoutNavigationItem);
         }
 
         private void Overview()
@@ -72,7 +73,7 @@ namespace CTime2.Views.Shell.States
             this._sessionStateService.CompanyId = null;
             this._sessionStateService.CurrentUser = null;
 
-            this.ViewModel.CurrentState = IoC.Get<LoggedOutShellState>();
+            this.Application.CurrentState = IoC.Get<LoggedOutApplicationState>();
         }
     }
 }

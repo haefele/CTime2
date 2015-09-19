@@ -3,8 +3,8 @@ using CTime2.Extensions;
 using CTime2.Services.CTime;
 using CTime2.Services.Loading;
 using CTime2.Services.SessionState;
+using CTime2.States;
 using CTime2.Views.Shell;
-using CTime2.Views.Shell.States;
 
 namespace CTime2.Views.Login
 {
@@ -13,7 +13,7 @@ namespace CTime2.Views.Login
         private readonly ICTimeService _cTimeService;
         private readonly ISessionStateService _sessionStateService;
         private readonly ILoadingService _loadingService;
-        private readonly ShellViewModel _shellViewModel;
+        private readonly IApplication _application;
 
         private string _companyId;
         private string _emailAddress;
@@ -37,12 +37,12 @@ namespace CTime2.Views.Login
             set { this.SetProperty(ref this._password, value); }
         }
 
-        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, ShellViewModel shellViewModel)
+        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IApplication application)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
             this._loadingService = loadingService;
-            this._shellViewModel = shellViewModel;
+            this._application = application;
         }
 
         public async void Login()
@@ -56,7 +56,7 @@ namespace CTime2.Views.Login
                     this._sessionStateService.CompanyId = this.CompanyId;
                     this._sessionStateService.CurrentUser = user;
 
-                    this._shellViewModel.CurrentState = IoC.Get<LoggedInShellState>();
+                    this._application.CurrentState = IoC.Get<LoggedInApplicationState>();
                 }
             }
         }

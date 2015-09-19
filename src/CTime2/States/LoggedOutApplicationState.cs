@@ -1,13 +1,13 @@
 ﻿using Caliburn.Micro;
 using CTime2.Views.Login;
 
-namespace CTime2.Views.Shell.States
+namespace CTime2.States
 {
-    public class LoggedOutShellState : ShellState
+    public class LoggedOutApplicationState : ApplicationState
     {
         private readonly INavigationService _navigationService;
 
-        public LoggedOutShellState(INavigationService navigationService)
+        public LoggedOutApplicationState(INavigationService navigationService)
         {
             this._navigationService = navigationService;
         }

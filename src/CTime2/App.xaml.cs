@@ -11,10 +11,10 @@ using CTime2.Services.CTime;
 using CTime2.Services.Dialog;
 using CTime2.Services.Loading;
 using CTime2.Services.SessionState;
+using CTime2.States;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
-using CTime2.Views.Shell.States;
 using CTime2.Views.StampTime;
 using CTime2.Views.YourTimes;
 
@@ -36,7 +36,7 @@ namespace CTime2
 
             //ViewModels
             this._container
-                .Singleton<ShellViewModel>()
+                .PerRequest<ShellViewModel>()
                 .PerRequest<LoginViewModel>()
                 .PerRequest<OverviewViewModel>()
                 .PerRequest<YourTimesViewModel>()
@@ -44,8 +44,8 @@ namespace CTime2
 
             //ShellStates
             this._container
-                .PerRequest<LoggedOutShellState>()
-                .PerRequest<LoggedInShellState>();
+                .PerRequest<LoggedOutApplicationState>()
+                .PerRequest<LoggedInApplicationState>();
 
             //Services
             this._container
@@ -77,17 +77,20 @@ namespace CTime2
 
             this.Initialize();
 
+            var stateService = this._container.GetInstance<ISessionStateService>();
+            await stateService.RestoreStateAsync();
+
             var view = new ShellView();
             this._container.RegisterNavigationService(view.ContentFrame);
             this._container.Instance((ILoadingService)new LoadingService(view.LoadingOverlay));
-
-            var stateService = this._container.GetInstance<ISessionStateService>();
-            await stateService.RestoreStateAsync();
             
             var viewModel = IoC.Get<ShellViewModel>();
-            ViewModelBinder.Bind(viewModel, view, null);
+            this._container.Instance((IApplication)viewModel);
 
+            ViewModelBinder.Bind(viewModel, view, null);
             ScreenExtensions.TryActivate(viewModel);
+
+            this.TryRestore(stateService, viewModel);
 
             Window.Current.Content = view;
             Window.Current.Activate();
@@ -101,6 +104,18 @@ namespace CTime2
             await stateService.SaveStateAsync();
 
             deferral.Complete();
+        }
+        
+        private void TryRestore(ISessionStateService stateService, ShellViewModel viewModel)
+        {
+            if (stateService.CurrentUser != null)
+            {
+                viewModel.CurrentState = IoC.Get<LoggedInApplicationState>();
+            }
+            else
+            {
+                viewModel.CurrentState = IoC.Get<LoggedOutApplicationState>();
+            }
         }
     }
 }
