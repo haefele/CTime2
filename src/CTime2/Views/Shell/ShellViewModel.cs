@@ -9,7 +9,6 @@ namespace CTime2.Views.Shell
     public class ShellViewModel : Screen, IApplication
     {
         private readonly INavigationService _navigationService;
-        private readonly ISessionStateService _sessionStateService;
 
         private ApplicationState _currentState;
         
@@ -32,10 +31,9 @@ namespace CTime2.Views.Shell
             }
         }
 
-        public ShellViewModel(INavigationService navigationService, ISessionStateService sessionStateService)
+        public ShellViewModel(INavigationService navigationService)
         {
             this._navigationService = navigationService;
-            this._sessionStateService = sessionStateService;
 
             this.Actions = new BindableCollection<NavigationItemViewModel>();
             this.SecondaryActions = new BindableCollection<NavigationItemViewModel>();
