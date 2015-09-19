@@ -7,14 +7,13 @@ namespace CTime2.Views.Overview
     {
         private readonly ISessionStateService _sessionStateService;
 
+        public string WelcomeMessage { get; set; }
+
         public OverviewViewModel(ISessionStateService sessionStateService)
         {
             this._sessionStateService = sessionStateService;
 
             this.WelcomeMessage = $"Hallo {this._sessionStateService.CurrentUser.FirstName}";
         }
-
-        public string WelcomeMessage { get; set; }
-
     }
 }
