@@ -47,7 +47,7 @@ namespace CTime2.Views.Login
 
         public async void Login()
         {
-            using (this._loadingService.Show("Logging in..."))
+            using (this._loadingService.Show("Melde an..."))
             {
                 var user = await this._cTimeService.Login(this.CompanyId, this.EmailAddress, this.Password);
 

@@ -30,7 +30,7 @@ namespace CTime2.Views.YourTimes
 
         protected override async void OnActivate()
         {
-            using (this._loadingService.Show("Loading times..."))
+            using (this._loadingService.Show("Lade Zeiten..."))
             { 
                 var times = await this._cTimeService.GetTimes(this._sessionStateService.CurrentUser.Id, this.StartDate, this.EndDate);
                 this.Times.AddRange(times);
