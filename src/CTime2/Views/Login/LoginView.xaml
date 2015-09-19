@@ -9,10 +9,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    
     >
-
-    <StackPanel  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBox Header="Firmen ID" Text="{Binding CompanyId, Mode=TwoWay}" />
         <TextBox Header="E-Mail-Adresse" Text="{Binding EmailAddress, Mode=TwoWay}" />
         <PasswordBox Header="Passwort" Password="{Binding Password, Mode=TwoWay}" />
