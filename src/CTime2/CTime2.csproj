@@ -97,6 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\DisposableAction.cs" />
+    <Compile Include="Common\Mdl2.cs" />
     <Compile Include="Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
@@ -105,6 +106,7 @@
     </Compile>
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
+    <Compile Include="Converter\SymbolToControlConverter.cs" />
     <Compile Include="Extensions\DialogServiceExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +121,10 @@
     <Compile Include="Services\SessionState\ISessionStateService.cs" />
     <Compile Include="Services\SessionState\SessionStateService.cs" />
     <Compile Include="States\IApplication.cs" />
+    <Compile Include="Views\About\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\About\AboutViewModel.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -173,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LoadingOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\About\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

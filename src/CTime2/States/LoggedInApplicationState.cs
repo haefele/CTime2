@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
+using CTime2.Common;
 using CTime2.Services.SessionState;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
@@ -26,7 +27,7 @@ namespace CTime2.States
             this._overviewNavigationItem = new NavigationItemViewModel(this.Overview) { Label = "Übersicht", Symbol = Symbol.Globe };
             this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes) { Label = "Meine Zeiten", Symbol = Symbol.Calendar };
             this._stampTimeNavigationItem = new NavigationItemViewModel(this.StampTime) { Label = "Stempeln", Symbol = Symbol.Clock };
-            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout) { Label = "Abmelden", Symbol = Symbol.LeaveChat };
+            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout) { Label = "Abmelden", Symbol = Mdl2.Logout };
         }
 
         public override void Enter()

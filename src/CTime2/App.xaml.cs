@@ -12,6 +12,7 @@ using CTime2.Services.Dialog;
 using CTime2.Services.Loading;
 using CTime2.Services.SessionState;
 using CTime2.States;
+using CTime2.Views.About;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
@@ -40,7 +41,8 @@ namespace CTime2
                 .PerRequest<LoginViewModel>()
                 .PerRequest<OverviewViewModel>()
                 .PerRequest<YourTimesViewModel>()
-                .PerRequest<StampTimeViewModel>();
+                .PerRequest<StampTimeViewModel>()
+                .PerRequest<AboutViewModel>();
 
             //ShellStates
             this._container
