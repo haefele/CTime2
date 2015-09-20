@@ -24,10 +24,10 @@ namespace CTime2.States
             this._navigationService = navigationService;
             this._sessionStateService = sessionStateService;
 
-            this._overviewNavigationItem = new NavigationItemViewModel(this.Overview) { Label = "Übersicht", Symbol = Symbol.Globe };
-            this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes) { Label = "Meine Zeiten", Symbol = Symbol.Calendar };
-            this._stampTimeNavigationItem = new NavigationItemViewModel(this.StampTime) { Label = "Stempeln", Symbol = Symbol.Clock };
-            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout) { Label = "Abmelden", Symbol = Mdl2.Logout };
+            this._overviewNavigationItem = new NavigationItemViewModel(this.Overview, "Übersicht", Symbol.Globe);
+            this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes, "Meine Zeiten", Symbol.Calendar);
+            this._stampTimeNavigationItem = new NavigationItemViewModel(this.StampTime, "Stempeln", Symbol.Clock);
+            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, "Abmelden", Mdl2.Logout);
         }
 
         public override void Enter()

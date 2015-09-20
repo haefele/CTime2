@@ -7,5 +7,6 @@
     {
         public static char Help = (char)57627;
         public static char Logout = (char)57928;
+        public static char Login = (char)60002;
     }
 }

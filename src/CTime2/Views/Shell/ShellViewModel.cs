@@ -40,7 +40,7 @@ namespace CTime2.Views.Shell
             this.Actions = new BindableCollection<NavigationItemViewModel>();
             this.SecondaryActions = new BindableCollection<NavigationItemViewModel>
             {
-                new NavigationItemViewModel(this.About) {Label = "Über", Symbol = Mdl2.Help }
+                new NavigationItemViewModel(this.About, "Über", Mdl2.Help)
             };
         }
 
