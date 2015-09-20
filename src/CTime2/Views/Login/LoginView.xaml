@@ -10,11 +10,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     >
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox Header="Firmen ID" Text="{Binding CompanyId, Mode=TwoWay}" />
-        <TextBox Header="E-Mail-Adresse" Text="{Binding EmailAddress, Mode=TwoWay}" />
-        <PasswordBox Header="Passwort" Password="{Binding Password, Mode=TwoWay}" />
+    <Grid Margin="5"
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>        
         
-        <Button Content="Anmelden" micro:Message.Attach="Login" />
-    </StackPanel>
+        <TextBox Header="Firmen ID" 
+                 Grid.Row="0"
+                 Text="{Binding CompanyId, Mode=TwoWay}" />
+        <TextBox Header="E-Mail-Adresse" 
+                 Grid.Row="2"
+                 Text="{Binding EmailAddress, Mode=TwoWay}" />
+        <PasswordBox Header="Passwort" 
+                     Grid.Row="4"
+                     Password="{Binding Password, Mode=TwoWay}" />
+        
+        <Button Content="Anmelden" 
+                Grid.Row="6"
+                micro:Message.Attach="Login"
+                HorizontalAlignment="Stretch"/>
+    </Grid>
 </Page>
