@@ -97,7 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\DisposableAction.cs" />
-    <Compile Include="Common\Mdl2.cs" />
+    <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
@@ -106,7 +106,6 @@
     </Compile>
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
-    <Compile Include="Converter\SymbolToControlConverter.cs" />
     <Compile Include="Extensions\DialogServiceExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

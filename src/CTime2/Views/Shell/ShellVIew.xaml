@@ -12,15 +12,13 @@
     mc:Ignorable="d"
     >
     <Page.Resources>
-        <converter:SymbolToControlConverter x:Key="SymbolToControlConverter" />
-        
         <Style x:Key="NavigationListViewStyle" TargetType="ListView">
             <Setter Property="SelectionMode" Value="None" />
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="2, 0, 0, 0">
-                            <ContentControl Content="{Binding Symbol, Converter={StaticResource SymbolToControlConverter}}" />
+                            <SymbolIcon Symbol="{Binding Symbol}" />
                             <TextBlock Text="{Binding Label}" Margin="24, 0, 0, 0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>

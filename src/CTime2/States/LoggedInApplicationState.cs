@@ -27,7 +27,7 @@ namespace CTime2.States
             this._overviewNavigationItem = new NavigationItemViewModel(this.Overview, "Übersicht", Symbol.Globe);
             this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes, "Meine Zeiten", Symbol.Calendar);
             this._stampTimeNavigationItem = new NavigationItemViewModel(this.StampTime, "Stempeln", Symbol.Clock);
-            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, "Abmelden", Mdl2.Logout);
+            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, "Abmelden", SymbolEx.Logout);
         }
 
         public override void Enter()
