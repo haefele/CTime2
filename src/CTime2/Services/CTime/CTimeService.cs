@@ -49,7 +49,8 @@ namespace CTime2.Services.CTime
                 Id = user.Value<string>("EmployeeGUID"),
                 Email = user.Value<string>("LoginName"),
                 FirstName = user.Value<string>("EmployeeFirstName"),
-                Name = user.Value<string>("EmployeeName")
+                Name = user.Value<string>("EmployeeName"),
+                ImageAsPng = Convert.FromBase64String(user.Value<string>("EmployeePhoto")),
             };
         }
 

@@ -1,4 +1,6 @@
-﻿namespace CTime2.Services.CTime
+﻿using Newtonsoft.Json;
+
+namespace CTime2.Services.CTime
 {
     public class User
     {
@@ -6,5 +8,6 @@
         public string FirstName { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public byte[] ImageAsPng { get; set; }
     }
 }

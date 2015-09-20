@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Caliburn.Micro;
 using CTime2.Events;
 using CTime2.Extensions;
@@ -20,14 +23,26 @@ namespace CTime2.Views.Overview
         private DateTime _timerStartNow;
         private TimeSpan _timerStartTimeForDay;
 
+        private string _welcomeMessage;
         private TimeSpan _currentTime;
+        private ImageSource _myImage;
 
-        public string WelcomeMessage { get; set; }
+        public string WelcomeMessage
+        {
+            get { return this._welcomeMessage; }
+            set { this.SetProperty(ref this._welcomeMessage, value); }
+        }
 
         public TimeSpan CurrentTime
         {
             get { return this._currentTime; }
             set { this.SetProperty(ref this._currentTime, value); }
+        }
+
+        public ImageSource MyImage
+        {
+            get { return this._myImage; }
+            set { this.SetProperty(ref this._myImage, value); }
         }
 
         public OverviewViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, IEventAggregator eventAggregator)
@@ -37,15 +52,16 @@ namespace CTime2.Views.Overview
             this._eventAggregator = eventAggregator;
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-
-            this.WelcomeMessage = $"Hallo {this._sessionStateService.CurrentUser.FirstName}";
         }
 
         protected override async void OnActivate()
         {
             this._eventAggregator.Subscribe(this);
-
+            
             await this.LoadCurrentTime();
+
+            this.WelcomeMessage = $"Hallo {this._sessionStateService.CurrentUser.FirstName}!";
+            this.MyImage = await this._sessionStateService.CurrentUser.ImageAsPng.ToImage();
         }
 
         protected override void OnDeactivate(bool close)

@@ -79,7 +79,7 @@ namespace CTime2
                 return;
 
             this.Initialize();
-
+            
             var stateService = this._container.GetInstance<ISessionStateService>();
             await stateService.RestoreStateAsync();
 
