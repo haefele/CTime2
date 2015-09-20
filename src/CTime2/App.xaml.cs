@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Caliburn.Micro;
+using CTime2.Events;
 using CTime2.Services.CTime;
 using CTime2.Services.Dialog;
 using CTime2.Services.Loading;
@@ -105,9 +106,16 @@ namespace CTime2
             var stateService = this._container.GetInstance<ISessionStateService>();
             await stateService.SaveStateAsync();
 
+            IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationSuspendingEvent());
+
             deferral.Complete();
         }
-        
+
+        protected override void OnResuming(object sender, object e)
+        {
+            IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationResumedEvent());
+        }
+
         private void TryRestore(ISessionStateService stateService, ShellViewModel viewModel)
         {
             if (stateService.CurrentUser != null)

@@ -107,6 +107,8 @@
     <Compile Include="Converter\BooleanNegationConverter.cs" />
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
+    <Compile Include="Events\ApplicationResumedEvent.cs" />
+    <Compile Include="Events\ApplicationSuspendingEvent.cs" />
     <Compile Include="Extensions\DialogServiceExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

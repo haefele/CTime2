@@ -7,9 +7,37 @@
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:CTime2.Converter"
     mc:Ignorable="d"
     >
+    <Page.Resources>
+        <converter:FormatStringConverter x:Key="CurrentTimeToStringConverter" FormatString="hh\:mm\:ss" />
+    </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="{Binding WelcomeMessage}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding WelcomeMessage}"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Row="0"
+                   />
+        
+        <TextBlock Grid.Row="1"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   HorizontalAlignment="Center"
+                   Text="Aktuelle Zeit:" />
+        
+        <TextBlock Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   Text="{Binding CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}}"
+                   FontSize="40" />
+
     </Grid>
 </Page>
