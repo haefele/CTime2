@@ -104,6 +104,7 @@
     <Compile Include="Controls\LoadingOverlay.xaml.cs">
       <DependentUpon>LoadingOverlay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\BooleanNegationConverter.cs" />
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
     <Compile Include="Extensions\DialogServiceExtensions.cs" />

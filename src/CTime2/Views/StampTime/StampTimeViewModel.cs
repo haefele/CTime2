@@ -13,7 +13,13 @@ namespace CTime2.Views.StampTime
         private readonly ISessionStateService _sessionStateService;
         private readonly IDialogService _dialogService;
 
-        public static bool IsCheckedIn { get; set; }
+        private bool _isCheckedIn;
+
+        public bool IsCheckedIn
+        {
+            get { return this._isCheckedIn; }
+            set { this.SetProperty(ref this._isCheckedIn, value); }
+        }
 
         public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, IDialogService dialogService)
         {
@@ -22,14 +28,14 @@ namespace CTime2.Views.StampTime
             this._dialogService = dialogService;
         }
 
+        protected override async void OnActivate()
+        {
+            var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+            this.IsCheckedIn = currentTime != null && currentTime.State == TimeState.Entered;
+        }
+
         public async void CheckIn()
         {
-            if (IsCheckedIn)
-            {
-                await this._dialogService.ShowAsync("Sie sind bereits eingestempelt!");
-                return;
-            }
-
             await this._cTimeService.SaveTimer(
                 this._sessionStateService.CurrentUser.Id, 
                 DateTime.Now, 
@@ -38,17 +44,11 @@ namespace CTime2.Views.StampTime
 
             await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-            IsCheckedIn = true;
+            this.IsCheckedIn = true;
         }
 
         public async void CheckOut()
         {
-            if (!IsCheckedIn)
-            {
-                await this._dialogService.ShowAsync("Sie sind bereits ausgestempelt!");
-                return;
-            }
-
             await this._cTimeService.SaveTimer(
                 this._sessionStateService.CurrentUser.Id,
                 DateTime.Now,
@@ -57,7 +57,7 @@ namespace CTime2.Views.StampTime
 
             await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-            IsCheckedIn = false;
+            this.IsCheckedIn = false;
         }
     }
 }

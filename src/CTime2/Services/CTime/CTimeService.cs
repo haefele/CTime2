@@ -119,6 +119,17 @@ namespace CTime2.Services.CTime
             return responseState == 0;
         }
 
+        public async Task<Time> GetCurrentTime(string employeeGuid)
+        {
+            IList<Time> timesForToday = await this.GetTimes(employeeGuid, DateTime.Today, DateTime.Today.AddDays(1));
+
+            var itemsToIgnore = timesForToday.Where(f =>
+                (f.ClockInTime != null && f.ClockOutTime != null) ||
+                (f.ClockInTime == null && f.ClockOutTime == null));
+
+            return timesForToday.FirstOrDefault(f => itemsToIgnore.Contains(f) == false);
+        }
+
         private Uri BuildUri(string path)
         {
             return new Uri($"http://c-time.cloudapp.net{path}");
