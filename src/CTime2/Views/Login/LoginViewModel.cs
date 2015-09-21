@@ -45,6 +45,11 @@ namespace CTime2.Views.Login
             this._application = application;
         }
 
+        protected override void OnActivate()
+        {
+            this.CompanyId = this._sessionStateService.CompanyId;
+        }
+
         public async void Login()
         {
             using (this._loadingService.Show("Melde an..."))

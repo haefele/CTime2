@@ -71,7 +71,6 @@ namespace CTime2.States
 
         private void Logout()
         {
-            this._sessionStateService.CompanyId = null;
             this._sessionStateService.CurrentUser = null;
 
             this.Application.CurrentState = IoC.Get<LoggedOutApplicationState>();
