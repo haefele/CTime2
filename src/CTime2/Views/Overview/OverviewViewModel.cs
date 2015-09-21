@@ -58,10 +58,10 @@ namespace CTime2.Views.Overview
         {
             this._eventAggregator.Subscribe(this);
             
-            await this.LoadCurrentTime();
-
             this.WelcomeMessage = $"Hallo {this._sessionStateService.CurrentUser.FirstName}!";
             this.MyImage = await this._sessionStateService.CurrentUser.ImageAsPng.ToImage();
+            
+            await this.LoadCurrentTime();
         }
 
         protected override void OnDeactivate(bool close)
@@ -85,7 +85,7 @@ namespace CTime2.Views.Overview
 
             if (current?.State == TimeState.Entered)
             {
-                this._timer.Change(TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
+                this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
             }
             else
             {
