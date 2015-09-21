@@ -16,10 +16,9 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
@@ -41,16 +40,17 @@
             </Ellipse>
             
         </StackPanel>
-        
-        <TextBlock Grid.Row="1"
-                   Style="{ThemeResource TitleTextBlockStyle}"
-                   HorizontalAlignment="Center"
-                   Text="Aktuelle Zeit:" />
-        
-        <TextBlock Grid.Row="2"
-                   HorizontalAlignment="Center"
-                   Text="{Binding CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}}"
-                   FontSize="40" />
+
+        <StackPanel Grid.Row="2"
+                    Margin="0, 0, 0, 20">
+            <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                       HorizontalAlignment="Center"
+                       Text="Aktuelle Zeit:" />
+
+            <TextBlock HorizontalAlignment="Center"
+                       Text="{Binding CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}}"
+                       FontSize="40" />
+        </StackPanel>
 
     </Grid>
 </Page>
