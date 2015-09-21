@@ -123,12 +123,19 @@ namespace CTime2.Services.CTime
         public async Task<Time> GetCurrentTime(string employeeGuid)
         {
             IList<Time> timesForToday = await this.GetTimes(employeeGuid, DateTime.Today, DateTime.Today.AddDays(1));
+            
+            var itemsToIgnore = timesForToday
+                .Where(f =>
+                    (f.ClockInTime != null && f.ClockOutTime != null) ||
+                    (f.ClockInTime == null && f.ClockOutTime == null))
+                .ToList();
 
-            var itemsToIgnore = timesForToday.Where(f =>
-                (f.ClockInTime != null && f.ClockOutTime != null) ||
-                (f.ClockInTime == null && f.ClockOutTime == null));
+            Time latestFinishedTimeToday = itemsToIgnore
+                .Where(f => f.ClockInTime != null && f.ClockOutTime != null)
+                .OrderByDescending(f => f.ClockOutTime)
+                .FirstOrDefault();
 
-            return timesForToday.FirstOrDefault(f => itemsToIgnore.Contains(f) == false);
+            return timesForToday.FirstOrDefault(f => itemsToIgnore.Contains(f) == false) ?? latestFinishedTimeToday;
         }
 
         private Uri BuildUri(string path)

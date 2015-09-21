@@ -75,8 +75,11 @@ namespace CTime2.Views.Overview
 
             this._timerStartNow = DateTime.Now;
 
-            var timeToAdd = this._timerStartNow - (current?.ClockInTime ?? this._timerStartNow);
-            var timeToday = (current?.Hours ?? TimeSpan.Zero);
+            var timeToAdd = current?.State == TimeState.Entered 
+                ? this._timerStartNow - (current?.ClockInTime ?? this._timerStartNow)
+                : TimeSpan.Zero;
+
+            var timeToday = current?.Hours ?? TimeSpan.Zero;
 
             this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
 
