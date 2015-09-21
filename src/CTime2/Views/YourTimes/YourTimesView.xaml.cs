@@ -1,30 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+﻿using Windows.UI.Xaml.Controls;
 
 namespace CTime2.Views.YourTimes
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class YourTimesView : Page
     {
+        public YourTimesViewModel ViewModel => this.DataContext as YourTimesViewModel;
+
         public YourTimesView()
         {
             this.InitializeComponent();
+        }
+
+        private async void EndDatePickerFlyout_OnDatePicked(DatePickerFlyout sender, DatePickedEventArgs args)
+        {
+            await this.ViewModel.RefreshAsync();
+        }
+
+        private async void StartDatePickerFlyout_OnDatePicked(DatePickerFlyout sender, DatePickedEventArgs args)
+        {
+            await this.ViewModel.RefreshAsync();
         }
     }
 }

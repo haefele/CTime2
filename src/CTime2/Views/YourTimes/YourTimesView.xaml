@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.YourTimes"
     xmlns:converter="using:CTime2.Converter"
+    xmlns:common="using:CTime2.Common"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,7 +17,8 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView ItemsSource="{Binding Times}">
+        <ListView ItemsSource="{Binding Times}"
+                  Grid.Row="0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -50,4 +52,25 @@
             </ListView.ItemTemplate>
         </ListView>
     </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Filter"
+                          Label="Start date">
+                <AppBarButton.Flyout>
+                    <DatePickerFlyout Date="{Binding StartDate, Mode=TwoWay}"
+                                      DatePicked="StartDatePickerFlyout_OnDatePicked"
+                                      Placement="Top" />
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Icon="Filter"
+                          Label="End date">
+                <AppBarButton.Flyout>
+                    <DatePickerFlyout Date="{Binding EndDate, Mode=TwoWay}"
+                                      DatePicked="EndDatePickerFlyout_OnDatePicked"
+                                      Placement="Top" />
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
