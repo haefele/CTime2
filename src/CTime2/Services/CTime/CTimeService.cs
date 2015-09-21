@@ -77,7 +77,7 @@ namespace CTime2.Services.CTime
             var state = responseJson.Value<int>("State");
 
             if (state != 0)
-                return null;
+                return new List<Time>();
 
             return responseJson
                 .Value<JArray>("Result")

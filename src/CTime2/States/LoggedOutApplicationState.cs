@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
+using CTime2.Common;
 using CTime2.Views.Login;
 using CTime2.Views.Shell;
 
@@ -15,7 +16,7 @@ namespace CTime2.States
         {
             this._navigationService = navigationService;
 
-            this._loginNavigationItem = new NavigationItemViewModel(this.Login, "Anmelden", (Symbol)60002);
+            this._loginNavigationItem = new NavigationItemViewModel(this.Login, "Anmelden", SymbolEx.Login);
         }
 
         private void Login()
