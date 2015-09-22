@@ -20,14 +20,15 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>        
-        
+        </Grid.RowDefinitions>
+
         <TextBox Header="Firmen ID" 
                  Grid.Row="0"
                  Text="{Binding CompanyId, Mode=TwoWay}" />
         <TextBox Header="E-Mail-Adresse" 
                  Grid.Row="2"
-                 Text="{Binding EmailAddress, Mode=TwoWay}" />
+                 Text="{Binding EmailAddress, Mode=TwoWay}" 
+                 InputScope="EmailNameOrAddress" />
         <PasswordBox Header="Passwort" 
                      Grid.Row="4"
                      Password="{Binding Password, Mode=TwoWay}" />
