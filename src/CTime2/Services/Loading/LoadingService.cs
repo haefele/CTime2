@@ -1,6 +1,6 @@
 ﻿using System;
-using CTime2.Common;
 using CTime2.Controls;
+using CTime2.Core.Common;
 
 namespace CTime2.Services.Loading
 {

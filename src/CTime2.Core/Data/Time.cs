@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Globalization;
 
-namespace CTime2.Services.CTime
+namespace CTime2.Core.Data
 {
     public class Time
     {
@@ -10,11 +9,5 @@ namespace CTime2.Services.CTime
         public TimeState? State { get; set; }
         public DateTime? ClockInTime { get; set; }
         public DateTime? ClockOutTime { get; set; }
-    }
-
-    public enum TimeState
-    {
-        Entered = 1,
-        Left = 2,
     }
 }

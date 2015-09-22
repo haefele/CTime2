@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace CTime2.Services.CTime
+﻿namespace CTime2.Core.Data
 {
     public class User
     {

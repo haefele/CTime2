@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
-using CTime2.Common;
-using CTime2.Services.SessionState;
+using CTime2.Core.Common;
+using CTime2.Core.Services.SessionState;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
 using CTime2.Views.StampTime;

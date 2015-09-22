@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Chat;
-using Windows.Data.Json;
 using Windows.Web.Http;
+using CTime2.Core.Data;
 using Newtonsoft.Json.Linq;
 
-namespace CTime2.Services.CTime
+namespace CTime2.Core.Services.CTime
 {
     public class CTimeService : ICTimeService
     {

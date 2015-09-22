@@ -1,7 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
-using CTime2.Common;
-using CTime2.Services.SessionState;
+using CTime2.Core.Common;
 using CTime2.States;
 using CTime2.Views.About;
 using CTime2.Views.Login;

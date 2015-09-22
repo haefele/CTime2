@@ -5,10 +5,12 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Caliburn.Micro;
+using CTime2.Core.Data;
+using CTime2.Core.Extensions;
+using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.SessionState;
 using CTime2.Events;
 using CTime2.Extensions;
-using CTime2.Services.CTime;
-using CTime2.Services.SessionState;
 
 namespace CTime2.Views.Overview
 {

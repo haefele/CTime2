@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CTime2.Core.Data;
 
-namespace CTime2.Services.CTime
+namespace CTime2.Core.Services.CTime
 {
     public interface ICTimeService
     {

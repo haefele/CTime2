@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CTime2.Common
+namespace CTime2.Core.Common
 {
     public class DisposableAction : IDisposable
     {

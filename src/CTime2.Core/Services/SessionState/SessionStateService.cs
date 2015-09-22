@@ -4,10 +4,11 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
-using CTime2.Services.CTime;
+using CTime2.Core.Data;
+using CTime2.Core.Services.CTime;
 using Newtonsoft.Json;
 
-namespace CTime2.Services.SessionState
+namespace CTime2.Core.Services.SessionState
 {
     public class SessionStateService : ISessionStateService
     {

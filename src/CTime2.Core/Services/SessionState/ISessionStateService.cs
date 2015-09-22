@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
-using CTime2.Services.CTime;
+using CTime2.Core.Data;
+using CTime2.Core.Services.CTime;
 
-namespace CTime2.Services.SessionState
+namespace CTime2.Core.Services.SessionState
 {
     public interface ISessionStateService
     {

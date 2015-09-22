@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace CTime2.Extensions
+namespace CTime2.Core.Extensions
 {
     public static class EnumerableExtensions
     {

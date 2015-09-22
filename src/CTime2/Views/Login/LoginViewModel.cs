@@ -1,8 +1,9 @@
 ﻿using Caliburn.Micro;
+using CTime2.Core.Extensions;
+using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
-using CTime2.Services.CTime;
 using CTime2.Services.Loading;
-using CTime2.Services.SessionState;
 using CTime2.States;
 using CTime2.Views.Shell;
 

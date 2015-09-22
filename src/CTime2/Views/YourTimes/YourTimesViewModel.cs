@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using CTime2.Core.Data;
+using CTime2.Core.Extensions;
+using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
-using CTime2.Services.CTime;
 using CTime2.Services.Loading;
-using CTime2.Services.SessionState;
 
 namespace CTime2.Views.YourTimes
 {

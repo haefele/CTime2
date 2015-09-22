@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
+using CTime2.Core.Data;
+using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.SessionState;
 
 namespace CTime2.VoiceCommandService
 {
@@ -28,17 +28,61 @@ namespace CTime2.VoiceCommandService
 
                 var voiceCommand = await voiceCommandServiceConnection.GetVoiceCommandAsync();
 
-                if (voiceCommand.CommandName == "checkIn")
+                switch (voiceCommand.CommandName)
                 {
-                    //TODO: Check In
-                }
-                else if (voiceCommand.CommandName == "checkOut")
-                {
-                    //TODO: Check out
+                    case "checkIn":
+                        await this.SaveTimer(voiceCommandServiceConnection, TimeState.Entered);
+                        break;
+                    case "checkOut":
+                        await this.SaveTimer(voiceCommandServiceConnection, TimeState.Left);
+                        break;
                 }
             }
         }
-        
+
+        private async Task SaveTimer(VoiceCommandServiceConnection connection, TimeState timeState)
+        {
+            var sessionStateService = new SessionStateService();
+            await sessionStateService.RestoreStateAsync();
+
+            if (sessionStateService.CurrentUser == null)
+            {
+                await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
+                {
+                    SpokenMessage = "Leider bist du nicht angemeldet.",
+                }));
+
+                return;
+            }
+
+            var cTimeService = new CTimeService();
+
+            var currentTime = await cTimeService.GetCurrentTime(sessionStateService.CurrentUser.Id);
+            bool checkedIn = currentTime?.State == TimeState.Entered;
+
+            if (checkedIn && timeState == TimeState.Entered)
+            {
+                await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
+                {
+                    SpokenMessage = "Leider bist du bereits eingestempelt."
+                }));
+
+                return;
+            }
+
+            if (checkedIn == false && timeState == TimeState.Left)
+            {
+                await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
+                {
+                    SpokenMessage = "Leider bist du bereits ausgestempelt."
+                }));
+
+                return;
+            }
+
+            await cTimeService.SaveTimer(sessionStateService.CurrentUser.Id, DateTime.Now, sessionStateService.CompanyId, timeState);
+        }
+
         public void Dispose()
         {
             this._deferral?.Complete();

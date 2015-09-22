@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using CTime2.Extensions;
+using CTime2.Core.Extensions;
 
 namespace CTime2.Services.Dialog
 {

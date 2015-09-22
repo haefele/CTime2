@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
-using CTime2.Common;
+using CTime2.Core.Common;
 using CTime2.Views.Login;
 using CTime2.Views.Shell;
 
