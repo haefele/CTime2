@@ -1,16 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  
   <CommandSet xml:lang="de-de" Name="CTime2CommandSet_de-de">
     <CommandPrefix> c time, </CommandPrefix>
-    <Example> Einstempeln! </Example>
+    <Example> Stempel mich ein! </Example>
 
     <Command Name="checkIn">
       <Example> Stempel mich ein! </Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> Stempel mich ein </ListenFor>
-      <Feedback> Alles klar! Du bist eingestempelt! </Feedback>
-      <Navigate />
+      <Feedback> Alles klar! Du wirst eingestempelt! </Feedback>
+      <VoiceCommandService Target="CTime2VoiceCommandService" />
     </Command>
-    
+
+    <Command Name="checkOut">
+      <Example> Stempel mich aus! </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> Stempel mich aus </ListenFor>
+      <Feedback> Alles klar! Du wirst ausgestempelt! </Feedback>
+      <VoiceCommandService Target="CTime2VoiceCommandService" />
+    </Command>
   </CommandSet>
+
+  <CommandSet xml:lang="en-us" Name="CTime2CommandSet_en-us">
+    <CommandPrefix> c time, </CommandPrefix>
+    <Example> Check me in! </Example>
+
+    <Command Name="checkIn">
+      <Example> Check me in! </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> Check me in </ListenFor>
+      <Feedback> Alright, I will check you in! </Feedback>
+      <VoiceCommandService Target="CTime2VoiceCommandService" />
+    </Command>
+
+    <Command Name="checkOut">
+      <Example> Check me out! </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> Check me out </ListenFor>
+      <Feedback> Alright, I will check you out! </Feedback>
+      <VoiceCommandService Target="CTime2VoiceCommandService" />
+    </Command>
+  </CommandSet>
+  
 </VoiceCommands>

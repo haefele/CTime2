@@ -211,7 +211,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CTime2.VoiceCommandService\CTime2.VoiceCommandService.csproj">
+      <Project>{c863f104-5423-4093-a32c-02b26c5ed68a}</Project>
+      <Name>CTime2.VoiceCommandService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
