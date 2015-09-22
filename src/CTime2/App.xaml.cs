@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.VoiceCommands;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -94,6 +96,7 @@ namespace CTime2
             ScreenExtensions.TryActivate(viewModel);
 
             this.TryRestore(stateService, viewModel);
+            await this.InstallVoiceCommandsAsync();
 
             Window.Current.Content = view;
             Window.Current.Activate();
@@ -126,6 +129,12 @@ namespace CTime2
             {
                 viewModel.CurrentState = IoC.Get<LoggedOutApplicationState>();
             }
+        }
+
+        private async Task InstallVoiceCommandsAsync()
+        {
+            var voiceCommandDefinitionFile = await Package.Current.InstalledLocation.GetFileAsync("CTime2VoiceCommands.xml");
+            await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(voiceCommandDefinitionFile);
         }
     }
 }

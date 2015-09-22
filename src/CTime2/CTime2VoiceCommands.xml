@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="de-de" Name="CTime2CommandSet_de-de">
+    <CommandPrefix> c time, </CommandPrefix>
+    <Example> Einstempeln! </Example>
+
+    <Command Name="checkIn">
+      <Example> Stempel mich ein! </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> Stempel mich ein </ListenFor>
+      <Feedback> Alles klar! Du bist eingestempelt! </Feedback>
+      <Navigate />
+    </Command>
+    
+  </CommandSet>
+</VoiceCommands>
