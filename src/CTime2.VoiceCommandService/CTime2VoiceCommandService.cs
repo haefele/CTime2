@@ -49,6 +49,7 @@ namespace CTime2.VoiceCommandService
             {
                 await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
                 {
+                    DisplayMessage = "Nicht angemeldet.",
                     SpokenMessage = "Leider bist du nicht angemeldet.",
                 }));
 
@@ -64,7 +65,8 @@ namespace CTime2.VoiceCommandService
             {
                 await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
                 {
-                    SpokenMessage = "Leider bist du bereits eingestempelt."
+                    DisplayMessage = "Bereits eingestempelt",
+                    SpokenMessage = "Du bist bereits eingestempelt.",
                 }));
 
                 return;
@@ -74,7 +76,8 @@ namespace CTime2.VoiceCommandService
             {
                 await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
                 {
-                    SpokenMessage = "Leider bist du bereits ausgestempelt."
+                    DisplayMessage = "Bereits ausgestempelt",
+                    SpokenMessage = "Du bist bereits ausgestempelt.",
                 }));
 
                 return;

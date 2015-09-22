@@ -7,15 +7,21 @@
     <Example> Stempel mich ein! </Example>
 
     <Command Name="checkIn">
-      <Example> Stempel mich ein! </Example>
-      <ListenFor RequireAppName="BeforeOrAfterPhrase"> Stempel mich ein </ListenFor>
+      <Example> Stempel mich bitte ein. </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] Stempel mich [jetzt] [bitte] ein </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] Check mich [jetzt] [bitte] ein </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] jetzt einstempeln </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] jetzt einchecken </ListenFor>
       <Feedback> Alles klar! Du wirst eingestempelt! </Feedback>
       <VoiceCommandService Target="CTime2VoiceCommandService" />
     </Command>
 
     <Command Name="checkOut">
-      <Example> Stempel mich aus! </Example>
-      <ListenFor RequireAppName="BeforeOrAfterPhrase"> Stempel mich aus </ListenFor>
+      <Example> Stempel mich bitte aus. </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] Stempel mich [jetzt] [bitte] aus </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] Check mich [jetzt] [bitte] aus </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] jetzt ausstempeln </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [Bitte] jetzt auschecken </ListenFor>
       <Feedback> Alles klar! Du wirst ausgestempelt! </Feedback>
       <VoiceCommandService Target="CTime2VoiceCommandService" />
     </Command>
