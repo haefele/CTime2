@@ -59,7 +59,7 @@
 
         <CommandBar Grid.Row="1">
             <AppBarButton Icon="Filter"
-                          Label="Start date">
+                          Label="Startdatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{Binding StartDate, Mode=TwoWay}"
                                       DatePicked="StartDatePickerFlyout_OnDatePicked"
@@ -67,7 +67,7 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
-                          Label="End date">
+                          Label="Enddatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{Binding EndDate, Mode=TwoWay}"
                                       DatePicked="EndDatePickerFlyout_OnDatePicked"
