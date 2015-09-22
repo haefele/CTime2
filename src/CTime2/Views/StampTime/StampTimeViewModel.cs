@@ -44,28 +44,34 @@ namespace CTime2.Views.StampTime
 
         public async void CheckIn()
         {
-            await this._cTimeService.SaveTimer(
-                this._sessionStateService.CurrentUser.Id, 
-                DateTime.Now, 
-                this._sessionStateService.CompanyId, 
-                TimeState.Entered);
+            using (this._loadingService.Show("Einstempeln..."))
+            { 
+                await this._cTimeService.SaveTimer(
+                    this._sessionStateService.CurrentUser.Id,
+                    DateTime.Now,
+                    this._sessionStateService.CompanyId,
+                    TimeState.Entered);
 
-            await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
+                await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-            this.IsCheckedIn = true;
+                this.IsCheckedIn = true;
+            }
         }
 
         public async void CheckOut()
         {
-            await this._cTimeService.SaveTimer(
-                this._sessionStateService.CurrentUser.Id,
-                DateTime.Now,
-                this._sessionStateService.CompanyId,
-                TimeState.Left);
+            using (this._loadingService.Show("Ausstempeln..."))
+            { 
+                await this._cTimeService.SaveTimer(
+                    this._sessionStateService.CurrentUser.Id,
+                    DateTime.Now,
+                    this._sessionStateService.CompanyId,
+                    TimeState.Left);
 
-            await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
+                await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-            this.IsCheckedIn = false;
+                this.IsCheckedIn = false;
+            }
         }
     }
 }
