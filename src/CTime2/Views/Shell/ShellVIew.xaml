@@ -59,7 +59,7 @@
 
                     <controls:Header Grid.Row="0" 
                                      NavigationButtonClick="OpenNavigationView"
-                                     Title="c-time 2" />
+                                     Title="c-time Universal" />
 
                     <Frame x:Name="ContentFrame"
                            x:FieldModifier="public"
