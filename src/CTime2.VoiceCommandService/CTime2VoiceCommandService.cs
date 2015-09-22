@@ -16,27 +16,35 @@ namespace CTime2.VoiceCommandService
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             this._deferral = taskInstance.GetDeferral();
-            taskInstance.Canceled += (s, e) => this.Dispose();
 
-            var triggerDetails = taskInstance.TriggerDetails as AppServiceTriggerDetails;
-
-            if (triggerDetails != null &&
-                triggerDetails.Name == "CTime2VoiceCommandService")
+            try
             {
-                var voiceCommandServiceConnection = VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
-                voiceCommandServiceConnection.VoiceCommandCompleted += (s, e) => this.Dispose();
+                taskInstance.Canceled += (s, e) => this.Dispose();
 
-                var voiceCommand = await voiceCommandServiceConnection.GetVoiceCommandAsync();
+                var triggerDetails = taskInstance.TriggerDetails as AppServiceTriggerDetails;
 
-                switch (voiceCommand.CommandName)
+                if (triggerDetails != null &&
+                    triggerDetails.Name == "CTime2VoiceCommandService")
                 {
-                    case "checkIn":
-                        await this.SaveTimer(voiceCommandServiceConnection, TimeState.Entered);
-                        break;
-                    case "checkOut":
-                        await this.SaveTimer(voiceCommandServiceConnection, TimeState.Left);
-                        break;
+                    var voiceCommandServiceConnection = VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
+                    voiceCommandServiceConnection.VoiceCommandCompleted += (s, e) => this.Dispose();
+
+                    var voiceCommand = await voiceCommandServiceConnection.GetVoiceCommandAsync();
+
+                    switch (voiceCommand.CommandName)
+                    {
+                        case "checkIn":
+                            await this.SaveTimer(voiceCommandServiceConnection, TimeState.Entered);
+                            break;
+                        case "checkOut":
+                            await this.SaveTimer(voiceCommandServiceConnection, TimeState.Left);
+                            break;
+                    }
                 }
+            }
+            finally
+            {
+                this.Dispose();
             }
         }
 
@@ -47,11 +55,7 @@ namespace CTime2.VoiceCommandService
 
             if (sessionStateService.CurrentUser == null)
             {
-                await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
-                {
-                    DisplayMessage = "Nicht angemeldet.",
-                    SpokenMessage = "Leider bist du nicht angemeldet.",
-                }));
+                await connection.ReportFailureAsync(this.NotLoggedInResponse());
 
                 return;
             }
@@ -63,32 +67,103 @@ namespace CTime2.VoiceCommandService
 
             if (checkedIn && timeState == TimeState.Entered)
             {
-                await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
-                {
-                    DisplayMessage = "Bereits eingestempelt",
-                    SpokenMessage = "Du bist bereits eingestempelt.",
-                }));
+                var checkOutResult = await connection.RequestConfirmationAsync(this.AskIfCheckOutResponse());
 
-                return;
+                if (checkOutResult?.Confirmed == false)
+                {
+                    await connection.ReportFailureAsync(this.DidNothingResponse());
+                    return;
+                }
+
+                timeState = TimeState.Left;
             }
 
             if (checkedIn == false && timeState == TimeState.Left)
             {
-                await connection.ReportFailureAsync(VoiceCommandResponse.CreateResponse(new VoiceCommandUserMessage
-                {
-                    DisplayMessage = "Bereits ausgestempelt",
-                    SpokenMessage = "Du bist bereits ausgestempelt.",
-                }));
+                var checkInResult = await connection.RequestConfirmationAsync(this.AskIfCheckInResponse());
 
-                return;
+                if (checkInResult?.Confirmed == false)
+                {
+                    await connection.ReportFailureAsync(this.DidNothingResponse());
+                    return;
+                }
+
+                timeState = TimeState.Entered;
             }
 
             await cTimeService.SaveTimer(sessionStateService.CurrentUser.Id, DateTime.Now, sessionStateService.CompanyId, timeState);
+
+            await connection.ReportSuccessAsync(this.FinishedResponse(timeState));
         }
 
         public void Dispose()
         {
             this._deferral?.Complete();
+        }
+
+        private VoiceCommandResponse FinishedResponse(TimeState timeState)
+        {
+            var message = new VoiceCommandUserMessage
+            {
+                DisplayMessage = string.Format("Erfolgreich {0}.", (timeState == TimeState.Entered ? "eingestempelt" : "ausgestempelt")),
+                SpokenMessage = string.Format("Erfolgreich {0}.", (timeState == TimeState.Entered ? "eingestempelt" : "ausgestempelt"))
+            };
+
+            return VoiceCommandResponse.CreateResponse(message);
+        }
+
+        private VoiceCommandResponse DidNothingResponse()
+        {
+            var message = new VoiceCommandUserMessage
+            {
+                DisplayMessage = "Nicht gestempelt.",
+                SpokenMessage = "Nicht gestempelt."
+            };
+
+            return VoiceCommandResponse.CreateResponse(message);
+        }
+
+        private VoiceCommandResponse NotLoggedInResponse()
+        {
+            var message = new VoiceCommandUserMessage
+            {
+                DisplayMessage = "Nicht angemeldet.",
+                SpokenMessage = "Leider bist du nicht angemeldet.",
+            };
+
+            return VoiceCommandResponse.CreateResponse(message);
+        }
+
+        private VoiceCommandResponse AskIfCheckOutResponse()
+        {
+            var promptMessage = new VoiceCommandUserMessage
+            {
+                DisplayMessage = "Bereits eingestempelt. Ausstempeln?",
+                SpokenMessage = "Du bist bereits eingestempelt. Möchtest du dich ausstempeln?"
+            };
+            var rePromptMessage = new VoiceCommandUserMessage
+            {
+                DisplayMessage = "Bereits eingestempelt. Möchtest du dich ausstempeln?",
+                SpokenMessage = "Du bist bereits eingestempelt. Möchtest du dich stattdessen ausstempeln?",
+            };
+
+            return VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
+        }
+
+        private VoiceCommandResponse AskIfCheckInResponse()
+        {
+            var promptMessage = new VoiceCommandUserMessage
+            {
+                DisplayMessage = "Bereits ausgestempelt. Einstempeln?",
+                SpokenMessage = "Du bist bereits ausgestempelt. Möchtest du dich einstempeln?"
+            };
+            var rePromptMessage = new VoiceCommandUserMessage
+            {
+                DisplayMessage = "Bereits ausgestempelt. Möchtest du dich einstempeln?",
+                SpokenMessage = "Du bist bereits ausgestempelt. Möchtest du dich stattdessen einstempeln?",
+            };
+
+            return VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
         }
     }
 }
