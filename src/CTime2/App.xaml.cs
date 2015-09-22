@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -10,8 +8,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Storage;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 using Caliburn.Micro;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
@@ -29,7 +25,7 @@ using CTime2.VoiceCommandService;
 
 namespace CTime2
 {
-    sealed partial class App : CaliburnApplication
+    sealed partial class App
     {
         private WinRTContainer _container;
 
@@ -138,14 +134,13 @@ namespace CTime2
 
         private async Task InstallVoiceCommandsAsync()
         {
-            var file = await Package.Current.InstalledLocation.CreateFileAsync("CTime2VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
+            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("CTime2VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
 
             using (var vcd = typeof(CTime2VoiceCommandService).GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.VoiceCommandService.CTime2VoiceCommands.xml"))
             using (var fileStream = await file.OpenStreamForWriteAsync())
             {
                 await vcd.CopyToAsync(fileStream);
             }
-            
             
             await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
         }
