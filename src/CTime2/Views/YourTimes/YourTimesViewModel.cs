@@ -41,8 +41,8 @@ namespace CTime2.Views.YourTimes
 
             this.Times = new BindableCollection<TimesByDay>();
 
-            this.StartDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
-            this.EndDate = DateTimeOffset.Now;
+            this.StartDate = DateTimeOffset.Now.StartOfMonth();
+            this.EndDate = DateTimeOffset.Now.EndOfMonth();
         }
 
         protected override async void OnActivate()
