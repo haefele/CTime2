@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DisposableAction.cs" />
+    <Compile Include="Data\AttendingUser.cs" />
     <Compile Include="Data\TimeState.cs" />
     <Compile Include="Extensions\DateTimeOffsetExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />

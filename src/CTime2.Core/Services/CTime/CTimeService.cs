@@ -137,6 +137,41 @@ namespace CTime2.Core.Services.CTime
             return timesForToday.FirstOrDefault(f => itemsToIgnore.Contains(f) == false) ?? latestFinishedTimeToday;
         }
 
+        public async Task<IList<AttendingUser>> GetAttendingUsers(string employeeGuid)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("/ctimetrack/php/GetPresenceList.php"))
+            {
+                Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "GUID", employeeGuid }
+                })
+            };
+
+            var response = await this.GetClient().SendRequestAsync(request);
+
+            if (response.StatusCode != HttpStatusCode.Ok)
+                return new List<AttendingUser>();
+
+            var responseContentAsString = await response.Content.ReadAsStringAsync();
+            var responseJson = JObject.Parse(responseContentAsString);
+
+            var responseState = responseJson.Value<int>("State");
+
+            if (responseState != 0)
+                return new List<AttendingUser>();
+
+            return responseJson
+                .Value<JArray>("Result")
+                .OfType<JObject>()
+                .Select(f => new AttendingUser
+                {
+                    Name = f.Value<string>("EmployeeName"),
+                    FirstName = f.Value<string>("EmployeeFirstName"),
+                    IsAttending = f.Value<int>("PresenceStatus") == 1
+                })
+                .ToList();
+        }
+
         private Uri BuildUri(string path)
         {
             return new Uri($"http://c-time.cloudapp.net{path}");
