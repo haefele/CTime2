@@ -19,7 +19,7 @@ namespace CTime2.Views.YourTimes
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
 
-        public BindableCollection<Time> Times { get; }
+        public BindableCollection<TimesByDay> Times { get; }
 
         public DateTimeOffset StartDate
         {
@@ -39,7 +39,7 @@ namespace CTime2.Views.YourTimes
             this._cTimeService = cTimeService;
             this._loadingService = loadingService;
 
-            this.Times = new BindableCollection<Time>();
+            this.Times = new BindableCollection<TimesByDay>();
 
             this.StartDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
             this.EndDate = DateTimeOffset.Now;
@@ -57,7 +57,7 @@ namespace CTime2.Views.YourTimes
                 var times = await this._cTimeService.GetTimes(this._sessionStateService.CurrentUser.Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
                 this.Times.Clear();
-                this.Times.AddRange(times);
+                this.Times.AddRange(TimesByDay.Create(times));
             }
         }
     }
