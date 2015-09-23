@@ -137,13 +137,13 @@ namespace CTime2.Core.Services.CTime
             return timesForToday.FirstOrDefault(f => itemsToIgnore.Contains(f) == false) ?? latestFinishedTimeToday;
         }
 
-        public async Task<IList<AttendingUser>> GetAttendingUsers(string employeeGuid)
+        public async Task<IList<AttendingUser>> GetAttendingUsers(string companyId)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("/ctimetrack/php/GetPresenceList.php"))
             {
                 Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
                 {
-                    { "GUID", employeeGuid }
+                    { "GUID", companyId }
                 })
             };
 
