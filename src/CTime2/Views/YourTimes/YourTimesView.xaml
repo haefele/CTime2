@@ -15,7 +15,7 @@
                               Source="{Binding Times}"
                               IsSourceGrouped="True"
                               ItemsPath="Times" />
-        <converter:FormatStringConverter x:Key="DateTimeToDayNumberConverter" FormatString="dd MMMM" />
+        <converter:FormatStringConverter x:Key="DateTimeToDayNumberConverter" FormatString="ddd dd. MMMM" />
         
         <converter:FormatStringConverter x:Key="DateTimeToStringConverter" FormatString="HH:mm" PlaceholderString="?" />
     </Page.Resources>
@@ -39,7 +39,7 @@
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
                             <Grid>
-                                <TextBlock Text="{Binding Day, Converter={StaticResource DateTimeToDayNumberConverter}}" />
+                                <TextBlock Text="{Binding Day, Converter={StaticResource DateTimeToDayNumberConverter}, ConverterLanguage=de-DE}" />
                                 <TextBlock Text="{Binding Hours}" 
                                            HorizontalAlignment="Right"
                                            />
@@ -58,22 +58,21 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60" />
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
                         
                         <TextBlock Text="{Binding ClockInTime, Converter={StaticResource DateTimeToStringConverter}}"
-                                   Grid.Column="1"
+                                   Grid.Column="0"
                                    HorizontalAlignment="Right" />
                         <TextBlock Text="-"
-                                   Grid.Column="2"/>
+                                   Grid.Column="1"/>
                         <TextBlock Text="{Binding ClockOutTime, Converter={StaticResource DateTimeToStringConverter}}"
-                                   Grid.Column="3"
+                                   Grid.Column="2"
                                    HorizontalAlignment="Left" />
                         <TextBlock Text="{Binding Duration}"
-                                   Grid.Column="4"/>
+                                   Grid.Column="3"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
