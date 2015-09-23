@@ -62,6 +62,8 @@ namespace CTime2.Views.Login
                     this._sessionStateService.CompanyId = this.CompanyId;
                     this._sessionStateService.CurrentUser = user;
 
+                    await this._sessionStateService.SaveStateAsync();
+
                     this._application.CurrentState = IoC.Get<LoggedInApplicationState>();
                 }
             }
