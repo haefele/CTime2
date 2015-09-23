@@ -121,6 +121,11 @@
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\About\AboutViewModel.cs" />
+    <Compile Include="Views\AttendanceList\AttendanceListView.xaml.cs">
+      <DependentUpon>AttendanceListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AttendanceList\AttendanceListViewModel.cs" />
+    <Compile Include="Views\AttendanceList\AttendingUserByIsAttending.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -179,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\About\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AttendanceList\AttendanceListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

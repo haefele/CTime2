@@ -9,9 +9,9 @@ namespace CTime2.Views.YourTimes
 {
     public class TimesByDay
     {
-        public DateTime Day { get; set; }
-        public TimeSpan? Hours { get; set; }
-        public BindableCollection<TimeForGrouping> Times { get; set; }
+        public DateTime Day { get; }
+        public TimeSpan? Hours { get; }
+        public BindableCollection<TimeForGrouping> Times { get; }
 
         private TimesByDay(DateTime day, BindableCollection<TimeForGrouping> times)
         {
@@ -36,9 +36,9 @@ namespace CTime2.Views.YourTimes
         {
             public Time Time { get; }
 
-            public DateTime? ClockInTime { get; set; }
-            public DateTime? ClockOutTime { get; set; }
-            public TimeSpan? Duration { get; set; }
+            public DateTime? ClockInTime { get; }
+            public DateTime? ClockOutTime { get; }
+            public TimeSpan? Duration { get; }
 
             public TimeForGrouping(Time time)
             {

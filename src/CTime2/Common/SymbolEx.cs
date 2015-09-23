@@ -10,5 +10,6 @@ namespace CTime2.Common
         public static Symbol Help => (Symbol)57627;
         public static Symbol Logout => (Symbol)57928;
         public static Symbol Login => (Symbol)60002;
+        public static Symbol AttendanceList = (Symbol)57637;
     }
 }
