@@ -31,7 +31,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <SplitView x:Name="Navigation"
-                   IsPaneOpen="true">
+                   IsPaneOpen="False">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -83,7 +83,7 @@
 
                     <controls:Header Grid.Row="0" 
                                      NavigationButtonClick="OpenNavigationView"
-                                     Title="c-time Universal" />
+                                     Title="{Binding ElementName=ContentFrame, Path=Content.DataContext.DisplayName}" />
 
                     <Frame x:Name="ContentFrame"
                            x:FieldModifier="public"

@@ -53,6 +53,8 @@ namespace CTime2.Views.Overview
             this._cTimeService = cTimeService;
             this._eventAggregator = eventAggregator;
 
+            this.DisplayName = "Übersicht";
+
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
         }
 

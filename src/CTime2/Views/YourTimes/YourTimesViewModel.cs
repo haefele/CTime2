@@ -39,6 +39,8 @@ namespace CTime2.Views.YourTimes
             this._cTimeService = cTimeService;
             this._loadingService = loadingService;
 
+            this.DisplayName = "Meine Zeiten";
+
             this.Times = new BindableCollection<TimesByDay>();
 
             this.StartDate = DateTimeOffset.Now.StartOfMonth();

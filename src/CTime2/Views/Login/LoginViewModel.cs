@@ -44,6 +44,8 @@ namespace CTime2.Views.Login
             this._sessionStateService = sessionStateService;
             this._loadingService = loadingService;
             this._application = application;
+
+            this.DisplayName = "Anmeldung";
         }
 
         protected override void OnActivate()

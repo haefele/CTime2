@@ -25,7 +25,7 @@
             <TextBlock RelativePanel.AlignVerticalCenterWith="NavigationButton"
                        RelativePanel.RightOf="NavigationButton"
                        Margin="20, 0, 0, 0"
-                       Text="{x:Bind Title}"
+                       Text="{x:Bind Title, Mode=OneWay}"
                        Style="{StaticResource TitleTextBlockStyle}" />
         </RelativePanel>
     </Grid>

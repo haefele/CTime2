@@ -1,12 +1,11 @@
 ﻿using System;
 using Caliburn.Micro;
 using CTime2.Core.Data;
-using CTime2.Core.Extensions;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
+using CTime2.Services.Dialog;
 using CTime2.Services.Loading;
-using IDialogService = CTime2.Services.Dialog.IDialogService;
 
 namespace CTime2.Views.StampTime
 {
@@ -31,6 +30,8 @@ namespace CTime2.Views.StampTime
             this._sessionStateService = sessionStateService;
             this._dialogService = dialogService;
             this._loadingService = loadingService;
+
+            this.DisplayName = "Stempeln";
         }
 
         protected override async void OnActivate()

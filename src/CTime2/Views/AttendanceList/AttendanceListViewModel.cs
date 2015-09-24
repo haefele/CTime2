@@ -19,6 +19,8 @@ namespace CTime2.Views.AttendanceList
             this._sessionStateService = sessionStateService;
             this._loadingService = loadingService;
 
+            this.DisplayName = "Anwesenheitsliste";
+
             this.Users = new BindableCollection<AttendingUserByIsAttending>();
         }
 
