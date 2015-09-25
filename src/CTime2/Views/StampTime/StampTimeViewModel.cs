@@ -15,14 +15,23 @@ namespace CTime2.Views.StampTime
         private readonly ISessionStateService _sessionStateService;
         private readonly IDialogService _dialogService;
         private readonly ILoadingService _loadingService;
+        
+        private bool _canCheckIn;
+        private bool _canCheckOut;
 
-        private bool _isCheckedIn;
 
-        public bool IsCheckedIn
+        public bool CanCheckIn
         {
-            get { return this._isCheckedIn; }
-            set { this.SetProperty(ref this._isCheckedIn, value); }
+            get { return this._canCheckIn; }
+            set { this.SetProperty(ref this._canCheckIn, value); }
         }
+
+        public bool CanCheckOut
+        {
+            get { return this._canCheckOut; }
+            set { this.SetProperty(ref this._canCheckOut, value); }
+        }
+
 
         public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, IDialogService dialogService, ILoadingService loadingService)
         {
@@ -39,7 +48,10 @@ namespace CTime2.Views.StampTime
             using (this._loadingService.Show("Lade..."))
             { 
                 var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-                this.IsCheckedIn = currentTime != null && currentTime.State == TimeState.Entered;
+                var isCheckedIn = currentTime != null && currentTime.State == TimeState.Entered;
+
+                this.CanCheckIn = isCheckedIn == false;
+                this.CanCheckOut = isCheckedIn;
             }
         }
 
@@ -55,7 +67,8 @@ namespace CTime2.Views.StampTime
 
                 await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-                this.IsCheckedIn = true;
+                this.CanCheckIn = false;
+                this.CanCheckOut = true;
             }
         }
 
@@ -71,7 +84,8 @@ namespace CTime2.Views.StampTime
 
                 await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-                this.IsCheckedIn = false;
+                this.CanCheckIn = true;
+                this.CanCheckOut = false;
             }
         }
     }
