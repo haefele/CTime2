@@ -9,6 +9,7 @@
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CTime2.Controls"
     mc:Ignorable="d"
     >
     <Page.Resources>
@@ -37,7 +38,11 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:AttendingUser">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock>
+                        <controls:UserImage Image="{x:Bind ImageAsPng, Mode=OneWay}"
+                                            Width="32"
+                                            Height="32" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Margin="5, 0, 0, 0">
                             <Run Text="{x:Bind FirstName, Mode=OneWay}" />
                             <Run />
                             <Run Text="{x:Bind Name, Mode=OneWay}" />

@@ -49,7 +49,7 @@ namespace CTime2.Core.Services.CTime
                 Email = user.Value<string>("LoginName"),
                 FirstName = user.Value<string>("EmployeeFirstName"),
                 Name = user.Value<string>("EmployeeName"),
-                ImageAsPng = Convert.FromBase64String(user.Value<string>("EmployeePhoto")),
+                ImageAsPng = Convert.FromBase64String(user.Value<string>("EmployeePhoto") ?? string.Empty),
             };
         }
 
@@ -167,7 +167,8 @@ namespace CTime2.Core.Services.CTime
                 {
                     Name = f.Value<string>("EmployeeName"),
                     FirstName = f.Value<string>("EmployeeFirstName"),
-                    IsAttending = f.Value<int>("PresenceStatus") == 1
+                    IsAttending = f.Value<int>("PresenceStatus") == 1,
+                    ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? string.Empty),
                 })
                 .ToList();
         }
