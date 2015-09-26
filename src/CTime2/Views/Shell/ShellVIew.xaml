@@ -32,7 +32,7 @@
             <VisualStateGroup x:Name="WindowSize">
                 <VisualState x:Name="Narrow">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger/>
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="Wide">
