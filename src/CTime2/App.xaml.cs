@@ -37,6 +37,12 @@ namespace CTime2
 
         protected override void Configure()
         {
+            this.ConfigureContainer();
+            this.ConfigureCaliburnMicro();
+        }
+
+        private void ConfigureContainer()
+        {
             this._container = new WinRTContainer();
             this._container.RegisterWinRTServices();
 
@@ -60,6 +66,11 @@ namespace CTime2
                 .Singleton<ICTimeService, CTimeService>()
                 .Singleton<ISessionStateService, SessionStateService>()
                 .Singleton<IDialogService, DialogService>();
+        }
+
+        private void ConfigureCaliburnMicro()
+        {
+            ViewModelBinder.ApplyConventionsByDefault = false;
         }
 
         protected override object GetInstance(Type service, string key)
