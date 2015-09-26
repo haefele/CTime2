@@ -27,7 +27,7 @@ namespace CTime2.Views.Overview
 
         private string _welcomeMessage;
         private TimeSpan _currentTime;
-        private ImageSource _myImage;
+        private byte[] _myImage;
 
         public string WelcomeMessage
         {
@@ -41,7 +41,7 @@ namespace CTime2.Views.Overview
             set { this.SetProperty(ref this._currentTime, value); }
         }
 
-        public ImageSource MyImage
+        public byte[] MyImage
         {
             get { return this._myImage; }
             set { this.SetProperty(ref this._myImage, value); }
@@ -63,7 +63,7 @@ namespace CTime2.Views.Overview
             this._eventAggregator.Subscribe(this);
             
             this.WelcomeMessage = $"Hallo {this._sessionStateService.CurrentUser.FirstName}!";
-            this.MyImage = await this._sessionStateService.CurrentUser.ImageAsPng.ToImage();
+            this.MyImage = this._sessionStateService.CurrentUser.ImageAsPng;
             
             await this.LoadCurrentTime();
         }

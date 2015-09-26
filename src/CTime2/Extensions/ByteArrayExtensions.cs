@@ -9,7 +9,7 @@ namespace CTime2.Extensions
 {
     public static class ByteArrayExtensions
     {
-        public static async Task<ImageSource> ToImage(this byte[] self)
+        public static ImageSource ToImage(this byte[] self)
         {
             if (self == null)
                 return null;
@@ -18,11 +18,11 @@ namespace CTime2.Extensions
                 return null;
 
             var stream = new InMemoryRandomAccessStream();
-            await stream.WriteAsync(self.AsBuffer());
+            stream.WriteAsync(self.AsBuffer()).AsTask().Wait();
             stream.Seek(0);
-
+            
             var myImage = new BitmapImage();
-            await myImage.SetSourceAsync(stream);
+            myImage.SetSource(stream);
 
             return myImage;
         }

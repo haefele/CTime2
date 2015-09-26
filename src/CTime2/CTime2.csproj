@@ -103,8 +103,12 @@
     <Compile Include="Controls\LoadingOverlay.xaml.cs">
       <DependentUpon>LoadingOverlay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserImage.xaml.cs">
+      <DependentUpon>UserImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\BooleanNegationConverter.cs" />
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
+    <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
     <Compile Include="Events\ApplicationResumedEvent.cs" />
     <Compile Include="Events\ApplicationSuspendingEvent.cs" />
@@ -180,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LoadingOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
