@@ -26,7 +26,10 @@ namespace CTime2.Views.Shell
             var clickedItem = (NavigationItemViewModel)e.ClickedItem;
             clickedItem.Execute();
 
-            this.Navigation.IsPaneOpen = false;
+            if (this.WindowSize.CurrentState?.Name == "Narrow")
+            {
+                this.Navigation.IsPaneOpen = false;
+            }
         }
 
         private void OpenNavigationView(object sender, RoutedEventArgs e)

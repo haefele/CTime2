@@ -28,6 +28,25 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowSize">
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Navigation.(SplitView.DisplayMode)" Value="Inline" />
+                        <Setter Target="Navigation.(SplitView.IsPaneOpen)" Value="True" />
+                        <Setter Target="Header.NavigationButtonVisibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <SplitView x:Name="Navigation"
                    IsPaneOpen="False">
             <SplitView.Pane>
@@ -80,6 +99,7 @@
                     </Grid.RowDefinitions>
 
                     <controls:Header Grid.Row="0" 
+                                     x:Name="Header"
                                      NavigationButtonClick="OpenNavigationView"
                                      Title="{Binding ElementName=ContentFrame, Path=Content.DataContext.DisplayName}" />
 
