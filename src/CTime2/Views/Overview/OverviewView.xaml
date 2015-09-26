@@ -4,10 +4,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.Overview"
+    xmlns:converter="using:CTime2.Converter"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converter="using:CTime2.Converter"
     mc:Ignorable="d"
     >
     <Page.Resources>
@@ -23,7 +23,7 @@
 
         <StackPanel Grid.Row="0">
             
-            <TextBlock Text="{x:Bind ViewModel.WelcomeMessage}"
+            <TextBlock Text="{x:Bind ViewModel.WelcomeMessage, Mode=OneWay}"
                        Style="{ThemeResource TitleTextBlockStyle}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -34,7 +34,7 @@
                      Stroke="LightGray"
                      StrokeThickness="2">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.MyImage}" 
+                    <ImageBrush ImageSource="{x:Bind ViewModel.MyImage, Mode=OneWay}" 
                                 AlignmentX="Center" 
                                 AlignmentY="Center" />
                 </Ellipse.Fill>
@@ -49,7 +49,7 @@
                        Text="Aktuelle Zeit:" />
 
             <TextBlock HorizontalAlignment="Center"
-                       Text="{x:Bind ViewModel.CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}}"
+                       Text="{x:Bind ViewModel.CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}, Mode=OneWay}"
                        FontSize="40" />
         </StackPanel>
 
