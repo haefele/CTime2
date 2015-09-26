@@ -4,15 +4,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.AttendanceList"
+    xmlns:converter="using:CTime2.Converter"
+    xmlns:data="using:CTime2.Core.Data"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converter="using:CTime2.Converter"
     mc:Ignorable="d"
     >
     <Page.Resources>
         <CollectionViewSource x:Key="GroupedAttendingUsers"
-                              Source="{Binding Users}"
+                              Source="{x:Bind ViewModel.Users, Mode=OneWay}"
                               IsSourceGrouped="True"
                               ItemsPath="Users"
                               />
@@ -27,19 +28,19 @@
             <ListView.GroupStyle>
                 <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding IsAttending, Converter={StaticResource BooleanToAttendingStringConverter}}" />
+                        <DataTemplate x:DataType="local:AttendingUserByIsAttending">
+                            <TextBlock Text="{x:Bind IsAttending, Converter={StaticResource BooleanToAttendingStringConverter}}" />
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
             </ListView.GroupStyle>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="data:AttendingUser">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>
-                            <Run Text="{Binding FirstName}" />
+                            <Run Text="{x:Bind FirstName, Mode=OneWay}" />
                             <Run />
-                            <Run Text="{Binding Name}" />
+                            <Run Text="{x:Bind Name, Mode=OneWay}" />
                         </TextBlock>
                     </StackPanel>
                 </DataTemplate>
