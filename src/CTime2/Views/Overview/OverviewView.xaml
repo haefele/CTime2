@@ -23,19 +23,20 @@
 
         <StackPanel Grid.Row="0">
             
-            <TextBlock Text="{Binding WelcomeMessage}"
+            <TextBlock Text="{x:Bind ViewModel.WelcomeMessage}"
                        Style="{ThemeResource TitleTextBlockStyle}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
-                       Margin="0, 10, 0, 10"
-                       />
+                       Margin="0, 10, 0, 10" />
             
             <Ellipse Width="96"
                      Height="96"
                      Stroke="LightGray"
                      StrokeThickness="2">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding MyImage}" AlignmentX="Center" AlignmentY="Center" />
+                    <ImageBrush ImageSource="{x:Bind ViewModel.MyImage}" 
+                                AlignmentX="Center" 
+                                AlignmentY="Center" />
                 </Ellipse.Fill>
             </Ellipse>
             
@@ -48,7 +49,7 @@
                        Text="Aktuelle Zeit:" />
 
             <TextBlock HorizontalAlignment="Center"
-                       Text="{Binding CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}}"
+                       Text="{x:Bind ViewModel.CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}}"
                        FontSize="40" />
         </StackPanel>
 
