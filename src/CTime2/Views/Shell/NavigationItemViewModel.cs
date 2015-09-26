@@ -1,3 +1,4 @@
+using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Action = System.Action;
 
@@ -5,7 +6,7 @@ namespace CTime2.Views.Shell
 {
     public class NavigationItemViewModel : PropertyChangedBase
     {
-        public NavigationItemViewModel(Action execute, string label, object symbol)
+        public NavigationItemViewModel(Action execute, string label, Symbol symbol)
         {
             this.Execute = execute;
             this.Label = label;
@@ -13,7 +14,7 @@ namespace CTime2.Views.Shell
         }
 
         public Action Execute { get; }
-        public object Symbol { get; }
+        public Symbol Symbol { get; }
         public string Label { get; }
     }
 }

@@ -146,6 +146,7 @@
       <DependentUpon>StampTimeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StampTime\StampTimeViewModel.cs" />
+    <Compile Include="Views\YourTimes\TimeForGrouping.cs" />
     <Compile Include="Views\YourTimes\TimesByDay.cs" />
     <Compile Include="Views\YourTimes\YourTimesView.xaml.cs">
       <DependentUpon>YourTimesView.xaml</DependentUpon>

@@ -12,7 +12,7 @@
     >
     <Page.Resources>
         <CollectionViewSource x:Key="GroupedTimes"
-                              Source="{Binding Times}"
+                              Source="{x:Bind ViewModel.Times, Mode=OneWay}"
                               IsSourceGrouped="True"
                               ItemsPath="Times" />
         <converter:FormatStringConverter x:Key="DateTimeToDayNumberConverter" FormatString="ddd dd. MMMM" />
@@ -37,10 +37,10 @@
                         </Style>
                     </GroupStyle.HeaderContainerStyle>
                     <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="local:TimesByDay">
                             <Grid>
-                                <TextBlock Text="{Binding Day, Converter={StaticResource DateTimeToDayNumberConverter}, ConverterLanguage=de-DE}" />
-                                <TextBlock Text="{Binding Hours}" 
+                                <TextBlock Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, ConverterLanguage=de-DE, Mode=OneWay}" />
+                                <TextBlock Text="{x:Bind Hours, Mode=OneWay}" 
                                            HorizontalAlignment="Right"
                                            />
                             </Grid>
@@ -54,7 +54,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="local:TimeForGrouping">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60" />
@@ -62,16 +62,16 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Text="{Binding ClockInTime, Converter={StaticResource DateTimeToStringConverter}}"
+
+                        <TextBlock Text="{x:Bind ClockInTime, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}"
                                    Grid.Column="0"
                                    HorizontalAlignment="Right" />
                         <TextBlock Text="-"
                                    Grid.Column="1"/>
-                        <TextBlock Text="{Binding ClockOutTime, Converter={StaticResource DateTimeToStringConverter}}"
+                        <TextBlock Text="{x:Bind ClockOutTime, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}"
                                    Grid.Column="2"
                                    HorizontalAlignment="Left" />
-                        <TextBlock Text="{Binding Duration}"
+                        <TextBlock Text="{x:Bind Duration, Mode=OneWay}"
                                    Grid.Column="3"/>
                     </Grid>
                 </DataTemplate>
@@ -82,16 +82,16 @@
             <AppBarButton Icon="Filter"
                           Label="Startdatum">
                 <AppBarButton.Flyout>
-                    <DatePickerFlyout Date="{Binding StartDate, Mode=TwoWay}"
-                                      DatePicked="StartDatePickerFlyout_OnDatePicked"
+                    <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
+                                      DatePicked="{x:Bind ViewModel.RefreshAsync}"
                                       Placement="Top" />
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
                           Label="Enddatum">
                 <AppBarButton.Flyout>
-                    <DatePickerFlyout Date="{Binding EndDate, Mode=TwoWay}"
-                                      DatePicked="EndDatePickerFlyout_OnDatePicked"
+                    <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
+                                      DatePicked="{x:Bind ViewModel.RefreshAsync}"
                                       Placement="Top" />
                 </AppBarButton.Flyout>
             </AppBarButton>

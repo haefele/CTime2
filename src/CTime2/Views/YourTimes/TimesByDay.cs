@@ -30,29 +30,5 @@ namespace CTime2.Views.YourTimes
 
             return result;
         }
-
-        #region Internal
-        public class TimeForGrouping
-        {
-            public Time Time { get; }
-
-            public DateTime? ClockInTime { get; }
-            public DateTime? ClockOutTime { get; }
-            public TimeSpan? Duration { get; }
-
-            public TimeForGrouping(Time time)
-            {
-                this.Time = time;
-
-                this.ClockInTime = time.ClockInTime;
-                this.ClockOutTime = time.ClockOutTime;
-
-                if (this.ClockInTime != null && this.ClockOutTime != null)
-                {
-                    this.Duration = this.ClockOutTime.Value - this.ClockInTime.Value;
-                }
-            }
-        }
-        #endregion
     }
 }

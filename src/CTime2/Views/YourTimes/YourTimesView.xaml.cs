@@ -10,15 +10,5 @@ namespace CTime2.Views.YourTimes
         {
             this.InitializeComponent();
         }
-
-        private async void EndDatePickerFlyout_OnDatePicked(DatePickerFlyout sender, DatePickedEventArgs args)
-        {
-            await this.ViewModel.RefreshAsync();
-        }
-
-        private async void StartDatePickerFlyout_OnDatePicked(DatePickerFlyout sender, DatePickedEventArgs args)
-        {
-            await this.ViewModel.RefreshAsync();
-        }
     }
 }

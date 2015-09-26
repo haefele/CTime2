@@ -3,8 +3,7 @@
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:micro="using:Caliburn.Micro"
-    
+
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -22,8 +21,8 @@
                 HorizontalAlignment="Stretch"
                 Margin="10, 10, 10, 5"
                 Background="Green" 
-                micro:Message.Attach="CheckIn"
-                />
+                Click="{x:Bind ViewModel.CheckIn}"
+                IsEnabled="{x:Bind ViewModel.CanCheckIn, Mode=OneWay}" />
 
         <Button Content="Ausstempeln"
                 Grid.Row="1"
@@ -31,7 +30,8 @@
                 HorizontalAlignment="Stretch"
                 Margin="10, 5, 10, 10"
                 Background="Red"
-                micro:Message.Attach="CheckOut" />
+                Click="{x:Bind ViewModel.CheckOut}"
+                IsEnabled="{x:Bind ViewModel.CanCheckOut, Mode=OneWay}" />
         
     </Grid>
 </Page>
