@@ -26,6 +26,15 @@ namespace CTime2.Controls
             set { SetValue(TitleProperty, value); }
         }
 
+        public static readonly DependencyProperty NavigationButtonVisibilityProperty = DependencyProperty.Register(
+            "NavigationButtonVisibility", typeof (Visibility), typeof (Header), new PropertyMetadata(default(Visibility)));
+
+        public Visibility NavigationButtonVisibility
+        {
+            get { return (Visibility)GetValue(NavigationButtonVisibilityProperty); }
+            set { SetValue(NavigationButtonVisibilityProperty, value); }
+        }
+
         public event EventHandler<RoutedEventArgs> NavigationButtonClick;
 
         public Header()

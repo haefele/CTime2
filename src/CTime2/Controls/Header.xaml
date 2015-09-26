@@ -12,9 +12,11 @@
     >
 
     <Grid>
-        <RelativePanel Grid.Row="0"
-                       Background="{ThemeResource SystemListAccentMediumColor}">
+        <StackPanel Grid.Row="0"
+                    Background="{ThemeResource SystemListAccentMediumColor}"
+                    Orientation="Horizontal">
             <Button x:Name="NavigationButton"
+                    Visibility="{x:Bind NavigationButtonVisibility, Mode=OneWay}"
                     Click="NavigationButtonOnClick" 
                     Content="&#xE700;" 
                     FontSize="20"
@@ -22,11 +24,10 @@
                     Height="48"
                     Background="{ThemeResource SystemListAccentLowColor}"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
-            <TextBlock RelativePanel.AlignVerticalCenterWith="NavigationButton"
-                       RelativePanel.RightOf="NavigationButton"
+            <TextBlock VerticalAlignment="Center"
                        Margin="20, 0, 0, 0"
                        Text="{x:Bind Title, Mode=OneWay}"
                        Style="{StaticResource TitleTextBlockStyle}" />
-        </RelativePanel>
+        </StackPanel>
     </Grid>
 </UserControl>
