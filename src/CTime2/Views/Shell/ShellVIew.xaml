@@ -64,13 +64,14 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        
-                        <Image Source="../../Assets/Square150x150Logo.scale-200.png"
-                               Height="48"
-                               Width="48"
-                               Margin="-7"
-                               Grid.Column="0"
-                               />
+
+                        <BitmapIcon Grid.Column="0"
+                                    UriSource="ms-appx:///Assets/Square150x150Logo.scale-200.png"
+                                    Width="48"
+                                    Height="48"
+                                    Margin="-7"
+                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                    />
                         
                         <TextBlock Text="c-time Universal"
                                    Grid.Column="1"
