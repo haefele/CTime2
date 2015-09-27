@@ -20,28 +20,32 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Über c-time Universal:"
+                   HorizontalAlignment="Center"
+                   Style="{StaticResource TitleTextBlockStyle}" />
         
-        <BitmapIcon Grid.Row="0"
+        <BitmapIcon Grid.Row="1"
                     UriSource="ms-appx:///Assets/Square150x150Logo.scale-200.png"
                     Width="200"
                     Height="200"
                     Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
         
-        <TextBlock Grid.Row="1"
-                   Text="Über c-time Universal:"
-                   Style="{StaticResource TitleTextBlockStyle}" />
-        
         <TextBlock Grid.Row="2"
                    TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
                    Text="c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
         
         <TextBlock Grid.Row="3"
                    Text="Version:"
+                   HorizontalAlignment="Center"
                    Margin="0, 10, 0, 0"
                    Style="{StaticResource TitleTextBlockStyle}"
                    />
         
         <TextBlock Grid.Row="4"
+                   HorizontalAlignment="Center"
                    Text="{x:Bind ViewModel.CurrentVersion}" />
         
         <Button Grid.Row="5" 
