@@ -47,12 +47,12 @@ namespace CTime2.Views.Statistics
 
         public StatisticsViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IDialogService dialogService)
         {
-            this.DisplayName = "Statistiken";
-
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
             this._loadingService = loadingService;
             this._dialogService = dialogService;
+
+            this.DisplayName = "Statistiken";
 
             this.Statistics = new BindableCollection<StatisticItem>();
 
@@ -64,14 +64,14 @@ namespace CTime2.Views.Statistics
 
         #region Methods
 
-        protected async override void OnActivate()
+        protected override async void OnActivate()
         {
             await this.RefreshAsync();
         }
 
         public async Task RefreshAsync()
         {
-            using (this._loadingService.Show("Lade Zeiten..."))
+            using (this._loadingService.Show("Lade Statistiken..."))
             {
                 var times = await this._cTimeService.GetTimes(this._sessionStateService.CurrentUser.Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
