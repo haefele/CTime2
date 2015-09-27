@@ -9,8 +9,46 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     >
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="c-Time ist ein Produkt von mir. Haha!" />
+   
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <BitmapIcon Grid.Row="0"
+                    UriSource="ms-appx:///Assets/Square150x150Logo.scale-200.png"
+                    Width="200"
+                    Height="200"
+                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
+        
+        <TextBlock Grid.Row="1"
+                   Text="Über c-time Universal:"
+                   Style="{StaticResource TitleTextBlockStyle}" />
+        
+        <TextBlock Grid.Row="2"
+                   TextWrapping="Wrap"
+                   Text="c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
+        
+        <TextBlock Grid.Row="3"
+                   Text="Version:"
+                   Margin="0, 10, 0, 0"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   />
+        
+        <TextBlock Grid.Row="4"
+                   Text="{x:Bind ViewModel.CurrentVersion}" />
+        
+        <Button Grid.Row="5" 
+                Content="Benutzte Software" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Click="{x:Bind ViewModel.ShowUsedSoftware}"
+                />
     </Grid>
 </Page>

@@ -114,6 +114,7 @@
     <Compile Include="Events\ApplicationSuspendingEvent.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\DialogServiceExtensions.cs" />
+    <Compile Include="Extensions\PackageVersionExtensions.cs" />
     <Compile Include="Extensions\PropertyChangedBaseExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Dialog\DialogService.cs" />
