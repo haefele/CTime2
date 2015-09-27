@@ -21,6 +21,7 @@ using CTime2.Views.Login;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
 using CTime2.Views.StampTime;
+using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
 using CTime2.VoiceCommandService;
 
@@ -54,7 +55,9 @@ namespace CTime2
                 .PerRequest<YourTimesViewModel>()
                 .PerRequest<StampTimeViewModel>()
                 .PerRequest<AboutViewModel>()
-                .PerRequest<AttendanceListViewModel>();
+                .PerRequest<AttendanceListViewModel>()
+                .PerRequest<StatisticsViewModel>();
+
 
             //ShellStates
             this._container

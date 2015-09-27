@@ -10,7 +10,7 @@ namespace CTime2.Views.YourTimes
     public class TimesByDay
     {
         public DateTime Day { get; }
-        public TimeSpan? Hours { get; }
+        public TimeSpan Hours { get; }
         public BindableCollection<TimeForGrouping> Times { get; }
         public TimeSpan? DayStartTime { get; }
         public TimeSpan? DayEndTime { get; }

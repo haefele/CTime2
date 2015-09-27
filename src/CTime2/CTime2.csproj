@@ -150,6 +150,11 @@
       <DependentUpon>StampTimeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StampTime\StampTimeViewModel.cs" />
+    <Compile Include="Views\Statistics\StatisticItem.cs" />
+    <Compile Include="Views\Statistics\StatisticsView.xaml.cs">
+      <DependentUpon>StatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\StatisticsViewModel.cs" />
     <Compile Include="Views\YourTimes\TimeForGrouping.cs" />
     <Compile Include="Views\YourTimes\TimesByDay.cs" />
     <Compile Include="Views\YourTimes\YourTimesView.xaml.cs">
@@ -212,6 +217,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StampTime\StampTimeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\StatisticsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

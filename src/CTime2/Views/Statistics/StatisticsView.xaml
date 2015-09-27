@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="CTime2.Views.Statistics.StatisticsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CTime2.Views.Statistics"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0" 
+                  ItemsSource="{x:Bind ViewModel.Statistics, Mode=OneWay}"
+                  Margin="20">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:StatisticItem">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="{x:Bind Name, Mode=OneWay}"
+                                   HorizontalAlignment="Center"
+                                   Grid.Row="0" />
+                        <TextBlock Text="{x:Bind Value, Mode=OneWay}"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource TitleTextBlockStyle}"
+                                   Grid.Row="1" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+                
+        <CommandBar Grid.Row="1">
+            <AppBarButton Icon="Filter"
+                          Label="Startdatum">
+                <AppBarButton.Flyout>
+                    <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
+                                      DatePicked="{x:Bind ViewModel.RefreshAsync}"
+                                      Placement="Top" />
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Icon="Filter"
+                          Label="Enddatum">
+                <AppBarButton.Flyout>
+                    <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
+                                      DatePicked="{x:Bind ViewModel.RefreshAsync}"
+                                      Placement="Top" />
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+    </Grid>
+</Page>

@@ -6,6 +6,7 @@ using CTime2.Views.AttendanceList;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
 using CTime2.Views.StampTime;
+using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
 
 namespace CTime2.States
@@ -20,6 +21,7 @@ namespace CTime2.States
         private readonly NavigationItemViewModel _myTimesNavigationItem;
         private readonly NavigationItemViewModel _attendanceListNavigationItem;
         private readonly NavigationItemViewModel _logoutNavigationItem;
+        private readonly NavigationItemViewModel _statisticsItem;
 
         public LoggedInApplicationState(INavigationService navigationService, ISessionStateService sessionStateService)
         {
@@ -31,6 +33,7 @@ namespace CTime2.States
             this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes, "Meine Zeiten", Symbol.Calendar);
             this._attendanceListNavigationItem = new NavigationItemViewModel(this.AttendanceList, "Anwesenheitsliste", SymbolEx.AttendanceList);
             this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, "Abmelden", SymbolEx.Logout);
+            this._statisticsItem = new NavigationItemViewModel(this.Statistics, "Statistiken", SymbolEx.Statistics);
         }
 
         public override void Enter()
@@ -40,6 +43,7 @@ namespace CTime2.States
             this.Application.Actions.Add(this._myTimesNavigationItem);
             this.Application.Actions.Add(this._attendanceListNavigationItem);
             this.Application.SecondaryActions.Add(this._logoutNavigationItem);
+            this.Application.Actions.Add(this._statisticsItem);
 
             this.Overview();
         }
@@ -51,6 +55,7 @@ namespace CTime2.States
             this.Application.Actions.Remove(this._myTimesNavigationItem);
             this.Application.Actions.Remove(this._attendanceListNavigationItem);
             this.Application.SecondaryActions.Remove(this._logoutNavigationItem);
+            this.Application.Actions.Remove(this._statisticsItem);
         }
 
         private void Overview()
@@ -86,6 +91,13 @@ namespace CTime2.States
             this._sessionStateService.CurrentUser = null;
 
             this.Application.CurrentState = IoC.Get<LoggedOutApplicationState>();
+        }
+
+        private void Statistics()
+        {
+            this._navigationService
+                .For<StatisticsViewModel>()
+                .Navigate();
         }
     }
 }
