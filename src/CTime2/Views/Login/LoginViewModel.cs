@@ -3,6 +3,7 @@ using CTime2.Core.Extensions;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
+using CTime2.Services.Dialog;
 using CTime2.Services.Loading;
 using CTime2.States;
 using CTime2.Views.Shell;
@@ -15,6 +16,7 @@ namespace CTime2.Views.Login
         private readonly ISessionStateService _sessionStateService;
         private readonly ILoadingService _loadingService;
         private readonly IApplication _application;
+        private readonly IDialogService _dialogService;
 
         private string _companyId;
         private string _emailAddress;
@@ -38,12 +40,13 @@ namespace CTime2.Views.Login
             set { this.SetProperty(ref this._password, value); }
         }
 
-        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IApplication application)
+        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IApplication application, IDialogService dialogService)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
             this._loadingService = loadingService;
             this._application = application;
+            this._dialogService = dialogService;
 
             this.DisplayName = "Anmeldung";
         }
@@ -59,15 +62,18 @@ namespace CTime2.Views.Login
             {
                 var user = await this._cTimeService.Login(this.CompanyId, this.EmailAddress, this.Password);
 
-                if (user != null)
+                if (user == null)
                 {
-                    this._sessionStateService.CompanyId = this.CompanyId;
-                    this._sessionStateService.CurrentUser = user;
-
-                    await this._sessionStateService.SaveStateAsync();
-
-                    this._application.CurrentState = IoC.Get<LoggedInApplicationState>();
+                    await this._dialogService.ShowAsync("Die E-Mail-Adresse oder das Passwort ist falsch.");
+                    return;
                 }
+
+                this._sessionStateService.CompanyId = this.CompanyId;
+                this._sessionStateService.CurrentUser = user;
+
+                await this._sessionStateService.SaveStateAsync();
+
+                this._application.CurrentState = IoC.Get<LoggedInApplicationState>();
             }
         }
     }
