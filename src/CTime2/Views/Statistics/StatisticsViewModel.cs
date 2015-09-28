@@ -80,8 +80,10 @@ namespace CTime2.Views.Statistics
                     await this._dialogService.ShowAsync("In der gewählten Zeitspanne sind keine Zeiten verfügbar");
                     return;
                 }
-
-                var timesByDay = TimesByDay.Create(times).ToList();
+                
+                var timesByDay = TimesByDay.Create(times)
+                    .Where(this.IsTimeByDayForStatistic)
+                    .ToList();
 
                 var totalWorkTime = TimeSpan.FromMinutes(timesByDay.Where(f => f.Hours != TimeSpan.Zero).Sum(f => f.Hours.TotalMinutes));
 
@@ -109,7 +111,16 @@ namespace CTime2.Views.Statistics
                 this.Statistics.Add(new StatisticItem("Gesamt Arbeitszeit", totalWorkTime.ToString(@"d\ \T\a\g\e\ hh\:mm\:ss")));
             }
         }
+        private bool IsTimeByDayForStatistic(TimesByDay timesByDay)
+        {
+            if (timesByDay.Day != DateTime.Today)
+                return true;
 
+            if (timesByDay.Times.Count >= 2)
+                return true;
+
+            return false;
+        }
         #endregion
     }
 }
