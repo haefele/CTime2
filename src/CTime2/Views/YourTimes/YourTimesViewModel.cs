@@ -6,6 +6,7 @@ using CTime2.Core.Extensions;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
+using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 
 namespace CTime2.Views.YourTimes
@@ -15,6 +16,7 @@ namespace CTime2.Views.YourTimes
         private readonly ISessionStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
         private readonly ILoadingService _loadingService;
+        private readonly IExceptionHandler _exceptionHandler;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
@@ -33,11 +35,12 @@ namespace CTime2.Views.YourTimes
             set { this.SetProperty(ref this._endDate, value); }
         }
 
-        public YourTimesViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService)
+        public YourTimesViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
         {
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
             this._loadingService = loadingService;
+            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = "Meine Zeiten";
 
@@ -56,10 +59,17 @@ namespace CTime2.Views.YourTimes
         {
             using (this._loadingService.Show("Lade Zeiten..."))
             {
-                var times = await this._cTimeService.GetTimes(this._sessionStateService.CurrentUser.Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
+                try
+                {
+                    var times = await this._cTimeService.GetTimes(this._sessionStateService.CurrentUser.Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
-                this.Times.Clear();
-                this.Times.AddRange(TimesByDay.Create(times));
+                    this.Times.Clear();
+                    this.Times.AddRange(TimesByDay.Create(times));
+                }
+                catch (Exception exception)
+                {
+                    await this._exceptionHandler.HandleAsync(exception);
+                }
             }
         }
     }

@@ -14,6 +14,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Events;
 using CTime2.Services.Dialog;
+using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 using CTime2.States;
 using CTime2.Views.About;
@@ -76,7 +77,8 @@ namespace CTime2
             this._container
                 .Singleton<ICTimeService, CTimeService>()
                 .Singleton<ISessionStateService, SessionStateService>()
-                .Singleton<IDialogService, DialogService>();
+                .Singleton<IDialogService, DialogService>()
+                .Singleton<IExceptionHandler, ExceptionHandler>();
         }
 
         private void ConfigureCaliburnMicro()

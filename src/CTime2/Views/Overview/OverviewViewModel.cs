@@ -11,6 +11,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Events;
 using CTime2.Extensions;
+using CTime2.Services.ExceptionHandler;
 
 namespace CTime2.Views.Overview
 {
@@ -19,6 +20,7 @@ namespace CTime2.Views.Overview
         private readonly ISessionStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IExceptionHandler _exceptionHandler;
 
         private readonly Timer _timer;
 
@@ -47,11 +49,12 @@ namespace CTime2.Views.Overview
             set { this.SetProperty(ref this._myImage, value); }
         }
 
-        public OverviewViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, IEventAggregator eventAggregator)
+        public OverviewViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IExceptionHandler exceptionHandler)
         {
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
             this._eventAggregator = eventAggregator;
+            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = "Übersicht";
 
@@ -75,25 +78,32 @@ namespace CTime2.Views.Overview
 
         private async Task LoadCurrentTime()
         {
-            Time current = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-
-            this._timerStartNow = DateTime.Now;
-
-            var timeToAdd = current != null && current.State.IsEntered()
-                ? this._timerStartNow - (current.ClockInTime ?? this._timerStartNow)
-                : TimeSpan.Zero;
-
-            var timeToday = current?.Hours ?? TimeSpan.Zero;
-
-            this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
-
-            if (current != null && current.State.IsEntered())
+            try
             {
-                this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+                Time current = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+
+                this._timerStartNow = DateTime.Now;
+
+                var timeToAdd = current != null && current.State.IsEntered()
+                    ? this._timerStartNow - (current.ClockInTime ?? this._timerStartNow)
+                    : TimeSpan.Zero;
+
+                var timeToday = current?.Hours ?? TimeSpan.Zero;
+
+                this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
+
+                if (current != null && current.State.IsEntered())
+                {
+                    this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+                }
+                else
+                {
+                    this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
+                }
             }
-            else
+            catch (Exception exception)
             {
-                this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
+                await this._exceptionHandler.HandleAsync(exception);
             }
         }
 
