@@ -126,7 +126,7 @@ namespace CTime2.Views.Statistics
             if (timesByDay.Day != DateTime.Today)
                 return true;
 
-            if (timesByDay.Times.Count >= 2)
+            if (timesByDay.Times.Count(f => f.ClockOutTime.HasValue) >= 2)
                 return true;
 
             return false;
