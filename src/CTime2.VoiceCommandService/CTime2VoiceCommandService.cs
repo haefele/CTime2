@@ -63,9 +63,9 @@ namespace CTime2.VoiceCommandService
             var cTimeService = new CTimeService();
 
             var currentTime = await cTimeService.GetCurrentTime(sessionStateService.CurrentUser.Id);
-            bool checkedIn = currentTime?.State == TimeState.Entered;
+            bool checkedIn = currentTime?.State?.HasFlag(TimeState.Entered) ?? false;
 
-            if (checkedIn && timeState == TimeState.Entered)
+            if (checkedIn && timeState.HasFlag(TimeState.Entered))
             {
                 var checkOutResult = await connection.RequestConfirmationAsync(this.AskIfCheckOutResponse());
 

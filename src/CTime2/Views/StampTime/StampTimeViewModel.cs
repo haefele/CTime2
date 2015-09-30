@@ -48,7 +48,7 @@ namespace CTime2.Views.StampTime
             using (this._loadingService.Show("Lade..."))
             { 
                 var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-                var isCheckedIn = currentTime != null && currentTime.State == TimeState.Entered;
+                var isCheckedIn = currentTime != null && currentTime.State.IsEntered();
 
                 this.CanCheckIn = isCheckedIn == false;
                 this.CanCheckOut = isCheckedIn;

@@ -79,7 +79,7 @@ namespace CTime2.Views.Overview
 
             this._timerStartNow = DateTime.Now;
 
-            var timeToAdd = current?.State == TimeState.Entered 
+            var timeToAdd = current != null && current.State.IsEntered()
                 ? this._timerStartNow - (current.ClockInTime ?? this._timerStartNow)
                 : TimeSpan.Zero;
 
@@ -87,7 +87,7 @@ namespace CTime2.Views.Overview
 
             this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
 
-            if (current?.State == TimeState.Entered)
+            if (current != null && current.State.IsEntered())
             {
                 this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
             }
