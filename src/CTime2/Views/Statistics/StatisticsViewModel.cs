@@ -16,37 +16,31 @@ namespace CTime2.Views.Statistics
     public class StatisticsViewModel : Screen
     {
         #region Fields
-
         private readonly ISessionStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
         private readonly ILoadingService _loadingService;
         private readonly IDialogService _dialogService;
         private readonly IExceptionHandler _exceptionHandler;
+
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
-
         #endregion
 
         #region Properties
-
         public DateTimeOffset StartDate
         {
             get { return this._startDate; }
             set { this.SetProperty(ref this._startDate, value); }
         }
-
         public DateTimeOffset EndDate
         {
             get { return this._endDate; }
             set { this.SetProperty(ref this._endDate, value); }
         }
-
         public BindableCollection<StatisticItem> Statistics { get; }
-
         #endregion
 
-        #region Ctor
-
+        #region Constructors
         public StatisticsViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IDialogService dialogService, IExceptionHandler exceptionHandler)
         {
             this._sessionStateService = sessionStateService;
@@ -62,16 +56,13 @@ namespace CTime2.Views.Statistics
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
         }
-
         #endregion
 
         #region Methods
-
         protected override async void OnActivate()
         {
             await this.RefreshAsync();
         }
-
         public async Task RefreshAsync()
         {
             using (this._loadingService.Show("Lade Statistiken..."))
@@ -79,16 +70,16 @@ namespace CTime2.Views.Statistics
                 try
                 {
                     var times = await this._cTimeService.GetTimes(this._sessionStateService.CurrentUser.Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
+                    
+                    var timesByDay = TimesByDay.Create(times)
+                        .Where(this.IsTimeByDayForStatistic)
+                        .ToList();
 
-                    if (times.Count == 0)
+                    if (times.Count == 0 || timesByDay.Count == 0)
                     {
                         await this._dialogService.ShowAsync("In der gewählten Zeitspanne sind keine Zeiten verfügbar");
                         return;
                     }
-                
-                    var timesByDay = TimesByDay.Create(times)
-                        .Where(this.IsTimeByDayForStatistic)
-                        .ToList();
 
                     var totalWorkTime = TimeSpan.FromMinutes(timesByDay.Where(f => f.Hours != TimeSpan.Zero).Sum(f => f.Hours.TotalMinutes));
 
