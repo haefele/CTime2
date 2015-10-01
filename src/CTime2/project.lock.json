@@ -3,6 +3,11 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "Anotar.Custom.Fody/2.19.1": {
+        "dependencies": {
+          "Fody": "[1.29.2, )"
+        }
+      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -26,6 +31,19 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
+        }
+      },
+      "Fody/1.29.3": {},
+      "MetroLog/0.8.9": {
+        "compile": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
+        },
+        "runtime": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -1597,6 +1615,11 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "Anotar.Custom.Fody/2.19.1": {
+        "dependencies": {
+          "Fody": "[1.29.2, )"
+        }
+      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -1620,6 +1643,19 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
+        }
+      },
+      "Fody/1.29.3": {},
+      "MetroLog/0.8.9": {
+        "compile": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
+        },
+        "runtime": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -3281,6 +3317,11 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "Anotar.Custom.Fody/2.19.1": {
+        "dependencies": {
+          "Fody": "[1.29.2, )"
+        }
+      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -3304,6 +3345,19 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
+        }
+      },
+      "Fody/1.29.3": {},
+      "MetroLog/0.8.9": {
+        "compile": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
+        },
+        "runtime": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -4937,6 +4991,11 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "Anotar.Custom.Fody/2.19.1": {
+        "dependencies": {
+          "Fody": "[1.29.2, )"
+        }
+      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -4960,6 +5019,19 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
+        }
+      },
+      "Fody/1.29.3": {},
+      "MetroLog/0.8.9": {
+        "compile": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
+        },
+        "runtime": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -6626,6 +6698,11 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "Anotar.Custom.Fody/2.19.1": {
+        "dependencies": {
+          "Fody": "[1.29.2, )"
+        }
+      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -6649,6 +6726,19 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
+        }
+      },
+      "Fody/1.29.3": {},
+      "MetroLog/0.8.9": {
+        "compile": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
+        },
+        "runtime": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -8282,6 +8372,11 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "Anotar.Custom.Fody/2.19.1": {
+        "dependencies": {
+          "Fody": "[1.29.2, )"
+        }
+      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -8305,6 +8400,19 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
+        }
+      },
+      "Fody/1.29.3": {},
+      "MetroLog/0.8.9": {
+        "compile": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
+        },
+        "runtime": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -9971,6 +10079,11 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "Anotar.Custom.Fody/2.19.1": {
+        "dependencies": {
+          "Fody": "[1.29.2, )"
+        }
+      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -9994,6 +10107,19 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
+        }
+      },
+      "Fody/1.29.3": {},
+      "MetroLog/0.8.9": {
+        "compile": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
+        },
+        "runtime": {
+          "lib/win81/MetroLog.Platform.dll": {},
+          "lib/win81/MetroLog.dll": {},
+          "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -11628,6 +11754,22 @@
     }
   },
   "libraries": {
+    "Anotar.Custom.Fody/2.19.1": {
+      "sha512": "RLAQxGE1mYh/FaA8F1fDaDkyVwpw4OHknhI1AInWTtC6Lne5s4m3bgw6UQFEYce/uJljsprsIOfyNQJI89NbWQ==",
+      "type": "Package",
+      "files": [
+        "_rels/.rels",
+        "Anotar.Custom.Fody.nuspec",
+        "Lib/Anotar.Custom.dll",
+        "Lib/Anotar.Custom.xml",
+        "Tools/install.ps1",
+        "Tools/uninstall.ps1",
+        "Anotar.Custom.Fody.dll",
+        "Anotar.Custom.Fody.pdb",
+        "package/services/metadata/core-properties/3f9acb65ed4e4d7ea486a8dd26f12e3f.psmdcp",
+        "[Content_Types].xml"
+      ]
+    },
     "Caliburn.Micro/3.0.0-beta1": {
       "sha512": "L3Und/cIKkl2ldatTcN/HnB+wl+K1pV4Qisx03e1Upsg3HV5M7wvncZDLwmNizbMjInKlPEuSHHIbb+wWyG4LA==",
       "type": "Package",
@@ -11704,6 +11846,61 @@
         "lib/net45/Caliburn.Micro.dll",
         "lib/net45/Caliburn.Micro.xml",
         "package/services/metadata/core-properties/c589ba5bbed64405a1d68e22228fc9a6.psmdcp",
+        "[Content_Types].xml"
+      ]
+    },
+    "Fody/1.29.3": {
+      "sha512": "I+dC/ez9Tl2QH+YuUhZBoqsMJKk3JzNszHpYSEFHzNBES1C5KcNJJPtc0gRUrQBpCz5x9oxPBfMZaI0UXFg9rw==",
+      "type": "Package",
+      "files": [
+        "_rels/.rels",
+        "Fody.nuspec",
+        "build/dotnet/Fody.targets",
+        "build/portable-net+sl+win+wpa+wp/Fody.targets",
+        "Content/FodyWeavers.xml",
+        "Fody.dll",
+        "Fody.pdb",
+        "FodyCommon.dll",
+        "FodyCommon.pdb",
+        "FodyIsolated.dll",
+        "FodyIsolated.pdb",
+        "Mono.Cecil.dll",
+        "Mono.Cecil.Mdb.dll",
+        "Mono.Cecil.Pdb.dll",
+        "Mono.Cecil.Rocks.dll",
+        "package/services/metadata/core-properties/bc30331ed57a4163a77c063160c6131b.psmdcp",
+        "[Content_Types].xml"
+      ]
+    },
+    "MetroLog/0.8.9": {
+      "sha512": "vo2KEMPpTA4c7fGKqX84KJLZoFrX7PjGd2KRF0cDZaYT2L3XZLIF57mNsy33GaxC0Elav8pPWHc/cZLFHZDyOA==",
+      "type": "Package",
+      "files": [
+        "_rels/.rels",
+        "MetroLog.nuspec",
+        "content/win8-javascript/MetroLog ReadMe.txt",
+        "content/win8-javascript/typings/winrt.d.ts",
+        "content/win8-javascript/typings/MetroLog.WinRT.d.ts",
+        "lib/net45/MetroLog.dll",
+        "lib/net45/MetroLog.Platform.dll",
+        "lib/win81/MetroLog.Platform.dll",
+        "lib/win81/MetroLog.Platform.pri",
+        "lib/win81/MetroLog.dll",
+        "lib/win81/MetroLog.WinRT.pri",
+        "lib/win81/MetroLog.WinRT.winmd",
+        "lib/portable-net45+wp8+win81+wpa81/MetroLog.dll",
+        "lib/wp8/MetroLog.dll",
+        "lib/wp8/MetroLog.Platform.dll",
+        "lib/wpa81/MetroLog.Platform.dll",
+        "lib/wpa81/MetroLog.Platform.pri",
+        "lib/wpa81/MetroLog.dll",
+        "lib/MonoTouch/MetroLog.dll",
+        "lib/MonoTouch/MetroLog.Platform.dll",
+        "lib/Xamarin.iOS/MetroLog.dll",
+        "lib/Xamarin.iOS/MetroLog.Platform.dll",
+        "lib/MonoAndroid/MetroLog.dll",
+        "lib/MonoAndroid/MetroLog.Platform.dll",
+        "package/services/metadata/core-properties/1b53a5d1e0be4fd6821aec7ac810de39.psmdcp",
         "[Content_Types].xml"
       ]
     },
@@ -15260,7 +15457,9 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Anotar.Custom.Fody >= 2.19.1",
       "Caliburn.Micro >= 3.0.0-beta1",
+      "Fody >= 1.29.3",
       "Microsoft.Net.Http >= 2.2.29",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Newtonsoft.Json >= 7.0.1"

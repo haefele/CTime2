@@ -1,6 +1,8 @@
 ﻿{
   "dependencies": {
+    "Anotar.Custom.Fody": "2.19.1",
     "Caliburn.Micro": "3.0.0-beta1",
+    "Fody": "1.29.3",
     "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Newtonsoft.Json": "7.0.1"
