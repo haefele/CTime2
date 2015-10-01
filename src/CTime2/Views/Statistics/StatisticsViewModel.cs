@@ -63,6 +63,28 @@ namespace CTime2.Views.Statistics
         {
             await this.RefreshAsync();
         }
+
+        public async Task CurrentMonth()
+        {
+            this.StartDate = DateTimeOffset.Now.StartOfMonth();
+            this.EndDate = DateTimeOffset.Now.EndOfMonth();
+
+            await this.RefreshAsync();
+        }
+        public async Task LastMonth()
+        {
+            this.StartDate = DateTimeOffset.Now.StartOfMonth().AddMonths(-1);
+            this.EndDate = DateTimeOffset.Now.EndOfMonth().AddMonths(-1);
+
+            await this.RefreshAsync();
+        }
+        public async Task LastSevenDays()
+        {
+            this.StartDate = DateTimeOffset.Now.WithoutTime().AddDays(-6); //Last 6 days plus today
+            this.EndDate = DateTimeOffset.Now.WithoutTime();
+
+            await this.RefreshAsync();
+        }
         public async Task RefreshAsync()
         {
             using (this._loadingService.Show("Lade Statistiken..."))
