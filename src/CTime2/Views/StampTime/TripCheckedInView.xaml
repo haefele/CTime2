@@ -1,18 +1,15 @@
-﻿<Page
-    x:Class="CTime2.Views.StampTime.StampTimeView"
-    
+﻿<UserControl
+    x:Class="CTime2.Views.StampTime.TripCheckedInView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
+    xmlns:local="using:CTime2.Views.StampTime"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d"
-    >
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <ContentControl micro:View.Model="{Binding ActiveItem}" />
-        
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <TextBlock Text="Trip Checked In" />
     </Grid>
-</Page>
+</UserControl>

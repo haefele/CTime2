@@ -65,7 +65,11 @@ namespace CTime2
                 .PerRequest<StampTimeViewModel>()
                 .PerRequest<AboutViewModel>()
                 .PerRequest<AttendanceListViewModel>()
-                .PerRequest<StatisticsViewModel>();
+                .PerRequest<StatisticsViewModel>()
+                .PerRequest<CheckedInViewModel>()
+                .PerRequest<CheckedOutViewModel>()
+                .PerRequest<HomeOfficeCheckedInViewModel>()
+                .PerRequest<TripCheckedInViewModel>();
 
 
             //ShellStates

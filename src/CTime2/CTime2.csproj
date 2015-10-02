@@ -149,10 +149,26 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell\ShellViewModel.cs" />
+    <Compile Include="Views\StampTime\CheckedInView.xaml.cs">
+      <DependentUpon>CheckedInView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StampTime\CheckedInViewModel.cs" />
+    <Compile Include="Views\StampTime\CheckedOutView.xaml.cs">
+      <DependentUpon>CheckedOutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StampTime\CheckedOutViewModel.cs" />
+    <Compile Include="Views\StampTime\HomeOfficeCheckedInView.xaml.cs">
+      <DependentUpon>HomeOfficeCheckedInView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StampTime\HomeOfficeCheckedInViewModel.cs" />
     <Compile Include="Views\StampTime\StampTimeView.xaml.cs">
       <DependentUpon>StampTimeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StampTime\StampTimeViewModel.cs" />
+    <Compile Include="Views\StampTime\TripCheckedInView.xaml.cs">
+      <DependentUpon>TripCheckedInView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StampTime\TripCheckedInViewModel.cs" />
     <Compile Include="Views\Statistics\StatisticItem.cs" />
     <Compile Include="Views\Statistics\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
@@ -219,7 +235,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StampTime\CheckedInView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StampTime\CheckedOutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StampTime\HomeOfficeCheckedInView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StampTime\StampTimeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StampTime\TripCheckedInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
