@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Caliburn.Micro;
+using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
@@ -14,15 +16,21 @@ namespace CTime2.Views.StampTime
     {
         private readonly ICTimeService _cTimeService;
         private readonly ISessionStateService _sessionStateService;
-        private readonly IDialogService _dialogService;
         private readonly ILoadingService _loadingService;
         private readonly IExceptionHandler _exceptionHandler;
-        
-        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, IDialogService dialogService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
+
+        private string _statusMessage;
+
+        public string StatusMessage
+        {
+            get { return this._statusMessage; }
+            set { this.SetProperty(ref this._statusMessage, value); }
+        }
+
+        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
-            this._dialogService = dialogService;
             this._loadingService = loadingService;
             this._exceptionHandler = exceptionHandler;
 
@@ -31,14 +39,47 @@ namespace CTime2.Views.StampTime
 
         protected override async void OnActivate()
         {
+            await this.RefreshCurrentState();
+        }
+
+        public async Task RefreshCurrentState()
+        {
             using (this._loadingService.Show("Lade..."))
             {
                 try
                 {
                     var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-                    var isCheckedIn = currentTime != null && currentTime.State.IsEntered();
 
-                    this.ActivateItem(IoC.Get<CheckedInViewModel>());
+                    string statusMessage;
+                    Screen currentState;
+
+                    if (currentTime == null || currentTime.State.IsLeft())
+                    {
+                        statusMessage = "Sie sind aktuell ausgestempelt.";
+                        currentState = IoC.Get<CheckedOutViewModel>();
+                    }
+                    else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
+                    {
+                        statusMessage = "Sie sind aktuell eingestempelt (Reise).";
+                        currentState = IoC.Get<TripCheckedInViewModel>();
+                    }
+                    else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
+                    {
+                        statusMessage = "Sie sind aktuell eingestempelt (Home-Office).";
+                        currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
+                    }
+                    else if (currentTime.State.IsEntered())
+                    {
+                        statusMessage = "Sie sind aktuell eingestempelt.";
+                        currentState = IoC.Get<CheckedInViewModel>();
+                    }
+                    else
+                    {
+                        throw new CTimeException("Could not determine the current state.");
+                    }
+
+                    this.StatusMessage = statusMessage;
+                    this.ActivateItem(currentState);
                 }
                 catch (Exception exception)
                 {

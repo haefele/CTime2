@@ -9,5 +9,6 @@ namespace CTime2.Views.StampTime
 {
     public class CheckedInViewModel : Screen
     {
+        public StampTimeViewModel Container => this.Parent as StampTimeViewModel;
     }
 }
