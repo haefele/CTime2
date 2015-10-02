@@ -13,5 +13,10 @@ namespace CTime2.Core.Extensions
         {
             return self.AddMonths(1).StartOfMonth().AddDays(-1);
         }
+
+        public static DateTimeOffset WithoutTime(this DateTimeOffset self)
+        {
+            return new DateTimeOffset(self.Year, self.Month, self.Day, 0, 0, 0, self.Offset);
+        }
     }
 }

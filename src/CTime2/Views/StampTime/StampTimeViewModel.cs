@@ -5,6 +5,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
 using CTime2.Services.Dialog;
+using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 
 namespace CTime2.Views.StampTime
@@ -15,7 +16,8 @@ namespace CTime2.Views.StampTime
         private readonly ISessionStateService _sessionStateService;
         private readonly IDialogService _dialogService;
         private readonly ILoadingService _loadingService;
-        
+        private readonly IExceptionHandler _exceptionHandler;
+
         private bool _canCheckIn;
         private bool _canCheckOut;
 
@@ -33,12 +35,13 @@ namespace CTime2.Views.StampTime
         }
 
 
-        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, IDialogService dialogService, ILoadingService loadingService)
+        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, IDialogService dialogService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
             this._dialogService = dialogService;
             this._loadingService = loadingService;
+            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = "Stempeln";
         }
@@ -46,46 +49,67 @@ namespace CTime2.Views.StampTime
         protected override async void OnActivate()
         {
             using (this._loadingService.Show("Lade..."))
-            { 
-                var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-                var isCheckedIn = currentTime != null && currentTime.State == TimeState.Entered;
+            {
+                try
+                {
+                    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                    var isCheckedIn = currentTime != null && currentTime.State.IsEntered();
 
-                this.CanCheckIn = isCheckedIn == false;
-                this.CanCheckOut = isCheckedIn;
+                    this.CanCheckIn = isCheckedIn == false;
+                    this.CanCheckOut = isCheckedIn;
+                }
+                catch (Exception exception)
+                {
+                    await this._exceptionHandler.HandleAsync(exception);
+                }
             }
         }
 
         public async void CheckIn()
         {
             using (this._loadingService.Show("Einstempeln..."))
-            { 
-                await this._cTimeService.SaveTimer(
-                    this._sessionStateService.CurrentUser.Id,
-                    DateTime.Now,
-                    this._sessionStateService.CompanyId,
-                    TimeState.Entered);
+            {
+                try
+                {
+                    await this._cTimeService.SaveTimer(
+                        this._sessionStateService.CurrentUser.Id,
+                        DateTime.Now,
+                        this._sessionStateService.CompanyId,
+                        TimeState.Entered);
 
-                await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
+                    await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-                this.CanCheckIn = false;
-                this.CanCheckOut = true;
+                    this.CanCheckIn = false;
+                    this.CanCheckOut = true;
+                }
+                catch (Exception exception)
+                {
+                    await this._exceptionHandler.HandleAsync(exception);
+                }
             }
         }
 
         public async void CheckOut()
         {
             using (this._loadingService.Show("Ausstempeln..."))
-            { 
-                await this._cTimeService.SaveTimer(
-                    this._sessionStateService.CurrentUser.Id,
-                    DateTime.Now,
-                    this._sessionStateService.CompanyId,
-                    TimeState.Left);
+            {
+                try
+                {
+                    await this._cTimeService.SaveTimer(
+                        this._sessionStateService.CurrentUser.Id,
+                        DateTime.Now,
+                        this._sessionStateService.CompanyId,
+                        TimeState.Left);
 
-                await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
+                    await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
 
-                this.CanCheckIn = true;
-                this.CanCheckOut = false;
+                    this.CanCheckIn = true;
+                    this.CanCheckOut = false;
+                }
+                catch (Exception exception)
+                {
+                    await this._exceptionHandler.HandleAsync(exception);
+                }
             }
         }
     }

@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.VoiceCommands;
+using Windows.Foundation;
 using Windows.Storage;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Events;
 using CTime2.Services.Dialog;
+using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 using CTime2.States;
 using CTime2.Views.About;
@@ -29,17 +31,24 @@ namespace CTime2
 {
     sealed partial class App
     {
+        #region Fields
         private WinRTContainer _container;
+        #endregion
 
+        #region Constructors
         public App()
         {
             this.InitializeComponent();
         }
+        #endregion
 
+        #region Configure
         protected override void Configure()
         {
             this.ConfigureContainer();
             this.ConfigureCaliburnMicro();
+            this.ConfigureVoiceCommands();
+            this.ConfigureWindowMinSize();
         }
 
         private void ConfigureContainer()
@@ -68,14 +77,35 @@ namespace CTime2
             this._container
                 .Singleton<ICTimeService, CTimeService>()
                 .Singleton<ISessionStateService, SessionStateService>()
-                .Singleton<IDialogService, DialogService>();
+                .Singleton<IDialogService, DialogService>()
+                .Singleton<IExceptionHandler, ExceptionHandler>();
         }
 
         private void ConfigureCaliburnMicro()
         {
             ViewModelBinder.ApplyConventionsByDefault = false;
         }
+        
+        private async void ConfigureVoiceCommands()
+        {
+            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("CTime2VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
 
+            using (var vcd = typeof(CTime2VoiceCommandService).GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.VoiceCommandService.CTime2VoiceCommands.xml"))
+            using (var fileStream = await file.OpenStreamForWriteAsync())
+            {
+                await vcd.CopyToAsync(fileStream);
+            }
+
+            await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
+        }
+
+        private void ConfigureWindowMinSize()
+        {
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(360, 500));
+        }
+        #endregion
+
+        #region IoC
         protected override object GetInstance(Type service, string key)
         {
             return this._container.GetInstance(service, key);
@@ -90,7 +120,9 @@ namespace CTime2
         {
             this._container.BuildUp(instance);
         }
+        #endregion
 
+        #region Lifecycle
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             if (args.PreviousExecutionState == ApplicationExecutionState.Running ||
@@ -108,17 +140,18 @@ namespace CTime2
             
             var viewModel = IoC.Get<ShellViewModel>();
             this._container.Instance((IApplication)viewModel);
+            
+            viewModel.CurrentState = stateService.CurrentUser != null
+                ? (ApplicationState)IoC.Get<LoggedInApplicationState>()
+                : IoC.Get<LoggedOutApplicationState>();
 
             ViewModelBinder.Bind(viewModel, view, null);
             ScreenExtensions.TryActivate(viewModel);
 
-            this.TryRestore(stateService, viewModel);
-            await this.InstallVoiceCommandsAsync();
-
             Window.Current.Content = view;
             Window.Current.Activate();
         }
-
+        
         protected override async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
@@ -135,30 +168,6 @@ namespace CTime2
         {
             IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationResumedEvent());
         }
-
-        private void TryRestore(ISessionStateService stateService, ShellViewModel viewModel)
-        {
-            if (stateService.CurrentUser != null)
-            {
-                viewModel.CurrentState = IoC.Get<LoggedInApplicationState>();
-            }
-            else
-            {
-                viewModel.CurrentState = IoC.Get<LoggedOutApplicationState>();
-            }
-        }
-
-        private async Task InstallVoiceCommandsAsync()
-        {
-            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("CTime2VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
-
-            using (var vcd = typeof(CTime2VoiceCommandService).GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.VoiceCommandService.CTime2VoiceCommands.xml"))
-            using (var fileStream = await file.OpenStreamForWriteAsync())
-            {
-                await vcd.CopyToAsync(fileStream);
-            }
-            
-            await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
-        }
+        #endregion
     }
 }

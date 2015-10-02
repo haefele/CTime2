@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using Newtonsoft.Json;
@@ -17,24 +18,38 @@ namespace CTime2.Core.Services.SessionState
 
         public async Task SaveStateAsync()
         {
-            var settings = new Dictionary<string, object>
+            try
             {
-                [nameof(this.CurrentUser)] = this.CurrentUser,
-                [nameof(this.CompanyId)] = this.CompanyId
-            };
+                var settings = new Dictionary<string, object>
+                {
+                    [nameof(this.CurrentUser)] = this.CurrentUser,
+                    [nameof(this.CompanyId)] = this.CompanyId
+                };
 
-            await this.WriteSettingsAsync(settings);
+                await this.WriteSettingsAsync(settings);
+            }
+            catch (Exception exception)
+            {
+                throw new CTimeException("Beim Speichern des Logins ist ein Fehler aufgetreten.", exception);
+            }
         }
 
         public async Task RestoreStateAsync()
         {
-            var settings = await this.ReadSettingsAsync();
+            try
+            {
+                var settings = await this.ReadSettingsAsync();
 
-            if (settings.ContainsKey(nameof(this.CompanyId)))
-                this.CompanyId = (string)settings[nameof(this.CompanyId)];
+                if (settings.ContainsKey(nameof(this.CompanyId)))
+                    this.CompanyId = (string)settings[nameof(this.CompanyId)];
             
-            if (settings.ContainsKey(nameof(this.CurrentUser)))
-                this.CurrentUser = (User)settings[nameof(this.CurrentUser)];
+                if (settings.ContainsKey(nameof(this.CurrentUser)))
+                    this.CurrentUser = (User)settings[nameof(this.CurrentUser)];
+            }
+            catch (Exception exception)
+            {
+                throw new CTimeException("Beim Laden des Logins ist ein Fehler aufgetreten.", exception);
+            }
         }
 
         #region Private Methods

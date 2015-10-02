@@ -20,7 +20,7 @@ namespace CTime2.Views.AttendanceList
         {
             var result =
                 from user in users
-                orderby user.IsAttending descending
+                orderby user.IsAttending descending, user.FirstName ascending
                 group user by user.IsAttending into g
                 select new AttendingUserByIsAttending(new BindableCollection<AttendingUser>(g));
 

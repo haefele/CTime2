@@ -35,6 +35,7 @@
         <TextBlock Grid.Row="2"
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center"
+                   TextAlignment="Center"
                    Text="c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
         
         <TextBlock Grid.Row="3"

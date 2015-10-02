@@ -44,7 +44,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-                
+
         <CommandBar Grid.Row="1">
             <AppBarButton Icon="Filter"
                           Label="Startdatum">
@@ -62,6 +62,12 @@
                                       Placement="Top" />
                 </AppBarButton.Flyout>
             </AppBarButton>
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Aktueller Monat" Click="{x:Bind ViewModel.CurrentMonth}" />
+                <AppBarButton Label="Letzter Monat" Click="{x:Bind ViewModel.LastMonth}" />
+                <AppBarButton Label="Letzte 7 Tage" Click="{x:Bind ViewModel.LastSevenDays}" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>
 </Page>

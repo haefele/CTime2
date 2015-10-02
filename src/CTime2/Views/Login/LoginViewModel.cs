@@ -1,8 +1,11 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using CTime2.Core.Extensions;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
+using CTime2.Services.Dialog;
+using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 using CTime2.States;
 using CTime2.Views.Shell;
@@ -15,6 +18,8 @@ namespace CTime2.Views.Login
         private readonly ISessionStateService _sessionStateService;
         private readonly ILoadingService _loadingService;
         private readonly IApplication _application;
+        private readonly IDialogService _dialogService;
+        private readonly IExceptionHandler _exceptionHandler;
 
         private string _companyId;
         private string _emailAddress;
@@ -38,12 +43,14 @@ namespace CTime2.Views.Login
             set { this.SetProperty(ref this._password, value); }
         }
 
-        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IApplication application)
+        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IApplication application, IDialogService dialogService, IExceptionHandler exceptionHandler)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
             this._loadingService = loadingService;
             this._application = application;
+            this._dialogService = dialogService;
+            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = "Anmeldung";
         }
@@ -57,16 +64,26 @@ namespace CTime2.Views.Login
         {
             using (this._loadingService.Show("Melde an..."))
             {
-                var user = await this._cTimeService.Login(this.CompanyId, this.EmailAddress, this.Password);
-
-                if (user != null)
+                try
                 {
+                    var user = await this._cTimeService.Login(this.CompanyId, this.EmailAddress, this.Password);
+
+                    if (user == null)
+                    {
+                        await this._dialogService.ShowAsync("Die E-Mail-Adresse oder das Passwort ist falsch.");
+                        return;
+                    }
+
                     this._sessionStateService.CompanyId = this.CompanyId;
                     this._sessionStateService.CurrentUser = user;
 
                     await this._sessionStateService.SaveStateAsync();
 
                     this._application.CurrentState = IoC.Get<LoggedInApplicationState>();
+                }
+                catch (Exception exception)
+                {
+                    await this._exceptionHandler.HandleAsync(exception);
                 }
             }
         }
