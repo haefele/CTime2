@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using CTime2.Common;
+using CTime2.Services.Navigation;
 using CTime2.Views.Login;
 using CTime2.Views.Shell;
 
@@ -7,11 +8,11 @@ namespace CTime2.States
 {
     public class LoggedOutApplicationState : ApplicationState
     {
-        private readonly INavigationService _navigationService;
+        private readonly ICTimeNavigationService _navigationService;
 
         private readonly NavigationItemViewModel _loginNavigationItem;
 
-        public LoggedOutApplicationState(INavigationService navigationService)
+        public LoggedOutApplicationState(ICTimeNavigationService navigationService)
         {
             this._navigationService = navigationService;
 

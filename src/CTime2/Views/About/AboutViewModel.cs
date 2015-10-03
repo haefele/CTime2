@@ -2,13 +2,14 @@
 using Windows.ApplicationModel;
 using Caliburn.Micro;
 using CTime2.Extensions;
+using CTime2.Services.Navigation;
 using CTime2.Views.Licenses;
 
 namespace CTime2.Views.About
 {
     public class AboutViewModel : Screen
     {
-        private readonly INavigationService _navigationService;
+        private readonly ICTimeNavigationService _navigationService;
 
         private Version _currentVersion;
 
@@ -18,7 +19,7 @@ namespace CTime2.Views.About
             set { this.SetProperty(ref this._currentVersion, value); }
         }
 
-        public AboutViewModel(INavigationService navigationService)
+        public AboutViewModel(ICTimeNavigationService navigationService)
         {
             this._navigationService = navigationService;
             this.DisplayName = "Über";

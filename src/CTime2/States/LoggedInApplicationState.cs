@@ -2,6 +2,7 @@
 using Caliburn.Micro;
 using CTime2.Common;
 using CTime2.Core.Services.SessionState;
+using CTime2.Services.Navigation;
 using CTime2.Views.AttendanceList;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
@@ -13,7 +14,7 @@ namespace CTime2.States
 {
     public class LoggedInApplicationState : ApplicationState
     {
-        private readonly INavigationService _navigationService;
+        private readonly ICTimeNavigationService _navigationService;
         private readonly ISessionStateService _sessionStateService;
 
         private readonly NavigationItemViewModel _overviewNavigationItem;
@@ -23,7 +24,7 @@ namespace CTime2.States
         private readonly NavigationItemViewModel _logoutNavigationItem;
         private readonly NavigationItemViewModel _statisticsItem;
 
-        public LoggedInApplicationState(INavigationService navigationService, ISessionStateService sessionStateService)
+        public LoggedInApplicationState(ICTimeNavigationService navigationService, ISessionStateService sessionStateService)
         {
             this._navigationService = navigationService;
             this._sessionStateService = sessionStateService;

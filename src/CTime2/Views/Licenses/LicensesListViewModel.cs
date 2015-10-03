@@ -1,16 +1,17 @@
 ﻿using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Services.Licenses;
+using CTime2.Services.Navigation;
 
 namespace CTime2.Views.Licenses
 {
     public class LicensesListViewModel : Screen
     {
-        private readonly INavigationService _navigationService;
+        private readonly ICTimeNavigationService _navigationService;
         
         public BindableCollection<License> Licenses { get; }
 
-        public LicensesListViewModel(ILicensesService licensesService, INavigationService navigationService)
+        public LicensesListViewModel(ILicensesService licensesService, ICTimeNavigationService navigationService)
         {
             this._navigationService = navigationService;
 

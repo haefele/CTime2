@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using CTime2.Common;
+using CTime2.Services.Navigation;
 using CTime2.States;
 using CTime2.Views.About;
 
@@ -7,7 +8,7 @@ namespace CTime2.Views.Shell
 {
     public class ShellViewModel : Screen, IApplication
     {
-        private readonly INavigationService _navigationService;
+        private readonly ICTimeNavigationService _navigationService;
 
         private ApplicationState _currentState;
         
@@ -26,11 +27,11 @@ namespace CTime2.Views.Shell
 
                 this._currentState?.Enter();
 
-                this._navigationService.BackStack.Clear();
+                this._navigationService.ClearBackStack();
             }
         }
 
-        public ShellViewModel(INavigationService navigationService)
+        public ShellViewModel(ICTimeNavigationService navigationService)
         {
             this._navigationService = navigationService;
 

@@ -17,6 +17,7 @@ using CTime2.Events;
 using CTime2.Services.Dialog;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
+using CTime2.Services.Navigation;
 using CTime2.States;
 using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
@@ -140,7 +141,7 @@ namespace CTime2
             await stateService.RestoreStateAsync();
 
             var view = new ShellView();
-            this._container.RegisterNavigationService(view.ContentFrame);
+            this._container.Instance((ICTimeNavigationService)new CTimeNavigationService(view.ContentFrame));
             this._container.Instance((ILoadingService)new LoadingService(view.LoadingOverlay));
             
             var viewModel = IoC.Get<ShellViewModel>();
