@@ -133,6 +133,14 @@
     </Compile>
     <Compile Include="Views\AttendanceList\AttendanceListViewModel.cs" />
     <Compile Include="Views\AttendanceList\AttendingUserByIsAttending.cs" />
+    <Compile Include="Views\Licenses\LicensesListView.xaml.cs">
+      <DependentUpon>LicensesListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Licenses\LicensesListViewModel.cs" />
+    <Compile Include="Views\Licenses\LicenseView.xaml.cs">
+      <DependentUpon>LicenseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Licenses\LicenseViewModel.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -204,6 +212,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AttendanceList\AttendanceListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Licenses\LicensesListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Licenses\LicenseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

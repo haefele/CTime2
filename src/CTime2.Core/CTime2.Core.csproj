@@ -111,6 +111,9 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <EmbeddedResource Include="Services\Licenses\Caliburn.Micro.lic" />
+    <EmbeddedResource Include="Services\Licenses\Microsoft-HTTP-Client-Libraries.lic" />
+    <EmbeddedResource Include="Services\Licenses\Newtonsoft.Json.lic" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CTimeException.cs" />
@@ -124,6 +127,9 @@
     <Compile Include="Services\CTime\ICTimeService.cs" />
     <Compile Include="Data\Time.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Services\Licenses\ILicensesService.cs" />
+    <Compile Include="Data\License.cs" />
+    <Compile Include="Services\Licenses\LicensesService.cs" />
     <Compile Include="Services\SessionState\ISessionStateService.cs" />
     <Compile Include="Services\SessionState\SessionStateService.cs" />
     <Content Include="Properties\CTime2.Core.rd.xml" />
