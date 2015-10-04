@@ -153,6 +153,12 @@
   <data name="EndDateAppBarButton.Label" xml:space="preserve">
     <value>Enddatum</value>
   </data>
+  <data name="ExceptionHandler.ErrorMessage" xml:space="preserve">
+    <value>Es ist ein Fehler aufgetreten.</value>
+  </data>
+  <data name="ExceptionHandler.ErrorTitle" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
   <data name="LastMonthAppBarButton.Label" xml:space="preserve">
     <value>Letzter Monat</value>
   </data>

@@ -154,4 +154,10 @@
   <data name="Statistics.TotalWorkTimeFormat" xml:space="preserve">
     <value>d\ \d\a\y\s\ hh\:mm\:ss</value>
   </data>
+  <data name="ExceptionHandler.ErrorMessage" xml:space="preserve">
+    <value>An error occurred.</value>
+  </data>
+  <data name="ExceptionHandler.ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

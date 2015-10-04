@@ -195,6 +195,14 @@
           <source>d\ \T\a\g\e\ hh\:mm\:ss</source>
           <target state="translated">d\ \d\a\y\s\ hh\:mm\:ss</target>
         </trans-unit>
+        <trans-unit id="ExceptionHandler.ErrorMessage" translate="yes" xml:space="preserve">
+          <source>Es ist ein Fehler aufgetreten.</source>
+          <target state="translated">An error occurred.</target>
+        </trans-unit>
+        <trans-unit id="ExceptionHandler.ErrorTitle" translate="yes" xml:space="preserve">
+          <source>Fehler</source>
+          <target state="translated">Error</target>
+        </trans-unit>
       </group>
     </body>
   </file>
