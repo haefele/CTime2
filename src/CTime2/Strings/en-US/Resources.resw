@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCTimeUniversalTextBlock.Text" xml:space="preserve">
+    <value>About c-time Universal:</value>
+  </data>
+  <data name="AboutMessageTextBlock.Text" xml:space="preserve">
+    <value>c-time Universal is an unofficial app for the attendance software c-time.</value>
+  </data>
+  <data name="AppNameTextBlock.Text" xml:space="preserve">
+    <value>c-time Universal</value>
+  </data>
+  <data name="BooleanToAttendingStringConverter.FalseValue" xml:space="preserve">
+    <value>Away</value>
+  </data>
+  <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
+    <value>Present</value>
+  </data>
+  <data name="CheckInButton.Content" xml:space="preserve">
+    <value>Clock-in</value>
+  </data>
+  <data name="CheckOutButton.Content" xml:space="preserve">
+    <value>Clock-out</value>
+  </data>
+  <data name="CompanyIdTextBox.Header" xml:space="preserve">
+    <value>Company ID</value>
+  </data>
+  <data name="CurrentMonthAppBarButton.Label" xml:space="preserve">
+    <value>Current month</value>
+  </data>
+  <data name="CurrentTimeTextBlock.Text" xml:space="preserve">
+    <value>Current time:</value>
+  </data>
+  <data name="EmailAddressTextBox.Header" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="EndDateAppBarButton.Label" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="LastMonthAppBarButton.Label" xml:space="preserve">
+    <value>Last month</value>
+  </data>
+  <data name="LastSevenDaysAppBarButton.Label" xml:space="preserve">
+    <value>Past 7 days</value>
+  </data>
+  <data name="Loading.AttendanceList" xml:space="preserve">
+    <value>Loading attendance list...</value>
+  </data>
+  <data name="Loading.CheckIn" xml:space="preserve">
+    <value>Clock-in...
+</value>
+  </data>
+  <data name="Loading.CheckOut" xml:space="preserve">
+    <value>Clock-out...</value>
+  </data>
+  <data name="Loading.CurrentState" xml:space="preserve">
+    <value>Loading status...</value>
+  </data>
+  <data name="Loading.LoggingIn" xml:space="preserve">
+    <value>Login...</value>
+  </data>
+  <data name="Loading.Statistics" xml:space="preserve">
+    <value>Loading statistics...</value>
+  </data>
+  <data name="Loading.Times" xml:space="preserve">
+    <value>Loading times...</value>
+  </data>
+  <data name="Login.LoginFailed" xml:space="preserve">
+    <value>The email address or the password is incorrect.</value>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Navigation.About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Navigation.AttendanceList" xml:space="preserve">
+    <value>Attendance list</value>
+  </data>
+  <data name="Navigation.Licenses" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="Navigation.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Navigation.Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Navigation.MyTimes" xml:space="preserve">
+    <value>My times</value>
+  </data>
+  <data name="Navigation.Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Navigation.Stamp" xml:space="preserve">
+    <value>Stamp</value>
+  </data>
+  <data name="Navigation.Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="Overview.WelcomeMessageFormat" xml:space="preserve">
+    <value>Hello {0}!</value>
+  </data>
+  <data name="PasswordPasswordBox.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="StampTime.CheckInMessage" xml:space="preserve">
+    <value>Hello {0}. Your time has been booked!</value>
+  </data>
+  <data name="StampTime.CheckOutMessage" xml:space="preserve">
+    <value>Hello {0}. Your time has been booked!</value>
+  </data>
+  <data name="StartDateAppBarButton.Label" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="Statistics.AverageBreakTime" xml:space="preserve">
+    <value>ø pause length</value>
+  </data>
+  <data name="Statistics.AverageEnterTime" xml:space="preserve">
+    <value>ø work begin</value>
+  </data>
+  <data name="Statistics.AverageLeaveTime" xml:space="preserve">
+    <value>ø work end</value>
+  </data>
+  <data name="Statistics.AverageWorkTime" xml:space="preserve">
+    <value>ø working time</value>
+  </data>
+  <data name="Statistics.NoTimesBetweenStartAndEndDate" xml:space="preserve">
+    <value>No times are available in the selected time period.</value>
+  </data>
+  <data name="Statistics.TotalWorkDays" xml:space="preserve">
+    <value>Working days</value>
+  </data>
+  <data name="Statistics.TotalWorkTime" xml:space="preserve">
+    <value>Total work time</value>
+  </data>
+  <data name="UsedSoftwareButton.Content" xml:space="preserve">
+    <value>Used software</value>
+  </data>
+  <data name="VersionTextBlock.Text" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+</root>

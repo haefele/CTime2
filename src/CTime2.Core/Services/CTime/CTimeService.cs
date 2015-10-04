@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Web.Http;
@@ -95,7 +96,7 @@ namespace CTime2.Core.Services.CTime
                     .Select(f => new Time
                     {
                         Day = f.Value<DateTime>("day"),
-                        Hours = TimeSpan.FromHours(double.Parse((f.Value<string>("DayHours") ?? "0").Replace(".", ","))),
+                        Hours = TimeSpan.FromHours(double.Parse(f.Value<string>("DayHours") ?? "0", CultureInfo.InvariantCulture)),
                         State = (TimeState?)f.Value<int?>("TimeTrackType"),
                         ClockInTime = f.Value<DateTime?>("TimeTrackIn"),
                         ClockOutTime = f.Value<DateTime?>("TimeTrackOut"),

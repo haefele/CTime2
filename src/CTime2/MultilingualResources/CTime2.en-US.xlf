@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="de-DE" target-language="en-US" original="CTIME2/STRINGS/DE-DE/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1451.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="CTIME2/STRINGS/DE-DE/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="AboutCTimeUniversalTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Über c-time Universal:</source>
+          <target state="translated">About c-time Universal:</target>
+        </trans-unit>
+        <trans-unit id="AboutMessageTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time.</source>
+          <target state="translated">c-time Universal is an unofficial app for the attendance software c-time.</target>
+        </trans-unit>
+        <trans-unit id="AppNameTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>c-time Universal</source>
+          <target state="translated">c-time Universal</target>
+        </trans-unit>
+        <trans-unit id="BooleanToAttendingStringConverter.FalseValue" translate="yes" xml:space="preserve">
+          <source>Abwesend</source>
+          <target state="translated">Away</target>
+        </trans-unit>
+        <trans-unit id="BooleanToAttendingStringConverter.TrueValue" translate="yes" xml:space="preserve">
+          <source>Anwesend</source>
+          <target state="translated" state-qualifier="tm-suggestion">Present</target>
+        </trans-unit>
+        <trans-unit id="CheckInButton.Content" translate="yes" xml:space="preserve">
+          <source>Einstempeln</source>
+          <target state="translated" state-qualifier="tm-suggestion">Clock-in</target>
+        </trans-unit>
+        <trans-unit id="CheckOutButton.Content" translate="yes" xml:space="preserve">
+          <source>Ausstempeln</source>
+          <target state="translated" state-qualifier="tm-suggestion">Clock-out</target>
+        </trans-unit>
+        <trans-unit id="CompanyIdTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Firmen ID</source>
+          <target state="translated">Company ID</target>
+        </trans-unit>
+        <trans-unit id="CurrentMonthAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Aktueller Monat</source>
+          <target state="translated" state-qualifier="tm-suggestion">Current month</target>
+        </trans-unit>
+        <trans-unit id="CurrentTimeTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Aktuelle Zeit:</source>
+          <target state="translated" state-qualifier="mt-suggestion">Current time:</target>
+        </trans-unit>
+        <trans-unit id="EmailAddressTextBox.Header" translate="yes" xml:space="preserve">
+          <source>E-Mail-Adresse</source>
+          <target state="translated">Email address</target>
+        </trans-unit>
+        <trans-unit id="EndDateAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Enddatum</source>
+          <target state="translated">End date</target>
+        </trans-unit>
+        <trans-unit id="LastMonthAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Letzter Monat</source>
+          <target state="translated">Last month</target>
+        </trans-unit>
+        <trans-unit id="LastSevenDaysAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Letzte 7 Tage</source>
+          <target state="translated">Past 7 days</target>
+        </trans-unit>
+        <trans-unit id="Loading.AttendanceList" translate="yes" xml:space="preserve">
+          <source>Lade Anwesenheitsliste...</source>
+          <target state="translated" state-qualifier="mt-suggestion">Loading attendance list...</target>
+        </trans-unit>
+        <trans-unit id="Loading.CheckIn" translate="yes" xml:space="preserve">
+          <source>Einstempeln...</source>
+          <target state="translated">Clock-in...
+</target>
+        </trans-unit>
+        <trans-unit id="Loading.CheckOut" translate="yes" xml:space="preserve">
+          <source>Ausstempeln...</source>
+          <target state="translated">Clock-out...</target>
+        </trans-unit>
+        <trans-unit id="Loading.CurrentState" translate="yes" xml:space="preserve">
+          <source>Lade Status...</source>
+          <target state="translated" state-qualifier="mt-suggestion">Loading status...</target>
+        </trans-unit>
+        <trans-unit id="Loading.LoggingIn" translate="yes" xml:space="preserve">
+          <source>Melde an...</source>
+          <target state="translated" state-qualifier="mt-suggestion">Login...</target>
+        </trans-unit>
+        <trans-unit id="Loading.Statistics" translate="yes" xml:space="preserve">
+          <source>Lade Statistiken...</source>
+          <target state="translated">Loading statistics...</target>
+        </trans-unit>
+        <trans-unit id="Loading.Times" translate="yes" xml:space="preserve">
+          <source>Lade Zeiten...</source>
+          <target state="translated" state-qualifier="mt-suggestion">Loading times...</target>
+        </trans-unit>
+        <trans-unit id="Login.LoginFailed" translate="yes" xml:space="preserve">
+          <source>Die E-Mail-Adresse oder das Passwort ist falsch.</source>
+          <target state="translated">The email address or the password is incorrect.</target>
+        </trans-unit>
+        <trans-unit id="LoginButton.Content" translate="yes" xml:space="preserve">
+          <source>Anmelden</source>
+          <target state="translated">Login</target>
+        </trans-unit>
+        <trans-unit id="Navigation.About" translate="yes" xml:space="preserve">
+          <source>Über</source>
+          <target state="translated">About</target>
+        </trans-unit>
+        <trans-unit id="Navigation.AttendanceList" translate="yes" xml:space="preserve">
+          <source>Anwesenheitsliste</source>
+          <target state="translated" state-qualifier="mt-suggestion">Attendance list</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Licenses" translate="yes" xml:space="preserve">
+          <source>Lizenzen</source>
+          <target state="translated" state-qualifier="tm-suggestion">Licenses</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Login" translate="yes" xml:space="preserve">
+          <source>Anmeldung</source>
+          <target state="translated" state-qualifier="tm-suggestion">Login</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Logout" translate="yes" xml:space="preserve">
+          <source>Abmelden</source>
+          <target state="translated">Logout</target>
+        </trans-unit>
+        <trans-unit id="Navigation.MyTimes" translate="yes" xml:space="preserve">
+          <source>Meine Zeiten</source>
+          <target state="translated" state-qualifier="mt-suggestion">My times</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Overview" translate="yes" xml:space="preserve">
+          <source>Übersicht</source>
+          <target state="translated">Overview</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Stamp" translate="yes" xml:space="preserve">
+          <source>Stempeln</source>
+          <target state="translated" state-qualifier="mt-suggestion">Stamp</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Statistics" translate="yes" xml:space="preserve">
+          <source>Statistiken</source>
+          <target state="translated" state-qualifier="tm-suggestion">Statistics</target>
+        </trans-unit>
+        <trans-unit id="Overview.WelcomeMessageFormat" translate="yes" xml:space="preserve">
+          <source>Hallo {0}!</source>
+          <target state="translated" state-qualifier="mt-suggestion">Hello {0}!</target>
+        </trans-unit>
+        <trans-unit id="PasswordPasswordBox.Header" translate="yes" xml:space="preserve">
+          <source>Passwort</source>
+          <target state="translated" state-qualifier="tm-suggestion">Password</target>
+        </trans-unit>
+        <trans-unit id="StampTime.CheckInMessage" translate="yes" xml:space="preserve">
+          <source>Hallo {0}. Deine Zeit wurde gebucht!</source>
+          <target state="translated">Hello {0}. Your time has been booked!</target>
+        </trans-unit>
+        <trans-unit id="StampTime.CheckOutMessage" translate="yes" xml:space="preserve">
+          <source>Hallo {0}. Deine Zeit wurde gebucht!</source>
+          <target state="translated">Hello {0}. Your time has been booked!</target>
+        </trans-unit>
+        <trans-unit id="StartDateAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Startdatum</source>
+          <target state="translated">Start date</target>
+        </trans-unit>
+        <trans-unit id="Statistics.AverageBreakTime" translate="yes" xml:space="preserve">
+          <source>ø Pausenlänge</source>
+          <target state="translated" state-qualifier="mt-suggestion">ø pause length</target>
+        </trans-unit>
+        <trans-unit id="Statistics.AverageEnterTime" translate="yes" xml:space="preserve">
+          <source>ø Arbeitsbeginn</source>
+          <target state="translated">ø work begin</target>
+        </trans-unit>
+        <trans-unit id="Statistics.AverageLeaveTime" translate="yes" xml:space="preserve">
+          <source>ø Arbeitsende</source>
+          <target state="translated">ø work end</target>
+        </trans-unit>
+        <trans-unit id="Statistics.AverageWorkTime" translate="yes" xml:space="preserve">
+          <source>ø Arbeitszeit</source>
+          <target state="translated" state-qualifier="mt-suggestion">ø working time</target>
+        </trans-unit>
+        <trans-unit id="Statistics.NoTimesBetweenStartAndEndDate" translate="yes" xml:space="preserve">
+          <source>In der gewählten Zeitspanne sind keine Zeiten verfügbar.</source>
+          <target state="translated" state-qualifier="mt-suggestion">No times are available in the selected time period.</target>
+        </trans-unit>
+        <trans-unit id="Statistics.TotalWorkDays" translate="yes" xml:space="preserve">
+          <source>Arbeitstage</source>
+          <target state="translated">Working days</target>
+        </trans-unit>
+        <trans-unit id="Statistics.TotalWorkTime" translate="yes" xml:space="preserve">
+          <source>Gesamt Arbeitszeit</source>
+          <target state="translated" state-qualifier="mt-suggestion">Total work time</target>
+        </trans-unit>
+        <trans-unit id="UsedSoftwareButton.Content" translate="yes" xml:space="preserve">
+          <source>Benutzte Software</source>
+          <target state="translated" state-qualifier="mt-suggestion">Used software</target>
+        </trans-unit>
+        <trans-unit id="VersionTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Version:</source>
+          <target state="translated">Version:</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
