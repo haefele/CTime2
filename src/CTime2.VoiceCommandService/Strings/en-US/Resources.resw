@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlreadyCheckedInDisplayMessage" xml:space="preserve">
+    <value>Already checked-in. Check-out?</value>
+  </data>
+  <data name="AlreadyCheckedInDisplayMessageRepeat" xml:space="preserve">
+    <value>Already checked-in. Check-out instead?</value>
+  </data>
+  <data name="AlreadyCheckedInSpokenMessage" xml:space="preserve">
+    <value>You're checked-in. Do you want to check-out?</value>
+  </data>
+  <data name="AlreadyCheckedInSpokenMessageRepeat" xml:space="preserve">
+    <value>You're already checked-in. Do you want to check-out instead?</value>
+  </data>
+  <data name="AlreadyCheckedOutDisplayMessage" xml:space="preserve">
+    <value>Already checked-out. Check-in?</value>
+  </data>
+  <data name="AlreadyCheckedOutDisplayMessageRepeat" xml:space="preserve">
+    <value>You're checked-out. Do you want to check-in?</value>
+  </data>
+  <data name="AlreadyCheckedOutSpokenMessage" xml:space="preserve">
+    <value>Already checked-out. Check-in instead?</value>
+  </data>
+  <data name="AlreadyCheckedOutSpokenMessageRepeat" xml:space="preserve">
+    <value>You're already checked-out. Do you want to check-in instead?</value>
+  </data>
+  <data name="DidNothing" xml:space="preserve">
+    <value>Not checked-in.</value>
+  </data>
+  <data name="NotLoggedInDisplayMessage" xml:space="preserve">
+    <value>Not logged in.</value>
+  </data>
+  <data name="NotLoggedInSpokenMessage" xml:space="preserve">
+    <value>Unfortunately, you're not logged in.</value>
+  </data>
+  <data name="SuccessfullyCheckedIn" xml:space="preserve">
+    <value>Successfully checked-in.</value>
+  </data>
+  <data name="SuccessfullyCheckedOut" xml:space="preserve">
+    <value>Successfully checked-out.</value>
+  </data>
+</root>
