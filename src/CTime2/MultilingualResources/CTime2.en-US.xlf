@@ -191,6 +191,10 @@
           <source>Version:</source>
           <target state="translated">Version:</target>
         </trans-unit>
+        <trans-unit id="Statistics.TotalWorkTimeFormat" translate="yes" xml:space="preserve">
+          <source>d\ \T\a\g\e\ hh\:mm\:ss</source>
+          <target state="translated">d\ \d\a\y\s\ hh\:mm\:ss</target>
+        </trans-unit>
       </group>
     </body>
   </file>

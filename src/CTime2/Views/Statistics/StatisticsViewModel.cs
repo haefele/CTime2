@@ -122,12 +122,12 @@ namespace CTime2.Views.Statistics
 
                     this.Statistics.Clear();
 
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.ToString(@"hh\:mm\:ss")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.ToString(@"hh\:mm\:ss")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToString(@"hh\:mm\:ss")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToString(@"hh\:mm\:ss")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.ToString("T")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.ToString("T")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToDateTime().ToString("T")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")));
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(@"d\ \T\a\g\e\ hh\:mm\:ss")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))));
                 }
                 catch (Exception exception)
                 {

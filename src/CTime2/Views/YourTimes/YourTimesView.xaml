@@ -17,7 +17,7 @@
                               ItemsPath="Times" />
         <converter:FormatStringConverter x:Key="DateTimeToDayNumberConverter" FormatString="ddd dd. MMMM" />
         
-        <converter:FormatStringConverter x:Key="DateTimeToStringConverter" FormatString="HH:mm" PlaceholderString="?" />
+        <converter:FormatStringConverter x:Key="DateTimeToStringConverter" FormatString="t" PlaceholderString="?" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -39,7 +39,7 @@
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate x:DataType="local:TimesByDay">
                             <Grid>
-                                <TextBlock Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, ConverterLanguage=de-DE, Mode=OneWay}" />
+                                <TextBlock Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, Mode=OneWay}" />
                                 <TextBlock Text="{x:Bind Hours, Mode=OneWay}" 
                                            HorizontalAlignment="Right"
                                            />

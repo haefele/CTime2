@@ -249,6 +249,9 @@
   <data name="Statistics.TotalWorkTime" xml:space="preserve">
     <value>Gesamt Arbeitszeit</value>
   </data>
+  <data name="Statistics.TotalWorkTimeFormat" xml:space="preserve">
+    <value>d\ \T\a\g\e\ hh\:mm\:ss</value>
+  </data>
   <data name="UsedSoftwareButton.Content" xml:space="preserve">
     <value>Benutzte Software</value>
   </data>

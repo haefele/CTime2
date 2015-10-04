@@ -14,13 +14,9 @@ namespace CTime2.Converter
         {
             var format = this.GetDisplayFormat();
 
-            var culture = string.IsNullOrWhiteSpace(language) == false
-                ? new CultureInfo(language)
-                : CultureInfo.InvariantCulture;
-
             var result = string.IsNullOrWhiteSpace(format) 
                 ? value?.ToString()
-                : string.Format(culture, format, value);
+                : string.Format(format, value);
 
             if (string.IsNullOrWhiteSpace(result))
                 return this.PlaceholderString;
