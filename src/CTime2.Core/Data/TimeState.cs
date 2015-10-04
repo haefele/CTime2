@@ -22,5 +22,14 @@ namespace CTime2.Core.Data
         {
             return self != null && self.Value.HasFlag(TimeState.Entered);
         }
+
+        public static bool IsLeft(this TimeState self)
+        {
+            return self.HasFlag(TimeState.Left);
+        }
+        public static bool IsLeft(this TimeState? self)
+        {
+            return self != null && self.Value.HasFlag(TimeState.Left);
+        }
     }
 }

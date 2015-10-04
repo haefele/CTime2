@@ -6,6 +6,7 @@ using Windows.ApplicationModel.VoiceCommands;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
+using CTime2.VoiceCommandService.Strings;
 
 namespace CTime2.VoiceCommandService
 {
@@ -63,9 +64,9 @@ namespace CTime2.VoiceCommandService
             var cTimeService = new CTimeService();
 
             var currentTime = await cTimeService.GetCurrentTime(sessionStateService.CurrentUser.Id);
-            bool checkedIn = currentTime?.State?.HasFlag(TimeState.Entered) ?? false;
+            bool checkedIn = currentTime != null && currentTime.State.IsEntered();
 
-            if (checkedIn && timeState.HasFlag(TimeState.Entered))
+            if (checkedIn && timeState.IsEntered())
             {
                 var checkOutResult = await connection.RequestConfirmationAsync(this.AskIfCheckOutResponse());
 
@@ -78,7 +79,7 @@ namespace CTime2.VoiceCommandService
                 timeState = TimeState.Left;
             }
 
-            if (checkedIn == false && timeState == TimeState.Left)
+            if (checkedIn == false && timeState.IsLeft())
             {
                 var checkInResult = await connection.RequestConfirmationAsync(this.AskIfCheckInResponse());
 
@@ -105,8 +106,12 @@ namespace CTime2.VoiceCommandService
         {
             var message = new VoiceCommandUserMessage
             {
-                DisplayMessage = string.Format("Erfolgreich {0}.", (timeState == TimeState.Entered ? "eingestempelt" : "ausgestempelt")),
-                SpokenMessage = string.Format("Erfolgreich {0}.", (timeState == TimeState.Entered ? "eingestempelt" : "ausgestempelt"))
+                DisplayMessage = timeState.IsEntered() 
+                    ? CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedIn")
+                    : CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedOut"),
+                SpokenMessage = timeState.IsEntered()
+                    ? CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedIn")
+                    : CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedOut"),
             };
 
             return VoiceCommandResponse.CreateResponse(message);
@@ -116,8 +121,8 @@ namespace CTime2.VoiceCommandService
         {
             var message = new VoiceCommandUserMessage
             {
-                DisplayMessage = "Nicht gestempelt.",
-                SpokenMessage = "Nicht gestempelt."
+                DisplayMessage = CTime2VoiceCommandServiceResources.Get("DidNothing"),
+                SpokenMessage = CTime2VoiceCommandServiceResources.Get("DidNothing"),
             };
 
             return VoiceCommandResponse.CreateResponse(message);
@@ -127,8 +132,8 @@ namespace CTime2.VoiceCommandService
         {
             var message = new VoiceCommandUserMessage
             {
-                DisplayMessage = "Nicht angemeldet.",
-                SpokenMessage = "Leider bist du nicht angemeldet.",
+                DisplayMessage = CTime2VoiceCommandServiceResources.Get("NotLoggedInDisplayMessage"),
+                SpokenMessage = CTime2VoiceCommandServiceResources.Get("NotLoggedInSpokenMessage"),
             };
 
             return VoiceCommandResponse.CreateResponse(message);
@@ -138,13 +143,13 @@ namespace CTime2.VoiceCommandService
         {
             var promptMessage = new VoiceCommandUserMessage
             {
-                DisplayMessage = "Bereits eingestempelt. Ausstempeln?",
-                SpokenMessage = "Du bist bereits eingestempelt. Möchtest du dich ausstempeln?"
+                DisplayMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedInDisplayMessage"),
+                SpokenMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedInSpokenMessage"),
             };
             var rePromptMessage = new VoiceCommandUserMessage
             {
-                DisplayMessage = "Bereits eingestempelt. Möchtest du dich ausstempeln?",
-                SpokenMessage = "Du bist bereits eingestempelt. Möchtest du dich stattdessen ausstempeln?",
+                DisplayMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedInDisplayMessageRepeat"),
+                SpokenMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedInSpokenMessageRepeat"),
             };
 
             return VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
@@ -154,15 +159,14 @@ namespace CTime2.VoiceCommandService
         {
             var promptMessage = new VoiceCommandUserMessage
             {
-                DisplayMessage = "Bereits ausgestempelt. Einstempeln?",
-                SpokenMessage = "Du bist bereits ausgestempelt. Möchtest du dich einstempeln?"
+                DisplayMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedOutDisplayMessage"),
+                SpokenMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedOutSpokenMessage"),
             };
             var rePromptMessage = new VoiceCommandUserMessage
             {
-                DisplayMessage = "Bereits ausgestempelt. Möchtest du dich einstempeln?",
-                SpokenMessage = "Du bist bereits ausgestempelt. Möchtest du dich stattdessen einstempeln?",
+                DisplayMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedOutDisplayMessageRepeat"),
+                SpokenMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedOutSpokenMessageRepeat"),
             };
-
             return VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
         }
     }

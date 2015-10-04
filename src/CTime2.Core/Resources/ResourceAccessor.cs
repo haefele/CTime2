@@ -6,9 +6,9 @@ namespace CTime2.Core.Resources
     {
         private readonly ResourceLoader _resourceLoader;
 
-        public ResourceAccessor(string resourceName)
+        public ResourceAccessor(ResourceLoader resourceLoader)
         {
-            this._resourceLoader = ResourceLoader.GetForCurrentView(resourceName);
+            this._resourceLoader = resourceLoader;
         }
         
         public string Get(string resource)

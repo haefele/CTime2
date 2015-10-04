@@ -5,13 +5,8 @@ namespace CTime2.Strings
 {
     public static class CTime2Resources
     {
-        private static readonly ResourceAccessor _accessor;
-
-        static CTime2Resources()
-        {
-            _accessor = new ResourceAccessor("Resources");
-        }
-
+        private static readonly ResourceAccessor _accessor = new ResourceAccessor(ResourceLoader.GetForCurrentView("Resources"));
+        
         public static string Get(string resource)
         {
             return _accessor.Get(resource);

@@ -1,12 +1,12 @@
 ﻿using Windows.ApplicationModel.Resources;
 using CTime2.Core.Resources;
 
-namespace CTime2.Core.Strings
+namespace CTime2.VoiceCommandService.Strings
 {
-    public static class CTime2CoreResources
+    public static class CTime2VoiceCommandServiceResources
     {
-        private static readonly ResourceAccessor _accessor = new ResourceAccessor(ResourceLoader.GetForCurrentView("CTime2.Core/Resources"));
-        
+        private static readonly ResourceAccessor _accessor = new ResourceAccessor(ResourceLoader.GetForViewIndependentUse("CTime2.VoiceCommandService/Resources"));
+
         public static string Get(string resource)
         {
             return _accessor.Get(resource);
