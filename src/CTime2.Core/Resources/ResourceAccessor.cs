@@ -8,7 +8,7 @@ namespace CTime2.Core.Resources
 
         public ResourceAccessor(string resourceName)
         {
-            this._resourceLoader = ResourceLoader.GetForCurrentView("CTime2.Core/Resources");
+            this._resourceLoader = ResourceLoader.GetForCurrentView(resourceName);
         }
         
         public string Get(string resource)

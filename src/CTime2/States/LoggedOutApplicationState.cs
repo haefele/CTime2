@@ -17,7 +17,7 @@ namespace CTime2.States
         {
             this._navigationService = navigationService;
 
-            this._loginNavigationItem = new NavigationItemViewModel(this.Login, CTime2Resources.Get("ModuleTitle.Login"), SymbolEx.Login);
+            this._loginNavigationItem = new NavigationItemViewModel(this.Login, CTime2Resources.Get("Navigation.Login"), SymbolEx.Login);
         }
 
         private void Login()

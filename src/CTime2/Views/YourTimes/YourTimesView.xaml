@@ -89,7 +89,8 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
-                          x:Uid="~EndDateAppBarButton">
+                          x:Uid="EndDateAppBarButton"
+                          Label="~Enddatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
                                       DatePicked="{x:Bind ViewModel.RefreshAsync}"
