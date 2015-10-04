@@ -91,6 +91,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -126,6 +127,7 @@
     <Compile Include="Services\Loading\ILoadingService.cs" />
     <Compile Include="Services\Loading\LoadingService.cs" />
     <Compile Include="States\IApplication.cs" />
+    <Compile Include="Strings\CTime2Resources.cs" />
     <Compile Include="Views\About\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>

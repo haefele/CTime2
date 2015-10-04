@@ -7,6 +7,7 @@ using CTime2.Extensions;
 using CTime2.Services.Dialog;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
+using CTime2.Strings;
 
 namespace CTime2.Views.StampTime
 {
@@ -43,12 +44,12 @@ namespace CTime2.Views.StampTime
             this._loadingService = loadingService;
             this._exceptionHandler = exceptionHandler;
 
-            this.DisplayName = "Stempeln";
+            this.DisplayName = CTime2Resources.Get("Navigation.Stamp");
         }
 
         protected override async void OnActivate()
         {
-            using (this._loadingService.Show("Lade..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.CurrentState")))
             {
                 try
                 {
@@ -67,7 +68,7 @@ namespace CTime2.Views.StampTime
 
         public async void CheckIn()
         {
-            using (this._loadingService.Show("Einstempeln..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.CheckIn")))
             {
                 try
                 {
@@ -77,7 +78,7 @@ namespace CTime2.Views.StampTime
                         this._sessionStateService.CompanyId,
                         TimeState.Entered);
 
-                    await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
+                    await this._dialogService.ShowAsync(CTime2Resources.GetFormatted("StampTime.CheckInMessage", this._sessionStateService.CurrentUser.FirstName));
 
                     this.CanCheckIn = false;
                     this.CanCheckOut = true;
@@ -91,7 +92,7 @@ namespace CTime2.Views.StampTime
 
         public async void CheckOut()
         {
-            using (this._loadingService.Show("Ausstempeln..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.CheckOut")))
             {
                 try
                 {
@@ -101,7 +102,7 @@ namespace CTime2.Views.StampTime
                         this._sessionStateService.CompanyId,
                         TimeState.Left);
 
-                    await this._dialogService.ShowAsync($"Hallo {this._sessionStateService.CurrentUser.FirstName}. Deine Zeit wurde gebucht!");
+                    await this._dialogService.ShowAsync(CTime2Resources.GetFormatted("StampTime.CheckOutMessage", this._sessionStateService.CurrentUser.FirstName));
 
                     this.CanCheckIn = true;
                     this.CanCheckOut = false;

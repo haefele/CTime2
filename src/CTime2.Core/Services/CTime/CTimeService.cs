@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Windows.Web.Http;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Strings;
 using Newtonsoft.Json.Linq;
 
 namespace CTime2.Core.Services.CTime
@@ -57,7 +58,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                throw new CTimeException("Beim Anmelden ist ein Fehler aufgetreten.", exception);
+                throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLogin") , exception);
             }
         }
 
@@ -103,7 +104,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                throw new CTimeException("Beim Laden der Zeiten ist ein Fehler aufgetreten.", exception);
+                throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingTimes"), exception);
             }
         }
 
@@ -137,7 +138,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                throw new CTimeException("Beim Stempeln ist ein Fehler aufgetreten.", exception);
+                throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"), exception);
             }
         }
 
@@ -162,7 +163,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                throw new CTimeException("Beim Laden der aktuellen Zeit ist ein Fehler aufgetreten.", exception);
+                throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingCurrentTime"), exception);
             }
         }
 
@@ -205,7 +206,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                throw new CTimeException("Beim Laden der Anwesenheitsliste ist ein Fehler aufgetreten.", exception);
+                throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }
         }
 

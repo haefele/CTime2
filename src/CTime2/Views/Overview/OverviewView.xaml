@@ -5,15 +5,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.Overview"
     xmlns:converter="using:CTime2.Converter"
+    xmlns:controls="using:CTime2.Controls"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CTime2.Controls"
     mc:Ignorable="d"
     >
     <Page.Resources>
         <converter:FormatStringConverter x:Key="CurrentTimeToStringConverter" FormatString="hh\:mm\:ss" />
-        <converter:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -41,7 +40,8 @@
                     Margin="0, 0, 0, 20">
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                        HorizontalAlignment="Center"
-                       Text="Aktuelle Zeit:" />
+                       x:Uid="CurrentTimeTextBlock"
+                       Text="~Aktuelle Zeit:" />
 
             <TextBlock HorizontalAlignment="Center"
                        Text="{x:Bind ViewModel.CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}, Mode=OneWay}"

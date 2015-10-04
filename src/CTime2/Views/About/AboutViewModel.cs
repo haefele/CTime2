@@ -1,8 +1,10 @@
 ﻿using System;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Resources;
 using Caliburn.Micro;
 using CTime2.Extensions;
 using CTime2.Services.Navigation;
+using CTime2.Strings;
 using CTime2.Views.Licenses;
 
 namespace CTime2.Views.About
@@ -22,7 +24,7 @@ namespace CTime2.Views.About
         public AboutViewModel(ICTimeNavigationService navigationService)
         {
             this._navigationService = navigationService;
-            this.DisplayName = "Über";
+            this.DisplayName = CTime2Resources.Get("Navigation.About");
 
             this.CurrentVersion = Package.Current.Id.Version.ToVersion();
         }

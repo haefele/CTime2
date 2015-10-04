@@ -80,7 +80,8 @@
 
         <CommandBar Grid.Row="1">
             <AppBarButton Icon="Filter"
-                          Label="Startdatum">
+                          x:Uid="StartDateAppBarButton"
+                          Label="~Startdatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
                                       DatePicked="{x:Bind ViewModel.RefreshAsync}"
@@ -88,7 +89,7 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
-                          Label="Enddatum">
+                          x:Uid="~EndDateAppBarButton">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
                                       DatePicked="{x:Bind ViewModel.RefreshAsync}"

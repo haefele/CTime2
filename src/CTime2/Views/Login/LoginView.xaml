@@ -22,19 +22,23 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Header="Firmen ID" 
+        <TextBox Header="~Firmen ID" 
                  Grid.Row="0"
+                 x:Uid="CompanyIdTextBox"
                  Text="{x:Bind ViewModel.CompanyId, Mode=TwoWay}" />
-        <TextBox Header="E-Mail-Adresse" 
+        <TextBox Header="~E-Mail-Adresse" 
                  Grid.Row="2"
+                 x:Uid="EmailAddressTextBox"
                  Text="{x:Bind ViewModel.EmailAddress, Mode=TwoWay}" 
                  InputScope="EmailNameOrAddress" />
-        <PasswordBox Header="Passwort" 
+        <PasswordBox Header="~Passwort" 
                      Grid.Row="4"
+                     x:Uid="PasswordPasswordBox"
                      Password="{x:Bind ViewModel.Password, Mode=TwoWay}" />
         
         <Button Content="Anmelden" 
                 Grid.Row="6"
+                x:Uid="LoginButton"
                 Click="{x:Bind ViewModel.Login}"
                 HorizontalAlignment="Stretch"/>
     </Grid>

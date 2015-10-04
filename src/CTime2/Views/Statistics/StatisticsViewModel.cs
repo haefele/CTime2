@@ -9,6 +9,7 @@ using CTime2.Extensions;
 using CTime2.Services.Dialog;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
+using CTime2.Strings;
 using CTime2.Views.YourTimes;
 
 namespace CTime2.Views.Statistics
@@ -49,7 +50,7 @@ namespace CTime2.Views.Statistics
             this._dialogService = dialogService;
             this._exceptionHandler = exceptionHandler;
 
-            this.DisplayName = "Statistiken";
+            this.DisplayName = CTime2Resources.Get("Navigation.Statistics");
 
             this.Statistics = new BindableCollection<StatisticItem>();
 
@@ -87,7 +88,7 @@ namespace CTime2.Views.Statistics
         }
         public async Task RefreshAsync()
         {
-            using (this._loadingService.Show("Lade Statistiken..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.Statistics")))
             {
                 try
                 {
@@ -99,7 +100,7 @@ namespace CTime2.Views.Statistics
 
                     if (times.Count == 0 || timesByDay.Count == 0)
                     {
-                        await this._dialogService.ShowAsync("In der gewählten Zeitspanne sind keine Zeiten verfügbar");
+                        await this._dialogService.ShowAsync(CTime2Resources.Get("Statistics.NoTimesBetweenStartAndEndDate"));
                         return;
                     }
 
@@ -121,12 +122,12 @@ namespace CTime2.Views.Statistics
 
                     this.Statistics.Clear();
 
-                    this.Statistics.Add(new StatisticItem("ø Arbeitszeit", averageWorkTime.ToString(@"hh\:mm\:ss")));
-                    this.Statistics.Add(new StatisticItem("ø Pausenlänge", averageBreakTime.ToString(@"hh\:mm\:ss")));
-                    this.Statistics.Add(new StatisticItem("ø Arbeitsbeginn", averageEnterTime.ToString(@"hh\:mm\:ss")));
-                    this.Statistics.Add(new StatisticItem("ø Arbeitsende", averageLeaveTime.ToString(@"hh\:mm\:ss")));
-                    this.Statistics.Add(new StatisticItem("Arbeitstage", totalWorkDays.ToString()));
-                    this.Statistics.Add(new StatisticItem("Gesamt Arbeitszeit", totalWorkTime.ToString(@"d\ \T\a\g\e\ hh\:mm\:ss")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.ToString(@"hh\:mm\:ss")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.ToString(@"hh\:mm\:ss")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToString(@"hh\:mm\:ss")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToString(@"hh\:mm\:ss")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(@"d\ \T\a\g\e\ hh\:mm\:ss")));
                 }
                 catch (Exception exception)
                 {

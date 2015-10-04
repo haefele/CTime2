@@ -22,24 +22,27 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="Über c-time Universal:"
+                   x:Uid="AboutCTimeUniversalTextBlock"
+                   Text="~Über c-time Universal:"
                    HorizontalAlignment="Center"
                    Style="{StaticResource TitleTextBlockStyle}" />
         
         <BitmapIcon Grid.Row="1"
-                    UriSource="ms-appx:///Assets/Square150x150Logo.scale-200.png"
+                    UriSource="ms-appx:///Assets/Square150x150Logo.png"
                     Width="200"
                     Height="200"
                     Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
         
         <TextBlock Grid.Row="2"
+                   x:Uid="AboutMessageTextBlock"
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
-                   Text="c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
+                   Text="~c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
         
         <TextBlock Grid.Row="3"
-                   Text="Version:"
+                   x:Uid="VersionTextBlock"
+                   Text="~Version:"
                    HorizontalAlignment="Center"
                    Margin="0, 10, 0, 0"
                    Style="{StaticResource TitleTextBlockStyle}"
@@ -50,7 +53,8 @@
                    Text="{x:Bind ViewModel.CurrentVersion}" />
         
         <Button Grid.Row="5" 
-                Content="Benutzte Software" 
+                x:Uid="UsedSoftwareButton"
+                Content="~Benutzte Software" 
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom"
                 Click="{x:Bind ViewModel.ShowUsedSoftware}"

@@ -8,6 +8,7 @@ using CTime2.Services.Dialog;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 using CTime2.States;
+using CTime2.Strings;
 using CTime2.Views.Shell;
 
 namespace CTime2.Views.Login
@@ -52,7 +53,7 @@ namespace CTime2.Views.Login
             this._dialogService = dialogService;
             this._exceptionHandler = exceptionHandler;
 
-            this.DisplayName = "Anmeldung";
+            this.DisplayName = CTime2Resources.Get("Navigation.Login");
         }
 
         protected override void OnActivate()
@@ -62,7 +63,7 @@ namespace CTime2.Views.Login
 
         public async void Login()
         {
-            using (this._loadingService.Show("Melde an..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.LoggingIn")))
             {
                 try
                 {
@@ -70,7 +71,7 @@ namespace CTime2.Views.Login
 
                     if (user == null)
                     {
-                        await this._dialogService.ShowAsync("Die E-Mail-Adresse oder das Passwort ist falsch.");
+                        await this._dialogService.ShowAsync(CTime2Resources.Get("Login.LoginFailed"));
                         return;
                     }
 

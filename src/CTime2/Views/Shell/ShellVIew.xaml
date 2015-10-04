@@ -73,8 +73,9 @@
                                     Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                                     />
                         
-                        <TextBlock Text="c-time Universal"
+                        <TextBlock Text="~c-time Universal"
                                    Grid.Column="1"
+                                   x:Uid="AppNameTextBlock"
                                    Style="{StaticResource TitleTextBlockStyle}"
                                    VerticalAlignment="Center"
                                    />

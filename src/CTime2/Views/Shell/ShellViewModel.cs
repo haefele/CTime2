@@ -2,6 +2,7 @@
 using CTime2.Common;
 using CTime2.Services.Navigation;
 using CTime2.States;
+using CTime2.Strings;
 using CTime2.Views.About;
 
 namespace CTime2.Views.Shell
@@ -38,7 +39,7 @@ namespace CTime2.Views.Shell
             this.Actions = new BindableCollection<NavigationItemViewModel>();
             this.SecondaryActions = new BindableCollection<NavigationItemViewModel>
             {
-                new NavigationItemViewModel(this.About, "Über", SymbolEx.Help)
+                new NavigationItemViewModel(this.About, CTime2Resources.Get("Navigation.About"), SymbolEx.Help)
             };
         }
 

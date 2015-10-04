@@ -2,6 +2,7 @@
 using CTime2.Core.Data;
 using CTime2.Core.Services.Licenses;
 using CTime2.Services.Navigation;
+using CTime2.Strings;
 
 namespace CTime2.Views.Licenses
 {
@@ -15,7 +16,7 @@ namespace CTime2.Views.Licenses
         {
             this._navigationService = navigationService;
 
-            this.DisplayName = "Lizenzen";
+            this.DisplayName = CTime2Resources.Get("Navigation.Licenses");
 
             this.Licenses = new BindableCollection<License>(licensesService.GetLicenses());
         }

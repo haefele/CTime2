@@ -2,6 +2,7 @@
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Services.Loading;
+using CTime2.Strings;
 
 namespace CTime2.Views.AttendanceList
 {
@@ -19,14 +20,14 @@ namespace CTime2.Views.AttendanceList
             this._sessionStateService = sessionStateService;
             this._loadingService = loadingService;
 
-            this.DisplayName = "Anwesenheitsliste";
+            this.DisplayName = CTime2Resources.Get("Navigation.AttendanceList");
 
             this.Users = new BindableCollection<AttendingUserByIsAttending>();
         }
 
         protected override async void OnActivate()
         {
-            using (this._loadingService.Show("Lade Anwesenheitsliste..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.AttendanceList")))
             {
                 var attendingUsers = await this._cTimeService.GetAttendingUsers(this._sessionStateService.CompanyId);
 

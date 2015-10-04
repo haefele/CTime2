@@ -3,6 +3,7 @@ using Caliburn.Micro;
 using CTime2.Common;
 using CTime2.Core.Services.SessionState;
 using CTime2.Services.Navigation;
+using CTime2.Strings;
 using CTime2.Views.AttendanceList;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
@@ -29,12 +30,12 @@ namespace CTime2.States
             this._navigationService = navigationService;
             this._sessionStateService = sessionStateService;
 
-            this._overviewNavigationItem = new NavigationItemViewModel(this.Overview, "Übersicht", Symbol.Globe);
-            this._stampTimeNavigationItem = new NavigationItemViewModel(this.StampTime, "Stempeln", Symbol.Clock);
-            this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes, "Meine Zeiten", Symbol.Calendar);
-            this._attendanceListNavigationItem = new NavigationItemViewModel(this.AttendanceList, "Anwesenheitsliste", SymbolEx.AttendanceList);
-            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, "Abmelden", SymbolEx.Logout);
-            this._statisticsItem = new NavigationItemViewModel(this.Statistics, "Statistiken", SymbolEx.Statistics);
+            this._overviewNavigationItem = new NavigationItemViewModel(this.Overview, CTime2Resources.Get("Navigation.Overview"), Symbol.Globe);
+            this._stampTimeNavigationItem = new NavigationItemViewModel(this.StampTime, CTime2Resources.Get("Navigation.Stamp"), Symbol.Clock);
+            this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes, CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar);
+            this._attendanceListNavigationItem = new NavigationItemViewModel(this.AttendanceList, CTime2Resources.Get("Navigation.AttendanceList"), SymbolEx.AttendanceList);
+            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, CTime2Resources.Get("Navigation.Logout"), SymbolEx.Logout);
+            this._statisticsItem = new NavigationItemViewModel(this.Statistics, CTime2Resources.Get("Navigation.Statistics"), SymbolEx.Statistics);
         }
 
         public override void Enter()

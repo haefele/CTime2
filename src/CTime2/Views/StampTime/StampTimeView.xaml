@@ -15,7 +15,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <Button Content="Einstempeln"
+        <Button Content="~Einstempeln"
+                x:Uid="CheckInButton"
                 Grid.Row="0" 
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
@@ -24,7 +25,8 @@
                 Click="{x:Bind ViewModel.CheckIn}"
                 IsEnabled="{x:Bind ViewModel.CanCheckIn, Mode=OneWay}" />
 
-        <Button Content="Ausstempeln"
+        <Button Content="~Ausstempeln"
+                x:Uid="CheckOutButton"
                 Grid.Row="1"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"

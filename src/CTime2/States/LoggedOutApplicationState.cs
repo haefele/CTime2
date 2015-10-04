@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using CTime2.Common;
 using CTime2.Services.Navigation;
+using CTime2.Strings;
 using CTime2.Views.Login;
 using CTime2.Views.Shell;
 
@@ -16,7 +17,7 @@ namespace CTime2.States
         {
             this._navigationService = navigationService;
 
-            this._loginNavigationItem = new NavigationItemViewModel(this.Login, "Anmelden", SymbolEx.Login);
+            this._loginNavigationItem = new NavigationItemViewModel(this.Login, CTime2Resources.Get("ModuleTitle.Login"), SymbolEx.Login);
         }
 
         private void Login()

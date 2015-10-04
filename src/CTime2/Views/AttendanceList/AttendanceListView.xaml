@@ -6,10 +6,10 @@
     xmlns:local="using:CTime2.Views.AttendanceList"
     xmlns:converter="using:CTime2.Converter"
     xmlns:data="using:CTime2.Core.Data"
+    xmlns:controls="using:CTime2.Controls"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CTime2.Controls"
     mc:Ignorable="d"
     >
     <Page.Resources>
@@ -19,8 +19,9 @@
                               ItemsPath="Users"
                               />
         <converter:BooleanToObjectConverter x:Key="BooleanToAttendingStringConverter"
-                                            TrueValue="Anwesend"
-                                            FalseValue="Abwesend" />
+                                            x:Uid="BooleanToAttendingStringConverter"
+                                            TrueValue="~Anwesend"
+                                            FalseValue="~Abwesend" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

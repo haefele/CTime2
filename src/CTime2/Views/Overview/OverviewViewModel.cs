@@ -12,6 +12,7 @@ using CTime2.Core.Services.SessionState;
 using CTime2.Events;
 using CTime2.Extensions;
 using CTime2.Services.ExceptionHandler;
+using CTime2.Strings;
 
 namespace CTime2.Views.Overview
 {
@@ -56,7 +57,7 @@ namespace CTime2.Views.Overview
             this._eventAggregator = eventAggregator;
             this._exceptionHandler = exceptionHandler;
 
-            this.DisplayName = "Übersicht";
+            this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
         }
@@ -65,7 +66,7 @@ namespace CTime2.Views.Overview
         {
             this._eventAggregator.Subscribe(this);
             
-            this.WelcomeMessage = $"Hallo {this._sessionStateService.CurrentUser.FirstName}!";
+            this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", this._sessionStateService.CurrentUser.FirstName);
             this.MyImage = this._sessionStateService.CurrentUser.ImageAsPng;
             
             await this.LoadCurrentTime();

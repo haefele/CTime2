@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using CTime2.Core.Data;
 using CTime2.Core.Extensions;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
+using CTime2.Strings;
 
 namespace CTime2.Views.YourTimes
 {
@@ -42,7 +42,7 @@ namespace CTime2.Views.YourTimes
             this._loadingService = loadingService;
             this._exceptionHandler = exceptionHandler;
 
-            this.DisplayName = "Meine Zeiten";
+            this.DisplayName = CTime2Resources.Get("Navigation.MyTimes");
 
             this.Times = new BindableCollection<TimesByDay>();
 
@@ -57,7 +57,7 @@ namespace CTime2.Views.YourTimes
         
         public async Task RefreshAsync()
         {
-            using (this._loadingService.Show("Lade Zeiten..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.Times")))
             {
                 try
                 {

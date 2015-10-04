@@ -47,7 +47,8 @@
 
         <CommandBar Grid.Row="1">
             <AppBarButton Icon="Filter"
-                          Label="Startdatum">
+                          x:Uid="StartDateAppBarButton"
+                          Label="~Startdatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
                                       DatePicked="{x:Bind ViewModel.RefreshAsync}"
@@ -55,7 +56,8 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
-                          Label="Enddatum">
+                          x:Uid="EndDateAppBarButton"
+                          Label="~Enddatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
                                       DatePicked="{x:Bind ViewModel.RefreshAsync}"
@@ -64,9 +66,15 @@
             </AppBarButton>
 
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Aktueller Monat" Click="{x:Bind ViewModel.CurrentMonth}" />
-                <AppBarButton Label="Letzter Monat" Click="{x:Bind ViewModel.LastMonth}" />
-                <AppBarButton Label="Letzte 7 Tage" Click="{x:Bind ViewModel.LastSevenDays}" />
+                <AppBarButton Label="~Aktueller Monat" 
+                              x:Uid="CurrentMonthAppBarButton"
+                              Click="{x:Bind ViewModel.CurrentMonth}" />
+                <AppBarButton Label="~Letzter Monat"
+                              x:Uid="LastMonthAppBarButton"
+                              Click="{x:Bind ViewModel.LastMonth}" />
+                <AppBarButton Label="~Letzte 7 Tage" 
+                              x:Uid="LastSevenDaysAppBarButton"
+                              Click="{x:Bind ViewModel.LastSevenDays}" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>
