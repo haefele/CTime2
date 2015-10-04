@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="de-DE" target-language="en-US" original="CTIME2.CORE/STRINGS/DE-DE/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1451.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="CTIME2.CORE/STRINGS/DE-DE/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="CTimeService.ErrorWhileLoadingAttendanceList" translate="yes" xml:space="preserve">
+          <source>Beim Laden der Anwesenheitsliste ist ein Fehler aufgetreten.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">An error occurred while loading the attendance list.</target>
+        </trans-unit>
+        <trans-unit id="CTimeService.ErrorWhileLoadingCurrentTime" translate="yes" xml:space="preserve">
+          <source>Beim Laden der aktuellen Zeit ist ein Fehler aufgetreten.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">An error occurred while loading the current time.</target>
+        </trans-unit>
+        <trans-unit id="CTimeService.ErrorWhileLoadingTimes" translate="yes" xml:space="preserve">
+          <source>Beim Laden der Zeiten ist ein Fehler aufgetreten</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">An error occurred while loading the times</target>
+        </trans-unit>
+        <trans-unit id="CTimeService.ErrorWhileLogin" translate="yes" xml:space="preserve">
+          <source>Beim Anmelden ist ein Fehler aufgetreten.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">An error occurred when logging on.</target>
+        </trans-unit>
+        <trans-unit id="CTimeService.ErrorWhileStamp" translate="yes" xml:space="preserve">
+          <source>Beim Stempeln ist ein Fehler aufgetreten.</source>
+          <target state="translated">An error occurred when stamping.</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
