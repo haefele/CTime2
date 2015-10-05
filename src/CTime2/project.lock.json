@@ -3,9 +3,15 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "Anotar.Custom.Fody/2.19.1": {
+      "Anotar.Custom.Fody/2.19.2": {
         "dependencies": {
           "Fody": "[1.29.2, )"
+        },
+        "compile": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
+        },
+        "runtime": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
         }
       },
       "Caliburn.Micro/3.0.0-beta1": {
@@ -1615,9 +1621,15 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Anotar.Custom.Fody/2.19.1": {
+      "Anotar.Custom.Fody/2.19.2": {
         "dependencies": {
           "Fody": "[1.29.2, )"
+        },
+        "compile": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
+        },
+        "runtime": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
         }
       },
       "Caliburn.Micro/3.0.0-beta1": {
@@ -3317,9 +3329,15 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Anotar.Custom.Fody/2.19.1": {
+      "Anotar.Custom.Fody/2.19.2": {
         "dependencies": {
           "Fody": "[1.29.2, )"
+        },
+        "compile": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
+        },
+        "runtime": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
         }
       },
       "Caliburn.Micro/3.0.0-beta1": {
@@ -4991,9 +5009,15 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Anotar.Custom.Fody/2.19.1": {
+      "Anotar.Custom.Fody/2.19.2": {
         "dependencies": {
           "Fody": "[1.29.2, )"
+        },
+        "compile": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
+        },
+        "runtime": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
         }
       },
       "Caliburn.Micro/3.0.0-beta1": {
@@ -6698,9 +6722,15 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Anotar.Custom.Fody/2.19.1": {
+      "Anotar.Custom.Fody/2.19.2": {
         "dependencies": {
           "Fody": "[1.29.2, )"
+        },
+        "compile": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
+        },
+        "runtime": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
         }
       },
       "Caliburn.Micro/3.0.0-beta1": {
@@ -8372,9 +8402,15 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Anotar.Custom.Fody/2.19.1": {
+      "Anotar.Custom.Fody/2.19.2": {
         "dependencies": {
           "Fody": "[1.29.2, )"
+        },
+        "compile": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
+        },
+        "runtime": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
         }
       },
       "Caliburn.Micro/3.0.0-beta1": {
@@ -10079,9 +10115,15 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Anotar.Custom.Fody/2.19.1": {
+      "Anotar.Custom.Fody/2.19.2": {
         "dependencies": {
           "Fody": "[1.29.2, )"
+        },
+        "compile": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
+        },
+        "runtime": {
+          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
         }
       },
       "Caliburn.Micro/3.0.0-beta1": {
@@ -11754,19 +11796,21 @@
     }
   },
   "libraries": {
-    "Anotar.Custom.Fody/2.19.1": {
-      "sha512": "RLAQxGE1mYh/FaA8F1fDaDkyVwpw4OHknhI1AInWTtC6Lne5s4m3bgw6UQFEYce/uJljsprsIOfyNQJI89NbWQ==",
+    "Anotar.Custom.Fody/2.19.2": {
+      "sha512": "DsDvdo7N+GZa67KdDOpkrJUCELtVdxvYhZYDCZ8VXHhzSGCQpKP/Hw5swVwKMnKDkRuxhPYvKfRU5TD0TTZkAw==",
       "type": "Package",
       "files": [
         "_rels/.rels",
         "Anotar.Custom.Fody.nuspec",
-        "Lib/Anotar.Custom.dll",
-        "Lib/Anotar.Custom.xml",
-        "Tools/install.ps1",
-        "Tools/uninstall.ps1",
         "Anotar.Custom.Fody.dll",
         "Anotar.Custom.Fody.pdb",
-        "package/services/metadata/core-properties/3f9acb65ed4e4d7ea486a8dd26f12e3f.psmdcp",
+        "Lib/net35/Anotar.Custom.dll",
+        "Lib/net35/Anotar.Custom.xml",
+        "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll",
+        "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.xml",
+        "Tools/install.ps1",
+        "Tools/uninstall.ps1",
+        "package/services/metadata/core-properties/133186e218024365afe136996e6da020.psmdcp",
         "[Content_Types].xml"
       ]
     },
@@ -15457,7 +15501,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Anotar.Custom.Fody >= 2.19.1",
+      "Anotar.Custom.Fody >= 2.19.2",
       "Caliburn.Micro >= 3.0.0-beta1",
       "Fody >= 1.29.3",
       "Microsoft.Net.Http >= 2.2.29",

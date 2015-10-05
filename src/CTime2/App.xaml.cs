@@ -9,7 +9,9 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Anotar.Custom;
 using Caliburn.Micro;
+using CTime2.Core.Logging;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Licenses;
 using CTime2.Core.Services.SessionState;
@@ -173,6 +175,11 @@ namespace CTime2
         protected override void OnResuming(object sender, object e)
         {
             IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationResumedEvent());
+        }
+
+        protected override void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            LogTo.Error(e.Exception, () => "Unhandled exception occured.");
         }
         #endregion
     }
