@@ -28,5 +28,3 @@ using CTime2.Core.Logging;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: ComVisible(false)]
-
-[assembly: LoggerFactoryAttribute(typeof(LoggerFactory))]

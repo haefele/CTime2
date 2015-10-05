@@ -3,17 +3,6 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "Anotar.Custom.Fody/2.19.2": {
-        "dependencies": {
-          "Fody": "[1.29.2, )"
-        },
-        "compile": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        },
-        "runtime": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        }
-      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -39,7 +28,6 @@
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         }
       },
-      "Fody/1.29.3": {},
       "MetroLog/0.8.9": {
         "compile": {
           "lib/win81/MetroLog.Platform.dll": {},
@@ -1621,17 +1609,6 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Anotar.Custom.Fody/2.19.2": {
-        "dependencies": {
-          "Fody": "[1.29.2, )"
-        },
-        "compile": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        },
-        "runtime": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        }
-      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -1657,7 +1634,6 @@
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         }
       },
-      "Fody/1.29.3": {},
       "MetroLog/0.8.9": {
         "compile": {
           "lib/win81/MetroLog.Platform.dll": {},
@@ -3329,17 +3305,6 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Anotar.Custom.Fody/2.19.2": {
-        "dependencies": {
-          "Fody": "[1.29.2, )"
-        },
-        "compile": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        },
-        "runtime": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        }
-      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -3365,7 +3330,6 @@
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         }
       },
-      "Fody/1.29.3": {},
       "MetroLog/0.8.9": {
         "compile": {
           "lib/win81/MetroLog.Platform.dll": {},
@@ -5009,17 +4973,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Anotar.Custom.Fody/2.19.2": {
-        "dependencies": {
-          "Fody": "[1.29.2, )"
-        },
-        "compile": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        },
-        "runtime": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        }
-      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -5045,7 +4998,6 @@
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         }
       },
-      "Fody/1.29.3": {},
       "MetroLog/0.8.9": {
         "compile": {
           "lib/win81/MetroLog.Platform.dll": {},
@@ -6722,17 +6674,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Anotar.Custom.Fody/2.19.2": {
-        "dependencies": {
-          "Fody": "[1.29.2, )"
-        },
-        "compile": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        },
-        "runtime": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        }
-      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -6758,7 +6699,6 @@
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         }
       },
-      "Fody/1.29.3": {},
       "MetroLog/0.8.9": {
         "compile": {
           "lib/win81/MetroLog.Platform.dll": {},
@@ -8402,17 +8342,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Anotar.Custom.Fody/2.19.2": {
-        "dependencies": {
-          "Fody": "[1.29.2, )"
-        },
-        "compile": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        },
-        "runtime": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        }
-      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -8438,7 +8367,6 @@
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         }
       },
-      "Fody/1.29.3": {},
       "MetroLog/0.8.9": {
         "compile": {
           "lib/win81/MetroLog.Platform.dll": {},
@@ -10115,17 +10043,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Anotar.Custom.Fody/2.19.2": {
-        "dependencies": {
-          "Fody": "[1.29.2, )"
-        },
-        "compile": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        },
-        "runtime": {
-          "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll": {}
-        }
-      },
       "Caliburn.Micro/3.0.0-beta1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.0-beta1, 3.0.0-beta1]"
@@ -10151,7 +10068,6 @@
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         }
       },
-      "Fody/1.29.3": {},
       "MetroLog/0.8.9": {
         "compile": {
           "lib/win81/MetroLog.Platform.dll": {},
@@ -11796,24 +11712,6 @@
     }
   },
   "libraries": {
-    "Anotar.Custom.Fody/2.19.2": {
-      "sha512": "DsDvdo7N+GZa67KdDOpkrJUCELtVdxvYhZYDCZ8VXHhzSGCQpKP/Hw5swVwKMnKDkRuxhPYvKfRU5TD0TTZkAw==",
-      "type": "Package",
-      "files": [
-        "_rels/.rels",
-        "Anotar.Custom.Fody.nuspec",
-        "Anotar.Custom.Fody.dll",
-        "Anotar.Custom.Fody.pdb",
-        "Lib/net35/Anotar.Custom.dll",
-        "Lib/net35/Anotar.Custom.xml",
-        "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.dll",
-        "Lib/portable-net45+netcore45+wpa81+wp8/Anotar.Custom.xml",
-        "Tools/install.ps1",
-        "Tools/uninstall.ps1",
-        "package/services/metadata/core-properties/133186e218024365afe136996e6da020.psmdcp",
-        "[Content_Types].xml"
-      ]
-    },
     "Caliburn.Micro/3.0.0-beta1": {
       "sha512": "L3Und/cIKkl2ldatTcN/HnB+wl+K1pV4Qisx03e1Upsg3HV5M7wvncZDLwmNizbMjInKlPEuSHHIbb+wWyG4LA==",
       "type": "Package",
@@ -11890,29 +11788,6 @@
         "lib/net45/Caliburn.Micro.dll",
         "lib/net45/Caliburn.Micro.xml",
         "package/services/metadata/core-properties/c589ba5bbed64405a1d68e22228fc9a6.psmdcp",
-        "[Content_Types].xml"
-      ]
-    },
-    "Fody/1.29.3": {
-      "sha512": "I+dC/ez9Tl2QH+YuUhZBoqsMJKk3JzNszHpYSEFHzNBES1C5KcNJJPtc0gRUrQBpCz5x9oxPBfMZaI0UXFg9rw==",
-      "type": "Package",
-      "files": [
-        "_rels/.rels",
-        "Fody.nuspec",
-        "build/dotnet/Fody.targets",
-        "build/portable-net+sl+win+wpa+wp/Fody.targets",
-        "Content/FodyWeavers.xml",
-        "Fody.dll",
-        "Fody.pdb",
-        "FodyCommon.dll",
-        "FodyCommon.pdb",
-        "FodyIsolated.dll",
-        "FodyIsolated.pdb",
-        "Mono.Cecil.dll",
-        "Mono.Cecil.Mdb.dll",
-        "Mono.Cecil.Pdb.dll",
-        "Mono.Cecil.Rocks.dll",
-        "package/services/metadata/core-properties/bc30331ed57a4163a77c063160c6131b.psmdcp",
         "[Content_Types].xml"
       ]
     },
@@ -15501,9 +15376,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Anotar.Custom.Fody >= 2.19.2",
       "Caliburn.Micro >= 3.0.0-beta1",
-      "Fody >= 1.29.3",
       "Microsoft.Net.Http >= 2.2.29",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Newtonsoft.Json >= 7.0.1"

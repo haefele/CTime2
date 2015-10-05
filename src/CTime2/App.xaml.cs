@@ -9,7 +9,6 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Anotar.Custom;
 using Caliburn.Micro;
 using CTime2.Core.Logging;
 using CTime2.Core.Services.CTime;
@@ -36,6 +35,10 @@ namespace CTime2
 {
     sealed partial class App
     {
+        #region Logger
+        private static readonly Logger _logger = LoggerFactory.GetLogger<App>();
+        #endregion
+
         #region Fields
         private WinRTContainer _container;
         #endregion
@@ -179,7 +182,7 @@ namespace CTime2
 
         protected override void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            LogTo.Error(e.Exception, () => "Unhandled exception occured.");
+            _logger.Error(e.Exception, () => "Unhandled exception occured.");
         }
         #endregion
     }

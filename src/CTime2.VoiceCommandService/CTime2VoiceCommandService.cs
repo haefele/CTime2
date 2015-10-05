@@ -4,6 +4,7 @@ using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
 using CTime2.Core.Data;
+using CTime2.Core.Logging;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.VoiceCommandService.Strings;
@@ -12,6 +13,10 @@ namespace CTime2.VoiceCommandService
 {
     public sealed class CTime2VoiceCommandService : IBackgroundTask, IDisposable
     {
+        #region Logger
+        private static readonly Logger _logger = LoggerFactory.GetLogger<CTime2VoiceCommandService>();
+        #endregion
+
         private BackgroundTaskDeferral _deferral;
         
         public async void Run(IBackgroundTaskInstance taskInstance)
@@ -32,6 +37,8 @@ namespace CTime2.VoiceCommandService
 
                     var voiceCommand = await voiceCommandServiceConnection.GetVoiceCommandAsync();
 
+                    _logger.Debug(() => $"Executing voice command '{voiceCommand.CommandName}'.");
+
                     switch (voiceCommand.CommandName)
                     {
                         case "checkIn":
@@ -42,6 +49,10 @@ namespace CTime2.VoiceCommandService
                             break;
                     }
                 }
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception, () => "Exception occured in the voice command service.");
             }
             finally
             {
@@ -56,6 +67,7 @@ namespace CTime2.VoiceCommandService
 
             if (sessionStateService.CurrentUser == null)
             {
+                _logger.Debug(() => "User is not logged in.");
                 await connection.ReportFailureAsync(this.NotLoggedInResponse());
 
                 return;
@@ -68,10 +80,12 @@ namespace CTime2.VoiceCommandService
 
             if (checkedIn && timeState.IsEntered())
             {
+                _logger.Debug(() => "User wants to check-in. But he is already. Asking him if he wants to check-out instead.");
                 var checkOutResult = await connection.RequestConfirmationAsync(this.AskIfCheckOutResponse());
 
                 if (checkOutResult?.Confirmed == false)
                 {
+                    _logger.Debug(() => "User does not want to check-out. Doing nothing.");
                     await connection.ReportFailureAsync(this.DidNothingResponse());
                     return;
                 }
@@ -81,10 +95,12 @@ namespace CTime2.VoiceCommandService
 
             if (checkedIn == false && timeState.IsLeft())
             {
+                _logger.Debug(() => "User wants to check-out. But he is already. Asking him if he wants to check-in instead.");
                 var checkInResult = await connection.RequestConfirmationAsync(this.AskIfCheckInResponse());
 
                 if (checkInResult?.Confirmed == false)
                 {
+                    _logger.Debug(() => "User does not want to check-in. Doing nothing.");
                     await connection.ReportFailureAsync(this.DidNothingResponse());
                     return;
                 }
@@ -92,8 +108,10 @@ namespace CTime2.VoiceCommandService
                 timeState = TimeState.Entered;
             }
 
+            _logger.Debug(() => "Saving the timer.");
             await cTimeService.SaveTimer(sessionStateService.CurrentUser.Id, DateTime.Now, sessionStateService.CompanyId, timeState);
 
+            _logger.Debug(() => "Finished voice command.");
             await connection.ReportSuccessAsync(this.FinishedResponse(timeState));
         }
 
