@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Caliburn.Micro;
+using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
@@ -11,36 +13,25 @@ using CTime2.Strings;
 
 namespace CTime2.Views.StampTime
 {
-    public class StampTimeViewModel : Screen
+    public class StampTimeViewModel : Conductor<Screen>
     {
         private readonly ICTimeService _cTimeService;
         private readonly ISessionStateService _sessionStateService;
-        private readonly IDialogService _dialogService;
         private readonly ILoadingService _loadingService;
         private readonly IExceptionHandler _exceptionHandler;
 
-        private bool _canCheckIn;
-        private bool _canCheckOut;
+        private string _statusMessage;
 
-
-        public bool CanCheckIn
+        public string StatusMessage
         {
-            get { return this._canCheckIn; }
-            set { this.SetProperty(ref this._canCheckIn, value); }
+            get { return this._statusMessage; }
+            set { this.SetProperty(ref this._statusMessage, value); }
         }
 
-        public bool CanCheckOut
-        {
-            get { return this._canCheckOut; }
-            set { this.SetProperty(ref this._canCheckOut, value); }
-        }
-
-
-        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, IDialogService dialogService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
+        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
-            this._dialogService = dialogService;
             this._loadingService = loadingService;
             this._exceptionHandler = exceptionHandler;
 
@@ -49,63 +40,47 @@ namespace CTime2.Views.StampTime
 
         protected override async void OnActivate()
         {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.CurrentState")))
+            await this.RefreshCurrentState();
+        }
+
+        public async Task RefreshCurrentState()
+        {
+            using (this._loadingService.Show("Lade..."))
             {
                 try
                 {
                     var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-                    var isCheckedIn = currentTime != null && currentTime.State.IsEntered();
 
-                    this.CanCheckIn = isCheckedIn == false;
-                    this.CanCheckOut = isCheckedIn;
+                    string statusMessage;
+                    Screen currentState;
+
+                    if (currentTime == null || currentTime.State.IsLeft())
+                    {
+                        statusMessage = "Sie sind aktuell ausgestempelt.";
+                        currentState = IoC.Get<CheckedOutViewModel>();
                 }
-                catch (Exception exception)
+                    else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
                 {
-                    await this._exceptionHandler.HandleAsync(exception);
+                        statusMessage = "Sie sind aktuell eingestempelt (Reise).";
+                        currentState = IoC.Get<TripCheckedInViewModel>();
                 }
-            }
+                    else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
+                    {
+                        statusMessage = "Sie sind aktuell eingestempelt (Home-Office).";
+                        currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
+        }
+                    else if (currentTime.State.IsEntered())
+                {
+                        statusMessage = "Sie sind aktuell eingestempelt.";
+                        currentState = IoC.Get<CheckedInViewModel>();
+                }
+                    else
+                {
+                        throw new CTimeException("Could not determine the current state.");
         }
 
-        public async void CheckIn()
-        {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.CheckIn")))
-            {
-                try
-                {
-                    await this._cTimeService.SaveTimer(
-                        this._sessionStateService.CurrentUser.Id,
-                        DateTime.Now,
-                        this._sessionStateService.CompanyId,
-                        TimeState.Entered);
-
-                    await this._dialogService.ShowAsync(CTime2Resources.GetFormatted("StampTime.CheckInMessage", this._sessionStateService.CurrentUser.FirstName));
-
-                    this.CanCheckIn = false;
-                    this.CanCheckOut = true;
-                }
-                catch (Exception exception)
-                {
-                    await this._exceptionHandler.HandleAsync(exception);
-                }
-            }
-        }
-
-        public async void CheckOut()
-        {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.CheckOut")))
-            {
-                try
-                {
-                    await this._cTimeService.SaveTimer(
-                        this._sessionStateService.CurrentUser.Id,
-                        DateTime.Now,
-                        this._sessionStateService.CompanyId,
-                        TimeState.Left);
-
-                    await this._dialogService.ShowAsync(CTime2Resources.GetFormatted("StampTime.CheckOutMessage", this._sessionStateService.CurrentUser.FirstName));
-
-                    this.CanCheckIn = true;
-                    this.CanCheckOut = false;
+                    this.StatusMessage = statusMessage;
+                    this.ActivateItem(currentState);
                 }
                 catch (Exception exception)
                 {
