@@ -12,5 +12,9 @@ namespace CTime2.Common
         public static Symbol Login => (Symbol)60002;
         public static Symbol AttendanceList => (Symbol)57637;
         public static Symbol Statistics => (Symbol)59644;
+        public static Symbol HomeOffice => (Symbol)57615;
+        public static Symbol Trip => (Symbol)57640;
+        public static Symbol Stamp => (Symbol)57716;
+        public static Symbol Pause => (Symbol)59667;
     }
 }

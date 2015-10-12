@@ -58,26 +58,26 @@ namespace CTime2.Views.StampTime
                     {
                         statusMessage = "Sie sind aktuell ausgestempelt.";
                         currentState = IoC.Get<CheckedOutViewModel>();
-                }
+                    }
                     else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
-                {
+                    {
                         statusMessage = "Sie sind aktuell eingestempelt (Reise).";
                         currentState = IoC.Get<TripCheckedInViewModel>();
-                }
+                    }
                     else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
                     {
                         statusMessage = "Sie sind aktuell eingestempelt (Home-Office).";
                         currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
-        }
+                    }
                     else if (currentTime.State.IsEntered())
-                {
+                    {
                         statusMessage = "Sie sind aktuell eingestempelt.";
                         currentState = IoC.Get<CheckedInViewModel>();
-                }
+                    }
                     else
-                {
+                    {
                         throw new CTimeException("Could not determine the current state.");
-        }
+                    }
 
                     this.StatusMessage = statusMessage;
                     this.ActivateItem(currentState);

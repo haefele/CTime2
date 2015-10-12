@@ -132,12 +132,6 @@
   <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
     <value>Anwesend</value>
   </data>
-  <data name="CheckInButton.Content" xml:space="preserve">
-    <value>Einstempeln</value>
-  </data>
-  <data name="CheckOutButton.Content" xml:space="preserve">
-    <value>Ausstempeln</value>
-  </data>
   <data name="CompanyIdTextBox.Header" xml:space="preserve">
     <value>Firmen ID</value>
   </data>
@@ -179,6 +173,9 @@
   </data>
   <data name="Loading.LoggingIn" xml:space="preserve">
     <value>Melde an...</value>
+  </data>
+  <data name="Loading.Pause" xml:space="preserve">
+    <value>Stemple Pause...</value>
   </data>
   <data name="Loading.Statistics" xml:space="preserve">
     <value>Lade Statistiken...</value>
@@ -224,12 +221,6 @@
   </data>
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>
-  </data>
-  <data name="StampTime.CheckInMessage" xml:space="preserve">
-    <value>Hallo {0}. Deine Zeit wurde gebucht!</value>
-  </data>
-  <data name="StampTime.CheckOutMessage" xml:space="preserve">
-    <value>Hallo {0}. Deine Zeit wurde gebucht!</value>
   </data>
   <data name="StartDateAppBarButton.Label" xml:space="preserve">
     <value>Startdatum</value>

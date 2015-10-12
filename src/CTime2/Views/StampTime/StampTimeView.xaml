@@ -20,9 +20,11 @@
                    Margin="20"
                    HorizontalAlignment="Center"
                    />
-
+        
         <ContentControl micro:View.Model="{Binding ActiveItem}"
-                Grid.Row="1"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Grid.Row="1"
                         />
         
     </Grid>

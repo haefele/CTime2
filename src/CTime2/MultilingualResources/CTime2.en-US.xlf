@@ -26,14 +26,6 @@
           <source>Anwesend</source>
           <target state="translated" state-qualifier="tm-suggestion">Present</target>
         </trans-unit>
-        <trans-unit id="CheckInButton.Content" translate="yes" xml:space="preserve">
-          <source>Einstempeln</source>
-          <target state="translated" state-qualifier="tm-suggestion">Clock-in</target>
-        </trans-unit>
-        <trans-unit id="CheckOutButton.Content" translate="yes" xml:space="preserve">
-          <source>Ausstempeln</source>
-          <target state="translated" state-qualifier="tm-suggestion">Clock-out</target>
-        </trans-unit>
         <trans-unit id="CompanyIdTextBox.Header" translate="yes" xml:space="preserve">
           <source>Firmen ID</source>
           <target state="translated">Company ID</target>
@@ -65,15 +57,6 @@
         <trans-unit id="Loading.AttendanceList" translate="yes" xml:space="preserve">
           <source>Lade Anwesenheitsliste...</source>
           <target state="translated" state-qualifier="mt-suggestion">Loading attendance list...</target>
-        </trans-unit>
-        <trans-unit id="Loading.CheckIn" translate="yes" xml:space="preserve">
-          <source>Einstempeln...</source>
-          <target state="translated">Clock-in...
-</target>
-        </trans-unit>
-        <trans-unit id="Loading.CheckOut" translate="yes" xml:space="preserve">
-          <source>Ausstempeln...</source>
-          <target state="translated">Clock-out...</target>
         </trans-unit>
         <trans-unit id="Loading.CurrentState" translate="yes" xml:space="preserve">
           <source>Lade Status...</source>
@@ -143,14 +126,6 @@
           <source>Passwort</source>
           <target state="translated" state-qualifier="tm-suggestion">Password</target>
         </trans-unit>
-        <trans-unit id="StampTime.CheckInMessage" translate="yes" xml:space="preserve">
-          <source>Hallo {0}. Deine Zeit wurde gebucht!</source>
-          <target state="translated">Hello {0}. Your time has been booked!</target>
-        </trans-unit>
-        <trans-unit id="StampTime.CheckOutMessage" translate="yes" xml:space="preserve">
-          <source>Hallo {0}. Deine Zeit wurde gebucht!</source>
-          <target state="translated">Hello {0}. Your time has been booked!</target>
-        </trans-unit>
         <trans-unit id="StartDateAppBarButton.Label" translate="yes" xml:space="preserve">
           <source>Startdatum</source>
           <target state="translated">Start date</target>
@@ -202,6 +177,18 @@
         <trans-unit id="ExceptionHandler.ErrorTitle" translate="yes" xml:space="preserve">
           <source>Fehler</source>
           <target state="translated">Error</target>
+        </trans-unit>
+        <trans-unit id="Loading.CheckIn" translate="yes" xml:space="preserve">
+          <source>Einstempeln...</source>
+          <target state="translated">Checking-in...</target>
+        </trans-unit>
+        <trans-unit id="Loading.CheckOut" translate="yes" xml:space="preserve">
+          <source>Ausstempeln...</source>
+          <target state="translated">Checking-out...</target>
+        </trans-unit>
+        <trans-unit id="Loading.Pause" translate="yes" xml:space="preserve">
+          <source>Stemple Pause...</source>
+          <target state="translated">Break...</target>
         </trans-unit>
       </group>
     </body>

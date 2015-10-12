@@ -27,12 +27,6 @@
   <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
     <value>Present</value>
   </data>
-  <data name="CheckInButton.Content" xml:space="preserve">
-    <value>Clock-in</value>
-  </data>
-  <data name="CheckOutButton.Content" xml:space="preserve">
-    <value>Clock-out</value>
-  </data>
   <data name="CompanyIdTextBox.Header" xml:space="preserve">
     <value>Company ID</value>
   </data>
@@ -56,13 +50,6 @@
   </data>
   <data name="Loading.AttendanceList" xml:space="preserve">
     <value>Loading attendance list...</value>
-  </data>
-  <data name="Loading.CheckIn" xml:space="preserve">
-    <value>Clock-in...
-</value>
-  </data>
-  <data name="Loading.CheckOut" xml:space="preserve">
-    <value>Clock-out...</value>
   </data>
   <data name="Loading.CurrentState" xml:space="preserve">
     <value>Loading status...</value>
@@ -115,12 +102,6 @@
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="StampTime.CheckInMessage" xml:space="preserve">
-    <value>Hello {0}. Your time has been booked!</value>
-  </data>
-  <data name="StampTime.CheckOutMessage" xml:space="preserve">
-    <value>Hello {0}. Your time has been booked!</value>
-  </data>
   <data name="StartDateAppBarButton.Label" xml:space="preserve">
     <value>Start date</value>
   </data>
@@ -159,5 +140,14 @@
   </data>
   <data name="ExceptionHandler.ErrorTitle" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="Loading.CheckIn" xml:space="preserve">
+    <value>Checking-in...</value>
+  </data>
+  <data name="Loading.CheckOut" xml:space="preserve">
+    <value>Checking-out...</value>
+  </data>
+  <data name="Loading.Pause" xml:space="preserve">
+    <value>Break...</value>
   </data>
 </root>
