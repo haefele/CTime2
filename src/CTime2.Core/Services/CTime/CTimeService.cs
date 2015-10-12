@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.Web.Http;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Logging;
 using CTime2.Core.Strings;
 using Newtonsoft.Json.Linq;
 
@@ -13,6 +14,8 @@ namespace CTime2.Core.Services.CTime
 {
     public class CTimeService : ICTimeService
     {
+        private static readonly Logger Logger = LoggerFactory.GetLogger<CTimeService>();
+
         public async Task<User> Login(string companyId, string emailAddress, string password)
         {
             try
@@ -59,6 +62,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
+                Logger.Error(exception, $"Exception in method {nameof(this.Login)}. CompanyId: {companyId}, Email address: {emailAddress}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLogin") , exception);
             }
         }
@@ -105,6 +109,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
+                Logger.Error(exception, $"Exception in method {nameof(this.GetTimes)}. Employee: {employeeGuid}, Start: {start}, End: {end}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingTimes"), exception);
             }
         }
@@ -139,6 +144,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
+                Logger.Error(exception, $"Exception in method {nameof(this.SaveTimer)}. Employee: {employeeGuid}, Time: {time}, Company Id: {companyId}, State: {(int)state}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"), exception);
             }
         }
@@ -164,6 +170,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
+                Logger.Error(exception, $"Exception in method {nameof(this.GetCurrentTime)}. Employee: {employeeGuid}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingCurrentTime"), exception);
             }
         }
@@ -207,6 +214,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
+                Logger.Error(exception, $"Exception in method {nameof(this.GetAttendingUsers)}. Company Id: {companyId}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }
         }
