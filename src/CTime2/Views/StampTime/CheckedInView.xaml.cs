@@ -2,7 +2,7 @@
 {
     public sealed partial class CheckedInView
     {
-        public CheckedInViewModel ViewModel => this.DataContext as CheckedInViewModel;
+        public CheckedInViewModel TimeStateViewModel => this.DataContext as CheckedInViewModel;
 
         public CheckedInView()
         {

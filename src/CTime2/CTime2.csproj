@@ -171,6 +171,7 @@
       <DependentUpon>CheckedInView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StampTime\CheckedInViewModel.cs" />
+    <Compile Include="Views\StampTime\StampTimeStateViewModelBase.cs" />
     <Compile Include="Views\StampTime\CheckedOutView.xaml.cs">
       <DependentUpon>CheckedOutView.xaml</DependentUpon>
     </Compile>
