@@ -150,4 +150,36 @@
   <data name="Loading.Pause" xml:space="preserve">
     <value>Break...</value>
   </data>
+  <data name="CheckOutTextBlock.Text" xml:space="preserve">
+    <value>
+Checkout</value>
+  </data>
+  <data name="PauseTextBlock.Text" xml:space="preserve">
+    <value>
+Break</value>
+  </data>
+  <data name="CheckInTextBlock.Text" xml:space="preserve">
+    <value>
+Checkin</value>
+  </data>
+  <data name="HomeOfficeCheckInTextBlock.Text" xml:space="preserve">
+    <value>Checkin
+Home-Office</value>
+  </data>
+  <data name="TripCheckInTextBlock.Text" xml:space="preserve">
+    <value>Checkin
+Trip</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedIn" xml:space="preserve">
+    <value>You are currently checked in.</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedInHomeOffice" xml:space="preserve">
+    <value>You are currently checked in (Home-Office).</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedInTrip" xml:space="preserve">
+    <value>You are currently checked in (Reise).</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedOut" xml:space="preserve">
+    <value>You are currently checked out.</value>
+  </data>
 </root>

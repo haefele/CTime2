@@ -32,7 +32,7 @@
                 Click="{x:Bind TimeStateViewModel.CheckOut}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=HomeOffice}" />
-                <TextBlock Text="&#13;&#10;Ausstempeln" />
+                <TextBlock x:Uid="CheckOutTextBlock" Text="&#13;&#10;~Ausstempeln" />
             </StackPanel>
         </Button>
 
@@ -43,7 +43,7 @@
                 Click="{x:Bind TimeStateViewModel.Pause}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Pause}" />
-                <TextBlock Text="&#13;&#10;Pause" />
+                <TextBlock x:Uid="PauseTextBlock" Text="&#13;&#10;~Pause" />
             </StackPanel>
         </Button>
     </Grid>

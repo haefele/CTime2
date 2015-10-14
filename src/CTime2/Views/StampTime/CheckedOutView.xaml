@@ -31,7 +31,7 @@
                 Click="{x:Bind TimeStateViewModel.CheckIn}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}" />
-                <TextBlock Text="&#13;&#10;Einstempeln" />
+                <TextBlock x:Uid="CheckInTextBlock" Text="&#13;&#10;~Einstempeln" />
             </StackPanel>
         </Button>
         
@@ -42,7 +42,7 @@
                 Click="{x:Bind TimeStateViewModel.CheckInHomeOffice}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=HomeOffice}" />
-                <TextBlock Text="Home-Office&#13;&#10;Einstempeln" TextAlignment="Center" />
+                <TextBlock x:Uid="HomeOfficeCheckInTextBlock" Text="~Home-Office&#13;&#10;Einstempeln" TextAlignment="Center" />
             </StackPanel>
         </Button>
         
@@ -53,7 +53,7 @@
                 Click="{x:Bind TimeStateViewModel.CheckInTrip}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Trip}" />
-                <TextBlock Text="Reise&#13;&#10;Einstempeln" TextAlignment="Center" />
+                <TextBlock x:Uid="TripCheckInTextBlock" Text="~Reise&#13;&#10;Einstempeln" TextAlignment="Center" />
             </StackPanel>
         </Button>
     </Grid>

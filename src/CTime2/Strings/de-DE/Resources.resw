@@ -132,6 +132,14 @@
   <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
     <value>Anwesend</value>
   </data>
+  <data name="CheckInTextBlock.Text" xml:space="preserve">
+    <value>
+Einstempeln</value>
+  </data>
+  <data name="CheckOutTextBlock.Text" xml:space="preserve">
+    <value>
+Ausstempeln</value>
+  </data>
   <data name="CompanyIdTextBox.Header" xml:space="preserve">
     <value>Firmen ID</value>
   </data>
@@ -152,6 +160,10 @@
   </data>
   <data name="ExceptionHandler.ErrorTitle" xml:space="preserve">
     <value>Fehler</value>
+  </data>
+  <data name="HomeOfficeCheckInTextBlock.Text" xml:space="preserve">
+    <value>Home-Office
+Einstempeln</value>
   </data>
   <data name="LastMonthAppBarButton.Label" xml:space="preserve">
     <value>Letzter Monat</value>
@@ -222,6 +234,22 @@
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>
   </data>
+  <data name="PauseTextBlock.Text" xml:space="preserve">
+    <value>
+Pause</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedIn" xml:space="preserve">
+    <value>Sie sind aktuell eingestempelt.</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedInHomeOffice" xml:space="preserve">
+    <value>Sie sind aktuell eingestempelt (Home-Office).</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedInTrip" xml:space="preserve">
+    <value>Sie sind aktuell eingestempelt (Reise).</value>
+  </data>
+  <data name="StampTime.CurrentlyCheckedOut" xml:space="preserve">
+    <value>Sie sind aktuell ausgestempelt.</value>
+  </data>
   <data name="StartDateAppBarButton.Label" xml:space="preserve">
     <value>Startdatum</value>
   </data>
@@ -248,6 +276,10 @@
   </data>
   <data name="Statistics.TotalWorkTimeFormat" xml:space="preserve">
     <value>d\ \T\a\g\e\ hh\:mm\:ss</value>
+  </data>
+  <data name="TripCheckInTextBlock.Text" xml:space="preserve">
+    <value>Reise
+Einstempeln</value>
   </data>
   <data name="UsedSoftwareButton.Content" xml:space="preserve">
     <value>Benutzte Software</value>

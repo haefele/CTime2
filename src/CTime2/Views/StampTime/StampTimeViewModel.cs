@@ -6,7 +6,6 @@ using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using CTime2.Extensions;
-using CTime2.Services.Dialog;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 using CTime2.Strings;
@@ -45,7 +44,7 @@ namespace CTime2.Views.StampTime
 
         public async Task RefreshCurrentState()
         {
-            using (this._loadingService.Show("Lade..."))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.CurrentState")))
             {
                 try
                 {
@@ -56,22 +55,22 @@ namespace CTime2.Views.StampTime
 
                     if (currentTime == null || currentTime.State.IsLeft())
                     {
-                        statusMessage = "Sie sind aktuell ausgestempelt.";
+                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedOut");
                         currentState = IoC.Get<CheckedOutViewModel>();
                     }
                     else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
                     {
-                        statusMessage = "Sie sind aktuell eingestempelt (Reise).";
+                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedInTrip");
                         currentState = IoC.Get<TripCheckedInViewModel>();
                     }
                     else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
                     {
-                        statusMessage = "Sie sind aktuell eingestempelt (Home-Office).";
+                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedInHomeOffice");
                         currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
                     }
                     else if (currentTime.State.IsEntered())
                     {
-                        statusMessage = "Sie sind aktuell eingestempelt.";
+                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedIn");
                         currentState = IoC.Get<CheckedInViewModel>();
                     }
                     else
