@@ -107,7 +107,23 @@ namespace CTime2.VoiceCommandService
 
                 timeState = TimeState.Entered;
             }
+            
+            if (timeState.IsLeft())
+            {
+                _logger.Debug(() => "User is checking out. Updating the TimeState to make him check out what he previously checked in (Normal, Trip or Home-Office).");
+                if (currentTime.State.IsTrip())
+                { 
+                    _logger.Debug(() => "User checked-in a trip. Update the TimeState to make him check out a trip.");
+                    timeState = timeState | TimeState.Trip;
+                }
 
+                if (currentTime.State.IsHomeOffice())
+                {
+                    _logger.Debug(() => "User checked-in home-office. Update the TimeState to make him check out home-office.");
+                    timeState = timeState | TimeState.HomeOffice;
+                }
+            }
+            
             _logger.Debug(() => "Saving the timer.");
             await cTimeService.SaveTimer(sessionStateService.CurrentUser.Id, DateTime.Now, sessionStateService.CompanyId, timeState);
 
