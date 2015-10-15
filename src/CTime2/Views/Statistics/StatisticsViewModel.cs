@@ -122,8 +122,8 @@ namespace CTime2.Views.Statistics
 
                     this.Statistics.Clear();
 
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.ToString("T")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.ToString("T")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T")));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.TrimMilliseconds().ToString("T")));
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToDateTime().ToString("T")));
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")));
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()));

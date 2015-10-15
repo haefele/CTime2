@@ -8,5 +8,10 @@ namespace CTime2.Extensions
         {
             return new DateTime(1, 1, 1).Add(self);
         }
+
+        public static TimeSpan TrimMilliseconds(this TimeSpan self)
+        {
+            return self.Add(TimeSpan.FromMilliseconds(-self.Milliseconds));
+        }
     }
 }
