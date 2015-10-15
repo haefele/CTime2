@@ -76,7 +76,6 @@ namespace CTime2
                 .PerRequest<StatisticsViewModel>()
                 .PerRequest<LicensesListViewModel>()
                 .PerRequest<LicenseViewModel>()
-                .PerRequest<StatisticsViewModel>()
                 .PerRequest<CheckedInViewModel>()
                 .PerRequest<CheckedOutViewModel>()
                 .PerRequest<HomeOfficeCheckedInViewModel>()
