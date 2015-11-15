@@ -5,6 +5,7 @@ using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
+using CTime2.Events;
 using CTime2.Extensions;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
@@ -12,7 +13,7 @@ using CTime2.Strings;
 
 namespace CTime2.Views.StampTime
 {
-    public class StampTimeViewModel : Conductor<Screen>
+    public class StampTimeViewModel : Conductor<Screen>, IHandleWithTask<ApplicationResumedEvent>
     {
         private readonly ICTimeService _cTimeService;
         private readonly ISessionStateService _sessionStateService;
@@ -86,6 +87,11 @@ namespace CTime2.Views.StampTime
                     await this._exceptionHandler.HandleAsync(exception);
                 }
             }
+        }
+
+        public Task Handle(ApplicationResumedEvent message)
+        {
+            return this.RefreshCurrentState();
         }
     }
 }
