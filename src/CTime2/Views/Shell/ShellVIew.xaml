@@ -61,6 +61,7 @@
 
         <SplitView x:Name="Navigation"
                    IsPaneOpen="False"
+                   DisplayMode="CompactOverlay"
                    Grid.Row="1">
             <SplitView.Pane>
                 <Grid>
