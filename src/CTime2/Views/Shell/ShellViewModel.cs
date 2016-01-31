@@ -1,4 +1,7 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
+using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using CTime2.Common;
 using CTime2.Core.Services.Band;
@@ -53,16 +56,6 @@ namespace CTime2.Views.Shell
             {
                 var bandService = IoC.Get<IBandService>();
                 await bandService.RegisterBandTileAsync();
-
-                bandService.CheckInPressed += async (sender, args) =>
-                {
-                    await bandService.ShowMessage("c-time 2", "Checked In!");
-                };
-                bandService.CheckOutPressed += async (sender, args) =>
-                {
-                    await bandService.ShowMessage("c-time 2", "Checked Out!");
-                };
-
                 await bandService.StartListeningForEvents();
             }
         }

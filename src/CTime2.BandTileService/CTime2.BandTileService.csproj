@@ -111,6 +111,12 @@
     <Compile Include="CTime2BandTileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CTime2.Core\CTime2.Core.csproj">
+      <Project>{76AD71F3-CEE3-4714-B88F-FEA50A787887}</Project>
+      <Name>CTime2.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

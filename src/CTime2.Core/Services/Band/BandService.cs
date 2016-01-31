@@ -1,6 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
+using Windows.Devices.Bluetooth.Rfcomm;
+using Windows.Devices.Enumeration;
 using Windows.UI.Xaml.Media.Imaging;
+using CTime2.Core.Data;
+using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.SessionState;
 using Microsoft.Band;
 using Microsoft.Band.Notifications;
 using Microsoft.Band.Tiles;
@@ -10,7 +17,16 @@ namespace CTime2.Core.Services.Band
 {
     public class BandService : IBandService
     {
+        private readonly ISessionStateService _sessionStateService;
+        private readonly ICTimeService _cTimeService;
+        private IBandInfo _bandInfo;
         private IBandClient _client;
+
+        public BandService(ISessionStateService sessionStateService, ICTimeService cTimeService)
+        {
+            this._sessionStateService = sessionStateService;
+            this._cTimeService = cTimeService;
+        }
 
         public async Task RegisterBandTileAsync()
         {
@@ -36,34 +52,24 @@ namespace CTime2.Core.Services.Band
         {
             await this.InitializeAsync();
 
-            this._client.TileManager.TileButtonPressed += (sender, args) =>
+            this._client.TileManager.TileButtonPressed += async (sender, args) =>
             {
                 if (args.TileEvent.TileId == BandConstants.TileId)
                 {
                     if (args.TileEvent.ElementId == BandConstants.CheckInElementId)
                     {
-                        this.CheckInPressed?.Invoke(this, EventArgs.Empty);
+                        await this.Stamp(TimeState.Entered);
                     }
                     if (args.TileEvent.ElementId == BandConstants.CheckOutElementId)
                     {
-                        this.CheckOutPressed?.Invoke(this, EventArgs.Empty);
+                        await this.Stamp(TimeState.Left);
                     }
                 }
             };
 
             await this._client.TileManager.StartReadingsAsync();
         }
-
-        public async Task ShowMessage(string title, string message)
-        {
-            await this.InitializeAsync();
-            
-            await this._client.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, message);
-        }
         
-        public event EventHandler CheckInPressed;
-        public event EventHandler CheckOutPressed;
-
         private PageLayout CreatePageLayout()
         {
             var header = new TextBlock
@@ -107,10 +113,11 @@ namespace CTime2.Core.Services.Band
             if (this._client == null)
             {
                 var bandInfos = await BandClientManager.Instance.GetBandsAsync();
-                this._client = await BandClientManager.Instance.ConnectAsync(bandInfos[0]);
+                this._bandInfo = bandInfos[0];
+                this._client = await BandClientManager.Instance.ConnectAsync(this._bandInfo);
             }
         }
-
+        
         private async Task RemoveExistingTileAsync()
         {
             await this.InitializeAsync();
@@ -121,6 +128,57 @@ namespace CTime2.Core.Services.Band
                 if (tileToRemove.TileId == BandConstants.TileId)
                     await this._client.TileManager.RemoveTileAsync(tileToRemove);
             }
+        }
+
+        private async Task Stamp(TimeState timeState)
+        {
+            if (this._sessionStateService.CurrentUser == null)
+            {
+                await this.ShowMessage("Ups", "Nicht eingeloggt.");
+                return;
+            }
+            
+            var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+            bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+
+            if (checkedIn && timeState.IsEntered())
+            {
+                await this.ShowMessage("Ups", "Bereits eingestempelt.");
+                return;
+            }
+
+            if (checkedIn == false && timeState.IsLeft())
+            {
+                await this.ShowMessage("Ups", "Bereits ausgestempelt.");
+                return;
+            }
+
+            if (timeState.IsLeft())
+            {
+                if (currentTime.State.IsTrip())
+                {
+                    timeState = timeState | TimeState.Trip;
+                }
+
+                if (currentTime.State.IsHomeOffice())
+                {
+                    timeState = timeState | TimeState.HomeOffice;
+                }
+            }
+            
+            //await this._cTimeService.SaveTimer(
+            //    this._sessionStateService.CurrentUser.Id, 
+            //    DateTime.Now, 
+            //    this._sessionStateService.CompanyId, 
+            //    timeState);
+
+            await this.ShowMessage("Yeah", "Erfolgreich gestempelt.");
+        }
+        private async Task ShowMessage(string title, string message)
+        {
+            await this.InitializeAsync();
+
+            await this._client.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, message);
         }
     }
 }
