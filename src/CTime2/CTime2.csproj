@@ -116,6 +116,7 @@
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Services\Navigation\CTimeNavigationService.cs" />
     <Compile Include="Events\ApplicationResumedEvent.cs" />

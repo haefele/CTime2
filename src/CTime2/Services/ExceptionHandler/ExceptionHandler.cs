@@ -20,7 +20,7 @@ namespace CTime2.Services.ExceptionHandler
         {
             if (exception is CTimeException)
             {
-                await this._dialogService.ShowAsync(exception.Message, CTime2Resources.Get("ExceptionHandler.ErrorTitle"));
+                await this._dialogService.ShowAsync(exception.GetFullMessage(), CTime2Resources.Get("ExceptionHandler.ErrorTitle"));
             }
             else
             {

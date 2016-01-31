@@ -19,7 +19,7 @@
     <value>An error occurred while loading the current time.</value>
   </data>
   <data name="CTimeService.ErrorWhileLoadingTimes" xml:space="preserve">
-    <value>An error occurred while loading the times</value>
+    <value>An error occurred while loading the times.</value>
   </data>
   <data name="CTimeService.ErrorWhileLogin" xml:space="preserve">
     <value>An error occurred when logging on.</value>

@@ -124,7 +124,7 @@
     <value>Beim Laden der aktuellen Zeit ist ein Fehler aufgetreten.</value>
   </data>
   <data name="CTimeService.ErrorWhileLoadingTimes" xml:space="preserve">
-    <value>Beim Laden der Zeiten ist ein Fehler aufgetreten</value>
+    <value>Beim Laden der Zeiten ist ein Fehler aufgetreten.</value>
   </data>
   <data name="CTimeService.ErrorWhileLogin" xml:space="preserve">
     <value>Beim Anmelden ist ein Fehler aufgetreten.</value>
