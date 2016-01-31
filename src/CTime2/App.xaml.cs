@@ -11,6 +11,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
 using CTime2.Core.Logging;
+using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Licenses;
 using CTime2.Core.Services.SessionState;
@@ -93,7 +94,8 @@ namespace CTime2
                 .Singleton<ISessionStateService, SessionStateService>()
                 .Singleton<IDialogService, DialogService>()
                 .Singleton<IExceptionHandler, ExceptionHandler>()
-                .Singleton<ILicensesService, LicensesService>();
+                .Singleton<ILicensesService, LicensesService>()
+                .Singleton<IBandService, BandService>();
         }
 
         private void ConfigureCaliburnMicro()
