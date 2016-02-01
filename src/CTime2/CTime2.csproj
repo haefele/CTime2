@@ -113,6 +113,7 @@
       <DependentUpon>UserImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\BooleanNegationConverter.cs" />
+    <Compile Include="Converter\BooleanToNullableBooleanConverter.cs" />
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
@@ -144,6 +145,10 @@
     </Compile>
     <Compile Include="Views\AttendanceList\AttendanceListViewModel.cs" />
     <Compile Include="Views\AttendanceList\AttendingUserByIsAttending.cs" />
+    <Compile Include="Views\Band\BandView.xaml.cs">
+      <DependentUpon>BandView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Band\BandViewModel.cs" />
     <Compile Include="Views\Licenses\LicensesListView.xaml.cs">
       <DependentUpon>LicensesListView.xaml</DependentUpon>
     </Compile>
@@ -243,6 +248,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Band\BandView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Licenses\LicensesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,6 +302,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CTime2.BandTileService\CTime2.BandTileService.csproj">
+      <Project>{a9089ecd-6a3a-40ab-bd4d-b1e5eba753f3}</Project>
+      <Name>CTime2.BandTileService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CTime2.Core\CTime2.Core.csproj">
       <Project>{76ad71f3-cee3-4714-b88f-fea50a787887}</Project>
       <Name>CTime2.Core</Name>

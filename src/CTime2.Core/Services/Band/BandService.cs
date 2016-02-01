@@ -91,7 +91,7 @@ namespace CTime2.Core.Services.Band
                 builder.Register();
 
                 var bandDeviceId = await this.FindBandDeviceIdAsync();
-                var triggerResult = await trigger.RequestAsync(bandDeviceId);
+                var triggerResult = trigger.RequestAsync(bandDeviceId).GetAwaiter().GetResult();
 
                 switch (triggerResult)
                 {
@@ -118,7 +118,7 @@ namespace CTime2.Core.Services.Band
         }
 
 
-        public async Task<IDisposable> ListenForEventsAsync(Action onCheckIn, Action onCheckOut)
+        public async Task<IDisposable> ListenForEventsAsync(Action<IBandClient> onCheckIn, Action<IBandClient> onCheckOut)
         {
             var client = await this.GetClientAsync();
 
@@ -128,11 +128,11 @@ namespace CTime2.Core.Services.Band
                 {
                     if (args.TileEvent.ElementId == BandConstants.CheckInElementId)
                     {
-                        onCheckIn();
+                        onCheckIn(client);
                     }
                     if (args.TileEvent.ElementId == BandConstants.CheckOutElementId)
                     {
-                        onCheckOut();
+                        onCheckOut(client);
                     }
                 }
             };

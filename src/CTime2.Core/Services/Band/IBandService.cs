@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Band;
 
 namespace CTime2.Core.Services.Band
 {
@@ -15,6 +16,6 @@ namespace CTime2.Core.Services.Band
         Task ConnectWithBandAsync();
         Task DisconnectFromBandAsync();
 
-        Task<IDisposable> ListenForEventsAsync(Action onCheckIn, Action onCheckOut);
+        Task<IDisposable> ListenForEventsAsync(Action<IBandClient> onCheckIn, Action<IBandClient> onCheckOut);
     }
 }

@@ -5,6 +5,7 @@ using CTime2.Core.Services.SessionState;
 using CTime2.Services.Navigation;
 using CTime2.Strings;
 using CTime2.Views.AttendanceList;
+using CTime2.Views.Band;
 using CTime2.Views.Overview;
 using CTime2.Views.Shell;
 using CTime2.Views.StampTime;
@@ -24,6 +25,7 @@ namespace CTime2.States
         private readonly NavigationItemViewModel _attendanceListNavigationItem;
         private readonly NavigationItemViewModel _logoutNavigationItem;
         private readonly NavigationItemViewModel _statisticsItem;
+        private readonly NavigationItemViewModel _bandItem;
 
         public LoggedInApplicationState(ICTimeNavigationService navigationService, ISessionStateService sessionStateService)
         {
@@ -36,6 +38,7 @@ namespace CTime2.States
             this._attendanceListNavigationItem = new NavigationItemViewModel(this.AttendanceList, CTime2Resources.Get("Navigation.AttendanceList"), SymbolEx.AttendanceList);
             this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, CTime2Resources.Get("Navigation.Logout"), SymbolEx.Logout);
             this._statisticsItem = new NavigationItemViewModel(this.Statistics, CTime2Resources.Get("Navigation.Statistics"), SymbolEx.Statistics);
+            this._bandItem = new NavigationItemViewModel(this.Band, "Band", Symbol.Home);
         }
 
         public override void Enter()
@@ -46,6 +49,7 @@ namespace CTime2.States
             this.Application.Actions.Add(this._attendanceListNavigationItem);
             this.Application.SecondaryActions.Add(this._logoutNavigationItem);
             this.Application.Actions.Add(this._statisticsItem);
+            this.Application.Actions.Add(this._bandItem);
 
             this.Overview();
         }
@@ -58,6 +62,7 @@ namespace CTime2.States
             this.Application.Actions.Remove(this._attendanceListNavigationItem);
             this.Application.SecondaryActions.Remove(this._logoutNavigationItem);
             this.Application.Actions.Remove(this._statisticsItem);
+            this.Application.Actions.Remove(this._bandItem);
         }
 
         private void Overview()
@@ -99,6 +104,13 @@ namespace CTime2.States
         {
             this._navigationService
                 .For<StatisticsViewModel>()
+                .Navigate();
+        }
+
+        private void Band()
+        {
+            this._navigationService
+                .For<BandViewModel>()
                 .Navigate();
         }
     }

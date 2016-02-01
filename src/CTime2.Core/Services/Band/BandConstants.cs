@@ -10,6 +10,6 @@ namespace CTime2.Core.Services.Band
         public static readonly short CheckOutElementId = 3;
 
         public static readonly string BackgroundTaskId = "CTime2/BackgroundTask/BandIntegration";
-        public static readonly string BackgroundTaskEntryPoint = "";
+        public static readonly string BackgroundTaskEntryPoint = "CTime2.BandTileService.CTime2BandTileService";
     }
 }

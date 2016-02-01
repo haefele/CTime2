@@ -23,6 +23,7 @@ using CTime2.Services.Navigation;
 using CTime2.States;
 using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
+using CTime2.Views.Band;
 using CTime2.Views.Licenses;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
@@ -80,7 +81,8 @@ namespace CTime2
                 .PerRequest<CheckedInViewModel>()
                 .PerRequest<CheckedOutViewModel>()
                 .PerRequest<HomeOfficeCheckedInViewModel>()
-                .PerRequest<TripCheckedInViewModel>();
+                .PerRequest<TripCheckedInViewModel>()
+                .PerRequest<BandViewModel>();
 
 
             //ShellStates

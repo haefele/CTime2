@@ -45,28 +45,10 @@ namespace CTime2.Views.Shell
             this.Actions = new BindableCollection<NavigationItemViewModel>();
             this.SecondaryActions = new BindableCollection<NavigationItemViewModel>
             {
-                new NavigationItemViewModel(this.Test, "Test", Symbol.Admin),
                 new NavigationItemViewModel(this.About, CTime2Resources.Get("Navigation.About"), SymbolEx.Help),
             };
         }
-
-        private async void Test()
-        {
-            using (IoC.Get<ILoadingService>().Show("Band"))
-            {
-                var bandService = IoC.Get<IBandService>();
-                await bandService.RegisterBandTileAsync();
-
-                await bandService.ListenForEventsAsync(() =>
-                {
-
-                }, () =>
-                {
-
-                });
-            }
-        }
-
+        
         private void About()
         {
             this._navigationService.For<AboutViewModel>().Navigate();

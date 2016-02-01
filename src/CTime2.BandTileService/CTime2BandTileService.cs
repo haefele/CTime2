@@ -12,6 +12,7 @@ using CTime2.Core.Logging;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
+using Microsoft.Band;
 
 namespace CTime2.BandTileService
 {
@@ -22,6 +23,8 @@ namespace CTime2.BandTileService
         #endregion
 
         private BackgroundTaskDeferral _deferral;
+        private IDisposable _disposable;
+        private IBandService _bandService;
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -31,31 +34,27 @@ namespace CTime2.BandTileService
             {
                 taskInstance.Canceled += (s, e) => this.Dispose();
 
-                var bandService = new BandService();
-                
-                bandService.CheckInPressed += async (s, e) =>
-                {
-                    await this.Stamp(bandService, TimeState.Entered);
-                };
-                bandService.CheckOutPressed += async (s, e) =>
-                {
-                    await this.Stamp(bandService, TimeState.Left);
-                };
+                this._bandService = new BandService();
 
-                await bandService.StartListeningForEvents();
+                this._disposable = await this._bandService.ListenForEventsAsync(
+                    async f => await this.Stamp(f, TimeState.Entered),
+                    async f => await this.Stamp(f, TimeState.Left));
             }
             catch (Exception exception)
             {
-                _logger.Error(exception, () => "Exception occured in the band tile service.");    
+                _logger.Error(exception, () => "Exception occured in the band tile service.");
+                this.Dispose();
             }
         }
-
-        private async Task Stamp(BandService bandService, TimeState timeState)
+        
+        private async Task Stamp(IBandClient client, TimeState timeState)
         {
+            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Oi");
         }
 
         public void Dispose()
         {
+            this._disposable.Dispose();
             this._deferral.Complete();
         }
     }
