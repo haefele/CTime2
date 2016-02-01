@@ -49,7 +49,59 @@ namespace CTime2.BandTileService
         
         private async Task Stamp(IBandClient client, TimeState timeState)
         {
-            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Oi");
+            var sessionStateService = new SessionStateService();
+            await sessionStateService.RestoreStateAsync();
+
+            if (sessionStateService.CurrentUser == null)
+            {
+                _logger.Debug(() => "User is not logged in.");
+                await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Nicht eingeloggt.");
+
+                return;
+            }
+
+            var cTimeService = new CTimeService();
+
+            var currentTime = await cTimeService.GetCurrentTime(sessionStateService.CurrentUser.Id);
+            bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+
+            if (checkedIn && timeState.IsEntered())
+            {
+                _logger.Debug(() => "User wants to check-in. But he is already. Asking him if he wants to check-out instead.");
+
+                await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits eingestempelt.");
+                return;
+            }
+
+            if (checkedIn == false && timeState.IsLeft())
+            {
+                _logger.Debug(() => "User wants to check-out. But he is already. Asking him if he wants to check-in instead.");
+
+                await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits ausgestempelt.");
+                return;
+            }
+
+            if (timeState.IsLeft())
+            {
+                _logger.Debug(() => "User is checking out. Updating the TimeState to make him check out what he previously checked in (Normal, Trip or Home-Office).");
+                if (currentTime.State.IsTrip())
+                {
+                    _logger.Debug(() => "User checked-in a trip. Update the TimeState to make him check out a trip.");
+                    timeState = timeState | TimeState.Trip;
+                }
+
+                if (currentTime.State.IsHomeOffice())
+                {
+                    _logger.Debug(() => "User checked-in home-office. Update the TimeState to make him check out home-office.");
+                    timeState = timeState | TimeState.HomeOffice;
+                }
+            }
+
+            _logger.Debug(() => "Saving the timer.");
+            await cTimeService.SaveTimer(sessionStateService.CurrentUser.Id, DateTime.Now, sessionStateService.CompanyId, timeState);
+
+            _logger.Debug(() => "Finished voice command.");
+            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Erfolgreich gestempelt.");
         }
 
         public void Dispose()

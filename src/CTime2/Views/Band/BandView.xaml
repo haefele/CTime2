@@ -5,18 +5,80 @@
     xmlns:converter="using:CTime2.Converter">
     
     <Page.Resources>
-        <converter:BooleanToNullableBooleanConverter x:Key="BooleanToNullableBooleanConverter" />
+        <Style TargetType="TextBlock" x:Key="TitleTextBLockStyle">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <converter:BooleanToObjectConverter x:Key="BoolToTileString" TrueValue="Tile entfernen" FalseValue="Tile installieren" />
+        <converter:BooleanToObjectConverter x:Key="BoolToColor">
+            <converter:BooleanToObjectConverter.TrueValue>
+                <SolidColorBrush Color="Green" />
+            </converter:BooleanToObjectConverter.TrueValue>
+            <converter:BooleanToObjectConverter.FalseValue>
+                <SolidColorBrush Color="Red" />
+            </converter:BooleanToObjectConverter.FalseValue>
+        </converter:BooleanToObjectConverter>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <CheckBox IsChecked="{x:Bind ViewModel.IsBandConnected, Mode=OneWay, Converter={StaticResource BooleanToNullableBooleanConverter}}">Band ist mit Handy verbunden</CheckBox>
-            <CheckBox IsChecked="{x:Bind ViewModel.IsBandTileInstalled, Mode=OneWay, Converter={StaticResource BooleanToNullableBooleanConverter}}">Tile installiert</CheckBox>
-            <Button Click="{x:Bind ViewModel.RegisterTileAsync}">Tile installieren</Button>
-            <Button Click="{x:Bind ViewModel.UnRegisterTileAsync}">Tile entfernen</Button>
-            <CheckBox IsChecked="{x:Bind ViewModel.IsConnectedWithBandTile, Mode=OneWay, Converter={StaticResource BooleanToNullableBooleanConverter}}">Mit Tile verbunden</CheckBox>
-            <Button Click="{x:Bind ViewModel.ConnectWithTile}">Verbinden</Button>
-            <Button Click="{x:Bind ViewModel.DisconnectFromTile}">Verbindung trennen</Button>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                    Style="{StaticResource TitleTextBLockStyle}" 
+                    Text="1. Schritt: Mit Band verbinden" />
+            
+        <Grid Grid.Row="1">
+            <Button HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="{x:Bind ViewModel.IsBandConnected, Mode=OneWay, Converter={StaticResource BoolToColor}}"
+                    Content="Verbunden!" />
+        </Grid>
+        
+        <TextBlock Grid.Row="2"
+                   Style="{StaticResource TitleTextBLockStyle}" 
+                   Text="2. Schritt: Tile hinzufügen" />
+        
+        <Grid Grid.Row="3">
+            <Button Click="{x:Bind ViewModel.ToggleTileAsync}" 
+                    Background="{x:Bind ViewModel.IsBandTileInstalled, Mode=OneWay, Converter={StaticResource BoolToColor}}"
+                    Content="{x:Bind ViewModel.IsBandTileInstalled, Mode=OneWay, Converter={StaticResource BoolToTileString}}" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" />
+        </Grid>
+
+
+        <TextBlock Grid.Row="4"
+                   Style="{StaticResource TitleTextBLockStyle}" 
+                   Text="3. Schritt: Mit Tile verbinden" />
+        
+        <Grid Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Button Grid.Row="0"
+                    Click="{x:Bind ViewModel.ConnectWithTile}" 
+                    Background="Green"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    Content="Verbinden" />
+
+            <Button Grid.Row="1"
+                    Click="{x:Bind ViewModel.DisconnectFromTile}" 
+                    Background="Red"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    Content="Verbinden" />
+        </Grid>
+            
     </Grid>
 </Page>
+
