@@ -56,7 +56,14 @@ namespace CTime2.Views.Shell
             {
                 var bandService = IoC.Get<IBandService>();
                 await bandService.RegisterBandTileAsync();
-                await bandService.StartListeningForEvents();
+
+                await bandService.ListenForEventsAsync(() =>
+                {
+
+                }, () =>
+                {
+
+                });
             }
         }
 
