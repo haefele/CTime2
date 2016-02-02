@@ -11,41 +11,56 @@ using CTime2.VoiceCommandService.Strings;
 
 namespace CTime2.VoiceCommandService
 {
-    public sealed class CTime2VoiceCommandService : IBackgroundTask, IDisposable
+    public sealed class CTime2VoiceCommandService : IBackgroundTask
     {
         #region Logger
         private static readonly Logger _logger = LoggerFactory.GetLogger<CTime2VoiceCommandService>();
         #endregion
 
+        #region Fields
         private BackgroundTaskDeferral _deferral;
-        
+        private VoiceCommandServiceConnection _connection;
+        #endregion
+
+        #region Methods
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             this._deferral = taskInstance.GetDeferral();
 
             try
             {
-                taskInstance.Canceled += (s, e) => this.Dispose();
+                taskInstance.Canceled += (s, e) => this.Close();
 
                 var triggerDetails = taskInstance.TriggerDetails as AppServiceTriggerDetails;
 
                 if (triggerDetails != null &&
                     triggerDetails.Name == "CTime2VoiceCommandService")
                 {
-                    var voiceCommandServiceConnection = VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
-                    voiceCommandServiceConnection.VoiceCommandCompleted += (s, e) => this.Dispose();
+                    this._connection = VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
+                    this._connection.VoiceCommandCompleted += (s, e) => this.Close();
 
-                    var voiceCommand = await voiceCommandServiceConnection.GetVoiceCommandAsync();
+                    var voiceCommand = await this._connection.GetVoiceCommandAsync();
 
                     _logger.Debug(() => $"Executing voice command '{voiceCommand.CommandName}'.");
 
+                    var stampHelper = new CTimeStampHelper(new SessionStateService(), new CTimeService());
+                    var stampHelperCallback = new CTimeStampHelperCallback(
+                        this.OnNotLoggedIn, 
+                        this.SupportsQuestions, 
+                        this.OnDidNothing,
+                        this.OnAlreadyCheckedInWannaCheckOut,
+                        this.OnAlreadyCheckedIn,
+                        this.OnAlreadyCheckedOutWannaCheckIn,
+                        this.OnAlreadyCheckedOut,
+                        this.OnSuccess);
+                    
                     switch (voiceCommand.CommandName)
                     {
                         case "checkIn":
-                            await this.SaveTimer(voiceCommandServiceConnection, TimeState.Entered);
+                            await stampHelper.Stamp(stampHelperCallback, TimeState.Entered);
                             break;
                         case "checkOut":
-                            await this.SaveTimer(voiceCommandServiceConnection, TimeState.Left);
+                            await stampHelper.Stamp(stampHelperCallback, TimeState.Left);
                             break;
                     }
                 }
@@ -56,113 +71,20 @@ namespace CTime2.VoiceCommandService
             }
             finally
             {
-                this.Dispose();
+                this.Close();
             }
         }
+        #endregion
 
-        private async Task SaveTimer(VoiceCommandServiceConnection connection, TimeState timeState)
+        #region Private Methods
+        private void Close()
         {
-            var sessionStateService = new SessionStateService();
-            await sessionStateService.RestoreStateAsync();
-
-            if (sessionStateService.CurrentUser == null)
-            {
-                _logger.Debug(() => "User is not logged in.");
-                await connection.ReportFailureAsync(this.NotLoggedInResponse());
-
-                return;
-            }
-
-            var cTimeService = new CTimeService();
-
-            var currentTime = await cTimeService.GetCurrentTime(sessionStateService.CurrentUser.Id);
-            bool checkedIn = currentTime != null && currentTime.State.IsEntered();
-
-            if (checkedIn && timeState.IsEntered())
-            {
-                _logger.Debug(() => "User wants to check-in. But he is already. Asking him if he wants to check-out instead.");
-                var checkOutResult = await connection.RequestConfirmationAsync(this.AskIfCheckOutResponse());
-
-                if (checkOutResult?.Confirmed == false)
-                {
-                    _logger.Debug(() => "User does not want to check-out. Doing nothing.");
-                    await connection.ReportFailureAsync(this.DidNothingResponse());
-                    return;
-                }
-
-                timeState = TimeState.Left;
-            }
-
-            if (checkedIn == false && timeState.IsLeft())
-            {
-                _logger.Debug(() => "User wants to check-out. But he is already. Asking him if he wants to check-in instead.");
-                var checkInResult = await connection.RequestConfirmationAsync(this.AskIfCheckInResponse());
-
-                if (checkInResult?.Confirmed == false)
-                {
-                    _logger.Debug(() => "User does not want to check-in. Doing nothing.");
-                    await connection.ReportFailureAsync(this.DidNothingResponse());
-                    return;
-                }
-
-                timeState = TimeState.Entered;
-            }
-            
-            if (timeState.IsLeft())
-            {
-                _logger.Debug(() => "User is checking out. Updating the TimeState to make him check out what he previously checked in (Normal, Trip or Home-Office).");
-                if (currentTime.State.IsTrip())
-                { 
-                    _logger.Debug(() => "User checked-in a trip. Update the TimeState to make him check out a trip.");
-                    timeState = timeState | TimeState.Trip;
-                }
-
-                if (currentTime.State.IsHomeOffice())
-                {
-                    _logger.Debug(() => "User checked-in home-office. Update the TimeState to make him check out home-office.");
-                    timeState = timeState | TimeState.HomeOffice;
-                }
-            }
-            
-            _logger.Debug(() => "Saving the timer.");
-            await cTimeService.SaveTimer(sessionStateService.CurrentUser.Id, DateTime.Now, sessionStateService.CompanyId, timeState);
-
-            _logger.Debug(() => "Finished voice command.");
-            await connection.ReportSuccessAsync(this.FinishedResponse(timeState));
+            this._deferral.Complete();
         }
+        #endregion
 
-        public void Dispose()
-        {
-            this._deferral?.Complete();
-        }
-
-        private VoiceCommandResponse FinishedResponse(TimeState timeState)
-        {
-            var message = new VoiceCommandUserMessage
-            {
-                DisplayMessage = timeState.IsEntered() 
-                    ? CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedIn")
-                    : CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedOut"),
-                SpokenMessage = timeState.IsEntered()
-                    ? CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedIn")
-                    : CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedOut"),
-            };
-
-            return VoiceCommandResponse.CreateResponse(message);
-        }
-
-        private VoiceCommandResponse DidNothingResponse()
-        {
-            var message = new VoiceCommandUserMessage
-            {
-                DisplayMessage = CTime2VoiceCommandServiceResources.Get("DidNothing"),
-                SpokenMessage = CTime2VoiceCommandServiceResources.Get("DidNothing"),
-            };
-
-            return VoiceCommandResponse.CreateResponse(message);
-        }
-
-        private VoiceCommandResponse NotLoggedInResponse()
+        #region Callbacks
+        private async Task OnNotLoggedIn()
         {
             var message = new VoiceCommandUserMessage
             {
@@ -170,10 +92,28 @@ namespace CTime2.VoiceCommandService
                 SpokenMessage = CTime2VoiceCommandServiceResources.Get("NotLoggedInSpokenMessage"),
             };
 
-            return VoiceCommandResponse.CreateResponse(message);
+            var response = VoiceCommandResponse.CreateResponse(message);
+            await this._connection.ReportFailureAsync(response);
         }
 
-        private VoiceCommandResponse AskIfCheckOutResponse()
+        private bool SupportsQuestions()
+        {
+            return true;
+        }
+
+        private async Task OnDidNothing()
+        {
+            var message = new VoiceCommandUserMessage
+            {
+                DisplayMessage = CTime2VoiceCommandServiceResources.Get("DidNothing"),
+                SpokenMessage = CTime2VoiceCommandServiceResources.Get("DidNothing"),
+            };
+
+            var response = VoiceCommandResponse.CreateResponse(message);
+            await this._connection.ReportFailureAsync(response);
+        }
+
+        private async Task<bool> OnAlreadyCheckedInWannaCheckOut()
         {
             var promptMessage = new VoiceCommandUserMessage
             {
@@ -186,10 +126,18 @@ namespace CTime2.VoiceCommandService
                 SpokenMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedInSpokenMessageRepeat"),
             };
 
-            return VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
+            var response = VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
+            var result = await this._connection.RequestConfirmationAsync(response);
+
+            return result?.Confirmed == true;
         }
 
-        private VoiceCommandResponse AskIfCheckInResponse()
+        private Task OnAlreadyCheckedIn()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<bool> OnAlreadyCheckedOutWannaCheckIn()
         {
             var promptMessage = new VoiceCommandUserMessage
             {
@@ -201,7 +149,33 @@ namespace CTime2.VoiceCommandService
                 DisplayMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedOutDisplayMessageRepeat"),
                 SpokenMessage = CTime2VoiceCommandServiceResources.Get("AlreadyCheckedOutSpokenMessageRepeat"),
             };
-            return VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
+
+            var response = VoiceCommandResponse.CreateResponseForPrompt(promptMessage, rePromptMessage);
+            var result = await this._connection.RequestConfirmationAsync(response);
+
+            return result?.Confirmed == true;
         }
+
+        private Task OnAlreadyCheckedOut()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task OnSuccess(TimeState timeState)
+        {
+            var message = new VoiceCommandUserMessage
+            {
+                DisplayMessage = timeState.IsEntered()
+                    ? CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedIn")
+                    : CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedOut"),
+                SpokenMessage = timeState.IsEntered()
+                    ? CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedIn")
+                    : CTime2VoiceCommandServiceResources.Get("SuccessfullyCheckedOut"),
+            };
+
+            var response = VoiceCommandResponse.CreateResponse(message);
+            await this._connection.ReportSuccessAsync(response);
+        }
+        #endregion
     }
 }

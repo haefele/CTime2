@@ -137,9 +137,12 @@
     <Compile Include="Services\Band\BandService.cs" />
     <Compile Include="Services\Band\IBandService.cs" />
     <Compile Include="Services\CTime\CTimeService.cs" />
+    <Compile Include="Services\CTime\CTimeStampHelper.cs" />
+    <Compile Include="Services\CTime\CTimeStampHelperCallback.cs" />
     <Compile Include="Services\CTime\ICTimeService.cs" />
     <Compile Include="Data\Time.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Services\CTime\ICTimeStampHelperCallback.cs" />
     <Compile Include="Services\Licenses\ILicensesService.cs" />
     <Compile Include="Data\License.cs" />
     <Compile Include="Services\Licenses\LicensesService.cs" />
