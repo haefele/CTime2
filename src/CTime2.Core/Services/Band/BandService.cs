@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Background;
-using Windows.Devices.Bluetooth.Rfcomm;
-using Windows.Devices.Enumeration;
 using Windows.UI.Xaml.Media.Imaging;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
@@ -18,7 +14,21 @@ namespace CTime2.Core.Services.Band
 {
     public class BandService : IBandService
     {
-        public async Task<bool> IsBandConnectedAsync()
+        private readonly ISessionStateService _sessionStateService;
+        private readonly ICTimeService _cTimeService;
+
+        private IBandClient _bandClient;
+
+        private bool _isConnectedWithTile;
+        private bool _isExecutingAButton;
+
+        public BandService(ISessionStateService sessionStateService, ICTimeService cTimeService)
+        {
+            this._sessionStateService = sessionStateService;
+            this._cTimeService = cTimeService;
+        }
+
+        public async Task<bool> IsBandAvailable()
         {
             var bandInfos = await BandClientManager.Instance.GetBandsAsync();
             return bandInfos.Any();
@@ -27,176 +37,180 @@ namespace CTime2.Core.Services.Band
 
         public async Task<bool> IsBandTileRegisteredAsync()
         {
-            using (var client = await this.GetClientAsync())
-            {
-                var tiles = await client.TileManager.GetTilesAsync();
-                return tiles.Any(f => f.TileId == BandConstants.TileId);
-            }
+            var client = await this.GetClientAsync();
+            
+            var tiles = await client.TileManager.GetTilesAsync();
+            return tiles.Any(f => f.TileId == BandConstants.TileId);
         }
 
         public async Task RegisterBandTileAsync()
         {
             await this.UnRegisterBandTileAsync();
 
-            using (var client = await this.GetClientAsync())
+            var client = await this.GetClientAsync();
+            var tile = new BandTile(BandConstants.TileId)
             {
-                var tile = new BandTile(BandConstants.TileId)
+                SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
+                TileIcon = new WriteableBitmap(48, 48).ToBandIcon(),
+                Name = "c-time",
+                PageLayouts =
                 {
-                    SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
-                    TileIcon = new WriteableBitmap(48, 48).ToBandIcon(),
-                    Name = "c-time",
-                    PageLayouts =
+                    new PageLayout
                     {
-                        this.CreatePageLayout()
+                        Root = new FilledPanel
+                        {
+                            Rect = new PageRect(0, 0, 258, 128),
+                            Elements =
+                            {
+                                new TextBlock
+                                {
+                                    ElementId = BandConstants.HeaderElementId,
+                                    ColorSource = ElementColorSource.BandHighlight,
+                                    AutoWidth = true,
+                                    Rect = new PageRect(15, 0, 258, 30)
+                                },
+                                new TextButton
+                                {
+                                    PressedColor = new BandColor(0, 255, 0),
+                                    ElementId = BandConstants.StampElementId,
+                                    Rect = new PageRect(15, 40, 258, 40),
+                                },
+                                new TextButton
+                                {
+                                    PressedColor = new BandColor(255, 255, 0),
+                                    ElementId = BandConstants.TestElementId,
+                                    Rect = new PageRect(15, 86, 258, 40),
+                                }
+                            }
+                        }
                     }
-                };
+                }
+            };
 
-                await client.TileManager.AddTileAsync(tile);
-                await client.TileManager.SetPagesAsync(BandConstants.TileId, this.CreatePageData());
-            }
+            await client.TileManager.AddTileAsync(tile);
         }
 
         public async Task UnRegisterBandTileAsync()
         {
-            using (var client = await this.GetClientAsync())
+            var client = await this.GetClientAsync();
+            await client.TileManager.RemoveTileAsync(BandConstants.TileId);
+        }
+        
+
+        public Task<bool> IsConnectedWithTile()
+        {
+            return Task.FromResult(this._isConnectedWithTile);
+        }
+
+        public async Task ConnectWithTileAsync()
+        {
+            await this.DisconnectFromTileAsync();
+
+            try
             {
-                await client.TileManager.RemoveTileAsync(BandConstants.TileId);
+                var client = await this.GetClientAsync();
+
+                client.TileManager.TileOpened += this.TileManagerOnTileOpened;
+                client.TileManager.TileButtonPressed += this.TileManagerOnTileButtonPressed;
+
+                await client.TileManager.StartReadingsAsync();
+
+                this._isConnectedWithTile = true;
+            }
+            catch
+            {
+                await this.DisconnectFromTileAsync();
+
+                this._isConnectedWithTile = false;
             }
         }
 
-
-        public Task<bool> IsConnectedWithBandAsync()
-        {
-            var registrationPair = BackgroundTaskRegistration.AllTasks.FirstOrDefault(f => f.Value.Name == BandConstants.BackgroundTaskId);
-            return Task.FromResult(registrationPair.Value != null);
-        }
-
-        public async Task ConnectWithBandAsync()
-        {
-            await this.DisconnectFromBandAsync();
-
-            var access = await BackgroundExecutionManager.RequestAccessAsync();
-
-            if (access == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
-                access == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
-            {
-                var builder = new BackgroundTaskBuilder
-                {
-                    Name = BandConstants.BackgroundTaskId,
-                    TaskEntryPoint = BandConstants.BackgroundTaskEntryPoint
-                };
-
-                var trigger = new DeviceUseTrigger();
-                builder.SetTrigger(trigger);
-                builder.Register();
-
-                var bandDeviceId = await this.FindBandDeviceIdAsync();
-                var triggerResult = trigger.RequestAsync(bandDeviceId).GetAwaiter().GetResult();
-
-                switch (triggerResult)
-                {
-                    case DeviceTriggerResult.Allowed:
-                        break;
-                    case DeviceTriggerResult.DeniedByUser:
-                        throw new CTimeException();
-                    case DeviceTriggerResult.DeniedBySystem:
-                        throw new CTimeException();
-                    case DeviceTriggerResult.LowBattery:
-                        throw new CTimeException();
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
-        public Task DisconnectFromBandAsync()
-        {
-            var registrationPair = BackgroundTaskRegistration.AllTasks.FirstOrDefault(f => f.Value.Name == BandConstants.BackgroundTaskId);
-            registrationPair.Value?.Unregister(true);
-
-            return Task.CompletedTask;
-        }
-
-
-        public async Task<IDisposable> ListenForEventsAsync(Action<IBandClient> onCheckIn, Action<IBandClient> onCheckOut)
+        public async Task DisconnectFromTileAsync()
         {
             var client = await this.GetClientAsync();
 
-            client.TileManager.TileButtonPressed += (sender, args) =>
-            {
-                if (args.TileEvent.TileId == BandConstants.TileId)
-                {
-                    if (args.TileEvent.ElementId == BandConstants.CheckInElementId)
-                    {
-                        onCheckIn(client);
-                    }
-                    if (args.TileEvent.ElementId == BandConstants.CheckOutElementId)
-                    {
-                        onCheckOut(client);
-                    }
-                }
-            };
+            await client.TileManager.StopReadingsAsync();
 
-            await client.TileManager.StartReadingsAsync();
-
-            return client;
+            client.TileManager.TileOpened -= this.TileManagerOnTileOpened;
+            client.TileManager.TileButtonPressed -= this.TileManagerOnTileButtonPressed;
+            
+            this._isConnectedWithTile = false;
         }
 
 
-        private PageLayout CreatePageLayout()
+        public async Task DisconnectFromBandAsync()
         {
-            var header = new TextBlock
+            if (this._bandClient != null)
             {
-                ElementId = BandConstants.HeaderElementId, ColorSource = ElementColorSource.BandHighlight, AutoWidth = true, Rect = new PageRect(15, 0, 258, 30)
-            };
-            var checkInButton = new TextButton
-            {
-                PressedColor = new BandColor(0, 255, 0), ElementId = BandConstants.CheckInElementId, Rect = new PageRect(15, 40, 258, 40),
-            };
-            var checkOutButton = new TextButton
-            {
-                PressedColor = new BandColor(255, 0, 0), ElementId = BandConstants.CheckOutElementId, Rect = new PageRect(15, 86, 258, 40),
-            };
+                await this.DisconnectFromTileAsync();
 
-            var panel = new FilledPanel(header, checkInButton, checkOutButton)
-            {
-                Rect = new PageRect(0, 0, 258, 128),
-            };
-
-            return new PageLayout(panel);
+                this._bandClient.Dispose();
+                this._bandClient = null;
+            }
         }
-
-        private PageData CreatePageData()
-        {
-            return new PageData(BandConstants.TileId, 0, new TextBlockData(BandConstants.HeaderElementId, "c-time"), new TextButtonData(BandConstants.CheckInElementId, "Checkin"), new TextButtonData(BandConstants.CheckOutElementId, "Checkout"));
-        }
+        
 
         private async Task<IBandClient> GetClientAsync()
         {
+            if (this._bandClient != null)
+                return this._bandClient;
+            
             var bandInfos = await BandClientManager.Instance.GetBandsAsync();
 
             if (bandInfos.Any() == false)
                 throw new CTimeException();
 
-            return await BandClientManager.Instance.ConnectAsync(bandInfos[0]);
+            this._bandClient = await BandClientManager.Instance.ConnectAsync(bandInfos.First());
+            return this._bandClient;
         }
 
-        private async Task<string> FindBandDeviceIdAsync()
+        private async Task UpdateTileContentAsync()
         {
-            var bandInfo = await BandClientManager.Instance.GetBandsAsync();
+            var client = await this.GetClientAsync();
 
-            if (bandInfo.Any() == false)
-                throw new CTimeException();
+            var currentState = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+            bool checkedIn = currentState != null && currentState.State.IsEntered();
 
-            var bandGuid = new Guid("A502CA9A-2BA5-413C-A4E0-13804E47B38F");
-            var devices = await DeviceInformation.FindAllAsync(RfcommDeviceService.GetDeviceSelector(RfcommServiceId.FromUuid(bandGuid)));
+            var pageData = new PageData(BandConstants.TileId, 0,
+                new TextBlockData(BandConstants.HeaderElementId, "c-time"),
+                new TextButtonData(BandConstants.StampElementId, checkedIn ? "Check-out" : "Check-in"),
+                new TextButtonData(BandConstants.TestElementId, "Test"));
 
-            var bandDevice = devices.FirstOrDefault(f => f.Name == bandInfo[0].Name);
+            await client.TileManager.SetPagesAsync(BandConstants.TileId, pageData);
+        }
 
-            if (bandDevice == null)
-                throw new CTimeException();
 
-            return bandDevice.Id;
+        private async void TileManagerOnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> e)
+        {
+            if (e.TileEvent.TileId == BandConstants.TileId)
+            {
+                await this.UpdateTileContentAsync();
+            }
+        }
+
+        private async void TileManagerOnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> e)
+        {
+            var bandClient = (IBandClient)sender;
+
+            if (e.TileEvent.TileId == BandConstants.TileId)
+            {
+                if (this._isExecutingAButton)
+                    return;
+
+                this._isExecutingAButton = true;
+
+                if (e.TileEvent.ElementId == BandConstants.StampElementId)
+                {
+                    await bandClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Ui");
+                    await this.UpdateTileContentAsync();
+                }
+                else if (e.TileEvent.ElementId == BandConstants.TestElementId)
+                {
+                    await bandClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
+                }
+
+                this._isExecutingAButton = false;
+            }
         }
     }
 }

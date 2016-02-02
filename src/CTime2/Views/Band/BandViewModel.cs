@@ -5,6 +5,8 @@ using CTime2.Core.Common;
 using CTime2.Core.Services.Band;
 using CTime2.Extensions;
 using CTime2.Services.Loading;
+using Microsoft.Band;
+using Microsoft.Band.Notifications;
 
 namespace CTime2.Views.Band
 {
@@ -12,21 +14,22 @@ namespace CTime2.Views.Band
     {
         private readonly IBandService _bandService;
         private readonly ILoadingService _loadingService;
-        private bool _isBandConnected;
-        private bool _isBandTileInstalled;
 
-        public bool IsBandConnected
+        private bool _isBandTileRegistered;
+        private bool _isConnectedWithTile;
+
+        public bool IsBandTileRegistered
         {
-            get { return this._isBandConnected; }
-            set { this.SetProperty(ref this._isBandConnected, value); }
+            get { return this._isBandTileRegistered; }
+            set { this.SetProperty(ref this._isBandTileRegistered, value); }
         }
 
-        public bool IsBandTileInstalled
+        public bool IsConnectedWithTile
         {
-            get { return this._isBandTileInstalled; }
-            set { this.SetProperty(ref this._isBandTileInstalled, value); }
+            get { return this._isConnectedWithTile; }
+            set { this.SetProperty(ref this._isConnectedWithTile, value); }
         }
-        
+
         public BandViewModel(IBandService bandService, ILoadingService loadingService)
         {
             this._bandService = bandService;
@@ -46,11 +49,15 @@ namespace CTime2.Views.Band
             try
             {
                 using (this._loadingService.Show("Registriere"))
-                { 
-                    if (this.IsBandTileInstalled)
+                {
+                    if (this.IsBandTileRegistered)
+                    {
                         await this._bandService.UnRegisterBandTileAsync();
+                    }
                     else
+                    {
                         await this._bandService.RegisterBandTileAsync();
+                    }
 
                     await this.Reload();
                 }
@@ -61,30 +68,23 @@ namespace CTime2.Views.Band
 
             }
         }
-
-        public async void ConnectWithTile()
+        
+        public async void ToggleTileConnectionAsync()
         {
             try
             {
                 using (this._loadingService.Show("Verbinde mit Tile"))
                 {
-                    await this._bandService.ConnectWithBandAsync();
-                }
-            }
-            catch (CTimeException exception)
-            {
+                    if (this.IsConnectedWithTile)
+                    {
+                        await this._bandService.DisconnectFromTileAsync();
+                    }
+                    else
+                    {
+                        await this._bandService.ConnectWithTileAsync();
+                    }
 
-
-            }
-        }
-
-        public async void DisconnectFromTile()
-        {
-            try
-            {
-                using (this._loadingService.Show("Trenne vom Tile"))
-                {
-                    await this._bandService.DisconnectFromBandAsync();
+                    await this.Reload();
                 }
             }
             catch (CTimeException exception)
@@ -97,11 +97,11 @@ namespace CTime2.Views.Band
         {
             try
             {
-                this.IsBandConnected = false;
-                this.IsBandTileInstalled = false;
+                this.IsBandTileRegistered = false;
+                this.IsConnectedWithTile = false;
 
-                this.IsBandConnected = await this._bandService.IsBandConnectedAsync();
-                this.IsBandTileInstalled = await this._bandService.IsBandTileRegisteredAsync();
+                this.IsBandTileRegistered = await this._bandService.IsBandTileRegisteredAsync();
+                this.IsConnectedWithTile = await this._bandService.IsConnectedWithTile();
             }
             catch (CTimeException exception)
             {

@@ -1,21 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Band;
+﻿using System.Threading.Tasks;
 
 namespace CTime2.Core.Services.Band
 {
     public interface IBandService
     {
-        Task<bool> IsBandConnectedAsync();
+        Task<bool> IsBandAvailable();
 
         Task<bool> IsBandTileRegisteredAsync();
         Task RegisterBandTileAsync();
         Task UnRegisterBandTileAsync();
 
-        Task<bool> IsConnectedWithBandAsync();
-        Task ConnectWithBandAsync();
-        Task DisconnectFromBandAsync();
+        Task<bool> IsConnectedWithTile();
+        Task ConnectWithTileAsync();
+        Task DisconnectFromTileAsync();
 
-        Task<IDisposable> ListenForEventsAsync(Action<IBandClient> onCheckIn, Action<IBandClient> onCheckOut);
+        Task DisconnectFromBandAsync();
     }
 }

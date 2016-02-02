@@ -302,10 +302,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CTime2.BandTileService\CTime2.BandTileService.csproj">
-      <Project>{a9089ecd-6a3a-40ab-bd4d-b1e5eba753f3}</Project>
-      <Name>CTime2.BandTileService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CTime2.Core\CTime2.Core.csproj">
       <Project>{76ad71f3-cee3-4714-b88f-fea50a787887}</Project>
       <Name>CTime2.Core</Name>
