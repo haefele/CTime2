@@ -178,6 +178,9 @@ namespace CTime2
             var stateService = this._container.GetInstance<ISessionStateService>();
             await stateService.SaveStateAsync();
 
+            var bandService = this._container.GetInstance<IBandService>();
+            await bandService.DisconnectFromBandAsync();
+
             IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationSuspendingEvent());
 
             deferral.Complete();

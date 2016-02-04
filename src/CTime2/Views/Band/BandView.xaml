@@ -10,6 +10,7 @@
             <Setter Property="FontSize" Value="20" />
         </Style>
         <converter:BooleanToObjectConverter x:Key="BoolToTileString" TrueValue="Tile entfernen" FalseValue="Tile installieren" />
+        <converter:BooleanToObjectConverter x:Key="BoolToConnectTileString" TrueValue="Verbindung mit Tile trennen" FalseValue="Mit Tile Verbinden" />
         <converter:BooleanToObjectConverter x:Key="BoolToColor">
             <converter:BooleanToObjectConverter.TrueValue>
                 <SolidColorBrush Color="Green" />
@@ -23,16 +24,21 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="{Binding BandName}"
+                   HorizontalAlignment="Center" />
         
-        <TextBlock Grid.Row="0"
+        <TextBlock Grid.Row="1"
                    Style="{StaticResource TitleTextBLockStyle}" 
-                   Text="2. Schritt: Tile hinzufügen" />
+                   Text="1. Tile hinzufügen" />
         
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Button Click="{x:Bind ViewModel.ToggleTileAsync}" 
                     Background="{x:Bind ViewModel.IsBandTileRegistered, Mode=OneWay, Converter={StaticResource BoolToColor}}"
                     Content="{x:Bind ViewModel.IsBandTileRegistered, Mode=OneWay, Converter={StaticResource BoolToTileString}}" 
@@ -41,15 +47,14 @@
         </Grid>
 
 
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Row="3"
                    Style="{StaticResource TitleTextBLockStyle}" 
-                   Text="3. Schritt: Mit Tile verbinden" />
+                   Text="2. Mit Tile verbinden" />
 
-
-        <Button Grid.Row="3"
+        <Button Grid.Row="4"
                 Click="{x:Bind ViewModel.ToggleTileConnectionAsync}" 
                 Background="{x:Bind ViewModel.IsConnectedWithTile, Mode=OneWay, Converter={StaticResource BoolToColor}}"
-                Content="{x:Bind ViewModel.IsConnectedWithTile, Mode=OneWay, Converter={StaticResource BoolToTileString}}" 
+                Content="{x:Bind ViewModel.IsConnectedWithTile, Mode=OneWay, Converter={StaticResource BoolToConnectTileString}}" 
                 HorizontalAlignment="Stretch" 
                 VerticalAlignment="Stretch" />
 

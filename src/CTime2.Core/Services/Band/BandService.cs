@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 using CTime2.Core.Common;
@@ -12,7 +13,7 @@ using Microsoft.Band.Tiles.Pages;
 
 namespace CTime2.Core.Services.Band
 {
-    public class BandService : IBandService
+    public class BandService : IBandService, ICTimeStampHelperCallback
     {
         private readonly ISessionStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
@@ -27,11 +28,18 @@ namespace CTime2.Core.Services.Band
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
         }
-
-        public async Task<bool> IsBandAvailable()
+        
+        public async Task<BandInfo> GetBand()
         {
             var bandInfos = await BandClientManager.Instance.GetBandsAsync();
-            return bandInfos.Any();
+
+            if (bandInfos.Any() == false)
+                return null;
+
+            return new BandInfo
+            {
+                Name = bandInfos.First().Name
+            };
         }
 
 
@@ -142,7 +150,8 @@ namespace CTime2.Core.Services.Band
         {
             if (this._bandClient != null)
             {
-                await this.DisconnectFromTileAsync();
+                if (await this.IsConnectedWithTile())
+                    await this.DisconnectFromTileAsync();
 
                 this._bandClient.Dispose();
                 this._bandClient = null;
@@ -153,7 +162,12 @@ namespace CTime2.Core.Services.Band
         private async Task<IBandClient> GetClientAsync()
         {
             if (this._bandClient != null)
+            {
+                //Just check if the band client still works
+                await this._bandClient.GetHardwareVersionAsync();
+
                 return this._bandClient;
+            }
             
             var bandInfos = await BandClientManager.Instance.GetBandsAsync();
 
@@ -179,7 +193,7 @@ namespace CTime2.Core.Services.Band
             await client.TileManager.SetPagesAsync(BandConstants.TileId, pageData);
         }
 
-
+        #region Band Tile Events
         private async void TileManagerOnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> e)
         {
             if (e.TileEvent.TileId == BandConstants.TileId)
@@ -201,7 +215,12 @@ namespace CTime2.Core.Services.Band
 
                 if (e.TileEvent.ElementId == BandConstants.StampElementId)
                 {
-                    await bandClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Ui");
+                    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                    bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+
+                    var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
+                    await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
+
                     await this.UpdateTileContentAsync();
                 }
                 else if (e.TileEvent.ElementId == BandConstants.TestElementId)
@@ -212,5 +231,52 @@ namespace CTime2.Core.Services.Band
                 this._isExecutingAButton = false;
             }
         }
+        #endregion
+
+        #region Callbacks
+        public async Task OnNotLoggedIn()
+        {
+            var client = await this.GetClientAsync();
+            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Nicht eingeloggt.");
+        }
+
+        public bool SupportsQuestions()
+        {
+            return false;
+        }
+
+        public Task OnDidNothing()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> OnAlreadyCheckedInWannaCheckOut()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task OnAlreadyCheckedIn()
+        {
+            var client = await this.GetClientAsync();
+            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits eingestempelt.");
+        }
+
+        public Task<bool> OnAlreadyCheckedOutWannaCheckIn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task OnAlreadyCheckedOut()
+        {
+            var client = await this.GetClientAsync();
+            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits ausgestempelt.");
+        }
+
+        public async Task OnSuccess(TimeState timeState)
+        {
+            var client = await this.GetClientAsync();
+            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Erfolgreich gestempelt.");
+        }
+        #endregion
     }
 }

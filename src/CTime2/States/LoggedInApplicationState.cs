@@ -38,7 +38,7 @@ namespace CTime2.States
             this._attendanceListNavigationItem = new NavigationItemViewModel(this.AttendanceList, CTime2Resources.Get("Navigation.AttendanceList"), SymbolEx.AttendanceList);
             this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, CTime2Resources.Get("Navigation.Logout"), SymbolEx.Logout);
             this._statisticsItem = new NavigationItemViewModel(this.Statistics, CTime2Resources.Get("Navigation.Statistics"), SymbolEx.Statistics);
-            this._bandItem = new NavigationItemViewModel(this.Band, "Band", Symbol.Home);
+            this._bandItem = new NavigationItemViewModel(this.Band, "Microsoft Band", Symbol.Street);
         }
 
         public override void Enter()
