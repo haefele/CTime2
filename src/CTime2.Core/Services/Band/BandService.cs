@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Media.Imaging;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
@@ -17,18 +18,16 @@ namespace CTime2.Core.Services.Band
     {
         private readonly ISessionStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
-
-        private IBandClient _bandClient;
-
-        private bool _isConnectedWithTile;
-        private bool _isExecutingAButton;
-
+        
         public BandService(ISessionStateService sessionStateService, ICTimeService cTimeService)
         {
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
+
+            BackgroundTileEventHandler.Instance.TileOpened += this.OnTileOpened;
+            BackgroundTileEventHandler.Instance.TileButtonPressed += this.OnTileButtonPressed;
         }
-        
+
         public async Task<BandInfo> GetBand()
         {
             var bandInfos = await BandClientManager.Instance.GetBandsAsync();
@@ -42,20 +41,47 @@ namespace CTime2.Core.Services.Band
             };
         }
 
-
+        
         public async Task<bool> IsBandTileRegisteredAsync()
         {
-            var client = await this.GetClientAsync();
-            
-            var tiles = await client.TileManager.GetTilesAsync();
-            return tiles.Any(f => f.TileId == BandConstants.TileId);
+            using (var client = await this.GetClientAsync(false))
+            {
+                return await this.IsBandTileRegisteredInternalAsync(client);
+            }
         }
 
         public async Task RegisterBandTileAsync()
         {
-            await this.UnRegisterBandTileAsync();
+            using (var client = await this.GetClientAsync(false))
+            {
+                await this.RegisterBandTileInternalAsync(client);
+            }
+        }
 
-            var client = await this.GetClientAsync();
+        public async Task UnRegisterBandTileAsync()
+        {
+            using (var client = await this.GetClientAsync(false))
+            {
+                await this.UnRegisterBandTileInternalAsync(client);
+            }
+        }
+
+
+        public async Task HandleTileEventAsync(ValueSet message)
+        {
+            BackgroundTileEventHandler.Instance.HandleTileEvent(message);
+        }
+
+        private async Task<bool> IsBandTileRegisteredInternalAsync(IBandClient client)
+        {
+            var tiles = await client.TileManager.GetTilesAsync();
+            return tiles.Any(f => f.TileId == BandConstants.TileId);
+        }
+
+        private async Task RegisterBandTileInternalAsync(IBandClient client)
+        {
+            await this.UnRegisterBandTileInternalAsync(client);
+            
             var tile = new BandTile(BandConstants.TileId)
             {
                 SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
@@ -96,92 +122,30 @@ namespace CTime2.Core.Services.Band
             };
 
             await client.TileManager.AddTileAsync(tile);
+            await this.UpdateTileContentAsync(client);
+
+            await client.SubscribeToBackgroundTileEventsAsync(tile.TileId);
         }
 
-        public async Task UnRegisterBandTileAsync()
+        private async Task UnRegisterBandTileInternalAsync(IBandClient client)
         {
-            var client = await this.GetClientAsync();
             await client.TileManager.RemoveTileAsync(BandConstants.TileId);
         }
         
 
-        public Task<bool> IsConnectedWithTile()
+        private async Task<IBandClient> GetClientAsync(bool isBackground)
         {
-            return Task.FromResult(this._isConnectedWithTile);
-        }
-
-        public async Task ConnectWithTileAsync()
-        {
-            await this.DisconnectFromTileAsync();
-
-            try
-            {
-                var client = await this.GetClientAsync();
-
-                client.TileManager.TileOpened += this.TileManagerOnTileOpened;
-                client.TileManager.TileButtonPressed += this.TileManagerOnTileButtonPressed;
-
-                await client.TileManager.StartReadingsAsync();
-
-                this._isConnectedWithTile = true;
-            }
-            catch
-            {
-                await this.DisconnectFromTileAsync();
-
-                this._isConnectedWithTile = false;
-            }
-        }
-
-        public async Task DisconnectFromTileAsync()
-        {
-            var client = await this.GetClientAsync();
-
-            await client.TileManager.StopReadingsAsync();
-
-            client.TileManager.TileOpened -= this.TileManagerOnTileOpened;
-            client.TileManager.TileButtonPressed -= this.TileManagerOnTileButtonPressed;
-            
-            this._isConnectedWithTile = false;
-        }
-
-
-        public async Task DisconnectFromBandAsync()
-        {
-            if (this._bandClient != null)
-            {
-                if (await this.IsConnectedWithTile())
-                    await this.DisconnectFromTileAsync();
-
-                this._bandClient.Dispose();
-                this._bandClient = null;
-            }
-        }
-        
-
-        private async Task<IBandClient> GetClientAsync()
-        {
-            if (this._bandClient != null)
-            {
-                //Just check if the band client still works
-                await this._bandClient.GetHardwareVersionAsync();
-
-                return this._bandClient;
-            }
-            
-            var bandInfos = await BandClientManager.Instance.GetBandsAsync();
+            var bandInfos = await BandClientManager.Instance.GetBandsAsync(isBackground);
 
             if (bandInfos.Any() == false)
                 throw new CTimeException();
-
-            this._bandClient = await BandClientManager.Instance.ConnectAsync(bandInfos.First());
-            return this._bandClient;
+            
+            return await BandClientManager.Instance.ConnectAsync(bandInfos.First());
         }
 
-        private async Task UpdateTileContentAsync()
-        {
-            var client = await this.GetClientAsync();
 
+        private async Task UpdateTileContentAsync(IBandClient client)
+        {
             var currentState = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
             bool checkedIn = currentState != null && currentState.State.IsEntered();
 
@@ -192,26 +156,24 @@ namespace CTime2.Core.Services.Band
 
             await client.TileManager.SetPagesAsync(BandConstants.TileId, pageData);
         }
-
-        #region Band Tile Events
-        private async void TileManagerOnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> e)
+        
+        private async void OnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> bandTileEventArgs)
         {
-            if (e.TileEvent.TileId == BandConstants.TileId)
+            using (var client = await this.GetClientAsync(true))
             {
-                await this.UpdateTileContentAsync();
+                await this.UpdateTileContentAsync(client);
             }
         }
-
-        private async void TileManagerOnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> e)
+        
+        private IBandClient _backgroundTileClient;
+        private async void OnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> e)
         {
-            var bandClient = (IBandClient)sender;
-
             if (e.TileEvent.TileId == BandConstants.TileId)
             {
-                if (this._isExecutingAButton)
+                if (this._backgroundTileClient != null)
                     return;
 
-                this._isExecutingAButton = true;
+                this._backgroundTileClient = await this.GetClientAsync(true);
 
                 if (e.TileEvent.ElementId == BandConstants.StampElementId)
                 {
@@ -221,23 +183,22 @@ namespace CTime2.Core.Services.Band
                     var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
                     await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
 
-                    await this.UpdateTileContentAsync();
+                    await this.UpdateTileContentAsync(this._backgroundTileClient);
                 }
                 else if (e.TileEvent.ElementId == BandConstants.TestElementId)
                 {
-                    await bandClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
+                    await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
                 }
-
-                this._isExecutingAButton = false;
+                
+                this._backgroundTileClient = null;
             }
         }
-        #endregion
+
 
         #region Callbacks
         public async Task OnNotLoggedIn()
         {
-            var client = await this.GetClientAsync();
-            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Nicht eingeloggt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Nicht eingeloggt.");
         }
 
         public bool SupportsQuestions()
@@ -257,8 +218,7 @@ namespace CTime2.Core.Services.Band
 
         public async Task OnAlreadyCheckedIn()
         {
-            var client = await this.GetClientAsync();
-            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits eingestempelt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits eingestempelt.");
         }
 
         public Task<bool> OnAlreadyCheckedOutWannaCheckIn()
@@ -268,14 +228,12 @@ namespace CTime2.Core.Services.Band
 
         public async Task OnAlreadyCheckedOut()
         {
-            var client = await this.GetClientAsync();
-            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits ausgestempelt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits ausgestempelt.");
         }
 
         public async Task OnSuccess(TimeState timeState)
         {
-            var client = await this.GetClientAsync();
-            await client.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Erfolgreich gestempelt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Erfolgreich gestempelt.");
         }
         #endregion
     }

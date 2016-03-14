@@ -46,18 +46,6 @@
                     VerticalAlignment="Stretch" />
         </Grid>
 
-
-        <TextBlock Grid.Row="3"
-                   Style="{StaticResource TitleTextBLockStyle}" 
-                   Text="2. Mit Tile verbinden" />
-
-        <Button Grid.Row="4"
-                Click="{x:Bind ViewModel.ToggleTileConnectionAsync}" 
-                Background="{x:Bind ViewModel.IsConnectedWithTile, Mode=OneWay, Converter={StaticResource BoolToColor}}"
-                Content="{x:Bind ViewModel.IsConnectedWithTile, Mode=OneWay, Converter={StaticResource BoolToConnectTileString}}" 
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch" />
-
     </Grid>
 </Page>
 

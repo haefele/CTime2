@@ -18,7 +18,6 @@ namespace CTime2.Views.Band
         private readonly IExceptionHandler _exceptionHandler;
 
         private bool _isBandTileRegistered;
-        private bool _isConnectedWithTile;
         private string _bandName;
 
         public string BandName
@@ -31,12 +30,6 @@ namespace CTime2.Views.Band
         {
             get { return this._isBandTileRegistered; }
             set { this.SetProperty(ref this._isBandTileRegistered, value); }
-        }
-
-        public bool IsConnectedWithTile
-        {
-            get { return this._isConnectedWithTile; }
-            set { this.SetProperty(ref this._isConnectedWithTile, value); }
         }
 
         public BandViewModel(IBandService bandService, ILoadingService loadingService, IEventAggregator eventAggregator, IExceptionHandler exceptionHandler)
@@ -87,43 +80,17 @@ namespace CTime2.Views.Band
             }
         }
         
-        public async void ToggleTileConnectionAsync()
-        {
-            try
-            {
-                using (this._loadingService.Show("Verbinde mit Tile"))
-                {
-                    if (this.IsConnectedWithTile)
-                    {
-                        await this._bandService.DisconnectFromTileAsync();
-                    }
-                    else
-                    {
-                        await this._bandService.ConnectWithTileAsync();
-                    }
-
-                    await this.Reload();
-                }
-            }
-            catch (Exception exception)
-            {
-                await this._exceptionHandler.HandleAsync(exception);
-            }
-        }
-
         private async Task Reload()
         {
             try
             {
                 this.BandName = string.Empty;
                 this.IsBandTileRegistered = false;
-                this.IsConnectedWithTile = false;
 
                 var bandInfo = await this._bandService.GetBand();
 
                 this.BandName = bandInfo?.Name;
                 this.IsBandTileRegistered = await this._bandService.IsBandTileRegisteredAsync();
-                this.IsConnectedWithTile = await this._bandService.IsConnectedWithTile();
             }
             catch (Exception exception)
             {

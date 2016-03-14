@@ -40,16 +40,18 @@
           "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
-      "Microsoft.Band/1.3.20115": {
+      "Microsoft.Band/1.3.20307": {
         "compile": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         },
         "runtime": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -1658,16 +1660,18 @@
           "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
-      "Microsoft.Band/1.3.20115": {
+      "Microsoft.Band/1.3.20307": {
         "compile": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         },
         "runtime": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -3366,16 +3370,18 @@
           "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
-      "Microsoft.Band/1.3.20115": {
+      "Microsoft.Band/1.3.20307": {
         "compile": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         },
         "runtime": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -5046,16 +5052,18 @@
           "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
-      "Microsoft.Band/1.3.20115": {
+      "Microsoft.Band/1.3.20307": {
         "compile": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         },
         "runtime": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -6759,16 +6767,18 @@
           "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
-      "Microsoft.Band/1.3.20115": {
+      "Microsoft.Band/1.3.20307": {
         "compile": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         },
         "runtime": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -8439,16 +8449,18 @@
           "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
-      "Microsoft.Band/1.3.20115": {
+      "Microsoft.Band/1.3.20307": {
         "compile": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         },
         "runtime": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -10152,16 +10164,18 @@
           "lib/win81/MetroLog.WinRT.winmd": {}
         }
       },
-      "Microsoft.Band/1.3.20115": {
+      "Microsoft.Band/1.3.20307": {
         "compile": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         },
         "runtime": {
-          "lib/netcore451/Microsoft.Band.dll": {},
-          "lib/netcore451/Microsoft.Band.Store.dll": {},
-          "lib/netcore451/Microsoft.Band.Windows.dll": {}
+          "lib/uap10.0/Google.Protobuf.dll": {},
+          "lib/uap10.0/Microsoft.Band.dll": {},
+          "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
+          "lib/uap10.0/Microsoft.Band.Store_UAP.dll": {}
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -11907,30 +11921,39 @@
         "package/services/metadata/core-properties/1b53a5d1e0be4fd6821aec7ac810de39.psmdcp"
       ]
     },
-    "Microsoft.Band/1.3.20115": {
-      "sha512": "Al9pu72Y3bIk410MC11j2GcdxW3nutkSn8/6jK/sa3W61cUHM+fwMck48ELX6+BbUU01kH3zD/WXK9I67k0y8g==",
+    "Microsoft.Band/1.3.20307": {
+      "sha512": "pU8e7mpGi9hPo5GSCCe1HmpQXLX/s7XfuddF8OSbpgzmuDz7ZdDmEH73N3DrMlRC4gG/quAq2reUKakSHukazg==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
         "_rels/.rels",
         "content/netcore451/Package.appxmanifest.transform",
         "content/wpa81/Package.appxmanifest.transform",
+        "lib/netcore451/Google.Protobuf.dll",
         "lib/netcore451/Microsoft.Band.dll",
         "lib/netcore451/Microsoft.Band.Store.dll",
         "lib/netcore451/Microsoft.Band.Store.pri",
         "lib/netcore451/Microsoft.Band.Windows.dll",
         "lib/netcore451/Microsoft.Band.Windows.pri",
         "lib/portable-net45+win+wpa81/Microsoft.Band.dll",
+        "lib/portable-win81+wpa81/Google.Protobuf.dll",
         "lib/portable-win81+wpa81/Microsoft.Band.dll",
         "lib/portable-win81+wpa81/Microsoft.Band.Store.dll",
         "lib/portable-win81+wpa81/Microsoft.Band.Store.pri",
+        "lib/uap10.0/Google.Protobuf.dll",
+        "lib/uap10.0/Microsoft.Band.dll",
+        "lib/uap10.0/Microsoft.Band.Phone_UAP.dll",
+        "lib/uap10.0/Microsoft.Band.Phone_UAP.pri",
+        "lib/uap10.0/Microsoft.Band.Store_UAP.dll",
+        "lib/uap10.0/Microsoft.Band.Store_UAP.pri",
+        "lib/wpa81/Google.Protobuf.dll",
         "lib/wpa81/Microsoft.Band.dll",
         "lib/wpa81/Microsoft.Band.Phone.dll",
         "lib/wpa81/Microsoft.Band.Phone.pri",
         "lib/wpa81/Microsoft.Band.Store.dll",
         "lib/wpa81/Microsoft.Band.Store.pri",
         "Microsoft.Band.nuspec",
-        "package/services/metadata/core-properties/362d07532e5642799f7f6ea717bda3c6.psmdcp"
+        "package/services/metadata/core-properties/59c74f696fd7440da00366686b2c228c.psmdcp"
       ]
     },
     "Microsoft.Bcl/1.1.10": {
@@ -15487,7 +15510,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Caliburn.Micro >= 3.0.0-beta1",
-      "Microsoft.Band >= 1.3.20115",
+      "Microsoft.Band >= 1.3.20307",
       "Microsoft.Net.Http >= 2.2.29",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Newtonsoft.Json >= 7.0.1"

@@ -10,6 +10,7 @@ using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
+using CTime2.BandService;
 using CTime2.Core.Logging;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
@@ -83,8 +84,7 @@ namespace CTime2
                 .PerRequest<HomeOfficeCheckedInViewModel>()
                 .PerRequest<TripCheckedInViewModel>()
                 .PerRequest<BandViewModel>();
-
-
+            
             //ShellStates
             this._container
                 .PerRequest<LoggedOutApplicationState>()
@@ -97,7 +97,7 @@ namespace CTime2
                 .Singleton<IDialogService, DialogService>()
                 .Singleton<IExceptionHandler, ExceptionHandler>()
                 .Singleton<ILicensesService, LicensesService>()
-                .Singleton<IBandService, BandService>();
+                .Singleton<IBandService, Core.Services.Band.BandService>();
         }
 
         private void ConfigureCaliburnMicro()
@@ -177,10 +177,7 @@ namespace CTime2
 
             var stateService = this._container.GetInstance<ISessionStateService>();
             await stateService.SaveStateAsync();
-
-            var bandService = this._container.GetInstance<IBandService>();
-            await bandService.DisconnectFromBandAsync();
-
+            
             IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationSuspendingEvent());
 
             deferral.Complete();

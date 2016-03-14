@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.VoiceCommandService"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.Core", "CTime2.Core\CTime2.Core.csproj", "{76AD71F3-CEE3-4714-B88F-FEA50A787887}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.BandService", "CTime2.BandService\CTime2.BandService.csproj", "{D2021BE3-667C-4F29-834C-0160A39B027F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,22 @@ Global
 		{76AD71F3-CEE3-4714-B88F-FEA50A787887}.Release|x64.Build.0 = Release|x64
 		{76AD71F3-CEE3-4714-B88F-FEA50A787887}.Release|x86.ActiveCfg = Release|x86
 		{76AD71F3-CEE3-4714-B88F-FEA50A787887}.Release|x86.Build.0 = Release|x86
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|ARM.Build.0 = Debug|ARM
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|x64.ActiveCfg = Debug|x64
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|x64.Build.0 = Debug|x64
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|x86.ActiveCfg = Debug|x86
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Debug|x86.Build.0 = Debug|x86
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|ARM.ActiveCfg = Release|ARM
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|ARM.Build.0 = Release|ARM
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|x64.ActiveCfg = Release|x64
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|x64.Build.0 = Release|x64
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|x86.ActiveCfg = Release|x86
+		{D2021BE3-667C-4F29-834C-0160A39B027F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

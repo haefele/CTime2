@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Windows.Foundation.Collections;
 
 namespace CTime2.Core.Services.Band
 {
@@ -15,10 +16,6 @@ namespace CTime2.Core.Services.Band
         Task RegisterBandTileAsync();
         Task UnRegisterBandTileAsync();
 
-        Task<bool> IsConnectedWithTile();
-        Task ConnectWithTileAsync();
-        Task DisconnectFromTileAsync();
-
-        Task DisconnectFromBandAsync();
+        Task HandleTileEventAsync(ValueSet message);
     }
 }
