@@ -43,7 +43,11 @@ namespace CTime2.VoiceCommandService
 
                     _logger.Debug(() => $"Executing voice command '{voiceCommand.CommandName}'.");
 
-                    var stampHelper = new CTimeStampHelper(new SessionStateService(), new CTimeService());
+                    var sessionStateService = new SessionStateService();
+                    await sessionStateService.RestoreStateAsync();
+                    var cTimeService = new CTimeService();
+
+                    var stampHelper = new CTimeStampHelper(sessionStateService, cTimeService);
                     var stampHelperCallback = new CTimeStampHelperCallback(
                         this.OnNotLoggedIn, 
                         this.SupportsQuestions, 
