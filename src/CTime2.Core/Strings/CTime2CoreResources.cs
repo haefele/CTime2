@@ -5,7 +5,7 @@ namespace CTime2.Core.Strings
 {
     public static class CTime2CoreResources
     {
-        private static readonly ResourceAccessor _accessor = new ResourceAccessor(ResourceLoader.GetForCurrentView("CTime2.Core/Resources"));
+        private static readonly ResourceAccessor _accessor = new ResourceAccessor(ResourceLoader.GetForViewIndependentUse("CTime2.Core/Resources"));
         
         public static string Get(string resource)
         {
