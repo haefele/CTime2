@@ -8,20 +8,19 @@
       <group id="CTIME2.CORE/STRINGS/DE-DE/RESOURCES.RESW" datatype="resx">
         <trans-unit id="CTimeService.ErrorWhileLoadingAttendanceList" translate="yes" xml:space="preserve">
           <source>Beim Laden der Anwesenheitsliste ist ein Fehler aufgetreten.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">An error occurred while loading the attendance list.</target>
+          <target state="translated" state-qualifier="mt-suggestion">An error occurred while loading the attendance list.</target>
         </trans-unit>
         <trans-unit id="CTimeService.ErrorWhileLoadingCurrentTime" translate="yes" xml:space="preserve">
           <source>Beim Laden der aktuellen Zeit ist ein Fehler aufgetreten.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">An error occurred while loading the current time.</target>
+          <target state="translated" state-qualifier="mt-suggestion">An error occurred while loading the current time.</target>
         </trans-unit>
         <trans-unit id="CTimeService.ErrorWhileLoadingTimes" translate="yes" xml:space="preserve">
           <source>Beim Laden der Zeiten ist ein Fehler aufgetreten.</source>
-          <target state="needs-review-translation">An error occurred while loading the times.</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">An error occurred while loading the times.</target>
         </trans-unit>
         <trans-unit id="CTimeService.ErrorWhileLogin" translate="yes" xml:space="preserve">
           <source>Beim Anmelden ist ein Fehler aufgetreten.</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">An error occurred when logging on.</target>
+          <target state="translated" state-qualifier="mt-suggestion">An error occurred when logging on.</target>
         </trans-unit>
         <trans-unit id="CTimeService.ErrorWhileStamp" translate="yes" xml:space="preserve">
           <source>Beim Stempeln ist ein Fehler aufgetreten.</source>
