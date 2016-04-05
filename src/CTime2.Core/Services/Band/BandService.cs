@@ -26,6 +26,7 @@ namespace CTime2.Core.Services.Band
 
             BackgroundTileEventHandler.Instance.TileOpened += this.OnTileOpened;
             BackgroundTileEventHandler.Instance.TileButtonPressed += this.OnTileButtonPressed;
+            BackgroundTileEventHandler.Instance.TileClosed += this.OnTileClosed;
         }
 
         public async Task<BandInfo> GetBand()
@@ -67,7 +68,7 @@ namespace CTime2.Core.Services.Band
         }
 
 
-        public async Task HandleTileEventAsync(ValueSet message)
+        public void HandleTileEvent(ValueSet message)
         {
             BackgroundTileEventHandler.Instance.HandleTileEvent(message);
         }
@@ -157,40 +158,45 @@ namespace CTime2.Core.Services.Band
             await client.TileManager.SetPagesAsync(BandConstants.TileId, pageData);
         }
         
-        private async void OnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> bandTileEventArgs)
-        {
-            using (var client = await this.GetClientAsync(true))
-            {
-                await this.UpdateTileContentAsync(client);
-            }
-        }
         
         private IBandClient _backgroundTileClient;
-        private async void OnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> e)
+        private void OnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> bandTileEventArgs)
+        {
+            this._backgroundTileClient = this.GetClientAsync(true).Result;
+            this.UpdateTileContentAsync(this._backgroundTileClient).Wait();
+        }
+
+        private void OnTileClosed(object sender, BandTileEventArgs<IBandTileClosedEvent> e)
+        {
+            this._backgroundTileClient?.Dispose();
+        }
+
+        private bool _isExecutingButtonEvent;
+        private void OnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> e)
         {
             if (e.TileEvent.TileId == BandConstants.TileId)
             {
-                if (this._backgroundTileClient != null)
+                if (this._isExecutingButtonEvent)
                     return;
 
-                this._backgroundTileClient = await this.GetClientAsync(true);
+                this._isExecutingButtonEvent = true;
 
                 if (e.TileEvent.ElementId == BandConstants.StampElementId)
                 {
-                    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                    var currentTime = this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id).Result;
                     bool checkedIn = currentTime != null && currentTime.State.IsEntered();
 
                     var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
-                    await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
+                    stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered).Wait();
 
-                    await this.UpdateTileContentAsync(this._backgroundTileClient);
+                    this.UpdateTileContentAsync(this._backgroundTileClient).Wait();
                 }
                 else if (e.TileEvent.ElementId == BandConstants.TestElementId)
                 {
-                    await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
+                    this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone).Wait();
                 }
-                
-                this._backgroundTileClient = null;
+
+                this._isExecutingButtonEvent = false;
             }
         }
 

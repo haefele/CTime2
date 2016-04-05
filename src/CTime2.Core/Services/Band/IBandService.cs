@@ -16,6 +16,6 @@ namespace CTime2.Core.Services.Band
         Task RegisterBandTileAsync();
         Task UnRegisterBandTileAsync();
 
-        Task HandleTileEventAsync(ValueSet message);
+        void HandleTileEvent(ValueSet message);
     }
 }

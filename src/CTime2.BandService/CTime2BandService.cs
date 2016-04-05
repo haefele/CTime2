@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
+using Windows.Foundation.Collections;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
+using Microsoft.Band;
 
 namespace CTime2.BandService
 {
@@ -14,7 +18,7 @@ namespace CTime2.BandService
         #endregion
 
         #region Implementation of IBackgroundTask
-        public void Run(IBackgroundTaskInstance taskInstance)
+        public async void Run(IBackgroundTaskInstance taskInstance)
         {
             this._deferral = taskInstance.GetDeferral();
             
@@ -26,11 +30,20 @@ namespace CTime2.BandService
 
                 if (triggerDetails.Name == "com.microsoft.band.observer")
                 {
-                    var bandService = new Core.Services.Band.BandService(new SessionStateService(), new CTimeService());
+                    var sessionStateService = new SessionStateService();
+                    await sessionStateService.RestoreStateAsync();
+                    var cTimeService = new CTimeService();
+
+                    var bandService = new Core.Services.Band.BandService(sessionStateService, cTimeService);
 
                     triggerDetails.AppServiceConnection.RequestReceived += async (sender, e) =>
                     {
-                        await bandService.HandleTileEventAsync(e.Request.Message);
+                        var deferral = e.GetDeferral();
+
+                        bandService.HandleTileEvent(e.Request.Message);
+                        await e.Request.SendResponseAsync(new ValueSet());
+
+                        deferral.Complete();
                     };
                 }
             }
