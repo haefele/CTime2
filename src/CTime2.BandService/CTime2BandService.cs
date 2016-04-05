@@ -40,7 +40,7 @@ namespace CTime2.BandService
                     {
                         var deferral = e.GetDeferral();
 
-                        bandService.HandleTileEvent(e.Request.Message);
+                        await bandService.HandleTileEventAsync(e.Request.Message);
                         await e.Request.SendResponseAsync(new ValueSet());
 
                         deferral.Complete();

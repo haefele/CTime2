@@ -68,10 +68,14 @@ namespace CTime2.Core.Services.Band
         }
 
 
-        public void HandleTileEvent(ValueSet message)
+        private TaskCompletionSource<object> _backgroundTileEventTaskSource; 
+        public Task HandleTileEventAsync(ValueSet message)
         {
+            this._backgroundTileEventTaskSource = new TaskCompletionSource<object>();
             BackgroundTileEventHandler.Instance.HandleTileEvent(message);
+            return this._backgroundTileEventTaskSource.Task;
         }
+
 
         private async Task<bool> IsBandTileRegisteredInternalAsync(IBandClient client)
         {
@@ -160,46 +164,58 @@ namespace CTime2.Core.Services.Band
         
         
         private IBandClient _backgroundTileClient;
-        private void OnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> bandTileEventArgs)
+        private async void OnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> bandTileEventArgs)
         {
-            this._backgroundTileClient = this.GetClientAsync(true).Result;
-            this.UpdateTileContentAsync(this._backgroundTileClient).Wait();
+            try
+            {
+                this._backgroundTileClient = await this.GetClientAsync(true);
+                await this.UpdateTileContentAsync(this._backgroundTileClient);
+            }
+            finally
+            {
+                this._backgroundTileEventTaskSource.SetResult(null);
+            }
         }
 
         private void OnTileClosed(object sender, BandTileEventArgs<IBandTileClosedEvent> e)
         {
-            this._backgroundTileClient?.Dispose();
-        }
-
-        private bool _isExecutingButtonEvent;
-        private void OnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> e)
-        {
-            if (e.TileEvent.TileId == BandConstants.TileId)
+            try
             {
-                if (this._isExecutingButtonEvent)
-                    return;
-
-                this._isExecutingButtonEvent = true;
-
-                if (e.TileEvent.ElementId == BandConstants.StampElementId)
-                {
-                    var currentTime = this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id).Result;
-                    bool checkedIn = currentTime != null && currentTime.State.IsEntered();
-
-                    var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
-                    stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered).Wait();
-
-                    this.UpdateTileContentAsync(this._backgroundTileClient).Wait();
-                }
-                else if (e.TileEvent.ElementId == BandConstants.TestElementId)
-                {
-                    this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone).Wait();
-                }
-
-                this._isExecutingButtonEvent = false;
+                this._backgroundTileClient?.Dispose();
+            }
+            finally
+            {
+                this._backgroundTileEventTaskSource.SetResult(null);
             }
         }
 
+        private async void OnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> e)
+        {
+            try
+            {
+                if (e.TileEvent.TileId == BandConstants.TileId)
+                {
+                    if (e.TileEvent.ElementId == BandConstants.StampElementId)
+                    {
+                        var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                        bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+
+                        var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
+                        await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
+
+                        await this.UpdateTileContentAsync(this._backgroundTileClient);
+                    }
+                    else if (e.TileEvent.ElementId == BandConstants.TestElementId)
+                    {
+                        await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
+                    }
+                }
+            }
+            finally
+            {
+                this._backgroundTileEventTaskSource.SetResult(null);
+            }
+        }
 
         #region Callbacks
         public async Task OnNotLoggedIn()
