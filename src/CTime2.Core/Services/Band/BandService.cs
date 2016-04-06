@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
@@ -69,11 +70,20 @@ namespace CTime2.Core.Services.Band
 
 
         private TaskCompletionSource<object> _backgroundTileEventTaskSource; 
-        public Task HandleTileEventAsync(ValueSet message)
+        public async Task HandleTileEventAsync(ValueSet message)
         {
+            //Do nothing if we are currently handling a tile event
+            if (this._backgroundTileEventTaskSource != null)
+                return;
+
             this._backgroundTileEventTaskSource = new TaskCompletionSource<object>();
-            BackgroundTileEventHandler.Instance.HandleTileEvent(message);
-            return this._backgroundTileEventTaskSource.Task;
+            bool eventHandled = BackgroundTileEventHandler.Instance.HandleTileEvent(message);
+
+            if (eventHandled == false)
+                this._backgroundTileEventTaskSource.SetResult(null);
+
+            await this._backgroundTileEventTaskSource.Task;
+            this._backgroundTileEventTaskSource = null;
         }
 
 
