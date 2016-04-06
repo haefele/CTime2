@@ -1,0 +1,96 @@
+{
+  "$type": "DesignerContents",
+  "DesignerState": {
+    "$type": "DesignerState",
+    "BandLayout": {
+      "$type": "BandLayout",
+      "Version": {
+        "$type": "Version",
+        "Major": 2,
+        "Build": -1,
+        "Revision": -1
+      },
+      "BandTheme": {
+        "$type": "Theme",
+        "Base": "R: 51, G: 102, B: 204",
+        "HighContrast": "R: 58, G: 120, B: 221",
+        "Highlight": "R: 58, G: 120, B: 221",
+        "Lowlight": "R: 49, G: 101, B: 186",
+        "Muted": "R: 43, G: 90, B: 165",
+        "SecondaryText": "R: 137, G: 151, B: 171"
+      },
+      "TileTheme": {
+        "$type": "Theme",
+        "Base": "R: 51, G: 102, B: 204",
+        "HighContrast": "R: 58, G: 120, B: 221",
+        "Highlight": "R: 58, G: 120, B: 221",
+        "Lowlight": "R: 49, G: 101, B: 186",
+        "Muted": "R: 43, G: 90, B: 165",
+        "SecondaryText": "R: 137, G: 151, B: 171"
+      },
+      "RootPanel": {
+        "$type": "FilledPanel",
+        "Elements": {
+          "$type": "Elements",
+          "$values": [
+            {
+              "$type": "TextBlock",
+              "AutoWidth": true,
+              "Color": "R: 255, G: 255, B: 255",
+              "Text": "Please wait...",
+              "Name": "PleaseWaitTextBlock",
+              "ElementId": 4,
+              "Id": "d6a4c856-5c1a-4b5b-bded-ab7aa6b662c8",
+              "Left": 15,
+              "Top": 60,
+              "Width": 32,
+              "Height": 30,
+              "VerticalAlignment": 1,
+              "Visible": true
+            },
+            {
+              "$type": "TextBlock",
+              "AutoWidth": true,
+              "Color": "R: 255, G: 255, B: 255",
+              "Text": "Loading...",
+              "Name": "LoadingTextBlock",
+              "ElementId": 3,
+              "Id": "546429e9-d1a3-4857-9cfe-b70fce5b18dd",
+              "Left": 15,
+              "Top": 30,
+              "Width": 32,
+              "Height": 30,
+              "VerticalAlignment": 1,
+              "Visible": true
+            },
+            {
+              "$type": "TextBlock",
+              "ColorSource": 2,
+              "Color": "R: 255, G: 255, B: 255",
+              "Text": "c-time",
+              "Name": "",
+              "ElementId": 2,
+              "Id": "f3a6eee3-9fa8-4fe0-94a6-a83d9e380a30",
+              "Left": 15,
+              "Width": 233,
+              "Height": 30,
+              "VerticalAlignment": 1,
+              "Visible": true
+            }
+          ]
+        },
+        "Name": "",
+        "ElementId": 1,
+        "Id": "60233ca7-2873-42fe-835e-1ea70f694d22",
+        "Width": 248,
+        "Height": 128,
+        "Visible": true
+      }
+    },
+    "SelectedElements": {
+      "$type": "IdList",
+      "$values": []
+    }
+  },
+  "ZoomPercent": 100.0
+}

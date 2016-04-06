@@ -6,6 +6,7 @@ using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Media.Imaging;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Services.Band.Pages;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
 using Microsoft.Band;
@@ -111,43 +112,22 @@ namespace CTime2.Core.Services.Band
             {
                 SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
                 TileIcon = new WriteableBitmap(48, 48).ToBandIcon(),
-                Name = "c-time",
-                PageLayouts =
-                {
-                    new PageLayout
-                    {
-                        Root = new FilledPanel
-                        {
-                            Rect = new PageRect(0, 0, 258, 128),
-                            Elements =
-                            {
-                                new TextBlock
-                                {
-                                    ElementId = BandConstants.HeaderElementId,
-                                    ColorSource = ElementColorSource.BandHighlight,
-                                    AutoWidth = true,
-                                    Rect = new PageRect(15, 0, 258, 30)
-                                },
-                                new TextButton
-                                {
-                                    PressedColor = new BandColor(0, 255, 0),
-                                    ElementId = BandConstants.StampElementId,
-                                    Rect = new PageRect(15, 40, 258, 40),
-                                },
-                                new TextButton
-                                {
-                                    PressedColor = new BandColor(255, 255, 0),
-                                    ElementId = BandConstants.TestElementId,
-                                    Rect = new PageRect(15, 86, 258, 40),
-                                }
-                            }
-                        }
-                    }
-                }
+                Name = "c-time"
             };
 
+            var stampPageLayout = new StampPageLayout();
+            tile.PageLayouts.Add(stampPageLayout.Layout);
+
+            var startPageLayout = new StartPageLayout();
+            tile.PageLayouts.Add(startPageLayout.Layout);
+            
             await client.TileManager.AddTileAsync(tile);
-            await this.UpdateTileContentAsync(client);
+            
+            await client.TileManager.SetPagesAsync(BandConstants.TileId,
+                new PageData(BandConstants.StartPageId, 0, startPageLayout.Data.All));
+
+            await client.TileManager.SetPagesAsync(BandConstants.TileId,
+                new PageData(BandConstants.StampPageId, 1, stampPageLayout.Data.All));
 
             await client.SubscribeToBackgroundTileEventsAsync(tile.TileId);
         }
@@ -167,20 +147,6 @@ namespace CTime2.Core.Services.Band
             
             return await BandClientManager.Instance.ConnectAsync(bandInfos.First());
         }
-
-
-        private async Task UpdateTileContentAsync(IBandClient client)
-        {
-            var currentState = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-            bool checkedIn = currentState != null && currentState.State.IsEntered();
-
-            var pageData = new PageData(BandConstants.TileId, 0,
-                new TextBlockData(BandConstants.HeaderElementId, "c-time"),
-                new TextButtonData(BandConstants.StampElementId, checkedIn ? "Check-out" : "Check-in"),
-                new TextButtonData(BandConstants.TestElementId, "Test"));
-
-            await client.TileManager.SetPagesAsync(BandConstants.TileId, pageData);
-        }
         
         
         private IBandClient _backgroundTileClient;
@@ -189,7 +155,6 @@ namespace CTime2.Core.Services.Band
             try
             {
                 this._backgroundTileClient = await this.GetClientAsync(true);
-                await this.UpdateTileContentAsync(this._backgroundTileClient);
             }
             finally
             {
@@ -215,20 +180,20 @@ namespace CTime2.Core.Services.Band
             {
                 if (e.TileEvent.TileId == BandConstants.TileId)
                 {
-                    if (e.TileEvent.ElementId == BandConstants.StampElementId)
-                    {
-                        var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-                        bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+                    //if (e.TileEvent.ElementId == BandConstants.StampElementId)
+                    //{
+                    //    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                    //    bool checkedIn = currentTime != null && currentTime.State.IsEntered();
 
-                        var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
-                        await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
+                    //    var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
+                    //    await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
 
-                        await this.UpdateTileContentAsync(this._backgroundTileClient);
-                    }
-                    else if (e.TileEvent.ElementId == BandConstants.TestElementId)
-                    {
-                        await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
-                    }
+                    //    await this.UpdateTileContentAsync(this._backgroundTileClient);
+                    //}
+                    //else if (e.TileEvent.ElementId == BandConstants.TestElementId)
+                    //{
+                    //    await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
+                    //}
                 }
             }
             finally
