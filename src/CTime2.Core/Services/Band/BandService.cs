@@ -97,6 +97,16 @@ namespace CTime2.Core.Services.Band
         {
             await this.UnRegisterBandTileInternalAsync(client);
             
+            var bandHardwareVersion = int.Parse(await client.GetHardwareVersionAsync());
+
+            if (bandHardwareVersion < 20)
+                throw new CTimeException("Leider werden nur Microsoft Band 2 unterstützt.");
+            
+            var availableTileCount = await client.TileManager.GetRemainingTileCapacityAsync();
+
+            if (availableTileCount == 0)
+                throw new CTimeException("Auf dem Band ist kein Platz mehr für weitere Tiles.");
+            
             var tile = new BandTile(BandConstants.TileId)
             {
                 SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
