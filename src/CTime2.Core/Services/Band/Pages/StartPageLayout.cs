@@ -19,11 +19,11 @@ namespace CTime2.Core.Services.Band.Pages
 		private FilledPanel panel = new FilledPanel();
 		internal TextBlock PleaseWaitTextBlock = new TextBlock();
 		internal TextBlock LoadingTextBlock = new TextBlock();
-		private TextBlock textBlock = new TextBlock();
+		internal TextBlock CTimeTextBlock = new TextBlock();
 		
 		internal TextBlockData PleaseWaitTextBlockData = new TextBlockData(4, "Please wait...");
 		internal TextBlockData LoadingTextBlockData = new TextBlockData(3, "Loading...");
-		private TextBlockData textBlockData = new TextBlockData(2, "c-time");
+		internal TextBlockData CTimeTextBlockData = new TextBlockData(2, "c-time");
 		
 		public StartPageLayout()
 		{
@@ -72,26 +72,26 @@ namespace CTime2.Core.Services.Band.Pages
 			
 			panel.Elements.Add(LoadingTextBlock);
 			
-			textBlock = new TextBlock();
-			textBlock.Font = TextBlockFont.Small;
-			textBlock.Baseline = 0;
-			textBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
-			textBlock.AutoWidth = false;
-			textBlock.ColorSource = ElementColorSource.BandHighlight;
-			textBlock.Rect = new PageRect(15, 0, 233, 30);
-			textBlock.ElementId = 2;
-			textBlock.Margins = new Margins(0, 0, 0, 0);
-			textBlock.HorizontalAlignment = HorizontalAlignment.Left;
-			textBlock.VerticalAlignment = VerticalAlignment.Bottom;
-			textBlock.Visible = true;
+			CTimeTextBlock = new TextBlock();
+			CTimeTextBlock.Font = TextBlockFont.Small;
+			CTimeTextBlock.Baseline = 0;
+			CTimeTextBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
+			CTimeTextBlock.AutoWidth = false;
+			CTimeTextBlock.ColorSource = ElementColorSource.BandHighlight;
+			CTimeTextBlock.Rect = new PageRect(15, 0, 233, 30);
+			CTimeTextBlock.ElementId = 2;
+			CTimeTextBlock.Margins = new Margins(0, 0, 0, 0);
+			CTimeTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
+			CTimeTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
+			CTimeTextBlock.Visible = true;
 			
-			panel.Elements.Add(textBlock);
+			panel.Elements.Add(CTimeTextBlock);
 			pageLayout = new PageLayout(panel);
 			
 			PageElementData[] pageElementDataArray = new PageElementData[3];
 			pageElementDataArray[0] = PleaseWaitTextBlockData;
 			pageElementDataArray[1] = LoadingTextBlockData;
-			pageElementDataArray[2] = textBlockData;
+			pageElementDataArray[2] = CTimeTextBlockData;
 			
 			pageLayoutData = new PageLayoutData(pageElementDataArray);
 		}

@@ -68,7 +68,7 @@
               "ColorSource": 2,
               "Color": "R: 255, G: 255, B: 255",
               "Text": "c-time",
-              "Name": "",
+              "Name": "CTimeTextBlock",
               "ElementId": 2,
               "Id": "f3a6eee3-9fa8-4fe0-94a6-a83d9e380a30",
               "Left": 15,
@@ -89,7 +89,9 @@
     },
     "SelectedElements": {
       "$type": "IdList",
-      "$values": []
+      "$values": [
+        "f3a6eee3-9fa8-4fe0-94a6-a83d9e380a30"
+      ]
     }
   },
   "ZoomPercent": 100.0

@@ -17,11 +17,11 @@ namespace CTime2.Core.Services.Band.Pages
 		private PageLayoutData pageLayoutData;
 		
 		private FilledPanel panel = new FilledPanel();
-		private TextButton button = new TextButton();
-		private TextBlock textBlock = new TextBlock();
+		internal TextButton StampTextButton = new TextButton();
+		internal TextBlock StampTextBlock = new TextBlock();
 		
-		private TextButtonData buttonData = new TextButtonData(4, "Einstempeln");
-		private TextBlockData textBlockData = new TextBlockData(2, "Stempeln");
+		internal TextButtonData StampTextButtonData = new TextButtonData(4, "Einstempeln");
+		internal TextBlockData StampTextBlockData = new TextBlockData(2, "Stempeln");
 		
 		public StampPageLayout()
 		{
@@ -38,36 +38,36 @@ namespace CTime2.Core.Services.Band.Pages
 			panel.VerticalAlignment = VerticalAlignment.Top;
 			panel.Visible = true;
 			
-			button = new TextButton();
-			button.PressedColor = new BandColor(32, 32, 32);
-			button.Rect = new PageRect(15, 36, 230, 83);
-			button.ElementId = 4;
-			button.Margins = new Margins(0, 0, 0, 0);
-			button.HorizontalAlignment = HorizontalAlignment.Center;
-			button.VerticalAlignment = VerticalAlignment.Top;
-			button.Visible = true;
+			StampTextButton = new TextButton();
+			StampTextButton.PressedColor = new BandColor(32, 32, 32);
+			StampTextButton.Rect = new PageRect(15, 36, 230, 83);
+			StampTextButton.ElementId = 4;
+			StampTextButton.Margins = new Margins(0, 0, 0, 0);
+			StampTextButton.HorizontalAlignment = HorizontalAlignment.Center;
+			StampTextButton.VerticalAlignment = VerticalAlignment.Top;
+			StampTextButton.Visible = true;
 			
-			panel.Elements.Add(button);
+			panel.Elements.Add(StampTextButton);
 			
-			textBlock = new TextBlock();
-			textBlock.Font = TextBlockFont.Small;
-			textBlock.Baseline = 0;
-			textBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
-			textBlock.AutoWidth = true;
-			textBlock.ColorSource = ElementColorSource.BandHighlight;
-			textBlock.Rect = new PageRect(15, 0, 32, 30);
-			textBlock.ElementId = 2;
-			textBlock.Margins = new Margins(0, 0, 0, 0);
-			textBlock.HorizontalAlignment = HorizontalAlignment.Left;
-			textBlock.VerticalAlignment = VerticalAlignment.Bottom;
-			textBlock.Visible = true;
+			StampTextBlock = new TextBlock();
+			StampTextBlock.Font = TextBlockFont.Small;
+			StampTextBlock.Baseline = 0;
+			StampTextBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
+			StampTextBlock.AutoWidth = true;
+			StampTextBlock.ColorSource = ElementColorSource.BandHighlight;
+			StampTextBlock.Rect = new PageRect(15, 0, 32, 30);
+			StampTextBlock.ElementId = 2;
+			StampTextBlock.Margins = new Margins(0, 0, 0, 0);
+			StampTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
+			StampTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
+			StampTextBlock.Visible = true;
 			
-			panel.Elements.Add(textBlock);
+			panel.Elements.Add(StampTextBlock);
 			pageLayout = new PageLayout(panel);
 			
 			PageElementData[] pageElementDataArray = new PageElementData[2];
-			pageElementDataArray[0] = buttonData;
-			pageElementDataArray[1] = textBlockData;
+			pageElementDataArray[0] = StampTextButtonData;
+			pageElementDataArray[1] = StampTextBlockData;
 			
 			pageLayoutData = new PageLayoutData(pageElementDataArray);
 		}

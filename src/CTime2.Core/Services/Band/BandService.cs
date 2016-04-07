@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Media.Imaging;
@@ -18,9 +21,12 @@ namespace CTime2.Core.Services.Band
 {
     public class BandService : IBandService, ICTimeStampHelperCallback
     {
+        #region Fields
         private readonly ISessionStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
-        
+        #endregion
+
+        #region Constructors
         public BandService(ISessionStateService sessionStateService, ICTimeService cTimeService)
         {
             this._sessionStateService = sessionStateService;
@@ -30,7 +36,9 @@ namespace CTime2.Core.Services.Band
             BackgroundTileEventHandler.Instance.TileButtonPressed += this.OnTileButtonPressed;
             BackgroundTileEventHandler.Instance.TileClosed += this.OnTileClosed;
         }
+        #endregion
 
+        #region Foreground Methods
         public async Task<BandInfo> GetBand()
         {
             var bandInfos = await BandClientManager.Instance.GetBandsAsync();
@@ -70,7 +78,55 @@ namespace CTime2.Core.Services.Band
         }
 
 
+        private async Task<bool> IsBandTileRegisteredInternalAsync(IBandClient client)
+        {
+            var tiles = await client.TileManager.GetTilesAsync();
+            return tiles.Any(f => f.TileId == BandConstants.TileId);
+        }
+
+        private async Task RegisterBandTileInternalAsync(IBandClient client)
+        {
+            await this.UnRegisterBandTileInternalAsync(client);
+
+            var bandHardwareVersion = int.Parse(await client.GetHardwareVersionAsync());
+
+            if (bandHardwareVersion < 20)
+                throw new CTimeException("Leider werden nur Microsoft Band 2 unterstützt.");
+
+            var availableTileCount = await client.TileManager.GetRemainingTileCapacityAsync();
+
+            if (availableTileCount == 0)
+                throw new CTimeException("Auf dem Band ist kein Platz mehr für weitere Tiles.");
+
+            var tile = new BandTile(BandConstants.TileId)
+            {
+                SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
+                TileIcon = new WriteableBitmap(48, 48).ToBandIcon(),
+                Name = "c-time"
+            };
+
+            var stampPageLayout = new StampPageLayout();
+            tile.PageLayouts.Add(stampPageLayout.Layout);
+
+            var startPageLayout = new StartPageLayout();
+            tile.PageLayouts.Add(startPageLayout.Layout);
+
+            await client.TileManager.AddTileAsync(tile);
+
+            await this.ChangeTileDataToLoadingAsync(client);
+
+            await client.SubscribeToBackgroundTileEventsAsync(tile.TileId);
+        }
+
+        private async Task UnRegisterBandTileInternalAsync(IBandClient client)
+        {
+            await client.TileManager.RemoveTileAsync(BandConstants.TileId);
+        }
+        #endregion
+
+        #region Tile Event Methods
         private TaskCompletionSource<object> _backgroundTileEventTaskSource; 
+
         public async Task HandleTileEventAsync(ValueSet message)
         {
             //Do nothing if we are currently handling a tile event
@@ -87,74 +143,14 @@ namespace CTime2.Core.Services.Band
             this._backgroundTileEventTaskSource = null;
         }
 
-
-        private async Task<bool> IsBandTileRegisteredInternalAsync(IBandClient client)
-        {
-            var tiles = await client.TileManager.GetTilesAsync();
-            return tiles.Any(f => f.TileId == BandConstants.TileId);
-        }
-
-        private async Task RegisterBandTileInternalAsync(IBandClient client)
-        {
-            await this.UnRegisterBandTileInternalAsync(client);
-            
-            var bandHardwareVersion = int.Parse(await client.GetHardwareVersionAsync());
-
-            if (bandHardwareVersion < 20)
-                throw new CTimeException("Leider werden nur Microsoft Band 2 unterstützt.");
-            
-            var availableTileCount = await client.TileManager.GetRemainingTileCapacityAsync();
-
-            if (availableTileCount == 0)
-                throw new CTimeException("Auf dem Band ist kein Platz mehr für weitere Tiles.");
-            
-            var tile = new BandTile(BandConstants.TileId)
-            {
-                SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
-                TileIcon = new WriteableBitmap(48, 48).ToBandIcon(),
-                Name = "c-time"
-            };
-
-            var stampPageLayout = new StampPageLayout();
-            tile.PageLayouts.Add(stampPageLayout.Layout);
-
-            var startPageLayout = new StartPageLayout();
-            tile.PageLayouts.Add(startPageLayout.Layout);
-            
-            await client.TileManager.AddTileAsync(tile);
-            
-            await client.TileManager.SetPagesAsync(BandConstants.TileId,
-                new PageData(BandConstants.StartPageId, 0, startPageLayout.Data.All));
-
-            await client.TileManager.SetPagesAsync(BandConstants.TileId,
-                new PageData(BandConstants.StampPageId, 1, stampPageLayout.Data.All));
-
-            await client.SubscribeToBackgroundTileEventsAsync(tile.TileId);
-        }
-
-        private async Task UnRegisterBandTileInternalAsync(IBandClient client)
-        {
-            await client.TileManager.RemoveTileAsync(BandConstants.TileId);
-        }
-        
-
-        private async Task<IBandClient> GetClientAsync(bool isBackground)
-        {
-            var bandInfos = await BandClientManager.Instance.GetBandsAsync(isBackground);
-
-            if (bandInfos.Any() == false)
-                throw new CTimeException();
-            
-            return await BandClientManager.Instance.ConnectAsync(bandInfos.First());
-        }
-        
-        
         private IBandClient _backgroundTileClient;
+
         private async void OnTileOpened(object sender, BandTileEventArgs<IBandTileOpenedEvent> bandTileEventArgs)
         {
             try
             {
                 this._backgroundTileClient = await this.GetClientAsync(true);
+                await this.ChangeTileDataToReadyAsync(this._backgroundTileClient);
             }
             finally
             {
@@ -162,11 +158,17 @@ namespace CTime2.Core.Services.Band
             }
         }
 
-        private void OnTileClosed(object sender, BandTileEventArgs<IBandTileClosedEvent> e)
+        private async void OnTileClosed(object sender, BandTileEventArgs<IBandTileClosedEvent> e)
         {
             try
             {
-                this._backgroundTileClient?.Dispose();
+                //Make sure the client is created
+                //The background task might be stopped after the OnTileOpened event
+                if (this._backgroundTileClient == null)
+                    this._backgroundTileClient = await this.GetClientAsync(true);
+
+                await this.ChangeTileDataToLoadingAsync(this._backgroundTileClient);
+                this._backgroundTileClient.Dispose();
             }
             finally
             {
@@ -178,8 +180,14 @@ namespace CTime2.Core.Services.Band
         {
             try
             {
+                //Make sure the client is created
+                //The background task might be stopped after the OnTileOpened event
+                if (this._backgroundTileClient == null)
+                    this._backgroundTileClient = await this.GetClientAsync(true);
+
                 if (e.TileEvent.TileId == BandConstants.TileId)
                 {
+                    await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.TwoToneHigh);
                     //if (e.TileEvent.ElementId == BandConstants.StampElementId)
                     //{
                     //    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
@@ -201,6 +209,67 @@ namespace CTime2.Core.Services.Band
                 this._backgroundTileEventTaskSource.SetResult(null);
             }
         }
+        #endregion
+
+        #region Private Methods
+        private async Task<IBandClient> GetClientAsync(bool isBackground)
+        {
+            var bandInfos = await BandClientManager.Instance.GetBandsAsync(isBackground);
+
+            if (bandInfos.Any() == false)
+                throw new CTimeException();
+            
+            return await BandClientManager.Instance.ConnectAsync(bandInfos.First());
+        }
+        #endregion
+
+        #region Tile Data Methods
+        private async Task ChangeTileDataToLoadingAsync(IBandClient client)
+        {
+            var stampPageLayout = new StampPageLayout
+            {
+                StampTextBlockData = {Text = "Stamp"},
+                StampTextButtonData = {Text = string.Empty}
+            };
+
+            var startPageLayout = new StartPageLayout
+            {
+                CTimeTextBlockData = {Text = "c-time"},
+                LoadingTextBlockData = {Text = "Loading..."},
+                PleaseWaitTextBlockData = {Text = "Please wait..."},
+            };
+
+            await this.ChangeTileData(client, startPageLayout, stampPageLayout);
+        }
+
+        private async Task ChangeTileDataToReadyAsync(IBandClient client)
+        {
+            var currentState = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+            bool checkedIn = currentState != null && currentState.State.IsEntered();
+
+            var stampPageLayout = new StampPageLayout
+            {
+                StampTextBlockData = { Text = "Stamp" },
+                StampTextButtonData = { Text = checkedIn ? "Check-out" : "Check-in" }
+            };
+
+            var startPageLayout = new StartPageLayout
+            {
+                CTimeTextBlockData = { Text = "c-time" },
+                LoadingTextBlockData = { Text = "Ready!" },
+                PleaseWaitTextBlockData = { Text = string.Empty },
+            };
+
+            await this.ChangeTileData(client, startPageLayout, stampPageLayout);
+        }
+
+        private async Task ChangeTileData(IBandClient client, StartPageLayout startPage, StampPageLayout stampPage)
+        {
+            await client.TileManager.SetPagesAsync(BandConstants.TileId,
+                new PageData(BandConstants.StampPageId, 0, stampPage.Data.All),
+                new PageData(BandConstants.StartPageId, 1, startPage.Data.All));
+        }
+        #endregion
 
         #region Callbacks
         public async Task OnNotLoggedIn()
