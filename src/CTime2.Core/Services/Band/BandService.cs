@@ -168,8 +168,14 @@ namespace CTime2.Core.Services.Band
         {
             try
             {
+                Logger.Debug("Handling TileOpened event.");
+
                 this._backgroundTileClient = await this.GetClientAsync(true);
                 await this.ChangeTileDataToReadyAsync(this._backgroundTileClient);
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception, "Error while handling TileOpened event.");
             }
             finally
             {
@@ -181,6 +187,8 @@ namespace CTime2.Core.Services.Band
         {
             try
             {
+                Logger.Debug("Handling TileClosed event.");
+
                 //Make sure the client is created
                 //The background task might be stopped after the OnTileOpened event
                 if (this._backgroundTileClient == null)
@@ -188,6 +196,10 @@ namespace CTime2.Core.Services.Band
 
                 await this.ChangeTileDataToLoadingAsync(this._backgroundTileClient);
                 this._backgroundTileClient.Dispose();
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception, "Error while handling TileClosed event.");
             }
             finally
             {
@@ -199,6 +211,8 @@ namespace CTime2.Core.Services.Band
         {
             try
             {
+                Logger.Debug("Handling TileButtonPressed event.");
+
                 //Make sure the client is created
                 //The background task might be stopped after the OnTileOpened event
                 if (this._backgroundTileClient == null)
@@ -226,6 +240,8 @@ namespace CTime2.Core.Services.Band
             }
             catch (Exception exception)
             {
+                Logger.Error(exception, "Error while handling TileButtonPressed event.");
+
                 if (this._backgroundTileClient != null)
                 {
                     var title = "c-time";
