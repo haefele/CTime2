@@ -34,45 +34,30 @@
           "$type": "Elements",
           "$values": [
             {
-              "$type": "TextBlock",
-              "AutoWidth": true,
-              "Color": "R: 150, G: 150, B: 150",
-              "Text": "Please wait...",
-              "Name": "PleaseWaitTextBlock",
-              "ElementId": 14,
-              "Id": "d6a4c856-5c1a-4b5b-bded-ab7aa6b662c8",
+              "$type": "TextButton",
+              "PressedColor": "R: 32, G: 32, B: 32",
+              "Text": "Testen",
+              "Name": "TestTextButton",
+              "ElementId": 33,
+              "Id": "f73e254d-40ef-4463-a5c1-025a5d9cfca0",
               "Left": 15,
-              "Top": 78,
-              "Width": 32,
-              "Height": 41,
-              "VerticalAlignment": 1,
+              "Top": 42,
+              "Width": 230,
+              "Height": 80,
+              "HorizontalAlignment": 2,
               "Visible": true
             },
             {
               "$type": "TextBlock",
               "AutoWidth": true,
-              "Color": "R: 255, G: 255, B: 255",
-              "Text": "Loading...",
-              "Name": "LoadingTextBlock",
-              "ElementId": 13,
-              "Id": "546429e9-d1a3-4857-9cfe-b70fce5b18dd",
-              "Left": 15,
-              "Top": 36,
-              "Width": 32,
-              "Height": 42,
-              "VerticalAlignment": 1,
-              "Visible": true
-            },
-            {
-              "$type": "TextBlock",
               "Color": "R: 0, G: 157, B: 206",
-              "Text": "c-time",
-              "Name": "CTimeTextBlock",
-              "ElementId": 12,
-              "Id": "f3a6eee3-9fa8-4fe0-94a6-a83d9e380a30",
+              "Text": "Verbindung",
+              "Name": "ConnectionTextBlock",
+              "ElementId": 32,
+              "Id": "1b7047bc-f656-4aac-8ab9-d75a2ad5c2c8",
               "Left": 15,
               "Top": 6,
-              "Width": 233,
+              "Width": 32,
               "Height": 30,
               "VerticalAlignment": 1,
               "Visible": true
@@ -80,8 +65,8 @@
           ]
         },
         "Name": "",
-        "ElementId": 11,
-        "Id": "60233ca7-2873-42fe-835e-1ea70f694d22",
+        "ElementId": 31,
+        "Id": "a4b0877f-5e9c-45e2-87a7-e4591ae45847",
         "Width": 248,
         "Height": 128,
         "Visible": true
@@ -90,7 +75,7 @@
     "SelectedElements": {
       "$type": "IdList",
       "$values": [
-        "f3a6eee3-9fa8-4fe0-94a6-a83d9e380a30"
+        "1b7047bc-f656-4aac-8ab9-d75a2ad5c2c8"
       ]
     }
   },

@@ -39,11 +39,14 @@ namespace CTime2.BandService
                     triggerDetails.AppServiceConnection.RequestReceived += async (sender, e) =>
                     {
                         var deferral = e.GetDeferral();
-
-                        await bandService.HandleTileEventAsync(e.Request.Message);
                         await e.Request.SendResponseAsync(new ValueSet());
-
                         deferral.Complete();
+
+                        //Handle the tile event outside of the deferral
+                        //Otherwise the band will just queue up the tile events
+                        //And we want to not allow the user to press buttons multiple times
+                        //So we let our own method handle waiting or not
+                        await bandService.HandleTileEventAsync(e.Request.Message);
                     };
                 }
             }

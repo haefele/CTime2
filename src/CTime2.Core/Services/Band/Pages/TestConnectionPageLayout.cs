@@ -11,21 +11,19 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace CTime2.Core.Services.Band.Pages
 {
-	internal class StartPageLayout
+	internal class TestConnectionPageLayout
 	{
 		private PageLayout pageLayout;
 		private PageLayoutData pageLayoutData;
 		
 		private FilledPanel panel = new FilledPanel();
-		internal TextBlock PleaseWaitTextBlock = new TextBlock();
-		internal TextBlock LoadingTextBlock = new TextBlock();
-		internal TextBlock CTimeTextBlock = new TextBlock();
+		internal TextButton TestTextButton = new TextButton();
+		internal TextBlock ConnectionTextBlock = new TextBlock();
 		
-		internal TextBlockData PleaseWaitTextBlockData = new TextBlockData(14, "Please wait...");
-		internal TextBlockData LoadingTextBlockData = new TextBlockData(13, "Loading...");
-		internal TextBlockData CTimeTextBlockData = new TextBlockData(12, "c-time");
+		internal TextButtonData TestTextButtonData = new TextButtonData(33, "Testen");
+		internal TextBlockData ConnectionTextBlockData = new TextBlockData(32, "Verbindung");
 		
-		public StartPageLayout()
+		public TestConnectionPageLayout()
 		{
 			LoadIconMethod = LoadIcon;
 			AdjustUriMethod = (uri) => uri;
@@ -34,65 +32,43 @@ namespace CTime2.Core.Services.Band.Pages
 			panel.BackgroundColorSource = ElementColorSource.Custom;
 			panel.BackgroundColor = new BandColor(0, 0, 0);
 			panel.Rect = new PageRect(0, 0, 248, 128);
-			panel.ElementId = 11;
+			panel.ElementId = 31;
 			panel.Margins = new Margins(0, 0, 0, 0);
 			panel.HorizontalAlignment = HorizontalAlignment.Left;
 			panel.VerticalAlignment = VerticalAlignment.Top;
 			panel.Visible = true;
 			
-			PleaseWaitTextBlock = new TextBlock();
-			PleaseWaitTextBlock.Font = TextBlockFont.Small;
-			PleaseWaitTextBlock.Baseline = 0;
-			PleaseWaitTextBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
-			PleaseWaitTextBlock.AutoWidth = true;
-			PleaseWaitTextBlock.ColorSource = ElementColorSource.Custom;
-			PleaseWaitTextBlock.Color = new BandColor(150, 150, 150);
-			PleaseWaitTextBlock.Rect = new PageRect(15, 78, 32, 41);
-			PleaseWaitTextBlock.ElementId = 14;
-			PleaseWaitTextBlock.Margins = new Margins(0, 0, 0, 0);
-			PleaseWaitTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-			PleaseWaitTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
-			PleaseWaitTextBlock.Visible = true;
+			TestTextButton = new TextButton();
+			TestTextButton.PressedColor = new BandColor(32, 32, 32);
+			TestTextButton.Rect = new PageRect(15, 42, 230, 80);
+			TestTextButton.ElementId = 33;
+			TestTextButton.Margins = new Margins(0, 0, 0, 0);
+			TestTextButton.HorizontalAlignment = HorizontalAlignment.Center;
+			TestTextButton.VerticalAlignment = VerticalAlignment.Top;
+			TestTextButton.Visible = true;
 			
-			panel.Elements.Add(PleaseWaitTextBlock);
+			panel.Elements.Add(TestTextButton);
 			
-			LoadingTextBlock = new TextBlock();
-			LoadingTextBlock.Font = TextBlockFont.Small;
-			LoadingTextBlock.Baseline = 0;
-			LoadingTextBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
-			LoadingTextBlock.AutoWidth = true;
-			LoadingTextBlock.ColorSource = ElementColorSource.Custom;
-			LoadingTextBlock.Color = new BandColor(255, 255, 255);
-			LoadingTextBlock.Rect = new PageRect(15, 36, 32, 42);
-			LoadingTextBlock.ElementId = 13;
-			LoadingTextBlock.Margins = new Margins(0, 0, 0, 0);
-			LoadingTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-			LoadingTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
-			LoadingTextBlock.Visible = true;
+			ConnectionTextBlock = new TextBlock();
+			ConnectionTextBlock.Font = TextBlockFont.Small;
+			ConnectionTextBlock.Baseline = 0;
+			ConnectionTextBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
+			ConnectionTextBlock.AutoWidth = true;
+			ConnectionTextBlock.ColorSource = ElementColorSource.Custom;
+			ConnectionTextBlock.Color = new BandColor(0, 157, 206);
+			ConnectionTextBlock.Rect = new PageRect(15, 6, 32, 30);
+			ConnectionTextBlock.ElementId = 32;
+			ConnectionTextBlock.Margins = new Margins(0, 0, 0, 0);
+			ConnectionTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
+			ConnectionTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
+			ConnectionTextBlock.Visible = true;
 			
-			panel.Elements.Add(LoadingTextBlock);
-			
-			CTimeTextBlock = new TextBlock();
-			CTimeTextBlock.Font = TextBlockFont.Small;
-			CTimeTextBlock.Baseline = 0;
-			CTimeTextBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
-			CTimeTextBlock.AutoWidth = false;
-			CTimeTextBlock.ColorSource = ElementColorSource.Custom;
-			CTimeTextBlock.Color = new BandColor(0, 157, 206);
-			CTimeTextBlock.Rect = new PageRect(15, 6, 233, 30);
-			CTimeTextBlock.ElementId = 12;
-			CTimeTextBlock.Margins = new Margins(0, 0, 0, 0);
-			CTimeTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-			CTimeTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
-			CTimeTextBlock.Visible = true;
-			
-			panel.Elements.Add(CTimeTextBlock);
+			panel.Elements.Add(ConnectionTextBlock);
 			pageLayout = new PageLayout(panel);
 			
-			PageElementData[] pageElementDataArray = new PageElementData[3];
-			pageElementDataArray[0] = PleaseWaitTextBlockData;
-			pageElementDataArray[1] = LoadingTextBlockData;
-			pageElementDataArray[2] = CTimeTextBlockData;
+			PageElementData[] pageElementDataArray = new PageElementData[2];
+			pageElementDataArray[0] = TestTextButtonData;
+			pageElementDataArray[1] = ConnectionTextBlockData;
 			
 			pageLayoutData = new PageLayoutData(pageElementDataArray);
 		}
@@ -168,7 +144,7 @@ namespace CTime2.Core.Services.Band.Pages
 		
 		public class PageLayoutData
 		{
-			private PageElementData[] array = new PageElementData[3];
+			private PageElementData[] array = new PageElementData[2];
 			private PageElementData[] clone;
 			
 			public PageLayoutData(PageElementData[] pageElementDataArray)

@@ -105,6 +105,9 @@ namespace CTime2.Core.Services.Band
                 Name = "c-time"
             };
 
+            var testConnectionPageLayout = new TestConnectionPageLayout();
+            tile.PageLayouts.Add(testConnectionPageLayout.Layout);
+
             var stampPageLayout = new StampPageLayout();
             tile.PageLayouts.Add(stampPageLayout.Layout);
 
@@ -129,9 +132,23 @@ namespace CTime2.Core.Services.Band
 
         public async Task HandleTileEventAsync(ValueSet message)
         {
-            //Do nothing if we are currently handling a tile event
+            //Check if we are currently handling another tile event
             if (this._backgroundTileEventTaskSource != null)
-                return;
+            {
+                object eventType;
+
+                if (message.TryGetValue("Type", out eventType) && 
+                    eventType as string == "TileButtonPressedEvent")
+                {
+                    //If its a tile button pressed event, we do nothing
+                    return;
+                }
+                else
+                {
+                    //For other events we wait till it has finished
+                    await this._backgroundTileEventTaskSource.Task;
+                }
+            }
 
             this._backgroundTileEventTaskSource = new TaskCompletionSource<object>();
             bool eventHandled = BackgroundTileEventHandler.Instance.HandleTileEvent(message);
@@ -187,6 +204,7 @@ namespace CTime2.Core.Services.Band
 
                 if (e.TileEvent.TileId == BandConstants.TileId)
                 {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
                     await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.TwoToneHigh);
                     //if (e.TileEvent.ElementId == BandConstants.StampElementId)
                     //{
@@ -226,20 +244,24 @@ namespace CTime2.Core.Services.Band
         #region Tile Data Methods
         private async Task ChangeTileDataToLoadingAsync(IBandClient client)
         {
+            var startPageLayout = new StartPageLayout
+            {
+                CTimeTextBlockData = { Text = "c-time" },
+                LoadingTextBlockData = { Text = "Loading..." },
+                PleaseWaitTextBlockData = { Text = "Please wait..." },
+            };
             var stampPageLayout = new StampPageLayout
             {
                 StampTextBlockData = {Text = "Stamp"},
                 StampTextButtonData = {Text = string.Empty}
             };
-
-            var startPageLayout = new StartPageLayout
+            var testConnectionPageLayout = new TestConnectionPageLayout
             {
-                CTimeTextBlockData = {Text = "c-time"},
-                LoadingTextBlockData = {Text = "Loading..."},
-                PleaseWaitTextBlockData = {Text = "Please wait..."},
+                ConnectionTextBlockData = { Text = "Connection" },
+                TestTextButtonData = { Text = string.Empty }
             };
 
-            await this.ChangeTileData(client, startPageLayout, stampPageLayout);
+            await this.ChangeTileData(client, startPageLayout, stampPageLayout, testConnectionPageLayout);
         }
 
         private async Task ChangeTileDataToReadyAsync(IBandClient client)
@@ -247,11 +269,6 @@ namespace CTime2.Core.Services.Band
             var currentState = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
             bool checkedIn = currentState != null && currentState.State.IsEntered();
 
-            var stampPageLayout = new StampPageLayout
-            {
-                StampTextBlockData = { Text = "Stamp" },
-                StampTextButtonData = { Text = checkedIn ? "Check-out" : "Check-in" }
-            };
 
             var startPageLayout = new StartPageLayout
             {
@@ -259,15 +276,26 @@ namespace CTime2.Core.Services.Band
                 LoadingTextBlockData = { Text = "Ready!" },
                 PleaseWaitTextBlockData = { Text = string.Empty },
             };
+            var stampPageLayout = new StampPageLayout
+            {
+                StampTextBlockData = { Text = "Stamp" },
+                StampTextButtonData = { Text = checkedIn ? "Check-out" : "Check-in" }
+            };
+            var testConnectionPageLayout = new TestConnectionPageLayout
+            {
+                ConnectionTextBlockData = {Text = "Connection"},
+                TestTextButtonData = {Text = "Test"}
+            };
 
-            await this.ChangeTileData(client, startPageLayout, stampPageLayout);
+            await this.ChangeTileData(client, startPageLayout, stampPageLayout, testConnectionPageLayout);
         }
 
-        private async Task ChangeTileData(IBandClient client, StartPageLayout startPage, StampPageLayout stampPage)
+        private async Task ChangeTileData(IBandClient client, StartPageLayout startPage, StampPageLayout stampPage, TestConnectionPageLayout testConnectionPage)
         {
             await client.TileManager.SetPagesAsync(BandConstants.TileId,
-                new PageData(BandConstants.StampPageId, 0, stampPage.Data.All),
-                new PageData(BandConstants.StartPageId, 1, startPage.Data.All));
+                new PageData(BandConstants.TestConnectionPageId, 0, testConnectionPage.Data.All),
+                new PageData(BandConstants.StampPageId, 1, stampPage.Data.All),
+                new PageData(BandConstants.StartPageId, 2, startPage.Data.All));
         }
         #endregion
 

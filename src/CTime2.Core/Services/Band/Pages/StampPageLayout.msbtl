@@ -38,25 +38,25 @@
               "PressedColor": "R: 32, G: 32, B: 32",
               "Text": "Einstempeln",
               "Name": "StampTextButton",
-              "ElementId": 4,
+              "ElementId": 23,
               "Id": "f73e254d-40ef-4463-a5c1-025a5d9cfca0",
               "Left": 15,
-              "Top": 36,
+              "Top": 42,
               "Width": 230,
-              "Height": 83,
+              "Height": 80,
               "HorizontalAlignment": 2,
               "Visible": true
             },
             {
               "$type": "TextBlock",
               "AutoWidth": true,
-              "ColorSource": 2,
-              "Color": "R: 255, G: 255, B: 255",
+              "Color": "R: 0, G: 157, B: 206",
               "Text": "Stempeln",
               "Name": "StampTextBlock",
-              "ElementId": 2,
+              "ElementId": 22,
               "Id": "1b7047bc-f656-4aac-8ab9-d75a2ad5c2c8",
               "Left": 15,
+              "Top": 6,
               "Width": 32,
               "Height": 30,
               "VerticalAlignment": 1,
@@ -65,7 +65,7 @@
           ]
         },
         "Name": "",
-        "ElementId": 1,
+        "ElementId": 21,
         "Id": "a4b0877f-5e9c-45e2-87a7-e4591ae45847",
         "Width": 248,
         "Height": 128,
@@ -75,7 +75,7 @@
     "SelectedElements": {
       "$type": "IdList",
       "$values": [
-        "f73e254d-40ef-4463-a5c1-025a5d9cfca0"
+        "1b7047bc-f656-4aac-8ab9-d75a2ad5c2c8"
       ]
     }
   },

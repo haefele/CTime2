@@ -20,8 +20,8 @@ namespace CTime2.Core.Services.Band.Pages
 		internal TextButton StampTextButton = new TextButton();
 		internal TextBlock StampTextBlock = new TextBlock();
 		
-		internal TextButtonData StampTextButtonData = new TextButtonData(4, "Einstempeln");
-		internal TextBlockData StampTextBlockData = new TextBlockData(2, "Stempeln");
+		internal TextButtonData StampTextButtonData = new TextButtonData(23, "Einstempeln");
+		internal TextBlockData StampTextBlockData = new TextBlockData(22, "Stempeln");
 		
 		public StampPageLayout()
 		{
@@ -32,7 +32,7 @@ namespace CTime2.Core.Services.Band.Pages
 			panel.BackgroundColorSource = ElementColorSource.Custom;
 			panel.BackgroundColor = new BandColor(0, 0, 0);
 			panel.Rect = new PageRect(0, 0, 248, 128);
-			panel.ElementId = 1;
+			panel.ElementId = 21;
 			panel.Margins = new Margins(0, 0, 0, 0);
 			panel.HorizontalAlignment = HorizontalAlignment.Left;
 			panel.VerticalAlignment = VerticalAlignment.Top;
@@ -40,8 +40,8 @@ namespace CTime2.Core.Services.Band.Pages
 			
 			StampTextButton = new TextButton();
 			StampTextButton.PressedColor = new BandColor(32, 32, 32);
-			StampTextButton.Rect = new PageRect(15, 36, 230, 83);
-			StampTextButton.ElementId = 4;
+			StampTextButton.Rect = new PageRect(15, 42, 230, 80);
+			StampTextButton.ElementId = 23;
 			StampTextButton.Margins = new Margins(0, 0, 0, 0);
 			StampTextButton.HorizontalAlignment = HorizontalAlignment.Center;
 			StampTextButton.VerticalAlignment = VerticalAlignment.Top;
@@ -54,9 +54,10 @@ namespace CTime2.Core.Services.Band.Pages
 			StampTextBlock.Baseline = 0;
 			StampTextBlock.BaselineAlignment = TextBlockBaselineAlignment.Automatic;
 			StampTextBlock.AutoWidth = true;
-			StampTextBlock.ColorSource = ElementColorSource.BandHighlight;
-			StampTextBlock.Rect = new PageRect(15, 0, 32, 30);
-			StampTextBlock.ElementId = 2;
+			StampTextBlock.ColorSource = ElementColorSource.Custom;
+			StampTextBlock.Color = new BandColor(0, 157, 206);
+			StampTextBlock.Rect = new PageRect(15, 6, 32, 30);
+			StampTextBlock.ElementId = 22;
 			StampTextBlock.Margins = new Margins(0, 0, 0, 0);
 			StampTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
 			StampTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
