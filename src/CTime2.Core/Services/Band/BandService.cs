@@ -10,6 +10,7 @@ using CTime2.Core.Logging;
 using CTime2.Core.Services.Band.Pages;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
+using CTime2.Core.Strings;
 using Microsoft.Band;
 using Microsoft.Band.Notifications;
 using Microsoft.Band.Tiles;
@@ -93,12 +94,12 @@ namespace CTime2.Core.Services.Band
             var bandHardwareVersion = int.Parse(await client.GetHardwareVersionAsync());
 
             if (bandHardwareVersion < 20)
-                throw new CTimeException("Leider werden nur Microsoft Band 2 unterstützt.");
+                throw new CTimeException(CTime2CoreResources.Get("BandService.OnlyBand2Supported"));
 
             var availableTileCount = await client.TileManager.GetRemainingTileCapacityAsync();
 
             if (availableTileCount == 0)
-                throw new CTimeException("Auf dem Band ist kein Platz mehr für weitere Tiles.");
+                throw new CTimeException(CTime2CoreResources.Get("BandService.NoSpaceForBandTile"));
 
             var tile = new BandTile(BandConstants.TileId)
             {
@@ -244,8 +245,8 @@ namespace CTime2.Core.Services.Band
 
                 if (this._backgroundTileClient != null)
                 {
-                    var title = "c-time";
-                    var body = $"Ups, es ist ein Fehler aufgetreten.{Environment.NewLine}{exception.GetFullMessage()}";
+                    var title = CTime2CoreResources.Get("BandService.ApplicationName");
+                    var body = CTime2CoreResources.GetFormatted("BandService.ErrorOccurred", Environment.NewLine, exception.GetFullMessage());
 
                     await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, body);
                 }
@@ -274,18 +275,18 @@ namespace CTime2.Core.Services.Band
         {
             var startPageLayout = new StartPageLayout
             {
-                CTimeTextBlockData = { Text = "c-time" },
-                LoadingTextBlockData = { Text = "Loading..." },
-                PleaseWaitTextBlockData = { Text = "Please wait..." },
+                CTimeTextBlockData = { Text = CTime2CoreResources.Get("BandService.ApplicationName") },
+                LoadingTextBlockData = { Text = CTime2CoreResources.Get("BandService.Loading") },
+                PleaseWaitTextBlockData = { Text = CTime2CoreResources.Get("BandService.PleaseWait") },
             };
             var stampPageLayout = new StampPageLayout
             {
-                StampTextBlockData = {Text = "Stamp"},
+                StampTextBlockData = {Text = CTime2CoreResources.Get("BandService.Stamp") },
                 StampTextButtonData = {Text = string.Empty}
             };
             var testConnectionPageLayout = new TestConnectionPageLayout
             {
-                ConnectionTextBlockData = { Text = "Connection" },
+                ConnectionTextBlockData = { Text = CTime2CoreResources.Get("BandService.Connection") },
                 TestTextButtonData = { Text = string.Empty }
             };
 
@@ -300,19 +301,24 @@ namespace CTime2.Core.Services.Band
 
             var startPageLayout = new StartPageLayout
             {
-                CTimeTextBlockData = { Text = "c-time" },
-                LoadingTextBlockData = { Text = "Ready!" },
+                CTimeTextBlockData = { Text = CTime2CoreResources.Get("BandService.ApplicationName") },
+                LoadingTextBlockData = { Text = CTime2CoreResources.Get("BandService.Ready") },
                 PleaseWaitTextBlockData = { Text = string.Empty },
             };
             var stampPageLayout = new StampPageLayout
             {
-                StampTextBlockData = { Text = "Stamp" },
-                StampTextButtonData = { Text = checkedIn ? "Check-out" : "Check-in" }
+                StampTextBlockData = { Text = CTime2CoreResources.Get("BandService.Stamp") },
+                StampTextButtonData =
+                {
+                    Text = checkedIn 
+                        ? CTime2CoreResources.Get("BandService.CheckOut") 
+                        : CTime2CoreResources.Get("BandService.CheckIn")
+                }
             };
             var testConnectionPageLayout = new TestConnectionPageLayout
             {
-                ConnectionTextBlockData = {Text = "Connection"},
-                TestTextButtonData = {Text = "Test"}
+                ConnectionTextBlockData = {Text = CTime2CoreResources.Get("BandService.Connection") },
+                TestTextButtonData = {Text = CTime2CoreResources.Get("BandService.Test") }
             };
 
             await this.ChangeTileData(client, startPageLayout, stampPageLayout, testConnectionPageLayout);
@@ -330,7 +336,10 @@ namespace CTime2.Core.Services.Band
         #region Callbacks
         public async Task OnNotLoggedIn()
         {
-            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Nicht eingeloggt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(
+                BandConstants.TileId,
+                CTime2CoreResources.Get("BandService.ApplicationName"),
+                CTime2CoreResources.Get("BandService.NotLoggedIn"));
         }
 
         public bool SupportsQuestions()
@@ -350,7 +359,10 @@ namespace CTime2.Core.Services.Band
 
         public async Task OnAlreadyCheckedIn()
         {
-            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits eingestempelt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(
+                BandConstants.TileId,
+                CTime2CoreResources.Get("BandService.ApplicationName"),
+                CTime2CoreResources.Get("BandService.AlreadyCheckedIn"));
         }
 
         public Task<bool> OnAlreadyCheckedOutWannaCheckIn()
@@ -360,12 +372,18 @@ namespace CTime2.Core.Services.Band
 
         public async Task OnAlreadyCheckedOut()
         {
-            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Bereits ausgestempelt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(
+                BandConstants.TileId,
+                CTime2CoreResources.Get("BandService.ApplicationName"),
+                CTime2CoreResources.Get("BandService.AlreadyCheckedOut"));
         }
 
         public async Task OnSuccess(TimeState timeState)
         {
-            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, "c-time", "Erfolgreich gestempelt.");
+            await this._backgroundTileClient.NotificationManager.ShowDialogAsync(
+                BandConstants.TileId,
+                CTime2CoreResources.Get("BandService.ApplicationName"),
+                CTime2CoreResources.Get("BandService.StampedSuccessfully"));
         }
         #endregion
     }

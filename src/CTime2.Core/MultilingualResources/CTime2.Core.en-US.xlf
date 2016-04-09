@@ -26,6 +26,72 @@
           <source>Beim Stempeln ist ein Fehler aufgetreten.</source>
           <target state="translated">An error occurred when stamping.</target>
         </trans-unit>
+        <trans-unit id="BandService.AlreadyCheckedIn" translate="yes" xml:space="preserve">
+          <source>Bereits eingestempelt.</source>
+          <target state="translated">Already checked-in.
+</target>
+        </trans-unit>
+        <trans-unit id="BandService.AlreadyCheckedOut" translate="yes" xml:space="preserve">
+          <source>Bereits ausgestempelt.</source>
+          <target state="translated">Already checked-out.
+</target>
+        </trans-unit>
+        <trans-unit id="BandService.ApplicationName" translate="yes" xml:space="preserve">
+          <source>c-time</source>
+          <target state="new">c-time</target>
+        </trans-unit>
+        <trans-unit id="BandService.CheckIn" translate="yes" xml:space="preserve">
+          <source>Einstempeln</source>
+          <target state="translated">Check-in</target>
+        </trans-unit>
+        <trans-unit id="BandService.CheckOut" translate="yes" xml:space="preserve">
+          <source>Ausstempeln</source>
+          <target state="translated">Check-out</target>
+        </trans-unit>
+        <trans-unit id="BandService.Connection" translate="yes" xml:space="preserve">
+          <source>Verbindung</source>
+          <target state="translated">Connection</target>
+        </trans-unit>
+        <trans-unit id="BandService.ErrorOccurred" translate="yes" xml:space="preserve">
+          <source>Ups, es ist ein Fehler aufgetreten.{0}{1}</source>
+          <target state="translated">Oh, an error occurred.{0}{1}</target>
+        </trans-unit>
+        <trans-unit id="BandService.Loading" translate="yes" xml:space="preserve">
+          <source>Lade...</source>
+          <target state="translated">Loading...</target>
+        </trans-unit>
+        <trans-unit id="BandService.NoSpaceForBandTile" translate="yes" xml:space="preserve">
+          <source>Auf dem Band ist kein Platz mehr für weitere Tiles.</source>
+          <target state="translated">There is no more space left on the Band.</target>
+        </trans-unit>
+        <trans-unit id="BandService.NotLoggedIn" translate="yes" xml:space="preserve">
+          <source>Nicht angemeldet.</source>
+          <target state="translated">Not logged in.</target>
+        </trans-unit>
+        <trans-unit id="BandService.OnlyBand2Supported" translate="yes" xml:space="preserve">
+          <source>Leider werden nur Microsoft Band 2 unterstützt.</source>
+          <target state="translated">Sorry, only Microsoft Band 2 are supported.</target>
+        </trans-unit>
+        <trans-unit id="BandService.PleaseWait" translate="yes" xml:space="preserve">
+          <source>Bitte warten...</source>
+          <target state="translated">Please wait...</target>
+        </trans-unit>
+        <trans-unit id="BandService.Ready" translate="yes" xml:space="preserve">
+          <source>Bereit!</source>
+          <target state="translated">Ready!</target>
+        </trans-unit>
+        <trans-unit id="BandService.Stamp" translate="yes" xml:space="preserve">
+          <source>Stempeln</source>
+          <target state="translated">Stamp</target>
+        </trans-unit>
+        <trans-unit id="BandService.StampedSuccessfully" translate="yes" xml:space="preserve">
+          <source>Erfolgreich gestempelt.</source>
+          <target state="translated">Successfully stamped.</target>
+        </trans-unit>
+        <trans-unit id="BandService.Test" translate="yes" xml:space="preserve">
+          <source>Testen</source>
+          <target state="translated">Test</target>
+        </trans-unit>
       </group>
     </body>
   </file>

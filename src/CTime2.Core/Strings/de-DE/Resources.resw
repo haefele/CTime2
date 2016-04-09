@@ -117,6 +117,54 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BandService.AlreadyCheckedIn" xml:space="preserve">
+    <value>Bereits eingestempelt.</value>
+  </data>
+  <data name="BandService.AlreadyCheckedOut" xml:space="preserve">
+    <value>Bereits ausgestempelt.</value>
+  </data>
+  <data name="BandService.ApplicationName" xml:space="preserve">
+    <value>c-time</value>
+  </data>
+  <data name="BandService.CheckIn" xml:space="preserve">
+    <value>Einstempeln</value>
+  </data>
+  <data name="BandService.CheckOut" xml:space="preserve">
+    <value>Ausstempeln</value>
+  </data>
+  <data name="BandService.Connection" xml:space="preserve">
+    <value>Verbindung</value>
+  </data>
+  <data name="BandService.ErrorOccurred" xml:space="preserve">
+    <value>Ups, es ist ein Fehler aufgetreten.{0}{1}</value>
+  </data>
+  <data name="BandService.Loading" xml:space="preserve">
+    <value>Lade...</value>
+  </data>
+  <data name="BandService.NoSpaceForBandTile" xml:space="preserve">
+    <value>Auf dem Band ist kein Platz mehr für weitere Tiles.</value>
+  </data>
+  <data name="BandService.NotLoggedIn" xml:space="preserve">
+    <value>Nicht angemeldet.</value>
+  </data>
+  <data name="BandService.OnlyBand2Supported" xml:space="preserve">
+    <value>Leider werden nur Microsoft Band 2 unterstützt.</value>
+  </data>
+  <data name="BandService.PleaseWait" xml:space="preserve">
+    <value>Bitte warten...</value>
+  </data>
+  <data name="BandService.Ready" xml:space="preserve">
+    <value>Bereit!</value>
+  </data>
+  <data name="BandService.Stamp" xml:space="preserve">
+    <value>Stempeln</value>
+  </data>
+  <data name="BandService.StampedSuccessfully" xml:space="preserve">
+    <value>Erfolgreich gestempelt.</value>
+  </data>
+  <data name="BandService.Test" xml:space="preserve">
+    <value>Testen</value>
+  </data>
   <data name="CTimeService.ErrorWhileLoadingAttendanceList" xml:space="preserve">
     <value>Beim Laden der Anwesenheitsliste ist ein Fehler aufgetreten.</value>
   </data>

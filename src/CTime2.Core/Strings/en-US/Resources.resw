@@ -27,4 +27,51 @@
   <data name="CTimeService.ErrorWhileStamp" xml:space="preserve">
     <value>An error occurred when stamping.</value>
   </data>
+  <data name="BandService.AlreadyCheckedIn" xml:space="preserve">
+    <value>Already checked-in.
+</value>
+  </data>
+  <data name="BandService.AlreadyCheckedOut" xml:space="preserve">
+    <value>Already checked-out.
+</value>
+  </data>
+  <data name="BandService.CheckIn" xml:space="preserve">
+    <value>Check-in</value>
+  </data>
+  <data name="BandService.CheckOut" xml:space="preserve">
+    <value>Check-out</value>
+  </data>
+  <data name="BandService.Connection" xml:space="preserve">
+    <value>Connection</value>
+  </data>
+  <data name="BandService.ErrorOccurred" xml:space="preserve">
+    <value>Oh, an error occurred.{0}{1}</value>
+  </data>
+  <data name="BandService.Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="BandService.NoSpaceForBandTile" xml:space="preserve">
+    <value>There is no more space left on the Band.</value>
+  </data>
+  <data name="BandService.NotLoggedIn" xml:space="preserve">
+    <value>Not logged in.</value>
+  </data>
+  <data name="BandService.OnlyBand2Supported" xml:space="preserve">
+    <value>Sorry, only Microsoft Band 2 are supported.</value>
+  </data>
+  <data name="BandService.PleaseWait" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="BandService.Ready" xml:space="preserve">
+    <value>Ready!</value>
+  </data>
+  <data name="BandService.Stamp" xml:space="preserve">
+    <value>Stamp</value>
+  </data>
+  <data name="BandService.StampedSuccessfully" xml:space="preserve">
+    <value>Successfully stamped.</value>
+  </data>
+  <data name="BandService.Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
 </root>
