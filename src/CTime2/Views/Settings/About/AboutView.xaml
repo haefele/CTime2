@@ -16,24 +16,23 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <BitmapIcon Grid.Row="1"
+        <BitmapIcon Grid.Row="0"
                     UriSource="ms-appx:///Assets/Square150x150Logo.png"
                     Width="200"
                     Height="200"
                     Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
         
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Row="1"
                    x:Uid="AboutMessageTextBlock"
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    Text="~c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
         
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="2"
                    x:Uid="VersionTextBlock"
                    Text="~Version:"
                    HorizontalAlignment="Center"
@@ -41,7 +40,7 @@
                    Style="{StaticResource TitleTextBlockStyle}"
                    />
         
-        <TextBlock Grid.Row="4"
+        <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center"
                    Text="{x:Bind ViewModel.CurrentVersion}" />
     </Grid>
