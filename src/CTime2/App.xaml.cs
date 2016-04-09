@@ -10,7 +10,7 @@ using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
-using CTime2.BandService;
+using CTime2.Common;
 using CTime2.Core.Logging;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
@@ -111,6 +111,7 @@ namespace CTime2
         private void ConfigureCaliburnMicro()
         {
             ViewModelBinder.ApplyConventionsByDefault = false;
+            LogManager.GetLog = type => new CaliburnMicroLoggingAdapter(LoggerFactory.GetLogger(type));
         }
         
         private async void ConfigureVoiceCommands()

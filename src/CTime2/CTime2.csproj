@@ -102,6 +102,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\MicrosoftPlsWhyDoIHaveToDoThisContentControl.cs" />
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
@@ -118,6 +119,7 @@
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
+    <Compile Include="Common\CaliburnMicroLoggingAdapter.cs" />
     <Compile Include="Services\Navigation\CTimeNavigationService.cs" />
     <Compile Include="Events\ApplicationResumedEvent.cs" />
     <Compile Include="Events\ApplicationSuspendingEvent.cs" />
