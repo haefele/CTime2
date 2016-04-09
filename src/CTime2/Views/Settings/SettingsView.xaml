@@ -12,7 +12,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+        <Pivot ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+               SelectedItem="{Binding ActiveItem, Mode=TwoWay}"
+               >
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="micro:Screen">
                     <TextBlock Text="{x:Bind DisplayName}" />
