@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace CTime2.Extensions
+namespace CTime2.Core.Extensions
 {
     public static class ExceptionExtensions
     {

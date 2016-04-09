@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CTime2.Core.Common;
+using CTime2.Core.Extensions;
 using CTime2.Extensions;
 using CTime2.Services.Dialog;
 using CTime2.Strings;

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Media.Imaging;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Extensions;
+using CTime2.Core.Logging;
 using CTime2.Core.Services.Band.Pages;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.SessionState;
@@ -21,6 +19,10 @@ namespace CTime2.Core.Services.Band
 {
     public class BandService : IBandService, ICTimeStampHelperCallback
     {
+        #region Logging
+        private static readonly Logger Logger = LoggerFactory.GetLogger<CTimeService>();
+        #endregion
+
         #region Fields
         private readonly ISessionStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
@@ -204,22 +206,32 @@ namespace CTime2.Core.Services.Band
 
                 if (e.TileEvent.TileId == BandConstants.TileId)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1));
-                    await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.TwoToneHigh);
-                    //if (e.TileEvent.ElementId == BandConstants.StampElementId)
-                    //{
-                    //    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
-                    //    bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+                    if (e.TileEvent.ElementId == new StampPageLayout().StampTextButton.ElementId)
+                    {
+                        await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
 
-                    //    var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
-                    //    await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
+                        var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                        bool checkedIn = currentTime != null && currentTime.State.IsEntered();
 
-                    //    await this.UpdateTileContentAsync(this._backgroundTileClient);
-                    //}
-                    //else if (e.TileEvent.ElementId == BandConstants.TestElementId)
-                    //{
-                    //    await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
-                    //}
+                        var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
+                        await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
+
+                        await this.ChangeTileDataToReadyAsync(this._backgroundTileClient);
+                    }
+                    else if (e.TileEvent.ElementId == new TestConnectionPageLayout().TestTextButton.ElementId)
+                    {
+                        await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationTwoTone);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                if (this._backgroundTileClient != null)
+                {
+                    var title = "c-time";
+                    var body = $"Ups, es ist ein Fehler aufgetreten.{Environment.NewLine}{exception.GetFullMessage()}";
+
+                    await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, body);
                 }
             }
             finally
