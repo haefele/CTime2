@@ -158,10 +158,6 @@
           <source>Gesamt Arbeitszeit</source>
           <target state="translated" state-qualifier="mt-suggestion">Total work time</target>
         </trans-unit>
-        <trans-unit id="UsedSoftwareButton.Content" translate="yes" xml:space="preserve">
-          <source>Benutzte Software</source>
-          <target state="translated" state-qualifier="mt-suggestion">Used software</target>
-        </trans-unit>
         <trans-unit id="VersionTextBlock.Text" translate="yes" xml:space="preserve">
           <source>Version:</source>
           <target state="translated">Version:</target>
@@ -235,6 +231,10 @@ Trip</target>
         <trans-unit id="StampTime.CurrentlyCheckedOut" translate="yes" xml:space="preserve">
           <source>Sie sind aktuell ausgestempelt.</source>
           <target state="translated">You are currently checked out.</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Settings" translate="yes" xml:space="preserve">
+          <source>Einstellungen</source>
+          <target state="new">Einstellungen</target>
         </trans-unit>
       </group>
     </body>

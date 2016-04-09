@@ -126,9 +126,6 @@
   <data name="Statistics.TotalWorkTime" xml:space="preserve">
     <value>Total work time</value>
   </data>
-  <data name="UsedSoftwareButton.Content" xml:space="preserve">
-    <value>Used software</value>
-  </data>
   <data name="VersionTextBlock.Text" xml:space="preserve">
     <value>Version:</value>
   </data>

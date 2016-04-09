@@ -222,6 +222,9 @@ Einstempeln</value>
   <data name="Navigation.Overview" xml:space="preserve">
     <value>Übersicht</value>
   </data>
+  <data name="Navigation.Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="Navigation.Stamp" xml:space="preserve">
     <value>Stempeln</value>
   </data>
@@ -280,9 +283,6 @@ Pause</value>
   <data name="TripCheckInTextBlock.Text" xml:space="preserve">
     <value>Reise
 Einstempeln</value>
-  </data>
-  <data name="UsedSoftwareButton.Content" xml:space="preserve">
-    <value>Benutzte Software</value>
   </data>
   <data name="VersionTextBlock.Text" xml:space="preserve">
     <value>Version:</value>

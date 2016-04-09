@@ -22,14 +22,20 @@ using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 using CTime2.Services.Navigation;
 using CTime2.States;
-using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
-using CTime2.Views.Band;
-using CTime2.Views.Licenses;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
+using CTime2.Views.Settings;
+using CTime2.Views.Settings.About;
+using CTime2.Views.Settings.Band;
+using CTime2.Views.Settings.Licenses;
+using CTime2.Views.Settings.Start;
 using CTime2.Views.Shell;
 using CTime2.Views.StampTime;
+using CTime2.Views.StampTime.CheckedIn;
+using CTime2.Views.StampTime.CheckedOut;
+using CTime2.Views.StampTime.HomeOfficeCheckedIn;
+using CTime2.Views.StampTime.TripCheckedIn;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
 using CTime2.VoiceCommandService;
@@ -83,7 +89,9 @@ namespace CTime2
                 .PerRequest<CheckedOutViewModel>()
                 .PerRequest<HomeOfficeCheckedInViewModel>()
                 .PerRequest<TripCheckedInViewModel>()
-                .PerRequest<BandViewModel>();
+                .PerRequest<BandViewModel>()
+                .PerRequest<SettingsViewModel>()
+                .PerRequest<StartViewModel>();
             
             //ShellStates
             this._container

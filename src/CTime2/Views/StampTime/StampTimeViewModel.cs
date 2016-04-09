@@ -10,6 +10,10 @@ using CTime2.Extensions;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
 using CTime2.Strings;
+using CTime2.Views.StampTime.CheckedIn;
+using CTime2.Views.StampTime.CheckedOut;
+using CTime2.Views.StampTime.HomeOfficeCheckedIn;
+using CTime2.Views.StampTime.TripCheckedIn;
 
 namespace CTime2.Views.StampTime
 {

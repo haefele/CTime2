@@ -9,7 +9,7 @@ using CTime2.Services.Loading;
 using CTime2.Services.Navigation;
 using CTime2.States;
 using CTime2.Strings;
-using CTime2.Views.About;
+using CTime2.Views.Settings;
 
 namespace CTime2.Views.Shell
 {
@@ -45,13 +45,15 @@ namespace CTime2.Views.Shell
             this.Actions = new BindableCollection<NavigationItemViewModel>();
             this.SecondaryActions = new BindableCollection<NavigationItemViewModel>
             {
-                new NavigationItemViewModel(this.About, CTime2Resources.Get("Navigation.About"), SymbolEx.Help),
+                new NavigationItemViewModel(this.Settings, CTime2Resources.Get("Navigation.Settings"), Symbol.Setting),
             };
         }
-        
-        private void About()
+
+        private void Settings()
         {
-            this._navigationService.For<AboutViewModel>().Navigate();
+            this._navigationService
+                .For<SettingsViewModel>()
+                .Navigate();
         }
     }
 }
