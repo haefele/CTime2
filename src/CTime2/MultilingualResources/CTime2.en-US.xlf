@@ -230,7 +230,7 @@ Trip</target>
         </trans-unit>
         <trans-unit id="Navigation.Settings" translate="yes" xml:space="preserve">
           <source>Einstellungen</source>
-          <target state="new">Einstellungen</target>
+          <target state="translated">Settings</target>
         </trans-unit>
       </group>
     </body>

@@ -176,4 +176,7 @@ Trip</value>
   <data name="StampTime.CurrentlyCheckedOut" xml:space="preserve">
     <value>You are currently checked out.</value>
   </data>
+  <data name="Navigation.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>
