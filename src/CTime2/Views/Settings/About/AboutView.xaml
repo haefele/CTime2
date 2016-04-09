@@ -19,12 +19,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0"
-                   x:Uid="AboutCTimeUniversalTextBlock"
-                   Text="~Über c-time Universal:"
-                   HorizontalAlignment="Center"
-                   Style="{StaticResource TitleTextBlockStyle}" />
         
         <BitmapIcon Grid.Row="1"
                     UriSource="ms-appx:///Assets/Square150x150Logo.png"

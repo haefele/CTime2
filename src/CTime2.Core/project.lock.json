@@ -3,15 +3,13 @@
   "version": 2,
   "targets": {
     "UAP,Version=v10.0": {
-      "MetroLog/0.8.9": {
+      "MetroLog/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         },
         "runtime": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         }
@@ -326,7 +324,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.3": {
         "type": "package",
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
@@ -1954,15 +1952,13 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "MetroLog/0.8.9": {
+      "MetroLog/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         },
         "runtime": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         }
@@ -2270,7 +2266,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.3": {
         "type": "package",
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
@@ -3762,15 +3758,13 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "MetroLog/0.8.9": {
+      "MetroLog/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         },
         "runtime": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         }
@@ -4064,7 +4058,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.3": {
         "type": "package",
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
@@ -5533,15 +5527,13 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "MetroLog/0.8.9": {
+      "MetroLog/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         },
         "runtime": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         }
@@ -5856,7 +5848,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.3": {
         "type": "package",
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
@@ -7348,15 +7340,13 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "MetroLog/0.8.9": {
+      "MetroLog/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         },
         "runtime": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         }
@@ -7650,7 +7640,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.3": {
         "type": "package",
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
@@ -9119,15 +9109,13 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "MetroLog/0.8.9": {
+      "MetroLog/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         },
         "runtime": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         }
@@ -9442,7 +9430,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.3": {
         "type": "package",
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
@@ -10934,15 +10922,13 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "MetroLog/0.8.9": {
+      "MetroLog/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         },
         "runtime": {
-          "lib/win81/MetroLog.Platform.dll": {},
           "lib/win81/MetroLog.WinRT.winmd": {},
           "lib/win81/MetroLog.dll": {}
         }
@@ -11236,7 +11222,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/8.0.3": {
         "type": "package",
         "compile": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
@@ -12706,36 +12692,38 @@
     }
   },
   "libraries": {
-    "MetroLog/0.8.9": {
-      "sha512": "vo2KEMPpTA4c7fGKqX84KJLZoFrX7PjGd2KRF0cDZaYT2L3XZLIF57mNsy33GaxC0Elav8pPWHc/cZLFHZDyOA==",
-      "type": "Package",
+    "MetroLog/1.0.1": {
+      "sha512": "9+i0lIT+OAf9FQOrnSbyxG5RbBtRUthIQAn73c9Y1z0v+2dPCKn9oTPTt8njHPMzy5lRoT9MDQRkYSqJ7aVqgA==",
+      "type": "package",
       "files": [
+        "MetroLog.1.0.1.nupkg.sha512",
         "MetroLog.nuspec",
-        "[Content_Types].xml",
-        "_rels/.rels",
         "content/win8-javascript/MetroLog ReadMe.txt",
         "content/win8-javascript/typings/MetroLog.WinRT.d.ts",
         "content/win8-javascript/typings/winrt.d.ts",
-        "lib/MonoAndroid/MetroLog.Platform.dll",
         "lib/MonoAndroid/MetroLog.dll",
-        "lib/MonoTouch/MetroLog.Platform.dll",
+        "lib/MonoAndroid/MetroLog.pdb",
         "lib/MonoTouch/MetroLog.dll",
-        "lib/Xamarin.iOS/MetroLog.Platform.dll",
+        "lib/MonoTouch/MetroLog.pdb",
         "lib/Xamarin.iOS/MetroLog.dll",
-        "lib/net45/MetroLog.Platform.dll",
+        "lib/Xamarin.iOS/MetroLog.pdb",
+        "lib/dotnet/MetroLog.dll",
+        "lib/dotnet/MetroLog.pdb",
         "lib/net45/MetroLog.dll",
-        "lib/portable-net45+wp8+win81+wpa81/MetroLog.dll",
-        "lib/win81/MetroLog.Platform.dll",
-        "lib/win81/MetroLog.Platform.pri",
+        "lib/net45/MetroLog.pdb",
+        "lib/portable-net45+wp8+win8+wpa81/MetroLog.dll",
+        "lib/portable-net45+wp8+win8+wpa81/MetroLog.pdb",
+        "lib/win81/MetroLog.WinRT.pdb",
         "lib/win81/MetroLog.WinRT.pri",
         "lib/win81/MetroLog.WinRT.winmd",
         "lib/win81/MetroLog.dll",
-        "lib/wp8/MetroLog.Platform.dll",
+        "lib/win81/MetroLog.pdb",
+        "lib/win81/MetroLog.pri",
         "lib/wp8/MetroLog.dll",
-        "lib/wpa81/MetroLog.Platform.dll",
-        "lib/wpa81/MetroLog.Platform.pri",
+        "lib/wp8/MetroLog.pdb",
         "lib/wpa81/MetroLog.dll",
-        "package/services/metadata/core-properties/1b53a5d1e0be4fd6821aec7ac810de39.psmdcp"
+        "lib/wpa81/MetroLog.pdb",
+        "lib/wpa81/MetroLog.pri"
       ]
     },
     "Microsoft.Band/1.3.20307": {
@@ -13605,13 +13593,12 @@
         "ref/xamarinmac20/_._"
       ]
     },
-    "Newtonsoft.Json/7.0.1": {
-      "sha512": "q3V4KLetMLnt1gpAVWgtXnHjKs0UG/RalBc29u2ZKxd5t5Ze4JBL5WiiYIklJyK/5CRiIiNwigVQUo0FgbsuWA==",
-      "type": "Package",
+    "Newtonsoft.Json/8.0.3": {
+      "sha512": "KGsYQdS2zLH+H8x2cZaSI7e+YZ4SFIbyy1YJQYl6GYBWjf5o4H1A68nxyq+WTyVSOJQ4GqS/DiPE+UseUizgMg==",
+      "type": "package",
       "files": [
+        "Newtonsoft.Json.8.0.3.nupkg.sha512",
         "Newtonsoft.Json.nuspec",
-        "[Content_Types].xml",
-        "_rels/.rels",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
         "lib/net35/Newtonsoft.Json.dll",
@@ -13624,7 +13611,6 @@
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
         "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
-        "package/services/metadata/core-properties/49e907fc018c4c7ab632e6d4ad4766f8.psmdcp",
         "tools/install.ps1"
       ]
     },
@@ -16326,11 +16312,11 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "MetroLog >= 0.8.9",
+      "MetroLog >= 1.0.1",
       "Microsoft.Band >= 1.3.20307",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Microsoft.Net.Http >= 2.2.29",
-      "Newtonsoft.Json >= 7.0.1"
+      "Newtonsoft.Json >= 8.0.3"
     ],
     "UAP,Version=v10.0": []
   }

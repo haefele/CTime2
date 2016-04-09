@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using CTime2.Strings;
 using CTime2.Views.Settings.About;
 using CTime2.Views.Settings.Band;
 using CTime2.Views.Settings.Licenses;
@@ -10,6 +11,8 @@ namespace CTime2.Views.Settings
     {
         public SettingsViewModel()
         {
+            this.DisplayName = CTime2Resources.Get("Navigation.Settings");
+
             this.Items.Add(IoC.Get<AboutViewModel>());
             this.Items.Add(IoC.Get<BandViewModel>());
             this.Items.Add(IoC.Get<LicensesListViewModel>());

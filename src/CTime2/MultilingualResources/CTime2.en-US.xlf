@@ -6,10 +6,6 @@
     </header>
     <body>
       <group id="CTIME2/STRINGS/DE-DE/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="AboutCTimeUniversalTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Über c-time Universal:</source>
-          <target state="translated">About c-time Universal:</target>
-        </trans-unit>
         <trans-unit id="AboutMessageTextBlock.Text" translate="yes" xml:space="preserve">
           <source>c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time.</source>
           <target state="translated">c-time Universal is an unofficial app for the attendance software c-time.</target>
