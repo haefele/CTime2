@@ -102,7 +102,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\MicrosoftPlsWhyDoIHaveToDoThisContentControl.cs" />
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>

@@ -22,11 +22,11 @@
                    HorizontalAlignment="Center"
                    />
 
-        <common:MicrosoftPlsWhyDoIHaveToDoThisContentControl micro:View.Model="{Binding ActiveItem}"
-                                                             HorizontalContentAlignment="Stretch"
-                                                             VerticalContentAlignment="Stretch"
-                                                             Grid.Row="1"
-                                                             />
+        <ContentControl micro:View.Model="{Binding ActiveItem}"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Grid.Row="1"
+                        />
         
     </Grid>
 </Page>

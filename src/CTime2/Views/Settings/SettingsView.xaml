@@ -20,10 +20,10 @@
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
                 <DataTemplate x:DataType="micro:Screen">
-                    <common:MicrosoftPlsWhyDoIHaveToDoThisContentControl micro:View.Model="{Binding}"
-                                                                         VerticalContentAlignment="Stretch"
-                                                                         HorizontalContentAlignment="Stretch"
-                                                                         />
+                    <ContentControl micro:View.Model="{Binding}"
+                                    VerticalContentAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    />
                 </DataTemplate>
             </Pivot.ItemTemplate>
         </Pivot>
