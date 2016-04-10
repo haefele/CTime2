@@ -178,6 +178,8 @@
     <Compile Include="Services\SessionState\SessionStateService.cs" />
     <Compile Include="Strings\CTime2CoreResources.cs" />
     <Content Include="Properties\CTime2.Core.rd.xml" />
+    <EmbeddedResource Include="Services\Band\Icons\TileIcon24px.png" />
+    <EmbeddedResource Include="Services\Band\Icons\TileIcon48px.png" />
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\CTime2.Core.en-US.xlf" />

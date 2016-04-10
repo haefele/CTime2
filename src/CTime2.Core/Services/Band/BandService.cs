@@ -1,7 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
@@ -103,8 +107,8 @@ namespace CTime2.Core.Services.Band
 
             var tile = new BandTile(BandConstants.TileId)
             {
-                SmallIcon = new WriteableBitmap(24, 24).ToBandIcon(),
-                TileIcon = new WriteableBitmap(48, 48).ToBandIcon(),
+                SmallIcon = await this.GetBandIcon("TileIcon24px.png"),
+                TileIcon = await this.GetBandIcon("TileIcon48px.png"),
                 Name = "c-time"
             };
 
@@ -127,6 +131,17 @@ namespace CTime2.Core.Services.Band
         private async Task UnRegisterBandTileInternalAsync(IBandClient client)
         {
             await client.TileManager.RemoveTileAsync(BandConstants.TileId);
+        }
+
+        private async Task<BandIcon> GetBandIcon(string icon)
+        {
+            using (var imageFile = this.GetType().GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.Core.Services.Band.Icons." + icon))
+            {
+                WriteableBitmap bitmap = new WriteableBitmap(1, 1);
+                await bitmap.SetSourceAsync(imageFile.AsRandomAccessStream());
+
+                return bitmap.ToBandIcon();
+            }
         }
         #endregion
 
