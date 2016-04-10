@@ -1,51 +1,92 @@
 ﻿<UserControl
     x:Class="CTime2.Views.Settings.Band.BandView"
+    
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:CTime2.Converter">
+    xmlns:converter="using:CTime2.Converter" 
+    xmlns:common="using:CTime2.Common"
+    xmlns:band="using:CTime2.Views.Settings.Band"
+    xmlns:windowsStateTriggers="using:WindowsStateTriggers"
+    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"   
+    >
 
-    <UserControl.Resources>
-        <Style TargetType="TextBlock" x:Key="TitleTextBLockStyle">
-            <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="FontSize" Value="20" />
-        </Style>
-        <converter:BooleanToObjectConverter x:Key="BoolToTileString" TrueValue="Tile entfernen" FalseValue="Tile installieren" />
-        <converter:BooleanToObjectConverter x:Key="BoolToConnectTileString" TrueValue="Verbindung mit Tile trennen" FalseValue="Mit Tile Verbinden" />
-        <converter:BooleanToObjectConverter x:Key="BoolToColor">
-            <converter:BooleanToObjectConverter.TrueValue>
-                <SolidColorBrush Color="Green" />
-            </converter:BooleanToObjectConverter.TrueValue>
-            <converter:BooleanToObjectConverter.FalseValue>
-                <SolidColorBrush Color="Red" />
-            </converter:BooleanToObjectConverter.FalseValue>
-        </converter:BooleanToObjectConverter>
-    </UserControl.Resources>
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="Root" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="BandStates">
+                <VisualState x:Name="Installed">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="Installed" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="symbolIcon.(SymbolIcon.Symbol)" Value="Accept"/>
+                        <Setter x:Uid="BandTileInstalledTextSetter" Target="textBlock1.(TextBlock.Text)" Value="~Tile ist installiert"/>
+                        <Setter x:Uid="BandTileInstalledButtonSetter" Target="button.(ContentControl.Content)" Value="~Tile entfernen"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <ColorAnimation Duration="0" To="Green" Storyboard.TargetProperty="(IconElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="symbolIcon" d:IsOptimized="True"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="NotInstalled">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="NotInstalled"  />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="symbolIcon.(SymbolIcon.Symbol)" Value="Cancel"/>
+                        <Setter x:Uid="BandTileNotInstalledTextSetter" Target="textBlock1.(TextBlock.Text)" Value="~Tile ist nicht installiert"/>
+                        <Setter x:Uid="BandTileNotInstalledButtonSetter" Target="button.(ContentControl.Content)" Value="~Tile installieren"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NotConnected">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="NotConnected"  />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="button.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter x:Uid="BandNotConnectedTextSetter" Target="textBlock1.(TextBlock.Text)" Value="~Es ist kein Microsoft Band 2 verbunden."/>
+                        <Setter Target="symbolIcon.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Loading">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="Loading"  />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="grid.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1" x:Uid="BandIntegrationTextBlock" x:Name="textBlock" TextWrapping="Wrap" TextAlignment="Center" Text="~Diese App kann sich in ein Microsoft Band 2 integrieren.&#xD;&#xA;&#xD;&#xA;Probiere es einfach aus!&#xD;&#xA;&#xD;&#xA;Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!"/>
+        <Grid x:Name="grid" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <SymbolIcon x:Name="symbolIcon" 
+                            Symbol="Account" 
+                            Foreground="Red" Margin="0,0,5,0" />
 
-        <TextBlock Grid.Row="0" 
-                   Text="{Binding BandName}"
-                   HorizontalAlignment="Center" />
-        
-        <TextBlock Grid.Row="1"
-                   Style="{StaticResource TitleTextBLockStyle}" 
-                   Text="1. Tile hinzufügen" />
-        
-        <Grid Grid.Row="2">
-            <Button Click="{x:Bind ViewModel.ToggleTileAsync}" 
-                    Background="{x:Bind ViewModel.IsBandTileRegistered, Mode=OneWay, Converter={StaticResource BoolToColor}}"
-                    Content="{x:Bind ViewModel.IsBandTileRegistered, Mode=OneWay, Converter={StaticResource BoolToTileString}}" 
-                    HorizontalAlignment="Stretch" 
-                    VerticalAlignment="Stretch" />
+                <TextBlock x:Name="textBlock1" 
+                           TextWrapping="Wrap" 
+                           Grid.Column="1" 
+                           VerticalAlignment="Center" 
+                           Text="~Test" Margin="0" />
+            </Grid>
+            <Button x:Name="button" Content="~Test" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0" Click="{x:Bind ViewModel.ToggleTileAsync}" />
         </Grid>
-
     </Grid>
 </UserControl>
 

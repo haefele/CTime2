@@ -179,4 +179,35 @@ Trip</value>
   <data name="Navigation.Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="BandNotConnectedTextSetter.Value" xml:space="preserve">
+    <value>There is no Microsoft Band 2 connected.</value>
+  </data>
+  <data name="BandTileInstalledButtonSetter.Value" xml:space="preserve">
+    <value>Remove tile</value>
+  </data>
+  <data name="BandTileInstalledTextSetter.Value" xml:space="preserve">
+    <value>Tile is already installed!</value>
+  </data>
+  <data name="BandTileNotInstalledButtonSetter.Value" xml:space="preserve">
+    <value>Install tile</value>
+  </data>
+  <data name="BandTileNotInstalledTextSetter.Value" xml:space="preserve">
+    <value>Tile is not installed!</value>
+  </data>
+  <data name="BandIntegrationTextBlock.Text" xml:space="preserve">
+    <value>This app can integrate with your Microsoft Band 2. 
+ 
+Just give it a try!
+ 
+Add the tile to your Microsoft Band 2 and use it to check-in!</value>
+  </data>
+  <data name="Loading.AddTileToBand" xml:space="preserve">
+    <value>Installing tile...</value>
+  </data>
+  <data name="Loading.Band" xml:space="preserve">
+    <value>Loading Band...</value>
+  </data>
+  <data name="Loading.RemoveTileFromBand" xml:space="preserve">
+    <value>Removing tile...</value>
+  </data>
 </root>

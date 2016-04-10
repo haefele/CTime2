@@ -6,6 +6,7 @@ using CTime2.Events;
 using CTime2.Extensions;
 using CTime2.Services.ExceptionHandler;
 using CTime2.Services.Loading;
+using CTime2.Strings;
 
 namespace CTime2.Views.Settings.Band
 {
@@ -13,55 +14,55 @@ namespace CTime2.Views.Settings.Band
     {
         private readonly IBandService _bandService;
         private readonly ILoadingService _loadingService;
-        private readonly IEventAggregator _eventAggregator;
         private readonly IExceptionHandler _exceptionHandler;
 
-        private bool _isBandTileRegistered;
-        private string _bandName;
+        private BandViewModelState _state;
 
-        public string BandName
+        public BandViewModelState State
         {
-            get { return this._bandName; }
-            set { this.SetProperty(ref this._bandName, value); }
-        }
-
-        public bool IsBandTileRegistered
-        {
-            get { return this._isBandTileRegistered; }
-            set { this.SetProperty(ref this._isBandTileRegistered, value); }
+            get { return this._state; }
+            set { this.SetProperty(ref this._state, value); }
         }
 
         public BandViewModel(IBandService bandService, ILoadingService loadingService, IEventAggregator eventAggregator, IExceptionHandler exceptionHandler)
         {
             this._bandService = bandService;
             this._loadingService = loadingService;
-            this._eventAggregator = eventAggregator;
             this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = "Band";
+            this.State = BandViewModelState.Loading;
 
-            this._eventAggregator.Subscribe(this);
+            eventAggregator.Subscribe(this);
         }
 
         protected override async void OnActivate()
         {
-            using (this._loadingService.Show("Lade"))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.Band")))
             {
                 await this.Reload();
             }
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            this.State = BandViewModelState.Loading;
         }
 
         public async void ToggleTileAsync()
         {
             try
             {
-                string message = this.IsBandTileRegistered
-                    ? "Entferne Tile"
-                    : "Registriere Tile";
+                if (this.State == BandViewModelState.NotConnected)
+                    return;
+
+                string message = this.State == BandViewModelState.Installed
+                    ? CTime2Resources.Get("Loading.RemoveTileFromBand")
+                    : CTime2Resources.Get("Loading.AddTileToBand");
 
                 using (this._loadingService.Show(message))
                 {
-                    if (this.IsBandTileRegistered)
+                    if (this.State == BandViewModelState.Installed)
                     {
                         await this._bandService.UnRegisterBandTileAsync();
                     }
@@ -83,13 +84,22 @@ namespace CTime2.Views.Settings.Band
         {
             try
             {
-                this.BandName = string.Empty;
-                this.IsBandTileRegistered = false;
-
                 var bandInfo = await this._bandService.GetBand();
 
-                this.BandName = bandInfo?.Name;
-                this.IsBandTileRegistered = await this._bandService.IsBandTileRegisteredAsync();
+                if (bandInfo == null)
+                {
+                    this.State = BandViewModelState.NotConnected;
+                    return;
+                }
+
+                if (await this._bandService.IsBandTileRegisteredAsync())
+                {
+                    this.State = BandViewModelState.Installed;
+                }
+                else
+                {
+                    this.State = BandViewModelState.NotInstalled;
+                }
             }
             catch (Exception exception)
             {
@@ -99,7 +109,7 @@ namespace CTime2.Views.Settings.Band
 
         public async Task Handle(ApplicationResumedEvent message)
         {
-            using (this._loadingService.Show("Lade"))
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.Band")))
             {
                 await this.Reload();
             }

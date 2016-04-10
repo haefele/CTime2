@@ -149,6 +149,7 @@
       <DependentUpon>BandView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\Band\BandViewModel.cs" />
+    <Compile Include="Views\Settings\Band\BandViewModelState.cs" />
     <Compile Include="Views\Settings\Licenses\LicensesListView.xaml.cs">
       <DependentUpon>LicensesListView.xaml</DependentUpon>
     </Compile>
