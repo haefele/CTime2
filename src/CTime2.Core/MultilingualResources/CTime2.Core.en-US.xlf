@@ -53,8 +53,8 @@
           <target state="translated">Connection</target>
         </trans-unit>
         <trans-unit id="BandService.ErrorOccurred" translate="yes" xml:space="preserve">
-          <source>Ups, es ist ein Fehler aufgetreten.{0}{1}</source>
-          <target state="translated">Oh, an error occurred.{0}{1}</target>
+          <source>Ups, es ist ein Fehler aufgetreten.</source>
+          <target state="translated">Oh, an error occurred.</target>
         </trans-unit>
         <trans-unit id="BandService.Loading" translate="yes" xml:space="preserve">
           <source>Lade...</source>

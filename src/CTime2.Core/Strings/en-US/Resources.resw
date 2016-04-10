@@ -48,7 +48,7 @@
     <value>Connection</value>
   </data>
   <data name="BandService.ErrorOccurred" xml:space="preserve">
-    <value>Oh, an error occurred.{0}{1}</value>
+    <value>Oh, an error occurred.</value>
   </data>
   <data name="BandService.Loading" xml:space="preserve">
     <value>Loading...</value>

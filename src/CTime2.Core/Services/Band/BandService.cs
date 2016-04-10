@@ -181,9 +181,9 @@ namespace CTime2.Core.Services.Band
                 if (this._backgroundTileClient != null)
                 {
                     var title = CTime2CoreResources.Get("BandService.ApplicationName");
-                    var body = CTime2CoreResources.GetFormatted("BandService.ErrorOccurred", Environment.NewLine, exception.GetFullMessage());
+                    var body = CTime2CoreResources.Get("BandService.ErrorOccurred");
 
-                    await this._backgroundTileClient.NotificationManager.SendMessageAsync(BandConstants.TileId, title, body, DateTimeOffset.Now);
+                    await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, body);
                 }
             }
             finally
@@ -213,9 +213,9 @@ namespace CTime2.Core.Services.Band
                 if (this._backgroundTileClient != null)
                 {
                     var title = CTime2CoreResources.Get("BandService.ApplicationName");
-                    var body = CTime2CoreResources.GetFormatted("BandService.ErrorOccurred", Environment.NewLine, exception.GetFullMessage());
+                    var body = CTime2CoreResources.Get("BandService.ErrorOccurred");
 
-                    await this._backgroundTileClient.NotificationManager.SendMessageAsync(BandConstants.TileId, title, body, DateTimeOffset.Now);
+                    await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, body);
                 }
             }
             finally
@@ -264,9 +264,9 @@ namespace CTime2.Core.Services.Band
                 if (this._backgroundTileClient != null)
                 {
                     var title = CTime2CoreResources.Get("BandService.ApplicationName");
-                    var body = CTime2CoreResources.GetFormatted("BandService.ErrorOccurred", Environment.NewLine, exception.GetFullMessage());
+                    var body = CTime2CoreResources.Get("BandService.ErrorOccurred");
 
-                    await this._backgroundTileClient.NotificationManager.SendMessageAsync(BandConstants.TileId, title, body, DateTimeOffset.Now);
+                    await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, body);
                 }
             }
             finally

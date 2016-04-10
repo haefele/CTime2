@@ -139,7 +139,7 @@
     <value>Fehler...</value>
   </data>
   <data name="BandService.ErrorOccurred" xml:space="preserve">
-    <value>Ups, es ist ein Fehler aufgetreten.{0}{1}</value>
+    <value>Ups, es ist ein Fehler aufgetreten.</value>
   </data>
   <data name="BandService.Loading" xml:space="preserve">
     <value>Lade...</value>
