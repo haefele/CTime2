@@ -14,8 +14,8 @@ namespace CTime2.Views.Settings
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
 
             this.Items.Add(IoC.Get<AboutViewModel>());
-            this.Items.Add(IoC.Get<BandViewModel>());
             this.Items.Add(IoC.Get<LicensesListViewModel>());
+            this.Items.Add(IoC.Get<BandViewModel>());
             this.Items.Add(IoC.Get<StartViewModel>());
         }
     }
