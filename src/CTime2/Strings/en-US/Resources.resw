@@ -210,4 +210,16 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="Loading.RemoveTileFromBand" xml:space="preserve">
     <value>Removing tile...</value>
   </data>
+  <data name="GiveFeedbackButton.Content" xml:space="preserve">
+    <value>Give feedback</value>
+  </data>
+  <data name="Feedback.EmailAddress" xml:space="preserve">
+    <value>feedback@xemio.net</value>
+  </data>
+  <data name="Feedback.LogsFileName" xml:space="preserve">
+    <value>logs.zip</value>
+  </data>
+  <data name="Feedback.Subject" xml:space="preserve">
+    <value>Feedback on the c-time universal app</value>
+  </data>
 </root>

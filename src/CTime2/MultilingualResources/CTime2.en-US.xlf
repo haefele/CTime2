@@ -276,6 +276,22 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Entferne Tile...</source>
           <target state="translated">Removing tile...</target>
         </trans-unit>
+        <trans-unit id="GiveFeedbackButton.Content" translate="yes" xml:space="preserve">
+          <source>Feedback geben</source>
+          <target state="translated">Give feedback</target>
+        </trans-unit>
+        <trans-unit id="Feedback.EmailAddress" translate="yes" xml:space="preserve">
+          <source>feedback@xemio.net</source>
+          <target state="translated">feedback@xemio.net</target>
+        </trans-unit>
+        <trans-unit id="Feedback.LogsFileName" translate="yes" xml:space="preserve">
+          <source>Logs.zip</source>
+          <target state="translated">logs.zip</target>
+        </trans-unit>
+        <trans-unit id="Feedback.Subject" translate="yes" xml:space="preserve">
+          <source>Feedback zur c-time Universal App</source>
+          <target state="translated">Feedback on the c-time universal app</target>
+        </trans-unit>
       </group>
     </body>
   </file>

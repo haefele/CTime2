@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
@@ -43,5 +44,13 @@
         <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center"
                    Text="{x:Bind ViewModel.CurrentVersion}" />
+        
+        <Button Grid.Row="4"
+                x:Uid="GiveFeedbackButton"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Content="~Feedback geben"
+                Click="{x:Bind ViewModel.SendFeedbackAsync}"
+                />
     </Grid>
 </UserControl>

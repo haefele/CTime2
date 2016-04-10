@@ -180,6 +180,18 @@ Ausstempeln</value>
   <data name="ExceptionHandler.ErrorTitle" xml:space="preserve">
     <value>Fehler</value>
   </data>
+  <data name="Feedback.EmailAddress" xml:space="preserve">
+    <value>feedback@xemio.net</value>
+  </data>
+  <data name="Feedback.LogsFileName" xml:space="preserve">
+    <value>Logs.zip</value>
+  </data>
+  <data name="Feedback.Subject" xml:space="preserve">
+    <value>Feedback zur c-time Universal App</value>
+  </data>
+  <data name="GiveFeedbackButton.Content" xml:space="preserve">
+    <value>Feedback geben</value>
+  </data>
   <data name="HomeOfficeCheckInTextBlock.Text" xml:space="preserve">
     <value>Home-Office
 Einstempeln</value>
