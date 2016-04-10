@@ -14,6 +14,7 @@ namespace CTime2.Core.Logging
         {
             var config = new LoggingConfiguration();
             config.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
+            config.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
 
             _logManager = LogManagerFactory.CreateLogManager(config);
         }
