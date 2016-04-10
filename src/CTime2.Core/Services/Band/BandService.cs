@@ -203,6 +203,8 @@ namespace CTime2.Core.Services.Band
             }
             finally
             {
+                Logger.Debug("Handled TileOpened event.");
+
                 this._backgroundTileEventTaskSource.SetResult(null);
             }
         }
@@ -235,6 +237,8 @@ namespace CTime2.Core.Services.Band
             }
             finally
             {
+                Logger.Debug("Handled TileClosed event.");
+
                 this._backgroundTileEventTaskSource.SetResult(null);
             }
         }
@@ -286,6 +290,8 @@ namespace CTime2.Core.Services.Band
             }
             finally
             {
+                Logger.Debug("Handled TileButtonPressed event.");
+
                 this._backgroundTileEventTaskSource.SetResult(null);
             }
         }
