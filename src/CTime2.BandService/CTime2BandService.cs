@@ -16,6 +16,8 @@ namespace CTime2.BandService
     {
         #region Logger
         private static readonly Logger Logger = LoggerFactory.GetLogger<CTime2BandService>();
+
+        private BackgroundTaskDeferral _deferral;
         #endregion
 
         #region Implementation of IBackgroundTask
@@ -23,6 +25,10 @@ namespace CTime2.BandService
         {
             try
             {
+                this._deferral = taskInstance.GetDeferral();
+
+                taskInstance.Canceled += (s, e) => this.Close();
+
                 var triggerDetails = (AppServiceTriggerDetails)taskInstance.TriggerDetails;
 
                 if (triggerDetails.Name == "com.microsoft.band.observer")
@@ -50,8 +56,16 @@ namespace CTime2.BandService
             catch (Exception exception)
             {
                 Logger.Error(exception, "An error occurred.");
+
+                this.Close();
             }
         }
+
+        private void Close()
+        {
+            this._deferral.Complete();
+        }
+
         #endregion
     }
 }
