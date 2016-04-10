@@ -141,6 +141,9 @@
   <data name="BandService.Loading" xml:space="preserve">
     <value>Lade...</value>
   </data>
+  <data name="BandService.NoBandConnected" xml:space="preserve">
+    <value>Kein Microsoft Band verbunden.</value>
+  </data>
   <data name="BandService.NoSpaceForBandTile" xml:space="preserve">
     <value>Auf dem Band ist kein Platz mehr für weitere Tiles.</value>
   </data>

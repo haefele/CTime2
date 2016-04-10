@@ -92,6 +92,10 @@
           <source>Testen</source>
           <target state="translated">Test</target>
         </trans-unit>
+        <trans-unit id="BandService.NoBandConnected" translate="yes" xml:space="preserve">
+          <source>Kein Microsoft Band verbunden.</source>
+          <target state="translated">No Microsoft Band connected.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

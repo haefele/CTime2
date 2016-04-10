@@ -264,7 +264,7 @@ namespace CTime2.Core.Services.Band
             var bandInfos = await BandClientManager.Instance.GetBandsAsync(isBackground);
 
             if (bandInfos.Any() == false)
-                throw new CTimeException();
+                throw new CTimeException(CTime2CoreResources.Get("BandService.NoBandConnected"));
             
             return await BandClientManager.Instance.ConnectAsync(bandInfos.First());
         }
