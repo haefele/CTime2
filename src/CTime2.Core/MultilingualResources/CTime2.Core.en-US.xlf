@@ -38,7 +38,7 @@
         </trans-unit>
         <trans-unit id="BandService.ApplicationName" translate="yes" xml:space="preserve">
           <source>c-time</source>
-          <target state="new">c-time</target>
+          <target state="translated">c-time</target>
         </trans-unit>
         <trans-unit id="BandService.CheckIn" translate="yes" xml:space="preserve">
           <source>Einstempeln</source>
@@ -95,6 +95,10 @@
         <trans-unit id="BandService.NoBandConnected" translate="yes" xml:space="preserve">
           <source>Kein Microsoft Band verbunden.</source>
           <target state="translated">No Microsoft Band connected.</target>
+        </trans-unit>
+        <trans-unit id="BandService.Error" translate="yes" xml:space="preserve">
+          <source>Fehler...</source>
+          <target state="translated">Error...</target>
         </trans-unit>
       </group>
     </body>

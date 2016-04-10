@@ -177,6 +177,14 @@ namespace CTime2.Core.Services.Band
             catch (Exception exception)
             {
                 Logger.Error(exception, "Error while handling TileOpened event.");
+                
+                if (this._backgroundTileClient != null)
+                {
+                    var title = CTime2CoreResources.Get("BandService.ApplicationName");
+                    var body = CTime2CoreResources.GetFormatted("BandService.ErrorOccurred", Environment.NewLine, exception.GetFullMessage());
+
+                    await this._backgroundTileClient.NotificationManager.SendMessageAsync(BandConstants.TileId, title, body, DateTimeOffset.Now);
+                }
             }
             finally
             {
@@ -201,6 +209,14 @@ namespace CTime2.Core.Services.Band
             catch (Exception exception)
             {
                 Logger.Error(exception, "Error while handling TileClosed event.");
+
+                if (this._backgroundTileClient != null)
+                {
+                    var title = CTime2CoreResources.Get("BandService.ApplicationName");
+                    var body = CTime2CoreResources.GetFormatted("BandService.ErrorOccurred", Environment.NewLine, exception.GetFullMessage());
+
+                    await this._backgroundTileClient.NotificationManager.SendMessageAsync(BandConstants.TileId, title, body, DateTimeOffset.Now);
+                }
             }
             finally
             {
@@ -225,7 +241,9 @@ namespace CTime2.Core.Services.Band
                     {
                         await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
 
-                        var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                        var currentTime = this._sessionStateService.CurrentUser != null 
+                            ? await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id)
+                            : null;
                         bool checkedIn = currentTime != null && currentTime.State.IsEntered();
 
                         var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
@@ -248,7 +266,7 @@ namespace CTime2.Core.Services.Band
                     var title = CTime2CoreResources.Get("BandService.ApplicationName");
                     var body = CTime2CoreResources.GetFormatted("BandService.ErrorOccurred", Environment.NewLine, exception.GetFullMessage());
 
-                    await this._backgroundTileClient.NotificationManager.ShowDialogAsync(BandConstants.TileId, title, body);
+                    await this._backgroundTileClient.NotificationManager.SendMessageAsync(BandConstants.TileId, title, body, DateTimeOffset.Now);
                 }
             }
             finally
@@ -295,15 +313,18 @@ namespace CTime2.Core.Services.Band
 
         private async Task ChangeTileDataToReadyAsync(IBandClient client)
         {
-            var currentState = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+            var loggedIn = this._sessionStateService.CurrentUser != null;
+            var currentState = loggedIn 
+                ? await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id)
+                : null;
+
             bool checkedIn = currentState != null && currentState.State.IsEntered();
-
-
+            
             var startPageLayout = new StartPageLayout
             {
                 CTimeTextBlockData = { Text = CTime2CoreResources.Get("BandService.ApplicationName") },
-                LoadingTextBlockData = { Text = CTime2CoreResources.Get("BandService.Ready") },
-                PleaseWaitTextBlockData = { Text = string.Empty },
+                LoadingTextBlockData = { Text = loggedIn ? CTime2CoreResources.Get("BandService.Ready") : CTime2CoreResources.Get("BandService.Error") },
+                PleaseWaitTextBlockData = { Text = loggedIn  ? string.Empty : CTime2CoreResources.Get("BandService.NotLoggedIn") },
             };
             var stampPageLayout = new StampPageLayout
             {

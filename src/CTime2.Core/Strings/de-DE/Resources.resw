@@ -135,6 +135,9 @@
   <data name="BandService.Connection" xml:space="preserve">
     <value>Verbindung</value>
   </data>
+  <data name="BandService.Error" xml:space="preserve">
+    <value>Fehler...</value>
+  </data>
   <data name="BandService.ErrorOccurred" xml:space="preserve">
     <value>Ups, es ist ein Fehler aufgetreten.{0}{1}</value>
   </data>

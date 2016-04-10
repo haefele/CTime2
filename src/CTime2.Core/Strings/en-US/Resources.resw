@@ -35,6 +35,9 @@
     <value>Already checked-out.
 </value>
   </data>
+  <data name="BandService.ApplicationName" xml:space="preserve">
+    <value>c-time</value>
+  </data>
   <data name="BandService.CheckIn" xml:space="preserve">
     <value>Check-in</value>
   </data>
@@ -76,5 +79,8 @@
   </data>
   <data name="BandService.NoBandConnected" xml:space="preserve">
     <value>No Microsoft Band connected.</value>
+  </data>
+  <data name="BandService.Error" xml:space="preserve">
+    <value>Error...</value>
   </data>
 </root>

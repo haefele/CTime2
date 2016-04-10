@@ -89,9 +89,10 @@ namespace CTime2.States
                 .Navigate();
         }
 
-        private void Logout()
+        private async void Logout()
         {
             this._sessionStateService.CurrentUser = null;
+            await this._sessionStateService.SaveStateAsync();
 
             this.Application.CurrentState = IoC.Get<LoggedOutApplicationState>();
         }
