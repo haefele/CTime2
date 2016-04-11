@@ -28,21 +28,21 @@
     <value>An error occurred when stamping.</value>
   </data>
   <data name="BandService.AlreadyCheckedIn" xml:space="preserve">
-    <value>Already checked-in.
+    <value>Already checked in.
 </value>
   </data>
   <data name="BandService.AlreadyCheckedOut" xml:space="preserve">
-    <value>Already checked-out.
+    <value>Already checked out.
 </value>
   </data>
   <data name="BandService.ApplicationName" xml:space="preserve">
     <value>c-time</value>
   </data>
   <data name="BandService.CheckIn" xml:space="preserve">
-    <value>Check-in</value>
+    <value>Checkin</value>
   </data>
   <data name="BandService.CheckOut" xml:space="preserve">
-    <value>Check-out</value>
+    <value>Checkout</value>
   </data>
   <data name="BandService.Connection" xml:space="preserve">
     <value>Connection</value>

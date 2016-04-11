@@ -28,12 +28,12 @@
         </trans-unit>
         <trans-unit id="BandService.AlreadyCheckedIn" translate="yes" xml:space="preserve">
           <source>Bereits eingestempelt.</source>
-          <target state="translated">Already checked-in.
+          <target state="translated">Already checked in.
 </target>
         </trans-unit>
         <trans-unit id="BandService.AlreadyCheckedOut" translate="yes" xml:space="preserve">
           <source>Bereits ausgestempelt.</source>
-          <target state="translated">Already checked-out.
+          <target state="translated">Already checked out.
 </target>
         </trans-unit>
         <trans-unit id="BandService.ApplicationName" translate="yes" xml:space="preserve">
@@ -42,11 +42,11 @@
         </trans-unit>
         <trans-unit id="BandService.CheckIn" translate="yes" xml:space="preserve">
           <source>Einstempeln</source>
-          <target state="translated">Check-in</target>
+          <target state="translated">Checkin</target>
         </trans-unit>
         <trans-unit id="BandService.CheckOut" translate="yes" xml:space="preserve">
           <source>Ausstempeln</source>
-          <target state="translated">Check-out</target>
+          <target state="translated">Checkout</target>
         </trans-unit>
         <trans-unit id="BandService.Connection" translate="yes" xml:space="preserve">
           <source>Verbindung</source>
