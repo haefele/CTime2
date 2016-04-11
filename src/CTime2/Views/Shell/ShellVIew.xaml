@@ -64,7 +64,8 @@
                    DisplayMode="CompactOverlay"
                    Grid.Row="1">
             <SplitView.Pane>
-                <Grid>
+                <Grid ManipulationMode="TranslateX"
+                      ManipulationCompleted="NavigationPane_OnManipulationCompleted">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
@@ -83,8 +84,9 @@
             </SplitView.Pane>
             <SplitView.Content>
                 <Frame x:Name="ContentFrame"
-                        x:FieldModifier="public"
-                        DataContext="{x:Null}" />
+                       x:FieldModifier="public"
+                       DataContext="{x:Null}"
+                       />
             </SplitView.Content>
         </SplitView>
         

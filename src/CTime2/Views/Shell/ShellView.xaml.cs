@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Caliburn.Micro;
 
@@ -36,6 +37,20 @@ namespace CTime2.Views.Shell
         private void OpenNavigationView(object sender, RoutedEventArgs e)
         {
             this.Navigation.IsPaneOpen = true;
+        }
+
+        private void NavigationPane_OnManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            if (this.WindowSize.CurrentState?.Name != "Narrow")
+                return;
+
+            if (this.Navigation.IsPaneOpen)
+                return;
+
+            if (e.Cumulative.Translation.X > 20)
+            {
+                this.Navigation.IsPaneOpen = true;
+            }
         }
     }
 }
