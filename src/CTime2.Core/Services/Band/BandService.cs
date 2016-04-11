@@ -188,6 +188,8 @@ namespace CTime2.Core.Services.Band
 
                 this._backgroundTileClient = await this.GetClientAsync(true);
                 await this.ChangeTileDataToReadyAsync(this._backgroundTileClient);
+
+                await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
             }
             catch (Exception exception)
             {
