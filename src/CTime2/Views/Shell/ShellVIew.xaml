@@ -58,13 +58,13 @@
                     <ListView Grid.Row="0"
                               Style="{StaticResource NavigationListViewStyle}"
                               ItemsSource="{x:Bind ViewModel.Actions, Mode=OneWay}"
-                              SelectedItem="{Binding SelectedAction, Mode=OneWay}"
+                              SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               ItemClick="ListViewBase_OnItemClick" />
 
                     <ListView Grid.Row="1"
                               Style="{StaticResource NavigationListViewStyle}"
                               ItemsSource="{x:Bind ViewModel.SecondaryActions, Mode=OneWay}" 
-                              SelectedItem="{Binding SelectedSecondaryAction, Mode=OneWay}"
+                              SelectedItem="{Binding SelectedSecondaryAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               ItemClick="ListViewBase_OnItemClick" />
                 </Grid>
             </SplitView.Pane>
