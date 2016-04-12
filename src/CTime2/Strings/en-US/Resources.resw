@@ -118,10 +118,10 @@
     <value>No times are available in the selected time period.</value>
   </data>
   <data name="Statistics.TotalWorkDays" xml:space="preserve">
-    <value>Working days</value>
+    <value>working days</value>
   </data>
   <data name="Statistics.TotalWorkTime" xml:space="preserve">
-    <value>Total work time</value>
+    <value>total work time</value>
   </data>
   <data name="VersionTextBlock.Text" xml:space="preserve">
     <value>Version:</value>

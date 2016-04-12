@@ -148,11 +148,11 @@
         </trans-unit>
         <trans-unit id="Statistics.TotalWorkDays" translate="yes" xml:space="preserve">
           <source>Arbeitstage</source>
-          <target state="translated">Working days</target>
+          <target state="translated">working days</target>
         </trans-unit>
         <trans-unit id="Statistics.TotalWorkTime" translate="yes" xml:space="preserve">
           <source>Gesamt Arbeitszeit</source>
-          <target state="translated" state-qualifier="mt-suggestion">Total work time</target>
+          <target state="translated">total work time</target>
         </trans-unit>
         <trans-unit id="VersionTextBlock.Text" translate="yes" xml:space="preserve">
           <source>Version:</source>
