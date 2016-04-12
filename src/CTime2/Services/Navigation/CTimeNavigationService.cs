@@ -35,7 +35,7 @@ namespace CTime2.Services.Navigation
             this.UpdateAppViewBackButtonVisibility();
 
             var frameworkElement = (FrameworkElement)e.Content;
-            this._eventAggregator.PublishOnUIThread(new NavigatedEvent(frameworkElement.DataContext));
+            this._eventAggregator.PublishOnCurrentThread(new NavigatedEvent(frameworkElement.DataContext));
         }
 
         private void UpdateAppViewBackButtonVisibility()
