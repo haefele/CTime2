@@ -171,7 +171,7 @@ namespace CTime2
             await stateService.RestoreStateAsync();
 
             var view = new ShellView();
-            this._container.Instance((ICTimeNavigationService)new CTimeNavigationService(view.ContentFrame));
+            this._container.Instance((ICTimeNavigationService)new CTimeNavigationService(view.ContentFrame, this._container.GetInstance<IEventAggregator>()));
             this._container.Instance((ILoadingService)new LoadingService(view.LoadingOverlay));
             
             var viewModel = IoC.Get<ShellViewModel>();

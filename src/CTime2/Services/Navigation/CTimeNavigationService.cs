@@ -1,15 +1,20 @@
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Caliburn.Micro;
+using CTime2.Events;
 
 namespace CTime2.Services.Navigation
 {
     public class CTimeNavigationService : FrameAdapter, ICTimeNavigationService
     {
-        public CTimeNavigationService(Frame frame, bool treatViewAsLoaded = false)
+        private readonly IEventAggregator _eventAggregator;
+
+        public CTimeNavigationService(Frame frame, IEventAggregator eventAggregator, bool treatViewAsLoaded = false)
             : base(frame, treatViewAsLoaded)
         {
+            this._eventAggregator = eventAggregator;
         }
 
         public NavigateHelper<TViewModel> For<TViewModel>()
@@ -28,6 +33,9 @@ namespace CTime2.Services.Navigation
             base.OnNavigated(sender, e);
 
             this.UpdateAppViewBackButtonVisibility();
+
+            var frameworkElement = (FrameworkElement)e.Content;
+            this._eventAggregator.PublishOnUIThread(new NavigatedEvent(frameworkElement.DataContext));
         }
 
         private void UpdateAppViewBackButtonVisibility()

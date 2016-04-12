@@ -15,7 +15,7 @@
     </DataTemplate>
 
     <Style x:Key="NavigationListViewStyle" TargetType="ListView">
-        <Setter Property="SelectionMode" Value="None" />
+        <Setter Property="SelectionMode" Value="Single" />
         <Setter Property="ItemTemplate" Value="{StaticResource NavigationItemTemplate}" />
         <Setter Property="IsItemClickEnabled" Value="True" />
         <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled" />
