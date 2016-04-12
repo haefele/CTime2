@@ -13,7 +13,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-               SelectedItem="{Binding ActiveItem, Mode=TwoWay}"
+               SelectedItem="{Binding ActiveItem, Mode=TwoWay}" 
+               Style="{StaticResource CenteredPivotStyle}"
                >
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="micro:Screen">

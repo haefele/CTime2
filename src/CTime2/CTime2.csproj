@@ -137,6 +137,9 @@
     <Compile Include="Services\Loading\LoadingService.cs" />
     <Compile Include="States\IApplication.cs" />
     <Compile Include="Strings\CTime2Resources.cs" />
+    <Compile Include="Styles.xaml.cs">
+      <DependentUpon>Styles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\About\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
@@ -249,6 +252,11 @@
     <Page Include="Controls\UserImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Views\Settings\About\AboutView.xaml">
       <SubType>Designer</SubType>
