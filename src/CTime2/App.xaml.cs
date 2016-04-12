@@ -11,6 +11,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
 using CTime2.Common;
+using CTime2.Core.Extensions;
 using CTime2.Core.Logging;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
@@ -116,15 +117,22 @@ namespace CTime2
         
         private async void ConfigureVoiceCommands()
         {
-            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("CTime2VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
-
-            using (var vcd = typeof(CTime2VoiceCommandService).GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.VoiceCommandService.CTime2VoiceCommands.xml"))
-            using (var fileStream = await file.OpenStreamForWriteAsync())
+            try
             {
-                await vcd.CopyToAsync(fileStream);
-            }
+                var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("CTime2VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
 
-            await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
+                using (var vcd = typeof (CTime2VoiceCommandService).GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.VoiceCommandService.CTime2VoiceCommands.xml"))
+                using (var fileStream = await file.OpenStreamForWriteAsync())
+                {
+                    await vcd.CopyToAsync(fileStream);
+                }
+
+                await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception, $"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
+            }
         }
 
         private void ConfigureWindowMinSize()
@@ -156,7 +164,7 @@ namespace CTime2
             if (args.PreviousExecutionState == ApplicationExecutionState.Running ||
                 args.PreviousExecutionState == ApplicationExecutionState.Suspended)
                 return;
-
+            
             this.Initialize();
             
             var stateService = this._container.GetInstance<ISessionStateService>();
@@ -199,7 +207,7 @@ namespace CTime2
 
         protected override void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            _logger.Error(e.Exception, () => "Unhandled exception occured.");
+            _logger.Error(e.Exception, "Unhandled exception occured.");
         }
         #endregion
     }
