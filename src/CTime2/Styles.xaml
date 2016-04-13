@@ -7,7 +7,7 @@
     xmlns:shell="using:CTime2.Views.Shell">
 
     <DataTemplate x:Key="NavigationItemTemplate"
-                  x:DataType="shell:NavigationItemViewModel">
+                  x:DataType="shell:HamburgerItem">
         <StackPanel Orientation="Horizontal" Margin="2, 0, 0, 0">
             <SymbolIcon Symbol="{x:Bind Symbol, Mode=OneWay}" />
             <TextBlock Text="{x:Bind Label, Mode=OneWay}" Margin="24, 0, 0, 0" VerticalAlignment="Center"/>

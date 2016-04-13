@@ -25,8 +25,8 @@ namespace CTime2.Views.Shell
 
         private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var clickedItem = (NavigationItemViewModel)e.ClickedItem;
-            clickedItem.Execute();
+            var clickedItem = (HamburgerItem)e.ClickedItem;
+            this.ViewModel.ExecuteAction(clickedItem);
 
             if (this.WindowSize.CurrentState?.Name == "Narrow")
             {

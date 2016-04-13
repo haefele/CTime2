@@ -11,34 +11,25 @@ namespace CTime2.States
     {
         private readonly ICTimeNavigationService _navigationService;
 
-        private readonly NavigationItemViewModel _loginNavigationItem;
+        private readonly HamburgerItem _loginHamburgerItem;
 
         public LoggedOutApplicationState(ICTimeNavigationService navigationService)
         {
             this._navigationService = navigationService;
 
-            this._loginNavigationItem = new NavigationItemViewModel(this.Login, CTime2Resources.Get("Navigation.Login"), SymbolEx.Login, typeof(LoginViewModel));
+            this._loginHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Login"), SymbolEx.Login, typeof(LoginViewModel));
         }
-
-        private void Login()
-        {
-            this._navigationService
-                .For<LoginViewModel>()
-                .Navigate();
-        }
-
+        
         public override void Enter()
         {
-            this.Application.Actions.Add(this._loginNavigationItem);
+            this.Application.Actions.Add(this._loginHamburgerItem);
 
-            this._navigationService
-                .For<LoginViewModel>()
-                .Navigate();
+            this._navigationService.Navigate(typeof(LoginViewModel));
         }
 
         public override void Leave()
         {
-            this.Application.Actions.Remove(this._loginNavigationItem);
+            this.Application.Actions.Remove(this._loginHamburgerItem);
         }
     }
 }

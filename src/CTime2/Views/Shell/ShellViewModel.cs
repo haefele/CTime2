@@ -15,23 +15,23 @@ namespace CTime2.Views.Shell
     {
         private readonly ICTimeNavigationService _navigationService;
 
-        private NavigationItemViewModel _selectedAction;
-        private NavigationItemViewModel _selectedSecondaryAction;
+        private HamburgerItem _selectedAction;
+        private HamburgerItem _selectedSecondaryAction;
         private ApplicationState _currentState;
 
         private object _latestViewModel;
 
-        public BindableCollection<NavigationItemViewModel> Actions { get; }
+        public BindableCollection<HamburgerItem> Actions { get; }
 
-        public NavigationItemViewModel SelectedAction
+        public HamburgerItem SelectedAction
         {
             get { return this._selectedAction; }
             set { this.SetProperty(ref this._selectedAction, value); }
         }
 
-        public BindableCollection<NavigationItemViewModel> SecondaryActions { get; }
+        public BindableCollection<HamburgerItem> SecondaryActions { get; }
 
-        public NavigationItemViewModel SelectedSecondaryAction
+        public HamburgerItem SelectedSecondaryAction
         {
             get { return this._selectedSecondaryAction; }
             set { this.SetProperty(ref this._selectedSecondaryAction, value); }
@@ -57,10 +57,10 @@ namespace CTime2.Views.Shell
         {
             this._navigationService = navigationService;
 
-            this.Actions = new BindableCollection<NavigationItemViewModel>();
-            this.SecondaryActions = new BindableCollection<NavigationItemViewModel>
+            this.Actions = new BindableCollection<HamburgerItem>();
+            this.SecondaryActions = new BindableCollection<HamburgerItem>
             {
-                new NavigationItemViewModel(this.Settings, CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)),
+                new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)),
             };
 
             //Just make sure the selected action is always correct
@@ -70,25 +70,18 @@ namespace CTime2.Views.Shell
 
             eventAggregator.Subscribe(this);
         }
-
-        private void Settings()
-        {
-            this._navigationService
-                .For<SettingsViewModel>()
-                .Navigate();
-        }
-
+        
         private void UpdateSelectedAction()
         {
             var selectedAction = this.Actions
-                .Where(f => f.SelectedForViewModelType != null)
-                .FirstOrDefault(f => f.SelectedForViewModelType.IsInstanceOfType(this._latestViewModel));
+                .OfType<NavigatingHamburgerItem>()
+                .FirstOrDefault(f => f.ViewModelType.IsInstanceOfType(this._latestViewModel));
 
             this.SelectedAction = selectedAction;
 
             var selectedSecondaryAction = this.SecondaryActions
-                .Where(f => f.SelectedForViewModelType != null)
-                .FirstOrDefault(f => f.SelectedForViewModelType.IsInstanceOfType(this._latestViewModel));
+                .OfType<NavigatingHamburgerItem>()
+                .FirstOrDefault(f => f.ViewModelType.IsInstanceOfType(this._latestViewModel));
 
             this.SelectedSecondaryAction = selectedSecondaryAction;
         }
@@ -97,6 +90,21 @@ namespace CTime2.Views.Shell
         {
             this._latestViewModel = message.ViewModel;
             this.UpdateSelectedAction();
+        }
+
+        public void ExecuteAction(HamburgerItem hamburgerItem)
+        {
+            var navigating = hamburgerItem as NavigatingHamburgerItem;
+            if (navigating != null)
+            {
+                this._navigationService.Navigate(navigating.ViewModelType);
+            }
+
+            var clickable = hamburgerItem as ClickableHamburgerItem;
+            if (clickable != null)
+            {
+                clickable.Action();
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace CTime2.States
     {
         ApplicationState CurrentState { get; set; }
 
-        BindableCollection<NavigationItemViewModel> Actions { get; } 
-        BindableCollection<NavigationItemViewModel> SecondaryActions { get; } 
+        BindableCollection<HamburgerItem> Actions { get; } 
+        BindableCollection<HamburgerItem> SecondaryActions { get; } 
     }
 }

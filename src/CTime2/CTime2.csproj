@@ -179,10 +179,12 @@
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\Start\StartViewModel.cs" />
-    <Compile Include="Views\Shell\NavigationItemViewModel.cs" />
+    <Compile Include="Views\Shell\ClickableHamburgerItem.cs" />
+    <Compile Include="Views\Shell\HamburgerItem.cs" />
     <Compile Include="States\LoggedInApplicationState.cs" />
     <Compile Include="States\LoggedOutApplicationState.cs" />
     <Compile Include="States\ApplicationState.cs" />
+    <Compile Include="Views\Shell\NavigatingHamburgerItem.cs" />
     <Compile Include="Views\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>

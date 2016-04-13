@@ -19,74 +19,46 @@ namespace CTime2.States
         private readonly ICTimeNavigationService _navigationService;
         private readonly ISessionStateService _sessionStateService;
 
-        private readonly NavigationItemViewModel _overviewNavigationItem;
-        private readonly NavigationItemViewModel _stampTimeNavigationItem;
-        private readonly NavigationItemViewModel _myTimesNavigationItem;
-        private readonly NavigationItemViewModel _attendanceListNavigationItem;
-        private readonly NavigationItemViewModel _logoutNavigationItem;
-        private readonly NavigationItemViewModel _statisticsItem;
+        private readonly HamburgerItem _overviewHamburgerItem;
+        private readonly HamburgerItem _stampTimeHamburgerItem;
+        private readonly HamburgerItem _myTimesHamburgerItem;
+        private readonly HamburgerItem _attendanceListHamburgerItem;
+        private readonly HamburgerItem _logoutHamburgerItem;
+        private readonly HamburgerItem _statisticsItem;
 
         public LoggedInApplicationState(ICTimeNavigationService navigationService, ISessionStateService sessionStateService)
         {
             this._navigationService = navigationService;
             this._sessionStateService = sessionStateService;
 
-            this._overviewNavigationItem = new NavigationItemViewModel(this.Overview, CTime2Resources.Get("Navigation.Overview"), Symbol.Globe, typeof(OverviewViewModel));
-            this._stampTimeNavigationItem = new NavigationItemViewModel(this.StampTime, CTime2Resources.Get("Navigation.Stamp"), Symbol.Clock, typeof(StampTimeViewModel));
-            this._myTimesNavigationItem = new NavigationItemViewModel(this.MyTimes, CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar, typeof(YourTimesViewModel));
-            this._attendanceListNavigationItem = new NavigationItemViewModel(this.AttendanceList, CTime2Resources.Get("Navigation.AttendanceList"), SymbolEx.AttendanceList, typeof(AttendanceListViewModel));
-            this._logoutNavigationItem = new NavigationItemViewModel(this.Logout, CTime2Resources.Get("Navigation.Logout"), SymbolEx.Logout);
-            this._statisticsItem = new NavigationItemViewModel(this.Statistics, CTime2Resources.Get("Navigation.Statistics"), SymbolEx.Statistics, typeof(StatisticsViewModel));
+            this._overviewHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Overview"), Symbol.Globe, typeof(OverviewViewModel));
+            this._stampTimeHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Stamp"), Symbol.Clock, typeof(StampTimeViewModel));
+            this._myTimesHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar, typeof(YourTimesViewModel));
+            this._attendanceListHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.AttendanceList"), SymbolEx.AttendanceList, typeof(AttendanceListViewModel));
+            this._logoutHamburgerItem = new ClickableHamburgerItem(CTime2Resources.Get("Navigation.Logout"), SymbolEx.Logout, this.Logout);
+            this._statisticsItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Statistics"), SymbolEx.Statistics, typeof(StatisticsViewModel));
         }
 
         public override void Enter()
         {
-            this.Application.Actions.Add(this._overviewNavigationItem);
-            this.Application.Actions.Add(this._stampTimeNavigationItem);
-            this.Application.Actions.Add(this._myTimesNavigationItem);
-            this.Application.Actions.Add(this._attendanceListNavigationItem);
-            this.Application.SecondaryActions.Add(this._logoutNavigationItem);
+            this.Application.Actions.Add(this._overviewHamburgerItem);
+            this.Application.Actions.Add(this._stampTimeHamburgerItem);
+            this.Application.Actions.Add(this._myTimesHamburgerItem);
+            this.Application.Actions.Add(this._attendanceListHamburgerItem);
+            this.Application.SecondaryActions.Add(this._logoutHamburgerItem);
             this.Application.Actions.Add(this._statisticsItem);
 
-            this.Overview();
+            this._navigationService.Navigate(typeof(OverviewViewModel));
         }
 
         public override void Leave()
         {
-            this.Application.Actions.Remove(this._overviewNavigationItem);
-            this.Application.Actions.Remove(this._stampTimeNavigationItem);
-            this.Application.Actions.Remove(this._myTimesNavigationItem);
-            this.Application.Actions.Remove(this._attendanceListNavigationItem);
-            this.Application.SecondaryActions.Remove(this._logoutNavigationItem);
+            this.Application.Actions.Remove(this._overviewHamburgerItem);
+            this.Application.Actions.Remove(this._stampTimeHamburgerItem);
+            this.Application.Actions.Remove(this._myTimesHamburgerItem);
+            this.Application.Actions.Remove(this._attendanceListHamburgerItem);
+            this.Application.SecondaryActions.Remove(this._logoutHamburgerItem);
             this.Application.Actions.Remove(this._statisticsItem);
-        }
-
-        private void Overview()
-        {
-            this._navigationService
-                .For<OverviewViewModel>()
-                .Navigate();
-        }
-
-        private void StampTime()
-        {
-            this._navigationService
-                .For<StampTimeViewModel>()
-                .Navigate();
-        }
-
-        private void MyTimes()
-        {
-            this._navigationService
-                .For<YourTimesViewModel>()
-                .Navigate();
-        }
-
-        private void AttendanceList()
-        {
-            this._navigationService
-                .For<AttendanceListViewModel>()
-                .Navigate();
         }
 
         private async void Logout()
@@ -95,20 +67,6 @@ namespace CTime2.States
             await this._sessionStateService.SaveStateAsync();
 
             this.Application.CurrentState = IoC.Get<LoggedOutApplicationState>();
-        }
-
-        private void Statistics()
-        {
-            this._navigationService
-                .For<StatisticsViewModel>()
-                .Navigate();
-        }
-
-        private void Settings()
-        {
-            this._navigationService
-                .For<SettingsViewModel>()
-                .Navigate();
         }
     }
 }

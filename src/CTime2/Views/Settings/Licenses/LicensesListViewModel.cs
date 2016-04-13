@@ -23,10 +23,6 @@ namespace CTime2.Views.Settings.Licenses
         
         public void ShowLicense(License license)
         {
-            this._navigationService
-                .For<LicenseViewModel>()
-                .WithParam(f => f.DisplayName, license.Name)
-                .Navigate();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,10 +17,10 @@ namespace CTime2.Services.Navigation
         {
             this._eventAggregator = eventAggregator;
         }
-
-        public NavigateHelper<TViewModel> For<TViewModel>()
+        
+        public new void Navigate(Type viewModelType)
         {
-            return new NavigateHelper<TViewModel>().AttachTo(this);
+            this.NavigateToViewModel(viewModelType);
         }
 
         public void ClearBackStack()
