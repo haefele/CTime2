@@ -77,13 +77,15 @@ namespace CTime2.Views.Shell
                 .OfType<NavigatingHamburgerItem>()
                 .FirstOrDefault(f => f.ViewModelType.IsInstanceOfType(this._latestViewModel));
 
-            this.SelectedAction = selectedAction;
-
             var selectedSecondaryAction = this.SecondaryActions
                 .OfType<NavigatingHamburgerItem>()
                 .FirstOrDefault(f => f.ViewModelType.IsInstanceOfType(this._latestViewModel));
 
-            this.SelectedSecondaryAction = selectedSecondaryAction;
+            if (selectedAction != null || selectedSecondaryAction != null)
+            {
+                this.SelectedAction = selectedAction;
+                this.SelectedSecondaryAction = selectedSecondaryAction;
+            }
         }
         
         void IHandle<NavigatedEvent>.Handle(NavigatedEvent message)
