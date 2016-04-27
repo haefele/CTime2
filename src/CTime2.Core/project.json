@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "JetBrains.Annotations": "10.1.4",
     "MetroLog": "1.0.1",
     "Microsoft.Band": "1.3.20307",
     "Microsoft.Net.Http": "2.2.29",

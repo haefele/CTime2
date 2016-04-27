@@ -16,6 +16,22 @@ namespace CTime2.Core.Tests.Common
         }
 
         [Fact]
+        public void ThrowsWithNullArguments()
+        {
+            //Arrange
+            string badMessage = null;
+            string goodMessage = "Message";
+            Exception badInner = null;
+            Exception goodInner = new Exception("My inner exception");
+
+            //Act, Assert
+            Assert.Throws<ArgumentNullException>(() => new CTimeException(badMessage));
+            Assert.Throws<ArgumentNullException>(() => new CTimeException(badMessage, badInner));
+            Assert.Throws<ArgumentNullException>(() => new CTimeException(badMessage, goodInner));
+            Assert.Throws<ArgumentNullException>(() => new CTimeException(goodMessage, badInner));
+        }
+        
+        [Fact]
         public void TakesMessageAndInnerException()
         {
             var message = "Hello world";

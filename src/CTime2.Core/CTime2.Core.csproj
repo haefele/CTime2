@@ -136,6 +136,7 @@
   <ItemGroup>
     <Compile Include="Common\CTimeException.cs" />
     <Compile Include="Common\DisposableAction.cs" />
+    <Compile Include="Common\Guard.cs" />
     <Compile Include="Data\AttendingUser.cs" />
     <Compile Include="Data\TimeState.cs" />
     <Compile Include="Extensions\DateTimeOffsetExtensions.cs" />

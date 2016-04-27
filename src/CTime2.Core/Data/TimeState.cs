@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 
 namespace CTime2.Core.Data
 {
@@ -18,7 +19,7 @@ namespace CTime2.Core.Data
         {
             return self.HasFlag(TimeState.Entered);
         }
-        public static bool IsEntered(this TimeState? self)
+        public static bool IsEntered([CanBeNull]this TimeState? self)
         {
             return self != null && self.Value.IsEntered();
         }
@@ -28,7 +29,7 @@ namespace CTime2.Core.Data
             return self.HasFlag(TimeState.Left);
         }
 
-        public static bool IsLeft(this TimeState? self)
+        public static bool IsLeft([CanBeNull]this TimeState? self)
         {
             return self != null && self.Value.IsLeft();
         }
@@ -38,7 +39,7 @@ namespace CTime2.Core.Data
             return self.HasFlag(TimeState.Trip);
         }
 
-        public static bool IsTrip(this TimeState? self)
+        public static bool IsTrip([CanBeNull]this TimeState? self)
         {
             return self != null && self.Value.IsTrip();
         }
@@ -48,7 +49,7 @@ namespace CTime2.Core.Data
             return self.HasFlag(TimeState.HomeOffice);
         }
 
-        public static bool IsHomeOffice(this TimeState? self)
+        public static bool IsHomeOffice([CanBeNull]this TimeState? self)
         {
             return self != null && self.Value.IsHomeOffice();
         }

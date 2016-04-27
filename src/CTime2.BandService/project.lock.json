@@ -3,6 +3,17 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "JetBrains.Annotations/10.1.4": {
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        }
+      },
       "MetroLog/1.0.1": {
         "compile": {
           "lib/win81/MetroLog.WinRT.winmd": {},
@@ -1848,6 +1859,17 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "JetBrains.Annotations/10.1.4": {
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        }
+      },
       "MetroLog/1.0.1": {
         "compile": {
           "lib/win81/MetroLog.WinRT.winmd": {},
@@ -3546,6 +3568,17 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "JetBrains.Annotations/10.1.4": {
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        }
+      },
       "MetroLog/1.0.1": {
         "compile": {
           "lib/win81/MetroLog.WinRT.winmd": {},
@@ -5208,6 +5241,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "JetBrains.Annotations/10.1.4": {
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        }
+      },
       "MetroLog/1.0.1": {
         "compile": {
           "lib/win81/MetroLog.WinRT.winmd": {},
@@ -6912,6 +6956,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "JetBrains.Annotations/10.1.4": {
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        }
+      },
       "MetroLog/1.0.1": {
         "compile": {
           "lib/win81/MetroLog.WinRT.winmd": {},
@@ -8574,6 +8629,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "JetBrains.Annotations/10.1.4": {
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        }
+      },
       "MetroLog/1.0.1": {
         "compile": {
           "lib/win81/MetroLog.WinRT.winmd": {},
@@ -10278,6 +10344,17 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "JetBrains.Annotations/10.1.4": {
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+        }
+      },
       "MetroLog/1.0.1": {
         "compile": {
           "lib/win81/MetroLog.WinRT.winmd": {},
@@ -11941,6 +12018,22 @@
     }
   },
   "libraries": {
+    "JetBrains.Annotations/10.1.4": {
+      "sha512": "5WN2N7ba4yGPShBdIPkqPveu7AjFNeGeLpMIJpFfkjK7MPPNN6hqMCh1ZU8ohaAwdBiWdrWrZ1uEIGYv0Keelg==",
+      "type": "package",
+      "files": [
+        "JetBrains.Annotations.10.1.4.nupkg.sha512",
+        "JetBrains.Annotations.nuspec",
+        "lib/dotnet/JetBrains.Annotations.Dotnet.dll",
+        "lib/dotnet/JetBrains.Annotations.Dotnet.xml",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.dll",
+        "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.xml",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/JetBrains.Annotations.PCL328.dll",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/JetBrains.Annotations.PCL328.xml"
+      ]
+    },
     "MetroLog/1.0.1": {
       "sha512": "9+i0lIT+OAf9FQOrnSbyxG5RbBtRUthIQAn73c9Y1z0v+2dPCKn9oTPTt8njHPMzy5lRoT9MDQRkYSqJ7aVqgA==",
       "type": "package",
