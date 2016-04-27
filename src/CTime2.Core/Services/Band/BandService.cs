@@ -53,10 +53,7 @@ namespace CTime2.Core.Services.Band
             if (bandInfos.Any() == false)
                 return null;
 
-            return new BandInfo
-            {
-                Name = bandInfos.First().Name
-            };
+            return new BandInfo(bandInfos.First().Name);
         }
 
         

@@ -148,6 +148,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourceAccessor.cs" />
     <Compile Include="Services\Band\BandConstants.cs" />
+    <Compile Include="Services\Band\BandInfo.cs" />
     <Compile Include="Services\Band\BandService.cs" />
     <Compile Include="Services\Band\IBandService.cs" />
     <Compile Include="Services\Band\Pages\TestConnectionPageLayout.cs">
