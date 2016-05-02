@@ -20,7 +20,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("/ctime/php/GetRFIDbyLoginName.php"))
+                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("GetRFIDbyLoginName.php"))
                 {
                     Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
                     {
@@ -71,7 +71,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("/ctime/php/GetTimeTrackList.php"))
+                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("GetTimeTrackList.php"))
                 {
                     Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
                     {
@@ -118,7 +118,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("/ctime/php/SaveTimer.php"))
+                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("SaveTimer.php"))
                 {
                     Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
                     {
@@ -179,7 +179,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("/ctime/php/GetPresenceList.php"))
+                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("GetPresenceList.php"))
                 {
                     Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
                     {
@@ -221,7 +221,7 @@ namespace CTime2.Core.Services.CTime
 
         private Uri BuildUri(string path)
         {
-            return new Uri($"http://83.169.12.81{path}");
+            return new Uri($"http://83.169.12.81/ctime/php/{path}");
         }
 
         private HttpClient GetClient()
