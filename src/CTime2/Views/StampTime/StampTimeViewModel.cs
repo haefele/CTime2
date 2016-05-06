@@ -3,24 +3,25 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
-using CTime2.Events;
-using CTime2.Extensions;
-using CTime2.Services.ExceptionHandler;
-using CTime2.Services.Loading;
 using CTime2.Strings;
 using CTime2.Views.StampTime.CheckedIn;
 using CTime2.Views.StampTime.CheckedOut;
 using CTime2.Views.StampTime.HomeOfficeCheckedIn;
 using CTime2.Views.StampTime.TripCheckedIn;
+using UwCore.Application;
+using UwCore.Extensions;
+using UwCore.Services.ApplicationState;
+using UwCore.Services.ExceptionHandler;
+using UwCore.Services.Loading;
 
 namespace CTime2.Views.StampTime
 {
     public class StampTimeViewModel : Conductor<Screen>, IHandleWithTask<ApplicationResumedEvent>
     {
         private readonly ICTimeService _cTimeService;
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _sessionStateService;
         private readonly ILoadingService _loadingService;
         private readonly IExceptionHandler _exceptionHandler;
 
@@ -32,7 +33,7 @@ namespace CTime2.Views.StampTime
             set { this.SetProperty(ref this._statusMessage, value); }
         }
 
-        public StampTimeViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
+        public StampTimeViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
@@ -53,7 +54,7 @@ namespace CTime2.Views.StampTime
             {
                 try
                 {
-                    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.GetCurrentUser().Id);
 
                     string statusMessage;
                     Screen currentState;

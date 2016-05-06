@@ -6,19 +6,19 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Caliburn.Micro;
 using CTime2.Core.Data;
-using CTime2.Core.Extensions;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
-using CTime2.Events;
-using CTime2.Extensions;
-using CTime2.Services.ExceptionHandler;
 using CTime2.Strings;
+using UwCore.Application;
+using UwCore.Extensions;
+using UwCore.Services.ApplicationState;
+using UwCore.Services.ExceptionHandler;
 
 namespace CTime2.Views.Overview
 {
     public class OverviewViewModel : Screen, IHandleWithTask<ApplicationResumedEvent>
     {
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IExceptionHandler _exceptionHandler;
@@ -50,7 +50,7 @@ namespace CTime2.Views.Overview
             set { this.SetProperty(ref this._myImage, value); }
         }
 
-        public OverviewViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IExceptionHandler exceptionHandler)
+        public OverviewViewModel(IApplicationStateService sessionStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IExceptionHandler exceptionHandler)
         {
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
@@ -66,8 +66,8 @@ namespace CTime2.Views.Overview
         {
             this._eventAggregator.Subscribe(this);
             
-            this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", this._sessionStateService.CurrentUser.FirstName);
-            this.MyImage = this._sessionStateService.CurrentUser.ImageAsPng;
+            this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", this._sessionStateService.GetCurrentUser().FirstName);
+            this.MyImage = this._sessionStateService.GetCurrentUser().ImageAsPng;
             
             await this.LoadCurrentTime();
         }
@@ -81,7 +81,7 @@ namespace CTime2.Views.Overview
         {
             try
             {
-                Time current = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+                Time current = await this._cTimeService.GetCurrentTime(this._sessionStateService.GetCurrentUser().Id);
 
                 this._timerStartNow = DateTime.Now;
 

@@ -5,10 +5,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;
 using Windows.Storage.Streams;
 using Caliburn.Micro;
-using CTime2.Core.Logging;
-using CTime2.Extensions;
-using CTime2.Services.Navigation;
 using CTime2.Strings;
+using UwCore.Logging;
+using UwCore.Extensions;
 
 namespace CTime2.Views.Settings.About
 {

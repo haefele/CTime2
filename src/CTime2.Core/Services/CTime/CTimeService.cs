@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Windows.Web.Http;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
-using CTime2.Core.Logging;
 using CTime2.Core.Strings;
 using Newtonsoft.Json.Linq;
+using UwCore.Logging;
 
 namespace CTime2.Core.Services.CTime
 {

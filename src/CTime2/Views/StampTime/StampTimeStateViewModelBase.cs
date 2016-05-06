@@ -2,24 +2,25 @@
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using CTime2.Core.Data;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
-using CTime2.Services.ExceptionHandler;
-using CTime2.Services.Loading;
 using CTime2.Strings;
+using UwCore.Services.ApplicationState;
+using UwCore.Services.ExceptionHandler;
+using UwCore.Services.Loading;
 
 namespace CTime2.Views.StampTime
 {
     public class StampTimeStateViewModelBase : Screen
     {
         private readonly ICTimeService _cTimeService;
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _sessionStateService;
         private readonly ILoadingService _loadingService;
         private readonly IExceptionHandler _exceptionHandler;
 
         public StampTimeViewModel Container => this.Parent as StampTimeViewModel;
 
-        public StampTimeStateViewModelBase(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
+        public StampTimeStateViewModelBase(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
@@ -34,9 +35,9 @@ namespace CTime2.Views.StampTime
                 try
                 {
                     await this._cTimeService.SaveTimer(
-                        this._sessionStateService.CurrentUser.Id,
+                        this._sessionStateService.GetCurrentUser().Id,
                         DateTime.Now,
-                        this._sessionStateService.CompanyId,
+                        this._sessionStateService.GetCompanyId(),
                         state);
 
                     await this.Container.RefreshCurrentState();

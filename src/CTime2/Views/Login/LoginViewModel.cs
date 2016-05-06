@@ -1,22 +1,22 @@
 ﻿using System;
 using Caliburn.Micro;
-using CTime2.Core.Extensions;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
-using CTime2.Extensions;
-using CTime2.Services.Dialog;
-using CTime2.Services.ExceptionHandler;
-using CTime2.Services.Loading;
 using CTime2.States;
 using CTime2.Strings;
-using CTime2.Views.Shell;
+using UwCore.Application;
+using UwCore.Services.ApplicationState;
+using UwCore.Services.Dialog;
+using UwCore.Services.ExceptionHandler;
+using UwCore.Services.Loading;
+using UwCore.Extensions;
 
 namespace CTime2.Views.Login
 {
     public class LoginViewModel : Screen
     {
         private readonly ICTimeService _cTimeService;
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _sessionStateService;
         private readonly ILoadingService _loadingService;
         private readonly IApplication _application;
         private readonly IDialogService _dialogService;
@@ -44,7 +44,7 @@ namespace CTime2.Views.Login
             set { this.SetProperty(ref this._password, value); }
         }
 
-        public LoginViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IApplication application, IDialogService dialogService, IExceptionHandler exceptionHandler)
+        public LoginViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService, IApplication application, IDialogService dialogService, IExceptionHandler exceptionHandler)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
@@ -58,7 +58,7 @@ namespace CTime2.Views.Login
 
         protected override void OnActivate()
         {
-            this.CompanyId = this._sessionStateService.CompanyId;
+            this.CompanyId = this._sessionStateService.GetCompanyId();
         }
 
         public async void Login()
@@ -75,12 +75,12 @@ namespace CTime2.Views.Login
                         return;
                     }
 
-                    this._sessionStateService.CompanyId = this.CompanyId;
-                    this._sessionStateService.CurrentUser = user;
+                    this._sessionStateService.SetCompanyId(this.CompanyId);
+                    this._sessionStateService.SetCurrentUser(user);;
 
                     await this._sessionStateService.SaveStateAsync();
 
-                    this._application.CurrentState = IoC.Get<LoggedInApplicationState>();
+                    this._application.CurrentMode = IoC.Get<LoggedInApplicationState>();
                 }
                 catch (Exception exception)
                 {

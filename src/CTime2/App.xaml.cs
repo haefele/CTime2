@@ -11,18 +11,13 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
 using CTime2.Common;
-using CTime2.Core.Extensions;
-using CTime2.Core.Logging;
+using CTime2.Core.Common;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Licenses;
-using CTime2.Core.Services.SessionState;
-using CTime2.Events;
-using CTime2.Services.Dialog;
-using CTime2.Services.ExceptionHandler;
-using CTime2.Services.Loading;
-using CTime2.Services.Navigation;
 using CTime2.States;
+using CTime2.Strings;
 using CTime2.Views.AttendanceList;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
@@ -31,7 +26,6 @@ using CTime2.Views.Settings.About;
 using CTime2.Views.Settings.Band;
 using CTime2.Views.Settings.Licenses;
 using CTime2.Views.Settings.Start;
-using CTime2.Views.Shell;
 using CTime2.Views.StampTime;
 using CTime2.Views.StampTime.CheckedIn;
 using CTime2.Views.StampTime.CheckedOut;
@@ -40,18 +34,16 @@ using CTime2.Views.StampTime.TripCheckedIn;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
 using CTime2.VoiceCommandService;
+using UwCore.Application;
+using UwCore.Extensions;
+using UwCore.Logging;
+using UwCore.Services.ApplicationState;
 
 namespace CTime2
 {
     sealed partial class App
     {
-        #region Logger
         private static readonly Logger _logger = LoggerFactory.GetLogger<App>();
-        #endregion
-
-        #region Fields
-        private WinRTContainer _container;
-        #endregion
 
         #region Constructors
         public App()
@@ -60,59 +52,66 @@ namespace CTime2
         }
         #endregion
 
-        #region Configure
         protected override void Configure()
         {
-            this.ConfigureContainer();
-            this.ConfigureCaliburnMicro();
+            base.Configure();
+
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
         }
 
-        private void ConfigureContainer()
+        public override void ConfigureContainer(WinRTContainer container)
         {
-            this._container = new WinRTContainer();
-            this._container.RegisterWinRTServices();
-
-            //ViewModels
-            this._container
-                .PerRequest<ShellViewModel>()
-                .PerRequest<LoginViewModel>()
-                .PerRequest<OverviewViewModel>()
-                .PerRequest<YourTimesViewModel>()
-                .PerRequest<StampTimeViewModel>()
-                .PerRequest<AboutViewModel>()
-                .PerRequest<AttendanceListViewModel>()
-                .PerRequest<StatisticsViewModel>()
-                .PerRequest<LicensesListViewModel>()
-                .PerRequest<LicenseViewModel>()
-                .PerRequest<CheckedInViewModel>()
-                .PerRequest<CheckedOutViewModel>()
-                .PerRequest<HomeOfficeCheckedInViewModel>()
-                .PerRequest<TripCheckedInViewModel>()
-                .PerRequest<BandViewModel>()
-                .PerRequest<SettingsViewModel>()
-                .PerRequest<StartViewModel>();
-            
-            //ShellStates
-            this._container
+            container
                 .PerRequest<LoggedOutApplicationState>()
                 .PerRequest<LoggedInApplicationState>();
 
-            //Services
-            this._container
+            container
                 .Singleton<ICTimeService, CTimeService>()
-                .Singleton<ISessionStateService, SessionStateService>()
-                .Singleton<IDialogService, DialogService>()
-                .Singleton<IExceptionHandler, ExceptionHandler>()
                 .Singleton<ILicensesService, LicensesService>()
                 .Singleton<IBandService, Core.Services.Band.BandService>();
         }
 
-        private void ConfigureCaliburnMicro()
+        public override ApplicationMode GetCurrentMode()
         {
-            ViewModelBinder.ApplyConventionsByDefault = false;
-            LogManager.GetLog = type => new CaliburnMicroLoggingAdapter(LoggerFactory.GetLogger(type));
+            return IoC.Get<IApplicationStateService>().GetCurrentUser() != null
+                ? (ApplicationMode)IoC.Get<LoggedInApplicationState>()
+                : IoC.Get<LoggedOutApplicationState>();
+        }
+
+        public override string GetErrorTitle()
+        {
+            return CTime2Resources.Get("ExceptionHandler.ErrorTitle");
+        }
+
+        public override string GetErrorMessage()
+        {
+            return CTime2Resources.Get("ExceptionHandler.ErrorMessage");
+        }
+
+        public override Type GetCommonExceptionType()
+        {
+            return typeof(CTimeException);
+        }
+
+        public override IEnumerable<Type> GetViewModelTypes()
+        {
+            yield return typeof(LoginViewModel);
+            yield return typeof(OverviewViewModel);
+            yield return typeof(YourTimesViewModel);
+            yield return typeof(StampTimeViewModel);
+            yield return typeof(AboutViewModel);
+            yield return typeof(AttendanceListViewModel);
+            yield return typeof(StatisticsViewModel);
+            yield return typeof(LicensesListViewModel);
+            yield return typeof(LicenseViewModel);
+            yield return typeof(CheckedInViewModel);
+            yield return typeof(CheckedOutViewModel);
+            yield return typeof(HomeOfficeCheckedInViewModel);
+            yield return typeof(TripCheckedInViewModel);
+            yield return typeof(BandViewModel);
+            yield return typeof(SettingsViewModel);
+            yield return typeof(StartViewModel);
         }
         
         private async void ConfigureVoiceCommands()
@@ -139,76 +138,5 @@ namespace CTime2
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(360, 500));
         }
-        #endregion
-
-        #region IoC
-        protected override object GetInstance(Type service, string key)
-        {
-            return this._container.GetInstance(service, key);
-        }
-
-        protected override IEnumerable<object> GetAllInstances(Type service)
-        {
-            return this._container.GetAllInstances(service);
-        }
-
-        protected override void BuildUp(object instance)
-        {
-            this._container.BuildUp(instance);
-        }
-        #endregion
-
-        #region Lifecycle
-        protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {
-            if (args.PreviousExecutionState == ApplicationExecutionState.Running ||
-                args.PreviousExecutionState == ApplicationExecutionState.Suspended)
-                return;
-            
-            this.Initialize();
-            
-            var stateService = this._container.GetInstance<ISessionStateService>();
-            await stateService.RestoreStateAsync();
-
-            var view = new ShellView();
-            this._container.Instance((ICTimeNavigationService)new CTimeNavigationService(view.ContentFrame, this._container.GetInstance<IEventAggregator>()));
-            this._container.Instance((ILoadingService)new LoadingService(view.LoadingOverlay));
-            
-            var viewModel = IoC.Get<ShellViewModel>();
-            this._container.Instance((IApplication)viewModel);
-            
-            viewModel.CurrentState = stateService.CurrentUser != null
-                ? (ApplicationState)IoC.Get<LoggedInApplicationState>()
-                : IoC.Get<LoggedOutApplicationState>();
-
-            ViewModelBinder.Bind(viewModel, view, null);
-            ScreenExtensions.TryActivate(viewModel);
-
-            Window.Current.Content = view;
-            Window.Current.Activate();
-        }
-        
-        protected override async void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-
-            var stateService = this._container.GetInstance<ISessionStateService>();
-            await stateService.SaveStateAsync();
-            
-            IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationSuspendingEvent());
-
-            deferral.Complete();
-        }
-
-        protected override void OnResuming(object sender, object e)
-        {
-            IoC.Get<IEventAggregator>().PublishOnCurrentThread(new ApplicationResumedEvent());
-        }
-
-        protected override void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            _logger.Error(e.Exception, "Unhandled exception occured.");
-        }
-        #endregion
     }
 }

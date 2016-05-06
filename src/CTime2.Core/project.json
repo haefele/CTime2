@@ -1,11 +1,8 @@
 ﻿{
   "dependencies": {
-    "JetBrains.Annotations": "10.1.4",
-    "MetroLog": "1.0.1",
     "Microsoft.Band": "1.3.20307",
-    "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "Newtonsoft.Json": "8.0.3"
+    "UwCore": "0.1.14"
   },
   "frameworks": {
     "uap10.0": {}

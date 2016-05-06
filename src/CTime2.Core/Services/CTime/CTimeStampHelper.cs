@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CTime2.Core.Data;
-using CTime2.Core.Logging;
-using CTime2.Core.Services.SessionState;
+using CTime2.Core.Services.ApplicationState;
+using UwCore.Logging;
+using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.CTime
 {
@@ -13,12 +14,12 @@ namespace CTime2.Core.Services.CTime
         #endregion
 
         #region Fields
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
         #endregion
 
         #region Constructors
-        public CTimeStampHelper(ISessionStateService sessionStateService, ICTimeService cTimeService)
+        public CTimeStampHelper(IApplicationStateService sessionStateService, ICTimeService cTimeService)
         {
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
@@ -29,7 +30,7 @@ namespace CTime2.Core.Services.CTime
         {
             await this._sessionStateService.RestoreStateAsync();
 
-            if (this._sessionStateService.CurrentUser == null)
+            if (this._sessionStateService.GetCurrentUser() == null)
             {
                 _logger.Debug(() => "User is not logged in.");
                 await callback.OnNotLoggedIn();
@@ -37,7 +38,7 @@ namespace CTime2.Core.Services.CTime
                 return;
             }
             
-            var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id);
+            var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.GetCurrentUser().Id);
             bool checkedIn = currentTime != null && currentTime.State.IsEntered();
 
             if (checkedIn && timeState.IsEntered())
@@ -110,9 +111,9 @@ namespace CTime2.Core.Services.CTime
 
             _logger.Debug(() => "Saving the timer.");
             await this._cTimeService.SaveTimer(
-                this._sessionStateService.CurrentUser.Id, 
+                this._sessionStateService.GetCurrentUser().Id, 
                 DateTime.Now, 
-                this._sessionStateService.CompanyId, 
+                this._sessionStateService.GetCompanyId(), 
                 timeState);
 
             _logger.Debug(() => "Finished voice command.");

@@ -1,23 +1,25 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using CTime2.Common;
-using CTime2.Core.Services.SessionState;
-using CTime2.Services.Navigation;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Strings;
 using CTime2.Views.AttendanceList;
 using CTime2.Views.Overview;
 using CTime2.Views.Settings;
-using CTime2.Views.Shell;
 using CTime2.Views.StampTime;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
+using UwCore.Application;
+using UwCore.Hamburger;
+using UwCore.Services.ApplicationState;
+using INavigationService = UwCore.Services.Navigation.INavigationService;
 
 namespace CTime2.States
 {
-    public class LoggedInApplicationState : ApplicationState
+    public class LoggedInApplicationState : ApplicationMode
     {
-        private readonly ICTimeNavigationService _navigationService;
-        private readonly ISessionStateService _sessionStateService;
+        private readonly INavigationService _navigationService;
+        private readonly IApplicationStateService _applicationStateService;
 
         private readonly HamburgerItem _overviewHamburgerItem;
         private readonly HamburgerItem _stampTimeHamburgerItem;
@@ -26,10 +28,10 @@ namespace CTime2.States
         private readonly HamburgerItem _logoutHamburgerItem;
         private readonly HamburgerItem _statisticsItem;
 
-        public LoggedInApplicationState(ICTimeNavigationService navigationService, ISessionStateService sessionStateService)
+        public LoggedInApplicationState(INavigationService navigationService, IApplicationStateService applicationStateService)
         {
             this._navigationService = navigationService;
-            this._sessionStateService = sessionStateService;
+            this._applicationStateService = applicationStateService;
 
             this._overviewHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Overview"), Symbol.Globe, typeof(OverviewViewModel));
             this._stampTimeHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Stamp"), Symbol.Clock, typeof(StampTimeViewModel));
@@ -48,7 +50,7 @@ namespace CTime2.States
             this.Application.SecondaryActions.Add(this._logoutHamburgerItem);
             this.Application.Actions.Add(this._statisticsItem);
 
-            this._navigationService.Navigate(typeof(OverviewViewModel));
+            this._overviewHamburgerItem.Execute();
         }
 
         public override void Leave()
@@ -63,10 +65,10 @@ namespace CTime2.States
 
         private async void Logout()
         {
-            this._sessionStateService.CurrentUser = null;
-            await this._sessionStateService.SaveStateAsync();
+            this._applicationStateService.SetCurrentUser(null);
+            await this._applicationStateService.SaveStateAsync();
 
-            this.Application.CurrentState = IoC.Get<LoggedOutApplicationState>();
+            this.Application.CurrentMode = IoC.Get<LoggedOutApplicationState>();
         }
     }
 }

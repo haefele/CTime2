@@ -2,22 +2,22 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using CTime2.Core.Extensions;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
-using CTime2.Extensions;
-using CTime2.Services.Dialog;
-using CTime2.Services.ExceptionHandler;
-using CTime2.Services.Loading;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
+using UwCore.Extensions;
+using UwCore.Services.ApplicationState;
+using UwCore.Services.Dialog;
+using UwCore.Services.ExceptionHandler;
+using UwCore.Services.Loading;
 
 namespace CTime2.Views.Statistics
 {
     public class StatisticsViewModel : Screen
     {
         #region Fields
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
         private readonly ILoadingService _loadingService;
         private readonly IDialogService _dialogService;
@@ -42,7 +42,7 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(ISessionStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IDialogService dialogService, IExceptionHandler exceptionHandler)
+        public StatisticsViewModel(IApplicationStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IDialogService dialogService, IExceptionHandler exceptionHandler)
         {
             this._sessionStateService = sessionStateService;
             this._cTimeService = cTimeService;
@@ -92,7 +92,7 @@ namespace CTime2.Views.Statistics
             {
                 try
                 {
-                    var times = await this._cTimeService.GetTimes(this._sessionStateService.CurrentUser.Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
+                    var times = await this._cTimeService.GetTimes(this._sessionStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
                     
                     var timesByDay = TimesByDay.Create(times)
                         .Where(this.IsTimeByDayForStatistic)

@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation.Collections;
-using CTime2.Core.Logging;
-using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
 using Microsoft.Band;
+using UwCore.Logging;
+using UwCore.Services.ApplicationState;
 
 namespace CTime2.BandService
 {
@@ -33,15 +32,15 @@ namespace CTime2.BandService
 
                 if (triggerDetails.Name == "com.microsoft.band.observer")
                 {
-                    var sessionStateService = new SessionStateService();
+                    var applicationStateService = new ApplicationStateService();
                     var cTimeService = new CTimeService();
 
-                    var bandService = new Core.Services.Band.BandService(sessionStateService, cTimeService);
+                    var bandService = new Core.Services.Band.BandService(applicationStateService, cTimeService);
 
                     triggerDetails.AppServiceConnection.RequestReceived += async (sender, e) =>
                     {
                         var deferral = e.GetDeferral();
-                        await sessionStateService.RestoreStateAsync(); //Restore session state with every event
+                        await applicationStateService.RestoreStateAsync(); //Restore session state with every event
                         await e.Request.SendResponseAsync(new ValueSet());
                         deferral.Complete();
 

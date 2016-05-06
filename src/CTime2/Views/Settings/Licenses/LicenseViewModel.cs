@@ -2,6 +2,7 @@
 using Caliburn.Micro;
 using CTime2.Core.Services.Licenses;
 using CTime2.Extensions;
+using UwCore.Extensions;
 
 namespace CTime2.Views.Settings.Licenses
 {

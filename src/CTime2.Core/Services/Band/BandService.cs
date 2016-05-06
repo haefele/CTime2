@@ -4,21 +4,19 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
-using CTime2.Core.Extensions;
-using CTime2.Core.Logging;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Band.Pages;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
 using CTime2.Core.Strings;
 using Microsoft.Band;
 using Microsoft.Band.Notifications;
 using Microsoft.Band.Tiles;
 using Microsoft.Band.Tiles.Pages;
+using UwCore.Logging;
+using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.Band
 {
@@ -29,14 +27,14 @@ namespace CTime2.Core.Services.Band
         #endregion
 
         #region Fields
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         #endregion
 
         #region Constructors
-        public BandService(ISessionStateService sessionStateService, ICTimeService cTimeService)
+        public BandService(IApplicationStateService applicationStateService, ICTimeService cTimeService)
         {
-            this._sessionStateService = sessionStateService;
+            this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
 
             BackgroundTileEventHandler.Instance.TileOpened += this.OnTileOpened;
@@ -259,12 +257,12 @@ namespace CTime2.Core.Services.Band
                     {
                         await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
 
-                        var currentTime = this._sessionStateService.CurrentUser != null 
-                            ? await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id)
+                        var currentTime = this._applicationStateService.GetCurrentUser() != null 
+                            ? await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id)
                             : null;
                         bool checkedIn = currentTime != null && currentTime.State.IsEntered();
 
-                        var stampHelper = new CTimeStampHelper(this._sessionStateService, this._cTimeService);
+                        var stampHelper = new CTimeStampHelper(this._applicationStateService, this._cTimeService);
                         await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
 
                         await this.ChangeTileDataToReadyAsync(this._backgroundTileClient);
@@ -333,9 +331,9 @@ namespace CTime2.Core.Services.Band
 
         private async Task ChangeTileDataToReadyAsync(IBandClient client)
         {
-            var loggedIn = this._sessionStateService.CurrentUser != null;
+            var loggedIn = this._applicationStateService.GetCurrentUser() != null;
             var currentState = loggedIn 
-                ? await this._cTimeService.GetCurrentTime(this._sessionStateService.CurrentUser.Id)
+                ? await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id)
                 : null;
 
             bool checkedIn = currentState != null && currentState.State.IsEntered();

@@ -1,5 +1,5 @@
 ﻿using Windows.ApplicationModel.Resources;
-using CTime2.Core.Resources;
+using UwCore.Common;
 
 namespace CTime2.Core.Strings
 {

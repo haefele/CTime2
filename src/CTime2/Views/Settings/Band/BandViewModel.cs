@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using CTime2.Core.Services.Band;
-using CTime2.Events;
-using CTime2.Extensions;
-using CTime2.Services.ExceptionHandler;
-using CTime2.Services.Loading;
 using CTime2.Strings;
+using UwCore.Application;
+using UwCore.Extensions;
+using UwCore.Services.ExceptionHandler;
+using UwCore.Services.Loading;
 
 namespace CTime2.Views.Settings.Band
 {

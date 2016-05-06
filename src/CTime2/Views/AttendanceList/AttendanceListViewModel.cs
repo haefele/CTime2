@@ -1,20 +1,21 @@
 ﻿using Caliburn.Micro;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
-using CTime2.Services.Loading;
 using CTime2.Strings;
+using UwCore.Services.ApplicationState;
+using UwCore.Services.Loading;
 
 namespace CTime2.Views.AttendanceList
 {
     public class AttendanceListViewModel : Screen
     {
         private readonly ICTimeService _cTimeService;
-        private readonly ISessionStateService _sessionStateService;
+        private readonly IApplicationStateService _sessionStateService;
         private readonly ILoadingService _loadingService;
 
         public BindableCollection<AttendingUserByIsAttending> Users { get; } 
 
-        public AttendanceListViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService)
+        public AttendanceListViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService)
         {
             this._cTimeService = cTimeService;
             this._sessionStateService = sessionStateService;
@@ -29,7 +30,7 @@ namespace CTime2.Views.AttendanceList
         {
             using (this._loadingService.Show(CTime2Resources.Get("Loading.AttendanceList")))
             {
-                var attendingUsers = await this._cTimeService.GetAttendingUsers(this._sessionStateService.CompanyId);
+                var attendingUsers = await this._cTimeService.GetAttendingUsers(this._sessionStateService.GetCompanyId());
 
                 this.Users.Clear();
                 this.Users.AddRange(AttendingUserByIsAttending.Create(attendingUsers));

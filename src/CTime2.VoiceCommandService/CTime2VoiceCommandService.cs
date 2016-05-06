@@ -4,10 +4,10 @@ using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
 using CTime2.Core.Data;
-using CTime2.Core.Logging;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
 using CTime2.VoiceCommandService.Strings;
+using UwCore.Logging;
+using UwCore.Services.ApplicationState;
 
 namespace CTime2.VoiceCommandService
 {
@@ -43,11 +43,11 @@ namespace CTime2.VoiceCommandService
 
                     _logger.Debug(() => $"Executing voice command '{voiceCommand.CommandName}'.");
 
-                    var sessionStateService = new SessionStateService();
-                    await sessionStateService.RestoreStateAsync();
+                    var applicationStateService = new ApplicationStateService();
+                    await applicationStateService.RestoreStateAsync();
                     var cTimeService = new CTimeService();
 
-                    var stampHelper = new CTimeStampHelper(sessionStateService, cTimeService);
+                    var stampHelper = new CTimeStampHelper(applicationStateService, cTimeService);
                     var stampHelperCallback = new CTimeStampHelperCallback(
                         this.OnNotLoggedIn, 
                         this.SupportsQuestions, 

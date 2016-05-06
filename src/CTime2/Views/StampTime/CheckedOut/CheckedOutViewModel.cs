@@ -1,14 +1,14 @@
 ﻿using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
-using CTime2.Core.Services.SessionState;
-using CTime2.Services.ExceptionHandler;
-using CTime2.Services.Loading;
+using UwCore.Services.ApplicationState;
+using UwCore.Services.ExceptionHandler;
+using UwCore.Services.Loading;
 
 namespace CTime2.Views.StampTime.CheckedOut
 {
     public class CheckedOutViewModel : StampTimeStateViewModelBase
     {
-        public CheckedOutViewModel(ICTimeService cTimeService, ISessionStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
+        public CheckedOutViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
             : base(cTimeService, sessionStateService, loadingService, exceptionHandler)
         {
         }

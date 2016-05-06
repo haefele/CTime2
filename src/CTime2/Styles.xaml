@@ -3,23 +3,7 @@
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CTime2"
-    xmlns:shell="using:CTime2.Views.Shell">
-
-    <DataTemplate x:Key="NavigationItemTemplate"
-                  x:DataType="shell:HamburgerItem">
-        <StackPanel Orientation="Horizontal" Margin="2, 0, 0, 0">
-            <SymbolIcon Symbol="{x:Bind Symbol, Mode=OneWay}" />
-            <TextBlock Text="{x:Bind Label, Mode=OneWay}" Margin="24, 0, 0, 0" VerticalAlignment="Center"/>
-        </StackPanel>
-    </DataTemplate>
-
-    <Style x:Key="NavigationListViewStyle" TargetType="ListView">
-        <Setter Property="SelectionMode" Value="Single" />
-        <Setter Property="ItemTemplate" Value="{StaticResource NavigationItemTemplate}" />
-        <Setter Property="IsItemClickEnabled" Value="True" />
-        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled" />
-    </Style>
+    xmlns:local="using:CTime2">
 
     <Style x:Key="CenteredPivotStyle" TargetType="Pivot">
         <Setter Property="Margin" Value="0"/>

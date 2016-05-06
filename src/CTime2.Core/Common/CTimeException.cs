@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using UwCore.Common;
 
 namespace CTime2.Core.Common
 {

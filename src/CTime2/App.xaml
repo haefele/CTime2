@@ -1,9 +1,10 @@
-﻿<micro:CaliburnApplication
+﻿<application:UwCoreApp
     x:Class="CTime2.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:micro="using:Caliburn.Micro"
-    xmlns:cTime2="using:CTime2">
+    xmlns:cTime2="using:CTime2"
+    xmlns:application="using:UwCore.Application">
     <micro:CaliburnApplication.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,4 +14,5 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </micro:CaliburnApplication.Resources>
-</micro:CaliburnApplication>
+</application:UwCoreApp>
+
