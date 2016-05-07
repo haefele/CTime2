@@ -4,13 +4,14 @@ using Caliburn.Micro;
 using CTime2.Core.Services.Band;
 using CTime2.Strings;
 using UwCore.Application;
+using UwCore.Application.Events;
 using UwCore.Extensions;
 using UwCore.Services.ExceptionHandler;
 using UwCore.Services.Loading;
 
 namespace CTime2.Views.Settings.Band
 {
-    public class BandViewModel : Screen, IHandleWithTask<ApplicationResumedEvent>
+    public class BandViewModel : Screen, IHandleWithTask<ApplicationResumed>
     {
         private readonly IBandService _bandService;
         private readonly ILoadingService _loadingService;
@@ -107,7 +108,7 @@ namespace CTime2.Views.Settings.Band
             }
         }
 
-        public async Task Handle(ApplicationResumedEvent message)
+        public async Task Handle(ApplicationResumed message)
         {
             using (this._loadingService.Show(CTime2Resources.Get("Loading.Band")))
             {

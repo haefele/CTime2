@@ -1970,7 +1970,7 @@
           }
         }
       },
-      "UwCore/0.1.14": {
+      "UwCore/0.1.18": {
         "dependencies": {
           "Caliburn.Micro": "3.0.0",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -3817,7 +3817,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.14": {
+      "UwCore/0.1.18": {
         "dependencies": {
           "Caliburn.Micro": "3.0.0",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -5628,7 +5628,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.14": {
+      "UwCore/0.1.18": {
         "dependencies": {
           "Caliburn.Micro": "3.0.0",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -7481,7 +7481,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.14": {
+      "UwCore/0.1.18": {
         "dependencies": {
           "Caliburn.Micro": "3.0.0",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -9292,7 +9292,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.14": {
+      "UwCore/0.1.18": {
         "dependencies": {
           "Caliburn.Micro": "3.0.0",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -11145,7 +11145,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.14": {
+      "UwCore/0.1.18": {
         "dependencies": {
           "Caliburn.Micro": "3.0.0",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -12956,7 +12956,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.14": {
+      "UwCore/0.1.18": {
         "dependencies": {
           "Caliburn.Micro": "3.0.0",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -16761,11 +16761,11 @@
         "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.14": {
-      "sha512": "CXAbl3z8IwBVO0suxt/UfAPUKTgaIG/pJX99cDrqccdzgdf8XoVa76SH3qTT/v74AuVhLcaR+wDqql9syrL7xQ==",
+    "UwCore/0.1.18": {
+      "sha512": "NPJiffxmYuHJXvTDYfiKwBmQIlIrw3nlj1vPvzDOzCYtyGxdXbpAFLddMwogcI6trSMSNjJUXBHeBLWzorYlKQ==",
       "type": "package",
       "files": [
-        "UwCore.0.1.14.nupkg.sha512",
+        "UwCore.0.1.18.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pri",
@@ -16815,7 +16815,7 @@
     "": [
       "Microsoft.Band >= 1.3.20307",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
-      "UwCore >= 0.1.14",
+      "UwCore >= 0.1.18",
       "WindowsStateTriggers >= 1.1.0"
     ],
     "UAP,Version=v10.0": []

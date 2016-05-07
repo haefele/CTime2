@@ -10,13 +10,14 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using UwCore.Application;
+using UwCore.Application.Events;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.ExceptionHandler;
 
 namespace CTime2.Views.Overview
 {
-    public class OverviewViewModel : Screen, IHandleWithTask<ApplicationResumedEvent>
+    public class OverviewViewModel : Screen, IHandleWithTask<ApplicationResumed>
     {
         private readonly IApplicationStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
@@ -113,7 +114,7 @@ namespace CTime2.Views.Overview
             this.CurrentTime = this._timerStartTimeForDay + (DateTime.Now - this._timerStartNow);
         }
 
-        Task IHandleWithTask<ApplicationResumedEvent>.Handle(ApplicationResumedEvent message)
+        Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
         {
             return this.LoadCurrentTime();
         }

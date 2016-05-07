@@ -11,6 +11,7 @@ using CTime2.Views.StampTime.CheckedOut;
 using CTime2.Views.StampTime.HomeOfficeCheckedIn;
 using CTime2.Views.StampTime.TripCheckedIn;
 using UwCore.Application;
+using UwCore.Application.Events;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.ExceptionHandler;
@@ -18,7 +19,7 @@ using UwCore.Services.Loading;
 
 namespace CTime2.Views.StampTime
 {
-    public class StampTimeViewModel : Conductor<Screen>, IHandleWithTask<ApplicationResumedEvent>
+    public class StampTimeViewModel : Conductor<Screen>, IHandleWithTask<ApplicationResumed>
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _sessionStateService;
@@ -94,7 +95,7 @@ namespace CTime2.Views.StampTime
             }
         }
 
-        public Task Handle(ApplicationResumedEvent message)
+        public Task Handle(ApplicationResumed message)
         {
             return this.RefreshCurrentState();
         }

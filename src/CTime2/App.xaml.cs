@@ -9,6 +9,7 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using CTime2.Common;
 using CTime2.Core.Common;
@@ -36,6 +37,7 @@ using CTime2.Views.YourTimes;
 using CTime2.VoiceCommandService;
 using UwCore.Application;
 using UwCore.Extensions;
+using UwCore.Hamburger;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
 
@@ -58,6 +60,11 @@ namespace CTime2
 
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
+        }
+
+        public override void CustomizeApplication(IApplication application)
+        {
+            application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }
 
         public override void ConfigureContainer(WinRTContainer container)
