@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Security.Cryptography.Certificates;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Strings;
@@ -221,12 +223,15 @@ namespace CTime2.Core.Services.CTime
 
         private Uri BuildUri(string path)
         {
-            return new Uri($"http://83.169.12.81/ctime/php/{path}");
+            return new Uri($"https://app.c-time.net/php/{path}");
         }
 
         private HttpClient GetClient()
         {
-            return new HttpClient();
+            var filter = new HttpBaseProtocolFilter();
+            filter.IgnorableServerCertificateErrors.Add(ChainValidationResult.InvalidName);
+
+            return new HttpClient(filter);
         }
     }
 }
