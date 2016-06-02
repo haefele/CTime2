@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography.Certificates;
 using Windows.Web.Http;
@@ -17,6 +20,11 @@ namespace CTime2.Core.Services.CTime
     public class CTimeService : ICTimeService
     {
         private static readonly Logger Logger = LoggerFactory.GetLogger<CTimeService>();
+
+        public CTimeService()
+        {
+            this.AddCTimeCertificate();
+        }
 
         public async Task<User> Login(string companyId, string emailAddress, string password)
         {
@@ -232,6 +240,19 @@ namespace CTime2.Core.Services.CTime
             filter.IgnorableServerCertificateErrors.Add(ChainValidationResult.InvalidName);
 
             return new HttpClient(filter);
+        }
+
+        private void AddCTimeCertificate()
+        {
+            using (var certificateStream = this.GetType().GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.Core.Services.CTime.Certificate.cer"))
+            using (var memoryStream = new MemoryStream())
+            {
+                certificateStream.CopyTo(memoryStream);
+                var buffer = memoryStream.ToArray().AsBuffer();
+
+                var certificate = new Certificate(buffer);
+                CertificateStores.TrustedRootCertificationAuthorities.Add(certificate);
+            }
         }
     }
 }

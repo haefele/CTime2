@@ -130,6 +130,7 @@
       <Generator>MSBandLayoutCodeGenerator</Generator>
       <LastGenOutput>StartPageLayout.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Services\CTime\Certificate.cer" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
