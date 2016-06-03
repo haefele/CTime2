@@ -22,10 +22,6 @@
           <source>Anwesend</source>
           <target state="translated" state-qualifier="tm-suggestion">Present</target>
         </trans-unit>
-        <trans-unit id="CompanyIdTextBox.Header" translate="yes" xml:space="preserve">
-          <source>Firmen ID</source>
-          <target state="translated">Company ID</target>
-        </trans-unit>
         <trans-unit id="CurrentMonthAppBarButton.Label" translate="yes" xml:space="preserve">
           <source>Aktueller Monat</source>
           <target state="translated" state-qualifier="tm-suggestion">Current month</target>

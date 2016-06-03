@@ -159,9 +159,6 @@ Einstempeln</value>
     <value>
 Ausstempeln</value>
   </data>
-  <data name="CompanyIdTextBox.Header" xml:space="preserve">
-    <value>Firmen ID</value>
-  </data>
   <data name="CurrentMonthAppBarButton.Label" xml:space="preserve">
     <value>Aktueller Monat</value>
   </data>

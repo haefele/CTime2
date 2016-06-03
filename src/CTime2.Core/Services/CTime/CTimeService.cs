@@ -26,7 +26,7 @@ namespace CTime2.Core.Services.CTime
             this.AddCTimeCertificate();
         }
 
-        public async Task<User> Login(string companyId, string emailAddress, string password)
+        public async Task<User> Login(string emailAddress, string password)
         {
             try
             {
@@ -35,8 +35,7 @@ namespace CTime2.Core.Services.CTime
                     Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
                     {
                         { "Password", password },
-                        { "LoginName", emailAddress},
-                        { "GUIDlogin", companyId },
+                        { "LoginName", emailAddress}
                     })
                 };
 
@@ -64,6 +63,7 @@ namespace CTime2.Core.Services.CTime
                 return new User
                 {
                     Id = user.Value<string>("EmployeeGUID"),
+                    CompanyId = user.Value<string>("CompanyGUID"),
                     Email = user.Value<string>("LoginName"),
                     FirstName = user.Value<string>("EmployeeFirstName"),
                     Name = user.Value<string>("EmployeeName"),
@@ -72,7 +72,7 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, $"Exception in method {nameof(this.Login)}. CompanyId: {companyId}, Email address: {emailAddress}");
+                Logger.Error(exception, $"Exception in method {nameof(this.Login)}. Email address: {emailAddress}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLogin") , exception);
             }
         }

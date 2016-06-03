@@ -24,9 +24,6 @@
   <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
     <value>Present</value>
   </data>
-  <data name="CompanyIdTextBox.Header" xml:space="preserve">
-    <value>Company ID</value>
-  </data>
   <data name="CurrentMonthAppBarButton.Label" xml:space="preserve">
     <value>Current month</value>
   </data>

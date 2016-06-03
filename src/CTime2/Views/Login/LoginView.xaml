@@ -5,6 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.Login"
     xmlns:micro="using:Caliburn.Micro"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:uwCoreBehaviors="using:UwCore.Behaviors"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,28 +21,35 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="5" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Header="~Firmen ID" 
-                 Grid.Row="0"
-                 x:Uid="CompanyIdTextBox"
-                 Text="{x:Bind ViewModel.CompanyId, Mode=TwoWay}" />
         <TextBox Header="~E-Mail-Adresse" 
-                 Grid.Row="2"
+                 Grid.Row="0"
                  x:Uid="EmailAddressTextBox"
                  Text="{x:Bind ViewModel.EmailAddress, Mode=TwoWay}" 
-                 InputScope="EmailNameOrAddress" />
+                 InputScope="EmailNameOrAddress">
+            <interactivity:Interaction.Behaviors>
+                <uwCoreBehaviors:KeyTriggerBehavior Key="Enter">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
+                </uwCoreBehaviors:KeyTriggerBehavior>
+            </interactivity:Interaction.Behaviors>    
+        </TextBox>
+
         <PasswordBox Header="~Passwort" 
-                     Grid.Row="4"
+                     Grid.Row="2"
                      x:Uid="PasswordPasswordBox"
-                     Password="{x:Bind ViewModel.Password, Mode=TwoWay}" />
+                     Password="{x:Bind ViewModel.Password, Mode=TwoWay}">
+            <interactivity:Interaction.Behaviors>
+                <uwCoreBehaviors:KeyTriggerBehavior Key="Enter">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
+                </uwCoreBehaviors:KeyTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </PasswordBox>
         
         <Button Content="Anmelden" 
-                Grid.Row="6"
+                Grid.Row="4"
                 x:Uid="LoginButton"
-                Click="{x:Bind ViewModel.Login}"
+                Command="{x:Bind ViewModel.Login}"
                 HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>

@@ -37,7 +37,7 @@ namespace CTime2.Views.StampTime
                     await this._cTimeService.SaveTimer(
                         this._sessionStateService.GetCurrentUser().Id,
                         DateTime.Now,
-                        this._sessionStateService.GetCompanyId(),
+                        this._sessionStateService.GetCurrentUser().CompanyId,
                         state);
 
                     await this.Container.RefreshCurrentState();

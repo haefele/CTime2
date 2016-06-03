@@ -30,7 +30,7 @@ namespace CTime2.Views.AttendanceList
         {
             using (this._loadingService.Show(CTime2Resources.Get("Loading.AttendanceList")))
             {
-                var attendingUsers = await this._cTimeService.GetAttendingUsers(this._sessionStateService.GetCompanyId());
+                var attendingUsers = await this._cTimeService.GetAttendingUsers(this._sessionStateService.GetCurrentUser().CompanyId);
 
                 this.Users.Clear();
                 this.Users.AddRange(AttendingUserByIsAttending.Create(attendingUsers));
