@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reactive;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;
 using Windows.Storage.Streams;
@@ -20,14 +22,19 @@ namespace CTime2.Views.Settings.About
             set { this.RaiseAndSetIfChanged(ref this._currentVersion, value); }
         }
 
+        public ReactiveCommand<Unit> SendFeedback { get; }
+
         public AboutViewModel()
         {
             this.DisplayName = CTime2Resources.Get("Navigation.About");
 
             this.CurrentVersion = Package.Current.Id.Version.ToVersion();
+
+            this.SendFeedback = ReactiveCommand.CreateAsyncTask(_ => this.SendFeedbackImpl());
+            this.SendFeedback.AttachExceptionHandler();
         }
 
-        public async void SendFeedbackAsync()
+        private async Task SendFeedbackImpl()
         {
             var message = new EmailMessage();
             message.To.Add(new EmailRecipient(CTime2Resources.Get("Feedback.EmailAddress")));

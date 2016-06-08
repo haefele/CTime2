@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
@@ -7,6 +8,7 @@ using CTime2.Strings;
 using ReactiveUI;
 using UwCore.Application;
 using UwCore.Application.Events;
+using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ExceptionHandler;
 using UwCore.Services.Loading;
@@ -16,8 +18,6 @@ namespace CTime2.Views.Settings.Band
     public class BandViewModel : ReactiveScreen, IHandleWithTask<ApplicationResumed>
     {
         private readonly IBandService _bandService;
-        private readonly ILoadingService _loadingService;
-        private readonly IExceptionHandler _exceptionHandler;
 
         private BandViewModelState _state;
 
@@ -27,95 +27,78 @@ namespace CTime2.Views.Settings.Band
             set { this.RaiseAndSetIfChanged(ref this._state, value); }
         }
 
-        public BandViewModel(IBandService bandService, ILoadingService loadingService, IEventAggregator eventAggregator, IExceptionHandler exceptionHandler)
+        public ReactiveCommand<Unit> ToggleTile { get; }
+        public ReactiveCommand<Unit> Reload { get; }
+
+        public BandViewModel(IBandService bandService, IEventAggregator eventAggregator)
         {
+            Guard.NotNull(bandService, nameof(bandService));
+
             this._bandService = bandService;
-            this._loadingService = loadingService;
-            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = "Band";
-            this.State = BandViewModelState.Loading;
 
-            eventAggregator.Subscribe(this);
+            var canToggleTile = this.WhenAnyValue(f => f.State, state => state != BandViewModelState.NotConnected);
+            this.ToggleTile = ReactiveCommand.CreateAsyncTask(canToggleTile, _ => this.ToggleTileImpl());
+            this.ToggleTile.AttachLoadingService(() => this.State == BandViewModelState.Installed
+                    ? CTime2Resources.Get("Loading.RemoveTileFromBand")
+                    : CTime2Resources.Get("Loading.AddTileToBand"));
+            this.ToggleTile.AttachExceptionHandler();
+
+            this.Reload = ReactiveCommand.CreateAsyncTask(_ => this.ReloadImpl());
+            this.Reload.AttachLoadingService(CTime2Resources.Get("Loading.Band"));
+            this.Reload.AttachExceptionHandler();
+
+            eventAggregator.SubscribeScreen(this);
         }
 
         protected override async void OnActivate()
         {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.Band")))
-            {
-                await this.Reload();
-            }
-        }
-
-        protected override void OnDeactivate(bool close)
-        {
             this.State = BandViewModelState.Loading;
-        }
 
-        public async void ToggleTileAsync()
-        {
-            try
-            {
-                if (this.State == BandViewModelState.NotConnected)
-                    return;
-
-                string message = this.State == BandViewModelState.Installed
-                    ? CTime2Resources.Get("Loading.RemoveTileFromBand")
-                    : CTime2Resources.Get("Loading.AddTileToBand");
-
-                using (this._loadingService.Show(message))
-                {
-                    if (this.State == BandViewModelState.Installed)
-                    {
-                        await this._bandService.UnRegisterBandTileAsync();
-                    }
-                    else
-                    {
-                        await this._bandService.RegisterBandTileAsync();
-                    }
-
-                    await this.Reload();
-                }
-            }
-            catch (Exception exception)
-            {
-                await this._exceptionHandler.HandleAsync(exception);
-            }
+            await this.Reload.ExecuteAsyncTask();
         }
         
-        private async Task Reload()
+        private async Task ToggleTileImpl()
         {
-            try
+            if (this.State == BandViewModelState.NotConnected)
+                return;
+
+            if (this.State == BandViewModelState.Installed)
             {
-                var bandInfo = await this._bandService.GetBand();
-
-                if (bandInfo == null)
-                {
-                    this.State = BandViewModelState.NotConnected;
-                    return;
-                }
-
-                if (await this._bandService.IsBandTileRegisteredAsync())
-                {
-                    this.State = BandViewModelState.Installed;
-                }
-                else
-                {
-                    this.State = BandViewModelState.NotInstalled;
-                }
+                await this._bandService.UnRegisterBandTileAsync();
             }
-            catch (Exception exception)
+            else
             {
-                await this._exceptionHandler.HandleAsync(exception);
+                await this._bandService.RegisterBandTileAsync();
+            }
+
+            await this.ReloadImpl();
+        }
+
+        private async Task ReloadImpl()
+        {
+            var bandInfo = await this._bandService.GetBand();
+
+            if (bandInfo == null)
+            {
+                this.State = BandViewModelState.NotConnected;
+                return;
+            }
+
+            if (await this._bandService.IsBandTileRegisteredAsync())
+            {
+                this.State = BandViewModelState.Installed;
+            }
+            else
+            {
+                this.State = BandViewModelState.NotInstalled;
             }
         }
 
-        public async Task Handle(ApplicationResumed message)
+        async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
         {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.Band")))
-            {
-                await this.Reload();
-            }
+            await this.Reload.ExecuteAsyncTask();
         }
     }
 }

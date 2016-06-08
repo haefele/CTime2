@@ -9,6 +9,7 @@ using CTime2.States;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore.Application;
+using UwCore.Common;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using UwCore.Extensions;
@@ -41,6 +42,11 @@ namespace CTime2.Views.Login
 
         public LoginViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IApplication application, IDialogService dialogService)
         {
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(application, nameof(application));
+            Guard.NotNull(dialogService, nameof(dialogService));
+
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
             this._application = application;

@@ -3,15 +3,7 @@
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:CTime2.Converter" 
-    xmlns:common="using:CTime2.Common"
-    xmlns:band="using:CTime2.Views.Settings.Band"
-    xmlns:windowsStateTriggers="using:WindowsStateTriggers"
-    
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"   
-    >
+    xmlns:windowsStateTriggers="using:WindowsStateTriggers">
 
     <Grid x:Name="Root" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -26,7 +18,7 @@
                         <Setter x:Uid="BandTileInstalledButtonSetter" Target="button.(ContentControl.Content)" Value="~Tile entfernen"/>
                     </VisualState.Setters>
                     <Storyboard>
-                        <ColorAnimation Duration="0" To="Green" Storyboard.TargetProperty="(IconElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="symbolIcon" d:IsOptimized="True"/>
+                        <ColorAnimation Duration="0" To="Green" Storyboard.TargetProperty="(IconElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="symbolIcon" />
                     </Storyboard>
                 </VisualState>
                 <VisualState x:Name="NotInstalled">
@@ -75,6 +67,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                
                 <SymbolIcon x:Name="symbolIcon" 
                             Symbol="Account" 
                             Foreground="Red" Margin="0,0,5,0" />
@@ -85,7 +78,7 @@
                            VerticalAlignment="Center" 
                            Text="~Test" Margin="0" />
             </Grid>
-            <Button x:Name="button" Content="~Test" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0" Click="{x:Bind ViewModel.ToggleTileAsync}" />
+            <Button x:Name="button" Content="~Test" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0" Command="{x:Bind ViewModel.ToggleTile}" />
         </Grid>
     </Grid>
 </UserControl>
