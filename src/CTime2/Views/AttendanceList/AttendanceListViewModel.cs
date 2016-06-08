@@ -1,40 +1,51 @@
-﻿using Caliburn.Micro;
+﻿using System.Threading.Tasks;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
+using ReactiveUI;
+using UwCore.Common;
+using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
-using UwCore.Services.Loading;
 
 namespace CTime2.Views.AttendanceList
 {
-    public class AttendanceListViewModel : Screen
+    public class AttendanceListViewModel : ReactiveScreen
     {
         private readonly ICTimeService _cTimeService;
-        private readonly IApplicationStateService _sessionStateService;
-        private readonly ILoadingService _loadingService;
+        private readonly IApplicationStateService _applicationStateService;
 
-        public BindableCollection<AttendingUserByIsAttending> Users { get; } 
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<AttendingUserByIsAttending>> _usersHelper;
 
-        public AttendanceListViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService)
+        public ReactiveObservableCollection<AttendingUserByIsAttending> Users => this._usersHelper.Value;
+
+        public ReactiveCommand<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsers { get; }
+
+        public AttendanceListViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
         {
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+
             this._cTimeService = cTimeService;
-            this._sessionStateService = sessionStateService;
-            this._loadingService = loadingService;
+            this._applicationStateService = applicationStateService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.AttendanceList");
+            
+            this.LoadUsers = ReactiveCommand.CreateAsyncTask(_ => this.LoadUsersImpl());
+            this.LoadUsers.AttachLoadingService(CTime2Resources.Get("Loading.AttendanceList"));
+            this.LoadUsers.AttachExceptionHandler();
+            this.LoadUsers.ToProperty(this, f => f.Users, out this._usersHelper);
+        }
 
-            this.Users = new BindableCollection<AttendingUserByIsAttending>();
+        private async Task<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsersImpl()
+        {
+            var attendingUsers = await this._cTimeService.GetAttendingUsers(this._applicationStateService.GetCurrentUser().CompanyId);
+            return new ReactiveObservableCollection<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(attendingUsers));
         }
 
         protected override async void OnActivate()
         {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.AttendanceList")))
-            {
-                var attendingUsers = await this._cTimeService.GetAttendingUsers(this._sessionStateService.GetCurrentUser().CompanyId);
-
-                this.Users.Clear();
-                this.Users.AddRange(AttendingUserByIsAttending.Create(attendingUsers));
-            }
+            await this.LoadUsers.ExecuteAsyncTask();
         }
     }
 }

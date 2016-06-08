@@ -6,6 +6,7 @@
     xmlns:local="using:CTime2.Views.Settings"
     xmlns:micro="using:Caliburn.Micro"
     xmlns:common="using:CTime2.Common"
+    xmlns:reactiveUi="using:Caliburn.Micro.ReactiveUI"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,12 +18,12 @@
                Style="{StaticResource CenteredPivotStyle}"
                >
             <Pivot.HeaderTemplate>
-                <DataTemplate x:DataType="micro:Screen">
+                <DataTemplate x:DataType="reactiveUi:ReactiveScreen">
                     <TextBlock Text="{x:Bind DisplayName}" />
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
-                <DataTemplate x:DataType="micro:Screen">
+                <DataTemplate x:DataType="reactiveUi:ReactiveScreen">
                     <ContentControl micro:View.Model="{Binding}"
                                     VerticalContentAlignment="Stretch"
                                     HorizontalContentAlignment="Stretch"

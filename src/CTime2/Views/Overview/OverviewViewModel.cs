@@ -1,28 +1,27 @@
 ﻿using System;
+using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Extensions;
 using CTime2.Strings;
-using UwCore.Application;
+using ReactiveUI;
 using UwCore.Application.Events;
+using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
-using UwCore.Services.ExceptionHandler;
 
 namespace CTime2.Views.Overview
 {
-    public class OverviewViewModel : Screen, IHandleWithTask<ApplicationResumed>
+    public class OverviewViewModel : ReactiveScreen, IHandleWithTask<ApplicationResumed>
     {
-        private readonly IApplicationStateService _sessionStateService;
+        private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IExceptionHandler _exceptionHandler;
 
         private readonly Timer _timer;
 
@@ -36,87 +35,86 @@ namespace CTime2.Views.Overview
         public string WelcomeMessage
         {
             get { return this._welcomeMessage; }
-            set { this.SetProperty(ref this._welcomeMessage, value); }
+            set { this.RaiseAndSetIfChanged(ref this._welcomeMessage, value); }
         }
 
         public TimeSpan CurrentTime
         {
             get { return this._currentTime; }
-            set { this.SetProperty(ref this._currentTime, value); }
+            set { this.RaiseAndSetIfChanged(ref this._currentTime, value); }
         }
 
         public byte[] MyImage
         {
             get { return this._myImage; }
-            set { this.SetProperty(ref this._myImage, value); }
+            set { this.RaiseAndSetIfChanged(ref this._myImage, value); }
         }
 
-        public OverviewViewModel(IApplicationStateService sessionStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IExceptionHandler exceptionHandler)
+        public ReactiveCommand<Unit> LoadCurrentTime { get; }
+
+        public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator)
         {
-            this._sessionStateService = sessionStateService;
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+            Guard.NotNull(eventAggregator, nameof(eventAggregator));
+
+            this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._eventAggregator = eventAggregator;
-            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
+
+            this.LoadCurrentTime = ReactiveCommand.CreateAsyncTask(_ => this.LoadCurrentTimeImpl());
+            this.LoadCurrentTime.AttachExceptionHandler();
+
+            eventAggregator.SubscribeScreen(this);
         }
 
         protected override async void OnActivate()
         {
-            this._eventAggregator.Subscribe(this);
+            this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", this._applicationStateService.GetCurrentUser().FirstName);
+            this.MyImage = this._applicationStateService.GetCurrentUser().ImageAsPng;
             
-            this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", this._sessionStateService.GetCurrentUser().FirstName);
-            this.MyImage = this._sessionStateService.GetCurrentUser().ImageAsPng;
-            
-            await this.LoadCurrentTime();
+            await this.LoadCurrentTime.ExecuteAsyncTask();
         }
-
-        protected override void OnDeactivate(bool close)
+        
+        private async Task LoadCurrentTimeImpl()
         {
-            this._eventAggregator.Unsubscribe(this);
-        }
+            Time current = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
 
-        private async Task LoadCurrentTime()
-        {
-            try
+            this._timerStartNow = DateTime.Now;
+
+            var timeToAdd = current != null && current.State.IsEntered()
+                ? this._timerStartNow - (current.ClockInTime ?? this._timerStartNow)
+                : TimeSpan.Zero;
+
+            var timeToday = current?.Hours ?? TimeSpan.Zero;
+
+            this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
+
+            if (current != null && current.State.IsEntered())
             {
-                Time current = await this._cTimeService.GetCurrentTime(this._sessionStateService.GetCurrentUser().Id);
-
-                this._timerStartNow = DateTime.Now;
-
-                var timeToAdd = current != null && current.State.IsEntered()
-                    ? this._timerStartNow - (current.ClockInTime ?? this._timerStartNow)
-                    : TimeSpan.Zero;
-
-                var timeToday = current?.Hours ?? TimeSpan.Zero;
-
-                this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
-
-                if (current != null && current.State.IsEntered())
-                {
-                    this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
-                }
-                else
-                {
-                    this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-                }
+                this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
             }
-            catch (Exception exception)
+            else
             {
-                await this._exceptionHandler.HandleAsync(exception);
+                this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
             }
         }
 
         private void Tick(object state)
         {
-            this.CurrentTime = this._timerStartTimeForDay + (DateTime.Now - this._timerStartNow);
+            Execute.OnUIThread(() =>
+            {
+                this.CurrentTime = this._timerStartTimeForDay + (DateTime.Now - this._timerStartNow);
+            });
         }
 
         Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
         {
-            return this.LoadCurrentTime();
+            return this.LoadCurrentTime.ExecuteAsyncTask();
         }
     }
 }

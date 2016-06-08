@@ -53,11 +53,9 @@ namespace CTime2
             this.InitializeComponent();
         }
         #endregion
-
-        protected override void Configure()
+        
+        public override void CustomConfiguration()
         {
-            base.Configure();
-
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
         }

@@ -11,8 +11,6 @@ using ReactiveUI;
 using UwCore.Application;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
-using UwCore.Services.ExceptionHandler;
-using UwCore.Services.Loading;
 using UwCore.Extensions;
 
 namespace CTime2.Views.Login
@@ -20,11 +18,9 @@ namespace CTime2.Views.Login
     public class LoginViewModel : ReactiveScreen
     {
         private readonly ICTimeService _cTimeService;
-        private readonly IApplicationStateService _sessionStateService;
-        private readonly ILoadingService _loadingService;
+        private readonly IApplicationStateService _applicationStateService;
         private readonly IApplication _application;
         private readonly IDialogService _dialogService;
-        private readonly IExceptionHandler _exceptionHandler;
 
         private string _emailAddress;
         private string _password;
@@ -43,47 +39,37 @@ namespace CTime2.Views.Login
 
         public ReactiveCommand<Unit> Login { get; }
 
-        public LoginViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService, IApplication application, IDialogService dialogService, IExceptionHandler exceptionHandler)
+        public LoginViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IApplication application, IDialogService dialogService)
         {
             this._cTimeService = cTimeService;
-            this._sessionStateService = sessionStateService;
-            this._loadingService = loadingService;
+            this._applicationStateService = applicationStateService;
             this._application = application;
             this._dialogService = dialogService;
-            this._exceptionHandler = exceptionHandler;
 
             var canLogin = this.WhenAnyValue(f => f.EmailAddress, f => f.Password, (email, password) =>
                 string.IsNullOrWhiteSpace(email) == false && string.IsNullOrWhiteSpace(password) == false);
             this.Login = ReactiveCommand.CreateAsyncTask(canLogin, _ => this.LoginImpl());
+            this.Login.AttachLoadingService(CTime2Resources.Get("Loading.LoggingIn"));
+            this.Login.AttachExceptionHandler();
 
             this.DisplayName = CTime2Resources.Get("Navigation.Login");
         }
         
         private async Task LoginImpl()
         {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.LoggingIn")))
+            var user = await this._cTimeService.Login(this.EmailAddress, this.Password);
+
+            if (user == null)
             {
-                try
-                {
-                    var user = await this._cTimeService.Login(this.EmailAddress, this.Password);
-
-                    if (user == null)
-                    {
-                        await this._dialogService.ShowAsync(CTime2Resources.Get("Login.LoginFailed"));
-                        return;
-                    }
-                    
-                    this._sessionStateService.SetCurrentUser(user);;
-
-                    await this._sessionStateService.SaveStateAsync();
-
-                    this._application.CurrentMode = IoC.Get<LoggedInApplicationState>();
-                }
-                catch (Exception exception)
-                {
-                    await this._exceptionHandler.HandleAsync(exception);
-                }
+                await this._dialogService.ShowAsync(CTime2Resources.Get("Login.LoginFailed"));
+                return;
             }
+                    
+            this._applicationStateService.SetCurrentUser(user);;
+
+            await this._applicationStateService.SaveStateAsync();
+
+            this._application.CurrentMode = IoC.Get<LoggedInApplicationState>();
         }
     }
 }

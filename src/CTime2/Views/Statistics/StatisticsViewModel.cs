@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
+using ReactiveUI;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
@@ -14,7 +16,7 @@ using UwCore.Services.Loading;
 
 namespace CTime2.Views.Statistics
 {
-    public class StatisticsViewModel : Screen
+    public class StatisticsViewModel : ReactiveScreen
     {
         #region Fields
         private readonly IApplicationStateService _sessionStateService;
@@ -31,12 +33,12 @@ namespace CTime2.Views.Statistics
         public DateTimeOffset StartDate
         {
             get { return this._startDate; }
-            set { this.SetProperty(ref this._startDate, value); }
+            set { this.RaiseAndSetIfChanged(ref this._startDate, value); }
         }
         public DateTimeOffset EndDate
         {
             get { return this._endDate; }
-            set { this.SetProperty(ref this._endDate, value); }
+            set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
         }
         public BindableCollection<StatisticItem> Statistics { get; }
         #endregion

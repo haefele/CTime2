@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.Licenses;
-using CTime2.Extensions;
-using UwCore.Extensions;
+using ReactiveUI;
 
 namespace CTime2.Views.Settings.Licenses
 {
-    public class LicenseViewModel : Screen
+    public class LicenseViewModel : ReactiveScreen
     {
         private readonly ILicensesService _licensesService;
 
@@ -15,7 +14,7 @@ namespace CTime2.Views.Settings.Licenses
         public string LicenseText
         {
             get { return this._licenseText; }
-            set { this.SetProperty(ref this._licenseText, value); }
+            set { this.RaiseAndSetIfChanged(ref this._licenseText, value); }
         }
         
         public LicenseViewModel(ILicensesService licensesService)

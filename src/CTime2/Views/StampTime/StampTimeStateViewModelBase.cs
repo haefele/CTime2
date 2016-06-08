@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
@@ -11,7 +12,7 @@ using UwCore.Services.Loading;
 
 namespace CTime2.Views.StampTime
 {
-    public class StampTimeStateViewModelBase : Screen
+    public class StampTimeStateViewModelBase : ReactiveScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _sessionStateService;

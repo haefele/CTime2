@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
@@ -10,6 +11,7 @@ using CTime2.Views.StampTime.CheckedIn;
 using CTime2.Views.StampTime.CheckedOut;
 using CTime2.Views.StampTime.HomeOfficeCheckedIn;
 using CTime2.Views.StampTime.TripCheckedIn;
+using ReactiveUI;
 using UwCore.Application;
 using UwCore.Application.Events;
 using UwCore.Extensions;
@@ -19,7 +21,7 @@ using UwCore.Services.Loading;
 
 namespace CTime2.Views.StampTime
 {
-    public class StampTimeViewModel : Conductor<Screen>, IHandleWithTask<ApplicationResumed>
+    public class StampTimeViewModel : ReactiveConductor<ReactiveScreen>, IHandleWithTask<ApplicationResumed>
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _sessionStateService;
@@ -31,7 +33,7 @@ namespace CTime2.Views.StampTime
         public string StatusMessage
         {
             get { return this._statusMessage; }
-            set { this.SetProperty(ref this._statusMessage, value); }
+            set { this.RaiseAndSetIfChanged(ref this._statusMessage, value); }
         }
 
         public StampTimeViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
@@ -58,7 +60,7 @@ namespace CTime2.Views.StampTime
                     var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.GetCurrentUser().Id);
 
                     string statusMessage;
-                    Screen currentState;
+                    ReactiveScreen currentState;
 
                     if (currentTime == null || currentTime.State.IsLeft())
                     {

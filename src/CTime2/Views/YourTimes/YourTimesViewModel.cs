@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
+using ReactiveUI;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.ExceptionHandler;
@@ -11,7 +13,7 @@ using UwCore.Services.Loading;
 
 namespace CTime2.Views.YourTimes
 {
-    public class YourTimesViewModel : Screen
+    public class YourTimesViewModel : ReactiveScreen
     {
         private readonly IApplicationStateService _sessionStateService;
         private readonly ICTimeService _cTimeService;
@@ -26,13 +28,13 @@ namespace CTime2.Views.YourTimes
         public DateTimeOffset StartDate
         {
             get { return this._startDate; }
-            set { this.SetProperty(ref this._startDate, value); }
+            set { this.RaiseAndSetIfChanged(ref this._startDate, value); }
         }
 
         public DateTimeOffset EndDate
         {
             get { return this._endDate; }
-            set { this.SetProperty(ref this._endDate, value); }
+            set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
         }
 
         public YourTimesViewModel(IApplicationStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IExceptionHandler exceptionHandler)

@@ -1,11 +1,12 @@
 ﻿using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.Licenses;
 using CTime2.Strings;
 
 namespace CTime2.Views.Settings.Licenses
 {
-    public class LicensesListViewModel : Screen
+    public class LicensesListViewModel : ReactiveScreen
     {
         private readonly INavigationService _navigationService;
         
