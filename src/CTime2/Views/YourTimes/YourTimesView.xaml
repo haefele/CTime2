@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.YourTimes"
     xmlns:converter="using:CTime2.Converter"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -84,8 +86,13 @@
                           Label="~Startdatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
-                                      DatePicked="{x:Bind ViewModel.RefreshAsync}"
-                                      Placement="Top" />
+                                      Placement="Top">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="DatePicked">
+                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadTimes}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </DatePickerFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
@@ -93,8 +100,13 @@
                           Label="~Enddatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
-                                      DatePicked="{x:Bind ViewModel.RefreshAsync}"
-                                      Placement="Top" />
+                                      Placement="Top">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="DatePicked">
+                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadTimes}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </DatePickerFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
         </CommandBar>

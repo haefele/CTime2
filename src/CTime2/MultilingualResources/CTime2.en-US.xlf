@@ -82,10 +82,6 @@
           <source>Anwesenheitsliste</source>
           <target state="translated" state-qualifier="mt-suggestion">Attendance list</target>
         </trans-unit>
-        <trans-unit id="Navigation.Licenses" translate="yes" xml:space="preserve">
-          <source>Lizenzen</source>
-          <target state="translated" state-qualifier="tm-suggestion">Licenses</target>
-        </trans-unit>
         <trans-unit id="Navigation.Login" translate="yes" xml:space="preserve">
           <source>Anmeldung</source>
           <target state="translated" state-qualifier="tm-suggestion">Login</target>

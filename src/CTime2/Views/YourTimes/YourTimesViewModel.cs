@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
-using UwCore.Services.ExceptionHandler;
-using UwCore.Services.Loading;
 
 namespace CTime2.Views.YourTimes
 {
     public class YourTimesViewModel : ReactiveScreen
     {
-        private readonly IApplicationStateService _sessionStateService;
+        private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
-        private readonly ILoadingService _loadingService;
-        private readonly IExceptionHandler _exceptionHandler;
+
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<TimesByDay>> _timesHelper;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
 
-        public BindableCollection<TimesByDay> Times { get; }
+        public ReactiveObservableCollection<TimesByDay> Times => this._timesHelper.Value;
 
         public DateTimeOffset StartDate
         {
@@ -37,16 +35,22 @@ namespace CTime2.Views.YourTimes
             set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
         }
 
-        public YourTimesViewModel(IApplicationStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
+        public ReactiveCommand<ReactiveObservableCollection<TimesByDay>> LoadTimes { get; }
+
+        public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService)
         {
-            this._sessionStateService = sessionStateService;
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+
+            this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
-            this._loadingService = loadingService;
-            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = CTime2Resources.Get("Navigation.MyTimes");
 
-            this.Times = new BindableCollection<TimesByDay>();
+            this.LoadTimes = ReactiveCommand.CreateAsyncTask(_ => this.LoadTimesImpl());
+            this.LoadTimes.AttachExceptionHandler();
+            this.LoadTimes.AttachLoadingService(CTime2Resources.Get("Loading.Times"));
+            this.LoadTimes.ToLoadedProperty(this, f => f.Times, out this._timesHelper);
 
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
@@ -54,25 +58,13 @@ namespace CTime2.Views.YourTimes
 
         protected override async void OnActivate()
         {
-            await this.RefreshAsync();
+            await this.LoadTimes.ExecuteAsyncTask();
         }
         
-        public async Task RefreshAsync()
+        private async Task<ReactiveObservableCollection<TimesByDay>> LoadTimesImpl()
         {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.Times")))
-            {
-                try
-                {
-                    var times = await this._cTimeService.GetTimes(this._sessionStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
-
-                    this.Times.Clear();
-                    this.Times.AddRange(TimesByDay.Create(times));
-                }
-                catch (Exception exception)
-                {
-                    await this._exceptionHandler.HandleAsync(exception);
-                }
-            }
+            var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
+            return new ReactiveObservableCollection<TimesByDay>(TimesByDay.Create(times));
         }
     }
 }

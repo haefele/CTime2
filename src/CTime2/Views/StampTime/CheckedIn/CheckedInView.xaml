@@ -29,7 +29,7 @@
                 HorizontalAlignment="Stretch"
                 Margin="5"
                 Grid.Column="1"
-                Click="{x:Bind TimeStateViewModel.CheckOut}">
+                Command="{x:Bind TimeStateViewModel.CheckOut}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}" />
                 <TextBlock x:Uid="CheckOutTextBlock"  Text="&#13;&#10;~Ausstempeln" />
@@ -40,7 +40,7 @@
                 HorizontalAlignment="Stretch"
                 Margin="5"
                 Grid.Column="2"
-                Click="{x:Bind TimeStateViewModel.Pause}">
+                Command="{x:Bind TimeStateViewModel.Pause}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Pause}" />
                 <TextBlock x:Uid="PauseTextBlock" Text="&#13;&#10;~Pause" />

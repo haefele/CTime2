@@ -33,6 +33,7 @@ namespace CTime2.Views.Settings.Band
         public BandViewModel(IBandService bandService, IEventAggregator eventAggregator)
         {
             Guard.NotNull(bandService, nameof(bandService));
+            Guard.NotNull(eventAggregator, nameof(eventAggregator));
 
             this._bandService = bandService;
 

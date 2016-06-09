@@ -69,9 +69,6 @@
   <data name="Navigation.AttendanceList" xml:space="preserve">
     <value>Attendance list</value>
   </data>
-  <data name="Navigation.Licenses" xml:space="preserve">
-    <value>Licenses</value>
-  </data>
   <data name="Navigation.Login" xml:space="preserve">
     <value>Login</value>
   </data>

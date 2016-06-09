@@ -17,7 +17,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <TextBlock Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+        <TextBlock Text="{x:Bind ViewModel.ActiveItem.DisplayName, Mode=OneWay}"
                    Margin="20"
                    HorizontalAlignment="Center"
                    />

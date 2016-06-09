@@ -14,7 +14,6 @@ namespace CTime2.Core.Services.Licenses
             {
                 new License("Newtonsoft.Json"),
                 new License("Caliburn.Micro"),
-                new License("Microsoft HTTP Client Libraries")
             };
         }
 

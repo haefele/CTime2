@@ -21,7 +21,6 @@ namespace CTime2.Views.Overview
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
-        private readonly IEventAggregator _eventAggregator;
 
         private readonly Timer _timer;
 
@@ -60,7 +59,6 @@ namespace CTime2.Views.Overview
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
-            this._eventAggregator = eventAggregator;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 

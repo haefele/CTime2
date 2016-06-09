@@ -28,7 +28,7 @@
                 HorizontalAlignment="Stretch"
                 Margin="5"
                 Grid.Column="0"
-                Click="{x:Bind TimeStateViewModel.CheckIn}">
+                Command="{x:Bind TimeStateViewModel.CheckIn}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}" />
                 <TextBlock x:Uid="CheckInTextBlock" Text="&#13;&#10;~Einstempeln" />
@@ -39,7 +39,7 @@
                 HorizontalAlignment="Stretch"
                 Margin="5"
                 Grid.Column="1"
-                Click="{x:Bind TimeStateViewModel.CheckInHomeOffice}">
+                Command="{x:Bind TimeStateViewModel.CheckInHomeOffice}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=HomeOffice}" />
                 <TextBlock x:Uid="HomeOfficeCheckInTextBlock" Text="~Home-Office&#13;&#10;Einstempeln" TextAlignment="Center" />
@@ -50,7 +50,7 @@
                 HorizontalAlignment="Stretch"
                 Margin="5"
                 Grid.Column="2"
-                Click="{x:Bind TimeStateViewModel.CheckInTrip}">
+                Command="{x:Bind TimeStateViewModel.CheckInTrip}">
             <StackPanel>
                 <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Trip}" />
                 <TextBlock x:Uid="TripCheckInTextBlock" Text="~Reise&#13;&#10;Einstempeln" TextAlignment="Center" />

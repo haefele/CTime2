@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Reactive;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
@@ -12,94 +12,73 @@ using CTime2.Views.StampTime.CheckedOut;
 using CTime2.Views.StampTime.HomeOfficeCheckedIn;
 using CTime2.Views.StampTime.TripCheckedIn;
 using ReactiveUI;
-using UwCore.Application;
 using UwCore.Application.Events;
+using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
-using UwCore.Services.ExceptionHandler;
-using UwCore.Services.Loading;
 
 namespace CTime2.Views.StampTime
 {
     public class StampTimeViewModel : ReactiveConductor<ReactiveScreen>, IHandleWithTask<ApplicationResumed>
     {
         private readonly ICTimeService _cTimeService;
-        private readonly IApplicationStateService _sessionStateService;
-        private readonly ILoadingService _loadingService;
-        private readonly IExceptionHandler _exceptionHandler;
+        private readonly IApplicationStateService _applicationStateService;
+        
+        public ReactiveCommand<Unit> RefreshCurrentState { get; }
 
-        private string _statusMessage;
-
-        public string StatusMessage
+        public StampTimeViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
         {
-            get { return this._statusMessage; }
-            set { this.RaiseAndSetIfChanged(ref this._statusMessage, value); }
-        }
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
 
-        public StampTimeViewModel(ICTimeService cTimeService, IApplicationStateService sessionStateService, ILoadingService loadingService, IExceptionHandler exceptionHandler)
-        {
             this._cTimeService = cTimeService;
-            this._sessionStateService = sessionStateService;
-            this._loadingService = loadingService;
-            this._exceptionHandler = exceptionHandler;
+            this._applicationStateService = applicationStateService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Stamp");
+
+            this.RefreshCurrentState = ReactiveCommand.CreateAsyncTask(_ => this.RefreshCurrentStateImpl());
+            this.RefreshCurrentState.AttachExceptionHandler();
+            this.RefreshCurrentState.AttachLoadingService(CTime2Resources.Get("Loading.CurrentState"));
         }
 
         protected override async void OnActivate()
         {
-            await this.RefreshCurrentState();
+            await this.RefreshCurrentState.ExecuteAsyncTask();
         }
 
-        public async Task RefreshCurrentState()
+        private async Task RefreshCurrentStateImpl()
         {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.CurrentState")))
+            var currentTime = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
+            
+            ReactiveScreen currentState;
+
+            if (currentTime == null || currentTime.State.IsLeft())
             {
-                try
-                {
-                    var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.GetCurrentUser().Id);
-
-                    string statusMessage;
-                    ReactiveScreen currentState;
-
-                    if (currentTime == null || currentTime.State.IsLeft())
-                    {
-                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedOut");
-                        currentState = IoC.Get<CheckedOutViewModel>();
-                    }
-                    else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
-                    {
-                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedInTrip");
-                        currentState = IoC.Get<TripCheckedInViewModel>();
-                    }
-                    else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
-                    {
-                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedInHomeOffice");
-                        currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
-                    }
-                    else if (currentTime.State.IsEntered())
-                    {
-                        statusMessage = CTime2Resources.Get("StampTime.CurrentlyCheckedIn");
-                        currentState = IoC.Get<CheckedInViewModel>();
-                    }
-                    else
-                    {
-                        throw new CTimeException("Could not determine the current state.");
-                    }
-
-                    this.StatusMessage = statusMessage;
-                    this.ActivateItem(currentState);
-                }
-                catch (Exception exception)
-                {
-                    await this._exceptionHandler.HandleAsync(exception);
-                }
+                currentState = IoC.Get<CheckedOutViewModel>();
             }
+            else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
+            {
+                currentState = IoC.Get<TripCheckedInViewModel>();
+            }
+            else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
+            {
+                currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
+            }
+            else if (currentTime.State.IsEntered())
+            {
+                currentState = IoC.Get<CheckedInViewModel>();
+            }
+            else
+            {
+                throw new CTimeException("Could not determine the current state.");
+            }
+            
+            this.ActivateItem(currentState);
         }
 
-        public Task Handle(ApplicationResumed message)
+        Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
         {
-            return this.RefreshCurrentState();
+            return this.RefreshCurrentState.ExecuteAsyncTask();
         }
     }
 }

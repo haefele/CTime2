@@ -116,7 +116,6 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
     <EmbeddedResource Include="Services\Licenses\Caliburn.Micro.lic" />
-    <EmbeddedResource Include="Services\Licenses\Microsoft-HTTP-Client-Libraries.lic" />
     <EmbeddedResource Include="Services\Licenses\Newtonsoft.Json.lic" />
     <None Include="Services\Band\Pages\TestConnectionPageLayout.msbtl">
       <Generator>MSBandLayoutCodeGenerator</Generator>

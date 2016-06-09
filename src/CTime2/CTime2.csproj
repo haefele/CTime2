@@ -131,14 +131,6 @@
     </Compile>
     <Compile Include="Views\Settings\Band\BandViewModel.cs" />
     <Compile Include="Views\Settings\Band\BandViewModelState.cs" />
-    <Compile Include="Views\Settings\Licenses\LicensesListView.xaml.cs">
-      <DependentUpon>LicensesListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\Licenses\LicensesListViewModel.cs" />
-    <Compile Include="Views\Settings\Licenses\LicenseView.xaml.cs">
-      <DependentUpon>LicenseView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\Licenses\LicenseViewModel.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -230,14 +222,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\Band\BandView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\Licenses\LicensesListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\Licenses\LicenseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
