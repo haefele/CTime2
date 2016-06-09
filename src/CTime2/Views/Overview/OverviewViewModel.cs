@@ -4,11 +4,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
+using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Extensions;
 using CTime2.Strings;
+using CTime2.Views.Overview.CheckedIn;
+using CTime2.Views.Overview.CheckedOut;
+using CTime2.Views.Overview.HomeOfficeCheckedIn;
+using CTime2.Views.Overview.TripCheckedIn;
 using ReactiveUI;
 using UwCore.Application.Events;
 using UwCore.Common;
@@ -17,7 +22,7 @@ using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Overview
 {
-    public class OverviewViewModel : ReactiveScreen, IHandleWithTask<ApplicationResumed>
+    public class OverviewViewModel : ReactiveConductor<StampTimeStateViewModelBase>, IHandleWithTask<ApplicationResumed>
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
@@ -48,8 +53,8 @@ namespace CTime2.Views.Overview
             get { return this._myImage; }
             set { this.RaiseAndSetIfChanged(ref this._myImage, value); }
         }
-
-        public ReactiveCommand<Unit> LoadCurrentTime { get; }
+        
+        public ReactiveCommand<Unit> RefreshCurrentState { get; }
 
         public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator)
         {
@@ -63,9 +68,10 @@ namespace CTime2.Views.Overview
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-
-            this.LoadCurrentTime = ReactiveCommand.CreateAsyncTask(_ => this.LoadCurrentTimeImpl());
-            this.LoadCurrentTime.AttachExceptionHandler();
+            
+            this.RefreshCurrentState = ReactiveCommand.CreateAsyncTask(_ => this.RefreshCurrentStateImpl());
+            this.RefreshCurrentState.AttachExceptionHandler();
+            this.RefreshCurrentState.AttachLoadingService(CTime2Resources.Get("Loading.CurrentState"));
 
             eventAggregator.SubscribeScreen(this);
         }
@@ -75,24 +81,52 @@ namespace CTime2.Views.Overview
             this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", this._applicationStateService.GetCurrentUser().FirstName);
             this.MyImage = this._applicationStateService.GetCurrentUser().ImageAsPng;
             
-            await this.LoadCurrentTime.ExecuteAsyncTask();
+            await this.RefreshCurrentState.ExecuteAsyncTask();
         }
         
-        private async Task LoadCurrentTimeImpl()
+        private async Task RefreshCurrentStateImpl()
         {
-            Time current = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
+            var currentTime = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
 
+            #region Update State
+            StampTimeStateViewModelBase currentState;
+
+            if (currentTime == null || currentTime.State.IsLeft())
+            {
+                currentState = IoC.Get<CheckedOutViewModel>();
+            }
+            else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
+            {
+                currentState = IoC.Get<TripCheckedInViewModel>();
+            }
+            else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
+            {
+                currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
+            }
+            else if (currentTime.State.IsEntered())
+            {
+                currentState = IoC.Get<CheckedInViewModel>();
+            }
+            else
+            {
+                throw new CTimeException("Could not determine the current state.");
+            }
+
+            this.ActivateItem(currentState);
+            #endregion
+
+            #region Update Timer
             this._timerStartNow = DateTime.Now;
 
-            var timeToAdd = current != null && current.State.IsEntered()
-                ? this._timerStartNow - (current.ClockInTime ?? this._timerStartNow)
+            var timeToAdd = currentTime != null && currentTime.State.IsEntered()
+                ? this._timerStartNow - (currentTime.ClockInTime ?? this._timerStartNow)
                 : TimeSpan.Zero;
 
-            var timeToday = current?.Hours ?? TimeSpan.Zero;
+            var timeToday = currentTime?.Hours ?? TimeSpan.Zero;
 
             this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
 
-            if (current != null && current.State.IsEntered())
+            if (currentTime != null && currentTime.State.IsEntered())
             {
                 this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
             }
@@ -100,6 +134,7 @@ namespace CTime2.Views.Overview
             {
                 this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
             }
+            #endregion
         }
 
         private void Tick(object state)
@@ -110,9 +145,9 @@ namespace CTime2.Views.Overview
             });
         }
 
-        Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
+        async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
         {
-            return this.LoadCurrentTime.ExecuteAsyncTask();
+            await this.RefreshCurrentState.ExecuteAsyncTask();
         }
     }
 }

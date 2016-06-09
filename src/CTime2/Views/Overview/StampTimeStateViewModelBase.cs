@@ -7,14 +7,14 @@ using CTime2.Core.Services.CTime;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 
-namespace CTime2.Views.StampTime
+namespace CTime2.Views.Overview
 {
     public class StampTimeStateViewModelBase : ReactiveScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
 
-        public StampTimeViewModel Container => this.Parent as StampTimeViewModel;
+        public OverviewViewModel Container => this.Parent as OverviewViewModel;
 
         public StampTimeStateViewModelBase(ICTimeService cTimeService, IApplicationStateService applicationStateService)
         {

@@ -7,21 +7,21 @@ using ReactiveUI;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
-namespace CTime2.Views.StampTime.TripCheckedIn
+namespace CTime2.Views.Overview.CheckedIn
 {
-    public class TripCheckedInViewModel : StampTimeStateViewModelBase
+    public class CheckedInViewModel : StampTimeStateViewModelBase
     {
         public ReactiveCommand<Unit> CheckOut { get; }
         public ReactiveCommand<Unit> Pause { get; }
 
-        public TripCheckedInViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
+        public CheckedInViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
             : base(cTimeService, applicationStateService)
         {
-            this.DisplayName = CTime2Resources.Get("StampTime.CurrentlyCheckedInTrip");
+            this.DisplayName = CTime2Resources.Get("StampTime.CurrentlyCheckedIn");
 
             this.CheckOut = ReactiveCommand.CreateAsyncTask(_ => this.CheckOutImpl());
             this.CheckOut.AttachExceptionHandler();
-            this.CheckOut.AttachLoadingService(CTime2Resources.Get("Loading.CheckOut"));
+            this.CheckOut.AttachLoadingService(CTime2Resources.Get("Loading.CheckedOut"));
 
             this.Pause = ReactiveCommand.CreateAsyncTask(_ => this.PauseImpl());
             this.Pause.AttachExceptionHandler();
@@ -30,12 +30,12 @@ namespace CTime2.Views.StampTime.TripCheckedIn
 
         private async Task CheckOutImpl()
         {
-            await this.Stamp(TimeState.Trip | TimeState.Left);
+            await this.Stamp(TimeState.Left);
         }
 
         private async Task PauseImpl()
         {
-            await this.Stamp(TimeState.ShortBreak | TimeState.Left);
+            await this.Stamp(TimeState.Left | TimeState.ShortBreak);
         }
     }
 }

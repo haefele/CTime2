@@ -81,9 +81,6 @@
   <data name="Navigation.Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
-  <data name="Navigation.Stamp" xml:space="preserve">
-    <value>Stamp</value>
-  </data>
   <data name="Navigation.Statistics" xml:space="preserve">
     <value>Statistics</value>
   </data>

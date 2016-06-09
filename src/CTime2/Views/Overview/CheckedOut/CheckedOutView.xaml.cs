@@ -1,4 +1,4 @@
-﻿namespace CTime2.Views.StampTime.CheckedOut
+﻿namespace CTime2.Views.Overview.CheckedOut
 {
     public sealed partial class CheckedOutView
     {

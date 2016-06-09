@@ -98,10 +98,6 @@
           <source>Übersicht</source>
           <target state="translated">Overview</target>
         </trans-unit>
-        <trans-unit id="Navigation.Stamp" translate="yes" xml:space="preserve">
-          <source>Stempeln</source>
-          <target state="translated" state-qualifier="mt-suggestion">Stamp</target>
-        </trans-unit>
         <trans-unit id="Navigation.Statistics" translate="yes" xml:space="preserve">
           <source>Statistiken</source>
           <target state="translated" state-qualifier="tm-suggestion">Statistics</target>

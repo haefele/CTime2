@@ -7,7 +7,7 @@ using ReactiveUI;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
-namespace CTime2.Views.StampTime.CheckedOut
+namespace CTime2.Views.Overview.CheckedOut
 {
     public class CheckedOutViewModel : StampTimeStateViewModelBase
     {

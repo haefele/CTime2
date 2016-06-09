@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 
-namespace CTime2.Views.StampTime.HomeOfficeCheckedIn
+namespace CTime2.Views.Overview.HomeOfficeCheckedIn
 {
     public sealed partial class HomeOfficeCheckedInView : UserControl
     {

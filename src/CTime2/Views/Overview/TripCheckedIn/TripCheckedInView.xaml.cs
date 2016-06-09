@@ -1,4 +1,4 @@
-﻿namespace CTime2.Views.StampTime.TripCheckedIn
+﻿namespace CTime2.Views.Overview.TripCheckedIn
 {
     public sealed partial class TripCheckedInView
     {

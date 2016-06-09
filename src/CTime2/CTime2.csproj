@@ -149,27 +149,23 @@
     <Compile Include="Views\Settings\Start\StartViewModel.cs" />
     <Compile Include="States\LoggedInApplicationState.cs" />
     <Compile Include="States\LoggedOutApplicationState.cs" />
-    <Compile Include="Views\StampTime\CheckedIn\CheckedInView.xaml.cs">
+    <Compile Include="Views\Overview\CheckedIn\CheckedInView.xaml.cs">
       <DependentUpon>CheckedInView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StampTime\CheckedIn\CheckedInViewModel.cs" />
-    <Compile Include="Views\StampTime\StampTimeStateViewModelBase.cs" />
-    <Compile Include="Views\StampTime\CheckedOut\CheckedOutView.xaml.cs">
+    <Compile Include="Views\Overview\CheckedIn\CheckedInViewModel.cs" />
+    <Compile Include="Views\Overview\StampTimeStateViewModelBase.cs" />
+    <Compile Include="Views\Overview\CheckedOut\CheckedOutView.xaml.cs">
       <DependentUpon>CheckedOutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StampTime\CheckedOut\CheckedOutViewModel.cs" />
-    <Compile Include="Views\StampTime\HomeOfficeCheckedIn\HomeOfficeCheckedInView.xaml.cs">
+    <Compile Include="Views\Overview\CheckedOut\CheckedOutViewModel.cs" />
+    <Compile Include="Views\Overview\HomeOfficeCheckedIn\HomeOfficeCheckedInView.xaml.cs">
       <DependentUpon>HomeOfficeCheckedInView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StampTime\HomeOfficeCheckedIn\HomeOfficeCheckedInViewModel.cs" />
-    <Compile Include="Views\StampTime\StampTimeView.xaml.cs">
-      <DependentUpon>StampTimeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StampTime\StampTimeViewModel.cs" />
-    <Compile Include="Views\StampTime\TripCheckedIn\TripCheckedInView.xaml.cs">
+    <Compile Include="Views\Overview\HomeOfficeCheckedIn\HomeOfficeCheckedInViewModel.cs" />
+    <Compile Include="Views\Overview\TripCheckedIn\TripCheckedInView.xaml.cs">
       <DependentUpon>TripCheckedInView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StampTime\TripCheckedIn\TripCheckedInViewModel.cs" />
+    <Compile Include="Views\Overview\TripCheckedIn\TripCheckedInViewModel.cs" />
     <Compile Include="Views\Statistics\StatisticItem.cs" />
     <Compile Include="Views\Statistics\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
@@ -241,23 +237,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StampTime\CheckedIn\CheckedInView.xaml">
+    <Page Include="Views\Overview\CheckedIn\CheckedInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StampTime\CheckedOut\CheckedOutView.xaml">
+    <Page Include="Views\Overview\CheckedOut\CheckedOutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StampTime\HomeOfficeCheckedIn\HomeOfficeCheckedInView.xaml">
+    <Page Include="Views\Overview\HomeOfficeCheckedIn\HomeOfficeCheckedInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StampTime\StampTimeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StampTime\TripCheckedIn\TripCheckedInView.xaml">
+    <Page Include="Views\Overview\TripCheckedIn\TripCheckedInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

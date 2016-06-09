@@ -259,9 +259,6 @@ Einstempeln</value>
   <data name="Navigation.Settings" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
-  <data name="Navigation.Stamp" xml:space="preserve">
-    <value>Stempeln</value>
-  </data>
   <data name="Navigation.Statistics" xml:space="preserve">
     <value>Statistiken</value>
   </data>

@@ -1,4 +1,4 @@
-﻿namespace CTime2.Views.StampTime.CheckedIn
+﻿namespace CTime2.Views.Overview.CheckedIn
 {
     public sealed partial class CheckedInView
     {

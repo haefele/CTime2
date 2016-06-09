@@ -7,7 +7,7 @@ using ReactiveUI;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
-namespace CTime2.Views.StampTime.HomeOfficeCheckedIn
+namespace CTime2.Views.Overview.HomeOfficeCheckedIn
 {
     public class HomeOfficeCheckedInViewModel : StampTimeStateViewModelBase
     {
