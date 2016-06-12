@@ -4,16 +4,18 @@ using System.IO;
 using System.Reflection;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Foundation;
+using Windows.Foundation.Metadata;
 using Windows.Storage;
+using Windows.UI.StartScreen;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
+using CTime2.ApplicationModes;
 using CTime2.Core.Common;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Licenses;
-using CTime2.States;
 using CTime2.Strings;
 using CTime2.Views.AttendanceList;
 using CTime2.Views.Login;
@@ -39,19 +41,18 @@ namespace CTime2
 {
     sealed partial class App
     {
-        private static readonly Logger _logger = LoggerFactory.GetLogger<App>();
-
-        #region Constructors
+        private static readonly Logger Logger = LoggerFactory.GetLogger<App>();
+        
         public App()
         {
             this.InitializeComponent();
         }
-        #endregion
         
         public override void CustomConfiguration()
         {
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
+            this.ConfigureJumpList();
         }
 
         public override void CustomizeApplication(IApplication application)
@@ -62,8 +63,8 @@ namespace CTime2
         public override void ConfigureContainer(WinRTContainer container)
         {
             container
-                .PerRequest<LoggedOutApplicationState>()
-                .PerRequest<LoggedInApplicationState>();
+                .PerRequest<LoggedOutApplicationMode>()
+                .PerRequest<LoggedInApplicationMode>();
 
             container
                 .Singleton<ICTimeService, CTimeService>()
@@ -74,8 +75,8 @@ namespace CTime2
         public override ApplicationMode GetCurrentMode()
         {
             return IoC.Get<IApplicationStateService>().GetCurrentUser() != null
-                ? (ApplicationMode)IoC.Get<LoggedInApplicationState>()
-                : IoC.Get<LoggedOutApplicationState>();
+                ? (ApplicationMode)IoC.Get<LoggedInApplicationMode>()
+                : IoC.Get<LoggedOutApplicationMode>();
         }
 
         public override string GetErrorTitle()
@@ -126,13 +127,32 @@ namespace CTime2
             }
             catch (Exception exception)
             {
-                _logger.Error(exception, $"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
+                Logger.Error(exception, $"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
             }
         }
 
         private void ConfigureWindowMinSize()
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(360, 500));
+        }
+        
+        private async void ConfigureJumpList()
+        {
+            if (ApiInformation.IsTypePresent("Windows.UI.StartScreen.JumpList") && JumpList.IsSupported())
+            {
+                JumpList jumpList = await JumpList.LoadCurrentAsync();
+                jumpList.Items.Clear();
+
+                var checkInArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkin };
+                var checkInItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkInArguments), "Check-in");
+                jumpList.Items.Add(checkInItem);
+
+                var checkOutArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkout };
+                var checkOutItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkOutArguments), "Check-out");
+                jumpList.Items.Add(checkOutItem);
+
+                await jumpList.SaveAsync();
+            }
         }
     }
 }

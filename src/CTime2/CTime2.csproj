@@ -11,7 +11,7 @@
     <AssemblyName>CTime2</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -111,6 +111,8 @@
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
+    <Compile Include="CTimeStartupAction.cs" />
+    <Compile Include="CTimeStartupArguments.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\CTime2Resources.cs" />
@@ -147,8 +149,8 @@
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\Start\StartViewModel.cs" />
-    <Compile Include="States\LoggedInApplicationState.cs" />
-    <Compile Include="States\LoggedOutApplicationState.cs" />
+    <Compile Include="ApplicationModes\LoggedInApplicationMode.cs" />
+    <Compile Include="ApplicationModes\LoggedOutApplicationMode.cs" />
     <Compile Include="Views\Overview\CheckedIn\CheckedInView.xaml.cs">
       <DependentUpon>CheckedInView.xaml</DependentUpon>
     </Compile>
@@ -279,7 +281,6 @@
   <ItemGroup>
     <XliffResource Include="MultilingualResources\CTime2.en-US.xlf" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

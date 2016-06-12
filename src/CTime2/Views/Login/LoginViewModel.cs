@@ -3,9 +3,9 @@ using System.Reactive;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
+using CTime2.ApplicationModes;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
-using CTime2.States;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore.Application;
@@ -75,7 +75,7 @@ namespace CTime2.Views.Login
 
             await this._applicationStateService.SaveStateAsync();
 
-            this._application.CurrentMode = IoC.Get<LoggedInApplicationState>();
+            this._application.CurrentMode = IoC.Get<LoggedInApplicationMode>();
         }
     }
 }

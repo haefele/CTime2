@@ -1,17 +1,16 @@
-﻿using Caliburn.Micro;
-using CTime2.Common;
+﻿using CTime2.Common;
 using CTime2.Strings;
 using CTime2.Views.Login;
 using UwCore.Application;
 using UwCore.Hamburger;
 
-namespace CTime2.States
+namespace CTime2.ApplicationModes
 {
-    public class LoggedOutApplicationState : ApplicationMode
+    public class LoggedOutApplicationMode : ApplicationMode
     {
         private readonly HamburgerItem _loginHamburgerItem;
 
-        public LoggedOutApplicationState(INavigationService navigationService)
+        public LoggedOutApplicationMode()
         {
             this._loginHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Login"), SymbolEx.Login, typeof(LoginViewModel));
         }
