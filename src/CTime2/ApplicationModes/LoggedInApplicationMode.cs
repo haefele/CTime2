@@ -75,6 +75,9 @@ namespace CTime2.ApplicationModes
         {
             var parsed = StartupArguments.Parse<CTimeStartupArguments>(arguments);
 
+            if (parsed == null)
+                return;
+
             switch (parsed.Action)
             {
                 case CTimeStartupAction.Checkin:
