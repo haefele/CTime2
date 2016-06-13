@@ -111,7 +111,7 @@ namespace CTime2.Core.Services.CTime
                     {
                         Day = f.Value<DateTime>("day"),
                         Hours = TimeSpan.FromHours(double.Parse(f.Value<string>("DayHours") ?? "0", CultureInfo.InvariantCulture)),
-                        State = (TimeState?)f.Value<int?>("TimeTrackType"),
+                        State = f.Value<int?>("TimeTrackType") == 0 ? null : (TimeState?)f.Value<int?>("TimeTrackType"),
                         ClockInTime = f.Value<DateTime?>("TimeTrackIn"),
                         ClockOutTime = f.Value<DateTime?>("TimeTrackOut"),
                     })
