@@ -10,50 +10,76 @@
     mc:Ignorable="d"
     
     d:DesignWidth="400"
-    d:DesignHeight="300"
     >
     <UserControl.Resources>
         <common:SymbolEx x:Key="SymbolEx" />
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        
+    <StackPanel>
         <Button Background="Green"
                 HorizontalAlignment="Stretch"
-                Margin="5"
-                Grid.Column="0"
+                HorizontalContentAlignment="Stretch"
+                Height="40"
                 Command="{x:Bind TimeStateViewModel.CheckIn}">
-            <StackPanel>
-                <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}" />
-                <TextBlock x:Uid="CheckInTextBlock" Text="&#13;&#10;~Einstempeln" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <SymbolIcon Margin="0, 0, 10, 0" 
+                            Grid.Column="0" 
+                            Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}" />
+                
+                <TextBlock Grid.Column="1" 
+                           x:Uid="CheckInTextBlock" 
+                           Text="~Einstempeln" />
+            </Grid>
         </Button>
-        
+
         <Button Background="Green"
                 HorizontalAlignment="Stretch"
-                Margin="5"
-                Grid.Column="1"
+                HorizontalContentAlignment="Stretch"
+                Height="40"
+                Margin="0, 5, 0, 0"
                 Command="{x:Bind TimeStateViewModel.CheckInHomeOffice}">
-            <StackPanel>
-                <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=HomeOffice}" />
-                <TextBlock x:Uid="HomeOfficeCheckInTextBlock" Text="~Home-Office&#13;&#10;Einstempeln" TextAlignment="Center" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <SymbolIcon Grid.Column="0" 
+                            Margin="0, 0, 10, 0"
+                            Symbol="{Binding Source={StaticResource SymbolEx}, Path=HomeOffice}" />
+                
+                <TextBlock Grid.Column="1" 
+                           x:Uid="HomeOfficeCheckInTextBlock" 
+                           Text="~Home-Office Einstempeln" />
+            </Grid>
         </Button>
-        
+
         <Button Background="Green"
                 HorizontalAlignment="Stretch"
-                Margin="5"
-                Grid.Column="2"
+                HorizontalContentAlignment="Stretch"
+                Height="40"
+                Margin="0, 5, 0, 0"
                 Command="{x:Bind TimeStateViewModel.CheckInTrip}">
-            <StackPanel>
-                <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Trip}" />
-                <TextBlock x:Uid="TripCheckInTextBlock" Text="~Reise&#13;&#10;Einstempeln" TextAlignment="Center" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <SymbolIcon Grid.Column="0" 
+                            Margin="0, 0, 10, 0"
+                            Symbol="{Binding Source={StaticResource SymbolEx}, Path=Trip}" />
+                
+                <TextBlock Grid.Column="1" 
+                           x:Uid="TripCheckInTextBlock" 
+                           Text="~Reise Einstempeln"  />
+            </Grid>
         </Button>
-    </Grid>
+    </StackPanel>
+    
 </UserControl>

@@ -183,22 +183,16 @@ Pause</source>
 Break</target>
         </trans-unit>
         <trans-unit id="CheckInTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>
-Einstempeln</source>
-          <target state="translated">
-Checkin</target>
+          <source>Einstempeln</source>
+          <target state="translated">Checkin</target>
         </trans-unit>
         <trans-unit id="HomeOfficeCheckInTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Home-Office
-Einstempeln</source>
-          <target state="translated">Checkin
-Home-Office</target>
+          <source>Home-Office Einstempeln</source>
+          <target state="translated">Checkin Home-Office</target>
         </trans-unit>
         <trans-unit id="TripCheckInTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Reise
-Einstempeln</source>
-          <target state="translated">Checkin
-Trip</target>
+          <source>Reise Einstempeln</source>
+          <target state="translated">Checkin Trip</target>
         </trans-unit>
         <trans-unit id="StampTime.CurrentlyCheckedIn" translate="yes" xml:space="preserve">
           <source>Sie sind aktuell eingestempelt.</source>

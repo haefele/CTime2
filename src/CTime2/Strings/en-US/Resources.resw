@@ -144,16 +144,13 @@ Checkout</value>
 Break</value>
   </data>
   <data name="CheckInTextBlock.Text" xml:space="preserve">
-    <value>
-Checkin</value>
+    <value>Checkin</value>
   </data>
   <data name="HomeOfficeCheckInTextBlock.Text" xml:space="preserve">
-    <value>Checkin
-Home-Office</value>
+    <value>Checkin Home-Office</value>
   </data>
   <data name="TripCheckInTextBlock.Text" xml:space="preserve">
-    <value>Checkin
-Trip</value>
+    <value>Checkin Trip</value>
   </data>
   <data name="StampTime.CurrentlyCheckedIn" xml:space="preserve">
     <value>You are currently checked in.</value>

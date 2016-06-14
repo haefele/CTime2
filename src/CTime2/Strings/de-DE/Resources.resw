@@ -152,8 +152,7 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
     <value>Anwesend</value>
   </data>
   <data name="CheckInTextBlock.Text" xml:space="preserve">
-    <value>
-Einstempeln</value>
+    <value>Einstempeln</value>
   </data>
   <data name="CheckOutTextBlock.Text" xml:space="preserve">
     <value>
@@ -190,8 +189,7 @@ Ausstempeln</value>
     <value>Feedback geben</value>
   </data>
   <data name="HomeOfficeCheckInTextBlock.Text" xml:space="preserve">
-    <value>Home-Office
-Einstempeln</value>
+    <value>Home-Office Einstempeln</value>
   </data>
   <data name="LastMonthAppBarButton.Label" xml:space="preserve">
     <value>Letzter Monat</value>
@@ -312,8 +310,7 @@ Pause</value>
     <value>d\ \T\a\g\e\ hh\:mm\:ss</value>
   </data>
   <data name="TripCheckInTextBlock.Text" xml:space="preserve">
-    <value>Reise
-Einstempeln</value>
+    <value>Reise Einstempeln</value>
   </data>
   <data name="VersionTextBlock.Text" xml:space="preserve">
     <value>Version:</value>

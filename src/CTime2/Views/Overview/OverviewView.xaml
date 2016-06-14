@@ -15,8 +15,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
@@ -38,13 +38,8 @@
                    Grid.Row="1"
                    HorizontalAlignment="Center" />
 
-        <ContentControl micro:View.Model="{Binding ActiveItem}"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Grid.Row="2" />
-
-        <StackPanel Grid.Row="3"
-                    Margin="0, 0, 0, 20">
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Bottom">
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                        HorizontalAlignment="Center"
                        x:Uid="CurrentTimeTextBlock"
@@ -54,6 +49,12 @@
                        Text="{x:Bind ViewModel.CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}, Mode=OneWay}"
                        FontSize="40" />
         </StackPanel>
+
+        <ContentControl micro:View.Model="{Binding ActiveItem}"
+                        Margin="5"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Top"
+                        Grid.Row="3" />
 
     </Grid>
 </Page>
