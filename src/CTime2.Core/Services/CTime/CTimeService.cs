@@ -30,29 +30,13 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("GetRFIDbyLoginName.php"))
+                var responseJson = await this.SendRequestAsync("GetRFIDbyLoginName.php", new Dictionary<string, string>
                 {
-                    Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
-                    {
-                        { "Password", password },
-                        { "LoginName", emailAddress}
-                    })
-                };
+                    {"Password", password},
+                    {"LoginName", emailAddress}
+                });
 
-                var response = await this.GetClient().SendRequestAsync(request);
-
-                if (response.StatusCode != HttpStatusCode.Ok)
-                    return null;
-
-                var responseContentAsString = await response.Content.ReadAsStringAsync();
-                var responseJson = JObject.Parse(responseContentAsString);
-
-                var state = responseJson.Value<int>("State");
-
-                if (state != 0)
-                    return null;
-
-                var user = responseJson
+                var user = responseJson?
                     .Value<JArray>("Result")
                     .OfType<JObject>()
                     .FirstOrDefault();
@@ -81,27 +65,14 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("GetTimeTrackList.php"))
+                var responseJson = await this.SendRequestAsync("GetTimeTrackList.php", new Dictionary<string, string>
                 {
-                    Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
-                    {
-                        { "EmployeeGUID", employeeGuid },
-                        { "DateTill", end.ToString("dd.MM.yyyy") },
-                        { "DateFrom", start.ToString("dd.MM.yyyy") }
-                    })
-                };
+                    {"EmployeeGUID", employeeGuid},
+                    {"DateTill", end.ToString("dd.MM.yyyy")},
+                    {"DateFrom", start.ToString("dd.MM.yyyy")}
+                });
 
-                var response = await this.GetClient().SendRequestAsync(request);
-
-                if (response.StatusCode != HttpStatusCode.Ok)
-                    return new List<Time>();
-
-                var responseContentAsString = await response.Content.ReadAsStringAsync();
-                var responseJson = JObject.Parse(responseContentAsString);
-
-                var state = responseJson.Value<int>("State");
-
-                if (state != 0)
+                if (responseJson == null)
                     return new List<Time>();
 
                 return responseJson
@@ -128,29 +99,17 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("SaveTimer.php"))
+                var responseJson = await this.SendRequestAsync("SaveTimer.php", new Dictionary<string, string>
                 {
-                    Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
-                    {
-                        { "RFID", string.Empty },
-                        { "TimerKind", ((int)state).ToString() },
-                        { "TimerText", string.Empty },
-                        { "TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss") },
-                        { "EmployeeGUID", employeeGuid },
-                        { "GUID", companyId }
-                    })
-                };
+                    {"RFID", string.Empty},
+                    {"TimerKind", ((int) state).ToString()},
+                    {"TimerText", string.Empty},
+                    {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
+                    {"EmployeeGUID", employeeGuid},
+                    {"GUID", companyId}
+                });
 
-                var response = await this.GetClient().SendRequestAsync(request);
-
-                if (response.StatusCode != HttpStatusCode.Ok)
-                    return false;
-
-                var responseContentAsString = await response.Content.ReadAsStringAsync();
-                var responseJson = JObject.Parse(responseContentAsString);
-
-                var responseState = responseJson.Value<int>("State");
-                return responseState == 0;
+                return responseJson?.Value<int>("State") == 0;
             }
             catch (Exception exception)
             {
@@ -189,25 +148,12 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri("GetPresenceList.php"))
+                var responseJson = await this.SendRequestAsync("GetPresenceList.php", new Dictionary<string, string>
                 {
-                    Content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
-                    {
-                        { "GUID", companyId }
-                    })
-                };
+                    {"GUID", companyId}
+                });
 
-                var response = await this.GetClient().SendRequestAsync(request);
-
-                if (response.StatusCode != HttpStatusCode.Ok)
-                    return new List<AttendingUser>();
-
-                var responseContentAsString = await response.Content.ReadAsStringAsync();
-                var responseJson = JObject.Parse(responseContentAsString);
-
-                var responseState = responseJson.Value<int>("State");
-
-                if (responseState != 0)
+                if (responseJson == null)
                     return new List<AttendingUser>();
 
                 return responseJson
@@ -227,6 +173,29 @@ namespace CTime2.Core.Services.CTime
                 Logger.Error(exception, $"Exception in method {nameof(this.GetAttendingUsers)}. Company Id: {companyId}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }
+        }
+
+        private async Task<JObject> SendRequestAsync(string function, Dictionary<string, string> data)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri(function))
+            {
+                Content = new HttpFormUrlEncodedContent(data)
+            };
+
+            var response = await this.GetClient().SendRequestAsync(request);
+
+            if (response.StatusCode != HttpStatusCode.Ok)
+                return null;
+
+            var responseContentAsString = await response.Content.ReadAsStringAsync();
+            var responseJson = JObject.Parse(responseContentAsString);
+
+            var responseState = responseJson.Value<int>("State");
+
+            if (responseState != 0)
+                return null;
+
+            return responseJson;
         }
 
         private Uri BuildUri(string path)
