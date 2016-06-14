@@ -7,6 +7,7 @@
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CTime2.Controls"
     mc:Ignorable="d"
     
     d:DesignWidth="400"
@@ -16,70 +17,25 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <Button Background="Green"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                Height="40"
-                Command="{x:Bind TimeStateViewModel.CheckIn}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                
-                <SymbolIcon Margin="0, 0, 10, 0" 
-                            Grid.Column="0" 
-                            Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}" />
-                
-                <TextBlock Grid.Column="1" 
-                           x:Uid="CheckInTextBlock" 
-                           Text="~Einstempeln" />
-            </Grid>
-        </Button>
+        <controls:StampButton Background="Green" 
+                              Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}" 
+                              Command="{x:Bind TimeStateViewModel.CheckIn}"
+                              Content="~Einstempeln"
+                              x:Uid="CheckInStampButton" />
+        
+        <controls:StampButton Background="Green"
+                              Margin="0, 5, 0, 0"
+                              Symbol="{Binding Source={StaticResource SymbolEx}, Path=HomeOffice}"
+                              Command="{x:Bind TimeStateViewModel.CheckInHomeOffice}"
+                              Content="~Home-Office Einstempeln"
+                              x:Uid="HomeOfficeCheckInStampButton" />
 
-        <Button Background="Green"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                Height="40"
-                Margin="0, 5, 0, 0"
-                Command="{x:Bind TimeStateViewModel.CheckInHomeOffice}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                
-                <SymbolIcon Grid.Column="0" 
-                            Margin="0, 0, 10, 0"
-                            Symbol="{Binding Source={StaticResource SymbolEx}, Path=HomeOffice}" />
-                
-                <TextBlock Grid.Column="1" 
-                           x:Uid="HomeOfficeCheckInTextBlock" 
-                           Text="~Home-Office Einstempeln" />
-            </Grid>
-        </Button>
-
-        <Button Background="Green"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                Height="40"
-                Margin="0, 5, 0, 0"
-                Command="{x:Bind TimeStateViewModel.CheckInTrip}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                
-                <SymbolIcon Grid.Column="0" 
-                            Margin="0, 0, 10, 0"
-                            Symbol="{Binding Source={StaticResource SymbolEx}, Path=Trip}" />
-                
-                <TextBlock Grid.Column="1" 
-                           x:Uid="TripCheckInTextBlock" 
-                           Text="~Reise Einstempeln"  />
-            </Grid>
-        </Button>
+        <controls:StampButton Background="Green" 
+                              Margin="0, 5, 0, 0"
+                              Symbol="{Binding Source={StaticResource SymbolEx}, Path=Trip}"
+                              Command="{x:Bind TimeStateViewModel.CheckInTrip}" 
+                              Content="~Reise Einstempeln"
+                              x:Uid="TripCheckInStampButton" />
     </StackPanel>
     
 </UserControl>

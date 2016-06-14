@@ -151,12 +151,11 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
     <value>Anwesend</value>
   </data>
-  <data name="CheckInTextBlock.Text" xml:space="preserve">
+  <data name="CheckInStampButton.Content" xml:space="preserve">
     <value>Einstempeln</value>
   </data>
-  <data name="CheckOutTextBlock.Text" xml:space="preserve">
-    <value>
-Ausstempeln</value>
+  <data name="CheckOutStampButton.Content" xml:space="preserve">
+    <value>Ausstempeln</value>
   </data>
   <data name="CurrentMonthAppBarButton.Label" xml:space="preserve">
     <value>Aktueller Monat</value>
@@ -188,7 +187,7 @@ Ausstempeln</value>
   <data name="GiveFeedbackButton.Content" xml:space="preserve">
     <value>Feedback geben</value>
   </data>
-  <data name="HomeOfficeCheckInTextBlock.Text" xml:space="preserve">
+  <data name="HomeOfficeCheckInStampButton.Content" xml:space="preserve">
     <value>Home-Office Einstempeln</value>
   </data>
   <data name="LastMonthAppBarButton.Label" xml:space="preserve">
@@ -266,9 +265,8 @@ Ausstempeln</value>
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>
   </data>
-  <data name="PauseTextBlock.Text" xml:space="preserve">
-    <value>
-Pause</value>
+  <data name="PauseStampButton.Content" xml:space="preserve">
+    <value>Pause</value>
   </data>
   <data name="StampTime.CurrentlyCheckedIn" xml:space="preserve">
     <value>Sie sind aktuell eingestempelt.</value>
@@ -309,7 +307,7 @@ Pause</value>
   <data name="Statistics.TotalWorkTimeFormat" xml:space="preserve">
     <value>d\ \T\a\g\e\ hh\:mm\:ss</value>
   </data>
-  <data name="TripCheckInTextBlock.Text" xml:space="preserve">
+  <data name="TripCheckInStampButton.Content" xml:space="preserve">
     <value>Reise Einstempeln</value>
   </data>
   <data name="VersionTextBlock.Text" xml:space="preserve">

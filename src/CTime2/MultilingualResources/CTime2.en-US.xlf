@@ -170,30 +170,6 @@
           <source>Stemple Pause...</source>
           <target state="translated">Break...</target>
         </trans-unit>
-        <trans-unit id="CheckOutTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>
-Ausstempeln</source>
-          <target state="translated">
-Checkout</target>
-        </trans-unit>
-        <trans-unit id="PauseTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>
-Pause</source>
-          <target state="translated">
-Break</target>
-        </trans-unit>
-        <trans-unit id="CheckInTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Einstempeln</source>
-          <target state="translated">Checkin</target>
-        </trans-unit>
-        <trans-unit id="HomeOfficeCheckInTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Home-Office Einstempeln</source>
-          <target state="translated">Checkin Home-Office</target>
-        </trans-unit>
-        <trans-unit id="TripCheckInTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Reise Einstempeln</source>
-          <target state="translated">Checkin Trip</target>
-        </trans-unit>
         <trans-unit id="StampTime.CurrentlyCheckedIn" translate="yes" xml:space="preserve">
           <source>Sie sind aktuell eingestempelt.</source>
           <target state="translated">You are currently checked in.</target>
@@ -273,6 +249,27 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         <trans-unit id="Feedback.Subject" translate="yes" xml:space="preserve">
           <source>Feedback zur c-time Universal App</source>
           <target state="translated">Feedback on the c-time universal app</target>
+        </trans-unit>
+        <trans-unit id="CheckInStampButton.Content" translate="yes" xml:space="preserve">
+          <source>Einstempeln</source>
+          <target state="translated">Checkin
+</target>
+        </trans-unit>
+        <trans-unit id="HomeOfficeCheckInStampButton.Content" translate="yes" xml:space="preserve">
+          <source>Home-Office Einstempeln</source>
+          <target state="translated">Checkin Home-Office</target>
+        </trans-unit>
+        <trans-unit id="TripCheckInStampButton.Content" translate="yes" xml:space="preserve">
+          <source>Reise Einstempeln</source>
+          <target state="translated">Checkin Trip</target>
+        </trans-unit>
+        <trans-unit id="CheckOutStampButton.Content" translate="yes" xml:space="preserve">
+          <source>Ausstempeln</source>
+          <target state="translated">Checkout</target>
+        </trans-unit>
+        <trans-unit id="PauseStampButton.Content" translate="yes" xml:space="preserve">
+          <source>Pause</source>
+          <target state="translated">Break</target>
         </trans-unit>
       </group>
     </body>

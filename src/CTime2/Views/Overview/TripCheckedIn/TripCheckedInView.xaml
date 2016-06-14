@@ -7,6 +7,7 @@
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:CTime2.Controls"
     mc:Ignorable="d"
     
     d:DesignWidth="400"
@@ -16,34 +17,18 @@
         <common:SymbolEx x:Key="SymbolEx" />
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="1.5*" />
-        </Grid.ColumnDefinitions>
+    <StackPanel>
+        <controls:StampButton Background="Red" 
+                              Content="~Ausstempeln"
+                              Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}"
+                              Command="{x:Bind TimeStateViewModel.CheckOut}"
+                              x:Uid="CheckOutStampButton" />
 
-        <Button Background="Red"
-                HorizontalAlignment="Stretch"
-                Margin="5"
-                Grid.Column="1"
-                Command="{x:Bind TimeStateViewModel.CheckOut}">
-            <StackPanel>
-                <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Trip}" />
-                <TextBlock x:Uid="CheckOutTextBlock" Text="&#13;&#10;~Ausstempeln" />
-            </StackPanel>
-        </Button>
-
-        <Button Background="Orange"
-                HorizontalAlignment="Stretch"
-                Margin="5"
-                Grid.Column="2"
-                Command="{x:Bind TimeStateViewModel.Pause}">
-            <StackPanel>
-                <SymbolIcon Symbol="{Binding Source={StaticResource SymbolEx}, Path=Pause}" />
-                <TextBlock x:Uid="PauseTextBlock" Text="&#13;&#10;~Pause" />
-            </StackPanel>
-        </Button>
-    </Grid>
+        <controls:StampButton Background="Orange" 
+                              Margin="0, 5, 0, 0"
+                              Content="~Pause"
+                              Symbol="{Binding Source={StaticResource SymbolEx}, Path=Pause}"
+                              Command="{x:Bind TimeStateViewModel.Pause}"
+                              x:Uid="PauseStampButton" />
+    </StackPanel>
 </UserControl>
