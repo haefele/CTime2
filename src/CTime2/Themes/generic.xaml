@@ -48,6 +48,7 @@
                                  StrokeThickness="2">
                             <Ellipse.Fill>
                                 <ImageBrush ImageSource="{Binding Image, Mode=OneWay, Converter={StaticResource ByteArrayToImageSourceConverter}, RelativeSource={RelativeSource TemplatedParent}}"  
+                                            Stretch="UniformToFill"
                                             AlignmentX="Center"  
                                             AlignmentY="Center" />
                             </Ellipse.Fill>
