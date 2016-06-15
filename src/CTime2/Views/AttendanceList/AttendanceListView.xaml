@@ -17,6 +17,14 @@
                                             x:Uid="BooleanToAttendingStringConverter"
                                             TrueValue="~Anwesend"
                                             FalseValue="~Abwesend" />
+        <converter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter">
+            <converter:BooleanToObjectConverter.TrueValue>
+                <SolidColorBrush Color="Green" />
+            </converter:BooleanToObjectConverter.TrueValue>
+            <converter:BooleanToObjectConverter.FalseValue>
+                <SolidColorBrush Color="Red" />
+            </converter:BooleanToObjectConverter.FalseValue>
+        </converter:BooleanToObjectConverter>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -35,6 +43,7 @@
                 <DataTemplate x:DataType="data:AttendingUser">
                     <StackPanel Orientation="Horizontal">
                         <controls:UserImage Image="{x:Bind ImageAsPng, Mode=OneWay}"
+                                            BorderBrush="{x:Bind IsAttending, Converter={StaticResource BooleanToAttendingBrushConverter}}"
                                             Width="32"
                                             Height="32" />
                         <TextBlock VerticalAlignment="Center"
