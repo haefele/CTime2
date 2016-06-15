@@ -52,6 +52,8 @@
 
         <ContentControl micro:View.Model="{Binding ActiveItem}"
                         Margin="5"
+                        HorizontalAlignment="Stretch"
+                        MaxWidth="300"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Top"
                         Grid.Row="3" />
