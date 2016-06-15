@@ -104,9 +104,7 @@
     </Compile>
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Controls\StampButton.cs" />
-    <Compile Include="Controls\UserImage.xaml.cs">
-      <DependentUpon>UserImage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\UserImage.cs" />
     <Compile Include="Converter\BooleanNegationConverter.cs" />
     <Compile Include="Converter\BooleanToNullableBooleanConverter.cs" />
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
@@ -203,10 +201,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\UserImage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:CTime2.Controls">
+    xmlns:controls="using:CTime2.Controls"
+    xmlns:converter="using:CTime2.Converter">
     
     <Style TargetType="controls:StampButton">
         <Setter Property="Height" Value="40" />
@@ -32,6 +33,29 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>    
+    </Style>
+
+    <Style TargetType="controls:UserImage">
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:UserImage">
+                    <Grid>
+                        <Grid.Resources>
+                            <converter:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+                        </Grid.Resources>
+                        <Ellipse Stroke="{TemplateBinding BorderBrush}" 
+                                 StrokeThickness="2">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Image, Mode=OneWay, Converter={StaticResource ByteArrayToImageSourceConverter}, RelativeSource={RelativeSource TemplatedParent}}"  
+                                            AlignmentX="Center"  
+                                            AlignmentY="Center" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
 
