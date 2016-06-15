@@ -11,6 +11,8 @@ namespace CTime2.Views.Overview.HomeOfficeCheckedIn
 {
     public class HomeOfficeCheckedInViewModel : StampTimeStateViewModelBase
     {
+        public override TimeState CurrentState => TimeState.Entered | TimeState.HomeOffice;
+
         public ReactiveCommand<Unit> CheckOut { get; }
         public ReactiveCommand<Unit> Pause { get; }
 

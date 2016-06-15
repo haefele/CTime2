@@ -9,12 +9,13 @@ using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Overview
 {
-    public class StampTimeStateViewModelBase : ReactiveScreen
+    public abstract class StampTimeStateViewModelBase : ReactiveScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
 
         public OverviewViewModel Container => this.Parent as OverviewViewModel;
+        public abstract TimeState CurrentState { get; }
 
         public StampTimeStateViewModelBase(ICTimeService cTimeService, IApplicationStateService applicationStateService)
         {

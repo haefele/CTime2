@@ -11,6 +11,8 @@ namespace CTime2.Views.Overview.TripCheckedIn
 {
     public class TripCheckedInViewModel : StampTimeStateViewModelBase
     {
+        public override TimeState CurrentState => TimeState.Entered | TimeState.Trip;
+
         public ReactiveCommand<Unit> CheckOut { get; }
         public ReactiveCommand<Unit> Pause { get; }
 
