@@ -210,4 +210,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <SolidColorBrush x:Key="CTimeGreen" Color="#3FC380" />
+    <SolidColorBrush x:Key="CTimeRed" Color="#e74c3c" />
+    <SolidColorBrush x:Key="CTimeOrange" Color="#f1c40f" />
 </ResourceDictionary>

@@ -18,13 +18,13 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <controls:StampButton Background="Red" 
+        <controls:StampButton Background="{StaticResource CTimeRed}" 
                               Content="~Ausstempeln"
                               Symbol="{Binding Source={StaticResource SymbolEx}, Path=Stamp}"
                               Command="{x:Bind TimeStateViewModel.CheckOut}"
                               x:Uid="CheckOutStampButton" />
 
-        <controls:StampButton Background="Orange" 
+        <controls:StampButton Background="{StaticResource CTimeOrange}" 
                               Margin="0, 5, 0, 0"
                               Content="~Pause"
                               Symbol="{Binding Source={StaticResource SymbolEx}, Path=Pause}"

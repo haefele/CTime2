@@ -17,14 +17,7 @@
                                             x:Uid="BooleanToAttendingStringConverter"
                                             TrueValue="~Anwesend"
                                             FalseValue="~Abwesend" />
-        <converter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter">
-            <converter:BooleanToObjectConverter.TrueValue>
-                <SolidColorBrush Color="Green" />
-            </converter:BooleanToObjectConverter.TrueValue>
-            <converter:BooleanToObjectConverter.FalseValue>
-                <SolidColorBrush Color="Red" />
-            </converter:BooleanToObjectConverter.FalseValue>
-        </converter:BooleanToObjectConverter>
+        <converter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter" TrueValue="{StaticResource CTimeGreen}" FalseValue="{StaticResource CTimeRed}" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

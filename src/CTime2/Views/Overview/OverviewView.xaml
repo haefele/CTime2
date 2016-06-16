@@ -6,18 +6,11 @@
     xmlns:converter="using:CTime2.Converter"
     xmlns:controls="using:CTime2.Controls"
     xmlns:micro="using:Caliburn.Micro"
-    xmlns:ui="using:DevExpress.Mvvm.UI"
     xmlns:data="using:CTime2.Core.Data">
     
     <Page.Resources>
         <converter:FormatStringConverter x:Key="CurrentTimeToStringConverter" FormatString="hh\:mm\:ss" />
-        <converter:TimeStateToBrushConverter x:Key="TimeStateToBrushConverter">
-            <converter:TimeStateToBrushConverter.EnteredBrush>
-                <SolidColorBrush Color="Green" />
-            </converter:TimeStateToBrushConverter.EnteredBrush>
-            <converter:TimeStateToBrushConverter.LeftBrush>
-                <SolidColorBrush Color="Red" />
-            </converter:TimeStateToBrushConverter.LeftBrush>
+        <converter:TimeStateToBrushConverter x:Key="TimeStateToBrushConverter" EnteredBrush="{StaticResource CTimeGreen}" LeftBrush="{StaticResource CTimeRed}" >
         </converter:TimeStateToBrushConverter>
     </Page.Resources>
     
@@ -40,6 +33,7 @@
             <controls:UserImage Width="96"
                                 Height="96"
                                 BorderBrush="{x:Bind ViewModel.ActiveItem.CurrentState, Converter={StaticResource TimeStateToBrushConverter}, Mode=OneWay}"
+                                BorderThickness="4"
                                 Image="{x:Bind ViewModel.MyImage, Mode=OneWay}" />
 
         </StackPanel>

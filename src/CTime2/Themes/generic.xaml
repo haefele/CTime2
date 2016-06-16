@@ -37,15 +37,17 @@
 
     <Style TargetType="controls:UserImage">
         <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:UserImage">
                     <Grid>
                         <Grid.Resources>
                             <converter:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+                            <converter:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
                         </Grid.Resources>
-                        <Ellipse Stroke="{TemplateBinding BorderBrush}" 
-                                 StrokeThickness="2">
+                        <Ellipse Stroke="{TemplateBinding BorderBrush}"
+                                 StrokeThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessToDoubleConverter}}">
                             <Ellipse.Fill>
                                 <ImageBrush ImageSource="{Binding Image, Mode=OneWay, Converter={StaticResource ByteArrayToImageSourceConverter}, RelativeSource={RelativeSource TemplatedParent}}"  
                                             Stretch="UniformToFill"

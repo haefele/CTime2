@@ -110,6 +110,7 @@
     <Compile Include="Converter\BooleanToObjectConverter .cs" />
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\FormatStringConverter.cs" />
+    <Compile Include="Converter\ThicknessToDoubleConverter.cs" />
     <Compile Include="Converter\TimeStateToBrushConverter.cs" />
     <Compile Include="CTimeStartupAction.cs" />
     <Compile Include="CTimeStartupArguments.cs" />
