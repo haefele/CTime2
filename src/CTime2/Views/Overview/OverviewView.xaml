@@ -18,7 +18,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -38,12 +37,8 @@
 
         </StackPanel>
 
-        <TextBlock Text="{x:Bind ViewModel.ActiveItem.DisplayName, Mode=OneWay}"
-                   Margin="20"
-                   Grid.Row="1"
-                   HorizontalAlignment="Center" />
-
-        <StackPanel Grid.Row="2"
+        <StackPanel Grid.Row="1"
+                    Margin="0, 30"
                     VerticalAlignment="Bottom">
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                        HorizontalAlignment="Center"
@@ -61,7 +56,7 @@
                         MaxWidth="300"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Top"
-                        Grid.Row="3" />
+                        Grid.Row="2" />
 
     </Grid>
 </Page>

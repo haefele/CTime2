@@ -19,8 +19,6 @@ namespace CTime2.Views.Overview.TripCheckedIn
         public TripCheckedInViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
             : base(cTimeService, applicationStateService)
         {
-            this.DisplayName = CTime2Resources.Get("StampTime.CurrentlyCheckedInTrip");
-
             this.CheckOut = ReactiveCommand.CreateAsyncTask(_ => this.CheckOutImpl());
             this.CheckOut.AttachExceptionHandler();
             this.CheckOut.AttachLoadingService(CTime2Resources.Get("Loading.CheckOut"));

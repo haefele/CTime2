@@ -268,18 +268,6 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   <data name="PauseStampButton.Content" xml:space="preserve">
     <value>Pause</value>
   </data>
-  <data name="StampTime.CurrentlyCheckedIn" xml:space="preserve">
-    <value>Sie sind aktuell eingestempelt.</value>
-  </data>
-  <data name="StampTime.CurrentlyCheckedInHomeOffice" xml:space="preserve">
-    <value>Sie sind aktuell eingestempelt (Home-Office).</value>
-  </data>
-  <data name="StampTime.CurrentlyCheckedInTrip" xml:space="preserve">
-    <value>Sie sind aktuell eingestempelt (Reise).</value>
-  </data>
-  <data name="StampTime.CurrentlyCheckedOut" xml:space="preserve">
-    <value>Sie sind aktuell ausgestempelt.</value>
-  </data>
   <data name="StartDateAppBarButton.Label" xml:space="preserve">
     <value>Startdatum</value>
   </data>

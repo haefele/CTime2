@@ -19,8 +19,6 @@ namespace CTime2.Views.Overview.CheckedIn
         public CheckedInViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
             : base(cTimeService, applicationStateService)
         {
-            this.DisplayName = CTime2Resources.Get("StampTime.CurrentlyCheckedIn");
-
             this.CheckOut = ReactiveCommand.CreateAsyncTask(_ => this.CheckOutImpl());
             this.CheckOut.AttachExceptionHandler();
             this.CheckOut.AttachLoadingService(CTime2Resources.Get("Loading.CheckedOut"));
