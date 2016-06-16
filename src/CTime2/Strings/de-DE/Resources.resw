@@ -161,7 +161,7 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
     <value>Aktueller Monat</value>
   </data>
   <data name="CurrentTimeTextBlock.Text" xml:space="preserve">
-    <value>Aktuelle Zeit:</value>
+    <value>Deine Zeit:</value>
   </data>
   <data name="EmailAddressTextBox.Header" xml:space="preserve">
     <value>E-Mail-Adresse</value>

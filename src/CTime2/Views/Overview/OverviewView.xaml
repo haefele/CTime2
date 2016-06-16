@@ -43,7 +43,7 @@
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                        HorizontalAlignment="Center"
                        x:Uid="CurrentTimeTextBlock"
-                       Text="~Aktuelle Zeit:" />
+                       Text="~Deine Zeit:" />
 
             <TextBlock HorizontalAlignment="Center"
                        Text="{x:Bind ViewModel.CurrentTime, Converter={StaticResource CurrentTimeToStringConverter}, Mode=OneWay}"

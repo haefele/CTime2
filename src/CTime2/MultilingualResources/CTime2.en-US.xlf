@@ -27,8 +27,8 @@
           <target state="translated" state-qualifier="tm-suggestion">Current month</target>
         </trans-unit>
         <trans-unit id="CurrentTimeTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Aktuelle Zeit:</source>
-          <target state="translated" state-qualifier="mt-suggestion">Current time:</target>
+          <source>Deine Zeit:</source>
+          <target state="translated">Your time:</target>
         </trans-unit>
         <trans-unit id="EmailAddressTextBox.Header" translate="yes" xml:space="preserve">
           <source>E-Mail-Adresse</source>
@@ -169,22 +169,6 @@
         <trans-unit id="Loading.Pause" translate="yes" xml:space="preserve">
           <source>Stemple Pause...</source>
           <target state="translated">Break...</target>
-        </trans-unit>
-        <trans-unit id="StampTime.CurrentlyCheckedIn" translate="yes" xml:space="preserve">
-          <source>Sie sind aktuell eingestempelt.</source>
-          <target state="translated">You are currently checked in.</target>
-        </trans-unit>
-        <trans-unit id="StampTime.CurrentlyCheckedInHomeOffice" translate="yes" xml:space="preserve">
-          <source>Sie sind aktuell eingestempelt (Home-Office).</source>
-          <target state="translated">You are currently checked in (Home-Office).</target>
-        </trans-unit>
-        <trans-unit id="StampTime.CurrentlyCheckedInTrip" translate="yes" xml:space="preserve">
-          <source>Sie sind aktuell eingestempelt (Reise).</source>
-          <target state="translated">You are currently checked in (Reise).</target>
-        </trans-unit>
-        <trans-unit id="StampTime.CurrentlyCheckedOut" translate="yes" xml:space="preserve">
-          <source>Sie sind aktuell ausgestempelt.</source>
-          <target state="translated">You are currently checked out.</target>
         </trans-unit>
         <trans-unit id="Navigation.Settings" translate="yes" xml:space="preserve">
           <source>Einstellungen</source>

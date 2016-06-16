@@ -28,7 +28,7 @@
     <value>Current month</value>
   </data>
   <data name="CurrentTimeTextBlock.Text" xml:space="preserve">
-    <value>Current time:</value>
+    <value>Your time:</value>
   </data>
   <data name="EmailAddressTextBox.Header" xml:space="preserve">
     <value>Email address</value>
@@ -134,18 +134,6 @@
   </data>
   <data name="Loading.Pause" xml:space="preserve">
     <value>Break...</value>
-  </data>
-  <data name="StampTime.CurrentlyCheckedIn" xml:space="preserve">
-    <value>You are currently checked in.</value>
-  </data>
-  <data name="StampTime.CurrentlyCheckedInHomeOffice" xml:space="preserve">
-    <value>You are currently checked in (Home-Office).</value>
-  </data>
-  <data name="StampTime.CurrentlyCheckedInTrip" xml:space="preserve">
-    <value>You are currently checked in (Reise).</value>
-  </data>
-  <data name="StampTime.CurrentlyCheckedOut" xml:space="preserve">
-    <value>You are currently checked out.</value>
   </data>
   <data name="Navigation.Settings" xml:space="preserve">
     <value>Settings</value>
