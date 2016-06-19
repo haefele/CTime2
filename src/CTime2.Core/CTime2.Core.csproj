@@ -158,6 +158,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StartPageLayout.msbtl</DependentUpon>
     </Compile>
+    <Compile Include="Services\Biometrics\IBiometricsService.cs" />
     <Compile Include="Services\CTime\CTimeService.cs" />
     <Compile Include="Services\CTime\CTimeStampHelper.cs" />
     <Compile Include="Services\CTime\CTimeStampHelperCallback.cs" />

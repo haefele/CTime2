@@ -8,6 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Button Content="Login merken" Command="{x:Bind ViewModel.RememberLogin}" />
     </Grid>
 </UserControl>

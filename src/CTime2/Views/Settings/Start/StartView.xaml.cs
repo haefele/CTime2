@@ -17,6 +17,8 @@ namespace CTime2.Views.Settings.Start
 {
     public sealed partial class StartView
     {
+        public StartViewModel ViewModel => this.DataContext as StartViewModel;
+
         public StartView()
         {
             this.InitializeComponent();

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.ApplicationModes;
+using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.Biometrics;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
@@ -22,6 +26,7 @@ namespace CTime2.Views.Login
         private readonly IApplicationStateService _applicationStateService;
         private readonly IApplication _application;
         private readonly IDialogService _dialogService;
+        private readonly IBiometricsService _biometricsService;
 
         private string _emailAddress;
         private string _password;
@@ -39,8 +44,9 @@ namespace CTime2.Views.Login
         }
 
         public ReactiveCommand<Unit> Login { get; }
+        public ReactiveCommand<Unit> RememberedLogin { get; }
 
-        public LoginViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IApplication application, IDialogService dialogService)
+        public LoginViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IApplication application, IDialogService dialogService, IBiometricsService biometricsService)
         {
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
@@ -51,6 +57,7 @@ namespace CTime2.Views.Login
             this._applicationStateService = applicationStateService;
             this._application = application;
             this._dialogService = dialogService;
+            this._biometricsService = biometricsService;
 
             var canLogin = this.WhenAnyValue(f => f.EmailAddress, f => f.Password, (email, password) =>
                 string.IsNullOrWhiteSpace(email) == false && string.IsNullOrWhiteSpace(password) == false);
@@ -58,9 +65,24 @@ namespace CTime2.Views.Login
             this.Login.AttachLoadingService(CTime2Resources.Get("Loading.LoggingIn"));
             this.Login.AttachExceptionHandler();
 
+            var canRememberedLogin = new ReplaySubject<bool>(1);
+            canRememberedLogin.OnNext(this._biometricsService.HasRememberedUser());
+
+            this.RememberedLogin = ReactiveCommand.CreateAsyncTask(canRememberedLogin, _ => this.RememberedLoginImpl());
+
             this.DisplayName = CTime2Resources.Get("Navigation.Login");
         }
-        
+
+        private async Task RememberedLoginImpl()
+        {
+            var user = await this._biometricsService.BiometricAuthAsync();
+
+            if (user == null)
+                return;
+
+            await this.AfterLoginAsync(user);
+        }
+
         private async Task LoginImpl()
         {
             var user = await this._cTimeService.Login(this.EmailAddress, this.Password);
@@ -70,8 +92,13 @@ namespace CTime2.Views.Login
                 await this._dialogService.ShowAsync(CTime2Resources.Get("Login.LoginFailed"));
                 return;
             }
-                    
-            this._applicationStateService.SetCurrentUser(user);;
+
+            await this.AfterLoginAsync(user);
+        }
+
+        private async Task AfterLoginAsync(User user)
+        {
+            this._applicationStateService.SetCurrentUser(user);
 
             await this._applicationStateService.SaveStateAsync();
 
