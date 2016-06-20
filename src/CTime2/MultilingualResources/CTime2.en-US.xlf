@@ -236,8 +236,7 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         </trans-unit>
         <trans-unit id="CheckInStampButton.Content" translate="yes" xml:space="preserve">
           <source>Einstempeln</source>
-          <target state="translated">Checkin
-</target>
+          <target state="translated">Checkin</target>
         </trans-unit>
         <trans-unit id="HomeOfficeCheckInStampButton.Content" translate="yes" xml:space="preserve">
           <source>Home-Office Einstempeln</source>
@@ -254,6 +253,30 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         <trans-unit id="PauseStampButton.Content" translate="yes" xml:space="preserve">
           <source>Pause</source>
           <target state="translated">Break</target>
+        </trans-unit>
+        <trans-unit id="RememberedLoginButton.Content" translate="yes" xml:space="preserve">
+          <source>Gemerkte Anmeldung</source>
+          <target state="translated">Remembered login</target>
+        </trans-unit>
+        <trans-unit id="RememberLoginButton.Content" translate="yes" xml:space="preserve">
+          <source>Anmeldung merken</source>
+          <target state="translated">Remember login</target>
+        </trans-unit>
+        <trans-unit id="RememberLoginTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Du kannst deine aktuelle Anmeldung merken lassen.
+
+Dazu musst du dich dich einmal authentifizieren.</source>
+          <target state="translated">You can let this app remember your current login.
+
+You just have to authentificate yourself.</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Band" translate="yes" xml:space="preserve">
+          <source>Band</source>
+          <target state="translated">Band</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Others" translate="yes" xml:space="preserve">
+          <source>Anderes</source>
+          <target state="translated">Others</target>
         </trans-unit>
       </group>
     </body>

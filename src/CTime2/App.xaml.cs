@@ -28,7 +28,7 @@ using CTime2.Views.Overview.TripCheckedIn;
 using CTime2.Views.Settings;
 using CTime2.Views.Settings.About;
 using CTime2.Views.Settings.Band;
-using CTime2.Views.Settings.Start;
+using CTime2.Views.Settings.Others;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
 using CTime2.VoiceCommandService;
@@ -110,7 +110,7 @@ namespace CTime2
             yield return typeof(TripCheckedInViewModel);
             yield return typeof(BandViewModel);
             yield return typeof(SettingsViewModel);
-            yield return typeof(StartViewModel);
+            yield return typeof(OthersViewModel);
         }
         
         private async void ConfigureVoiceCommands()

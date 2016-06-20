@@ -52,6 +52,7 @@ namespace CTime2.Views.Login
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(application, nameof(application));
             Guard.NotNull(dialogService, nameof(dialogService));
+            Guard.NotNull(biometricsService, nameof(biometricsService));
 
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
@@ -67,8 +68,9 @@ namespace CTime2.Views.Login
 
             var canRememberedLogin = new ReplaySubject<bool>(1);
             canRememberedLogin.OnNext(this._biometricsService.HasRememberedUser());
-
             this.RememberedLogin = ReactiveCommand.CreateAsyncTask(canRememberedLogin, _ => this.RememberedLoginImpl());
+            this.RememberedLogin.AttachLoadingService(CTime2Resources.Get("Loading.LoggingIn"));
+            this.RememberedLogin.AttachExceptionHandler();
 
             this.DisplayName = CTime2Resources.Get("Navigation.Login");
         }

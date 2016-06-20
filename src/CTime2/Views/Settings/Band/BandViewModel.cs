@@ -37,7 +37,7 @@ namespace CTime2.Views.Settings.Band
 
             this._bandService = bandService;
 
-            this.DisplayName = "Band";
+            this.DisplayName = CTime2Resources.Get("Navigation.Band");
 
             var canToggleTile = this.WhenAnyValue(f => f.State, state => state != BandViewModelState.NotConnected);
             this.ToggleTile = ReactiveCommand.CreateAsyncTask(canToggleTile, _ => this.ToggleTileImpl());

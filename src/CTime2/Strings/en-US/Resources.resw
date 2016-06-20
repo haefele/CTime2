@@ -182,8 +182,7 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
     <value>Feedback on the c-time universal app</value>
   </data>
   <data name="CheckInStampButton.Content" xml:space="preserve">
-    <value>Checkin
-</value>
+    <value>Checkin</value>
   </data>
   <data name="HomeOfficeCheckInStampButton.Content" xml:space="preserve">
     <value>Checkin Home-Office</value>
@@ -196,5 +195,22 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   </data>
   <data name="PauseStampButton.Content" xml:space="preserve">
     <value>Break</value>
+  </data>
+  <data name="RememberedLoginButton.Content" xml:space="preserve">
+    <value>Remembered login</value>
+  </data>
+  <data name="RememberLoginButton.Content" xml:space="preserve">
+    <value>Remember login</value>
+  </data>
+  <data name="RememberLoginTextBlock.Text" xml:space="preserve">
+    <value>You can let this app remember your current login.
+
+You just have to authentificate yourself.</value>
+  </data>
+  <data name="Navigation.Band" xml:space="preserve">
+    <value>Band</value>
+  </data>
+  <data name="Navigation.Others" xml:space="preserve">
+    <value>Others</value>
   </data>
 </root>

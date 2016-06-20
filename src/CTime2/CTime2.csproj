@@ -146,10 +146,10 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsViewModel.cs" />
-    <Compile Include="Views\Settings\Start\StartView.xaml.cs">
-      <DependentUpon>StartView.xaml</DependentUpon>
+    <Compile Include="Views\Settings\Others\OthersView.xaml.cs">
+      <DependentUpon>OthersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings\Start\StartViewModel.cs" />
+    <Compile Include="Views\Settings\Others\OthersViewModel.cs" />
     <Compile Include="ApplicationModes\LoggedInApplicationMode.cs" />
     <Compile Include="ApplicationModes\LoggedOutApplicationMode.cs" />
     <Compile Include="Views\Overview\CheckedIn\CheckedInView.xaml.cs">
@@ -237,7 +237,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings\Start\StartView.xaml">
+    <Page Include="Views\Settings\Others\OthersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

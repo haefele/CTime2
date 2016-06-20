@@ -49,9 +49,9 @@
                 HorizontalAlignment="Stretch"/>
         
         <Button Content="~Gemerkte Anmeldung"
+                x:Uid="RememberedLoginButton"
                 Grid.Row="6"
                 Command="{x:Bind ViewModel.RememberedLogin}"
-                HorizontalContentAlignment="Stretch"
-                />
+                HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>

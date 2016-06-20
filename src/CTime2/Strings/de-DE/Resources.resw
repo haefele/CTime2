@@ -241,6 +241,9 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   <data name="Navigation.AttendanceList" xml:space="preserve">
     <value>Anwesenheitsliste</value>
   </data>
+  <data name="Navigation.Band" xml:space="preserve">
+    <value>Band</value>
+  </data>
   <data name="Navigation.Login" xml:space="preserve">
     <value>Anmeldung</value>
   </data>
@@ -249,6 +252,9 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   </data>
   <data name="Navigation.MyTimes" xml:space="preserve">
     <value>Meine Zeiten</value>
+  </data>
+  <data name="Navigation.Others" xml:space="preserve">
+    <value>Anderes</value>
   </data>
   <data name="Navigation.Overview" xml:space="preserve">
     <value>Übersicht</value>
@@ -267,6 +273,17 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   </data>
   <data name="PauseStampButton.Content" xml:space="preserve">
     <value>Pause</value>
+  </data>
+  <data name="RememberedLoginButton.Content" xml:space="preserve">
+    <value>Gemerkte Anmeldung</value>
+  </data>
+  <data name="RememberLoginButton.Content" xml:space="preserve">
+    <value>Anmeldung merken</value>
+  </data>
+  <data name="RememberLoginTextBlock.Text" xml:space="preserve">
+    <value>Du kannst deine aktuelle Anmeldung merken lassen.
+
+Dazu musst du dich dich einmal authentifizieren.</value>
   </data>
   <data name="StartDateAppBarButton.Label" xml:space="preserve">
     <value>Startdatum</value>

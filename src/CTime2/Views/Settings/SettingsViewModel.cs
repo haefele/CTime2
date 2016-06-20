@@ -3,7 +3,7 @@ using Caliburn.Micro.ReactiveUI;
 using CTime2.Strings;
 using CTime2.Views.Settings.About;
 using CTime2.Views.Settings.Band;
-using CTime2.Views.Settings.Start;
+using CTime2.Views.Settings.Others;
 
 namespace CTime2.Views.Settings
 {
@@ -15,7 +15,7 @@ namespace CTime2.Views.Settings
 
             this.Items.Add(IoC.Get<AboutViewModel>());
             this.Items.Add(IoC.Get<BandViewModel>());
-            this.Items.Add(IoC.Get<StartViewModel>());
+            this.Items.Add(IoC.Get<OthersViewModel>());
         }
     }
 }
