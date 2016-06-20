@@ -16,7 +16,7 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -38,7 +38,6 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1"
-                    Margin="0, 30"
                     VerticalAlignment="Bottom">
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                        HorizontalAlignment="Center"
@@ -51,11 +50,11 @@
         </StackPanel>
 
         <ContentControl micro:View.Model="{Binding ActiveItem}"
-                        Margin="5"
+                        Margin="5, 0, 5, 30"
                         HorizontalAlignment="Stretch"
                         MaxWidth="300"
                         HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Top"
+                        VerticalContentAlignment="Bottom"
                         Grid.Row="2" />
 
     </Grid>
