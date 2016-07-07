@@ -122,6 +122,9 @@ namespace CTime2.Views.Statistics
 
                     var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
 
+                    var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * TimeSpan.FromHours(8).TotalMinutes;
+                    var workTimePoolInMinutes = (int)(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
+
                     this.Statistics.Clear();
 
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T")));
@@ -130,6 +133,7 @@ namespace CTime2.Views.Statistics
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")));
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()));
                     this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))));
+                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.OverTimePool"), workTimePoolInMinutes.ToString()));
                 }
                 catch (Exception exception)
                 {

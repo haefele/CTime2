@@ -278,6 +278,10 @@ You just have to authentificate yourself.</target>
           <source>Anderes</source>
           <target state="translated">Others</target>
         </trans-unit>
+        <trans-unit id="Statistics.OverTimePool" translate="yes" xml:space="preserve">
+          <source>Überstunden Pool (in Minuten)</source>
+          <target state="translated">Overtime (in minutes)</target>
+        </trans-unit>
       </group>
     </body>
   </file>

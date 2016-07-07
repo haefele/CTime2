@@ -318,4 +318,7 @@ Dazu musst du dich dich einmal authentifizieren.</value>
   <data name="VersionTextBlock.Text" xml:space="preserve">
     <value>Version:</value>
   </data>
+  <data name="Statistics.OverTimePool" xml:space="preserve">
+    <value>Überstunden Pool (in Minuten)</value>
+  </data>
 </root>

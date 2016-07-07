@@ -213,4 +213,7 @@ You just have to authentificate yourself.</value>
   <data name="Navigation.Others" xml:space="preserve">
     <value>Others</value>
   </data>
+  <data name="Statistics.OverTimePool" xml:space="preserve">
+    <value>Overtime (in minutes)</value>
+  </data>
 </root>
