@@ -12,6 +12,7 @@ using Windows.Web.Http.Filters;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Strings;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UwCore.Logging;
 
@@ -74,7 +75,7 @@ namespace CTime2.Core.Services.CTime
 
                 if (responseJson == null)
                     return new List<Time>();
-
+                
                 return responseJson
                     .Value<JArray>("Result")
                     .OfType<JObject>()
@@ -82,9 +83,9 @@ namespace CTime2.Core.Services.CTime
                     {
                         Day = f.Value<DateTime>("day"),
                         Hours = TimeSpan.FromHours(double.Parse(f.Value<string>("DayHours") ?? "0", CultureInfo.InvariantCulture)),
-                        State = f.Value<int?>("TimeTrackType") == 0 ? null : (TimeState?)f.Value<int?>("TimeTrackType"),
-                        ClockInTime = f.Value<DateTime?>("TimeTrackIn"),
-                        ClockOutTime = f.Value<DateTime?>("TimeTrackOut"),
+                        State = f["TimeTrackType"].ToObject<int?>() == 0 ? null : (TimeState?)f["TimeTrackType"].ToObject<int?>(),
+                        ClockInTime = f["TimeTrackIn"].ToObject<DateTime?>(),
+                        ClockOutTime = f["TimeTrackOut"].ToObject<DateTime?>(),
                     })
                     .ToList();
             }
