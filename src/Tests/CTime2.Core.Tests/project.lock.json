@@ -1960,13 +1960,13 @@
           }
         }
       },
-      "UwCore/0.1.26": {
+      "UwCore/0.1.27": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
           "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
@@ -3847,13 +3847,13 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.26": {
+      "UwCore/0.1.27": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
           "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
@@ -5692,13 +5692,13 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.26": {
+      "UwCore/0.1.27": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
           "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
@@ -7587,13 +7587,13 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.26": {
+      "UwCore/0.1.27": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
           "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
@@ -9432,13 +9432,13 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.26": {
+      "UwCore/0.1.27": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
           "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
@@ -11327,13 +11327,13 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.26": {
+      "UwCore/0.1.27": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
           "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
@@ -13172,13 +13172,13 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.26": {
+      "UwCore/0.1.27": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
           "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
@@ -16940,11 +16940,11 @@
         "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.26": {
-      "sha512": "3OI1lV+ffwn6EDaCZ4mH6/Mk/95FdtoHwovS15Uwz6T69Nbj/ZnCy5JFz+Cu02BBksBVrmC2Ms1lkRCmVWyN9w==",
+    "UwCore/0.1.27": {
+      "sha512": "uWhPsjUmClZqK445OOYpHTQuPa1msozvXVhUeyC2TGl6fG1t3fLGvzeU1tcqMEHJjthZpikcVhIWmW/3p0zPiA==",
       "type": "package",
       "files": [
-        "UwCore.0.1.26.nupkg.sha512",
+        "UwCore.0.1.27.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pri",
