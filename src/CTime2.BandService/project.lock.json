@@ -3,9 +3,9 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "Caliburn.Micro/3.0.0": {
+      "Caliburn.Micro/3.0.1": {
         "dependencies": {
-          "Caliburn.Micro.Core": "[3.0.0]",
+          "Caliburn.Micro.Core": "[3.0.1]",
           "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
         },
         "compile": {
@@ -17,7 +17,7 @@
           "lib/uap10.0/Caliburn.Micro.Platform.UWP.dll": {}
         }
       },
-      "Caliburn.Micro.Core/3.0.0": {
+      "Caliburn.Micro.Core/3.0.1": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         },
@@ -37,7 +37,7 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.4": {
+      "JetBrains.Annotations/10.1.5": {
         "dependencies": {
           "System.Runtime": "4.0.0"
         },
@@ -58,7 +58,7 @@
           "lib/win81/MetroLog.dll": {}
         }
       },
-      "Microsoft.Band/1.3.20420": {
+      "Microsoft.Band/1.3.20628": {
         "compile": {
           "lib/uap10.0/Google.Protobuf.dll": {},
           "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
@@ -341,12 +341,12 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
       "reactiveui-core/6.5.0": {
@@ -1960,14 +1960,14 @@
           }
         }
       },
-      "UwCore/0.1.25": {
+      "UwCore/0.1.26": {
         "dependencies": {
-          "Caliburn.Micro": "3.0.0",
+          "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.4",
+          "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-          "Newtonsoft.Json": "8.0.3",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
         "compile": {
@@ -1979,9 +1979,9 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Caliburn.Micro/3.0.0": {
+      "Caliburn.Micro/3.0.1": {
         "dependencies": {
-          "Caliburn.Micro.Core": "[3.0.0]",
+          "Caliburn.Micro.Core": "[3.0.1]",
           "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
         },
         "compile": {
@@ -1993,7 +1993,7 @@
           "lib/uap10.0/Caliburn.Micro.Platform.UWP.dll": {}
         }
       },
-      "Caliburn.Micro.Core/3.0.0": {
+      "Caliburn.Micro.Core/3.0.1": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         },
@@ -2013,7 +2013,7 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.4": {
+      "JetBrains.Annotations/10.1.5": {
         "dependencies": {
           "System.Runtime": "4.0.0"
         },
@@ -2034,7 +2034,7 @@
           "lib/win81/MetroLog.dll": {}
         }
       },
-      "Microsoft.Band/1.3.20420": {
+      "Microsoft.Band/1.3.20628": {
         "compile": {
           "lib/uap10.0/Google.Protobuf.dll": {},
           "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
@@ -2267,12 +2267,12 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
       "reactiveui-core/6.5.0": {
@@ -3797,14 +3797,14 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.25": {
+      "UwCore/0.1.26": {
         "dependencies": {
-          "Caliburn.Micro": "3.0.0",
+          "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.4",
+          "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-          "Newtonsoft.Json": "8.0.3",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
         "compile": {
@@ -3816,9 +3816,9 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Caliburn.Micro/3.0.0": {
+      "Caliburn.Micro/3.0.1": {
         "dependencies": {
-          "Caliburn.Micro.Core": "[3.0.0]",
+          "Caliburn.Micro.Core": "[3.0.1]",
           "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
         },
         "compile": {
@@ -3830,7 +3830,7 @@
           "lib/uap10.0/Caliburn.Micro.Platform.UWP.dll": {}
         }
       },
-      "Caliburn.Micro.Core/3.0.0": {
+      "Caliburn.Micro.Core/3.0.1": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         },
@@ -3850,7 +3850,7 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.4": {
+      "JetBrains.Annotations/10.1.5": {
         "dependencies": {
           "System.Runtime": "4.0.0"
         },
@@ -3871,7 +3871,7 @@
           "lib/win81/MetroLog.dll": {}
         }
       },
-      "Microsoft.Band/1.3.20420": {
+      "Microsoft.Band/1.3.20628": {
         "compile": {
           "lib/uap10.0/Google.Protobuf.dll": {},
           "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
@@ -4101,12 +4101,12 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
       "reactiveui-core/6.5.0": {
@@ -5592,14 +5592,14 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.25": {
+      "UwCore/0.1.26": {
         "dependencies": {
-          "Caliburn.Micro": "3.0.0",
+          "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.4",
+          "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-          "Newtonsoft.Json": "8.0.3",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
         "compile": {
@@ -5611,9 +5611,9 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Caliburn.Micro/3.0.0": {
+      "Caliburn.Micro/3.0.1": {
         "dependencies": {
-          "Caliburn.Micro.Core": "[3.0.0]",
+          "Caliburn.Micro.Core": "[3.0.1]",
           "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
         },
         "compile": {
@@ -5625,7 +5625,7 @@
           "lib/uap10.0/Caliburn.Micro.Platform.UWP.dll": {}
         }
       },
-      "Caliburn.Micro.Core/3.0.0": {
+      "Caliburn.Micro.Core/3.0.1": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         },
@@ -5645,7 +5645,7 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.4": {
+      "JetBrains.Annotations/10.1.5": {
         "dependencies": {
           "System.Runtime": "4.0.0"
         },
@@ -5666,7 +5666,7 @@
           "lib/win81/MetroLog.dll": {}
         }
       },
-      "Microsoft.Band/1.3.20420": {
+      "Microsoft.Band/1.3.20628": {
         "compile": {
           "lib/uap10.0/Google.Protobuf.dll": {},
           "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
@@ -5904,12 +5904,12 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
       "reactiveui-core/6.5.0": {
@@ -7437,14 +7437,14 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.25": {
+      "UwCore/0.1.26": {
         "dependencies": {
-          "Caliburn.Micro": "3.0.0",
+          "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.4",
+          "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-          "Newtonsoft.Json": "8.0.3",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
         "compile": {
@@ -7456,9 +7456,9 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Caliburn.Micro/3.0.0": {
+      "Caliburn.Micro/3.0.1": {
         "dependencies": {
-          "Caliburn.Micro.Core": "[3.0.0]",
+          "Caliburn.Micro.Core": "[3.0.1]",
           "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
         },
         "compile": {
@@ -7470,7 +7470,7 @@
           "lib/uap10.0/Caliburn.Micro.Platform.UWP.dll": {}
         }
       },
-      "Caliburn.Micro.Core/3.0.0": {
+      "Caliburn.Micro.Core/3.0.1": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         },
@@ -7490,7 +7490,7 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.4": {
+      "JetBrains.Annotations/10.1.5": {
         "dependencies": {
           "System.Runtime": "4.0.0"
         },
@@ -7511,7 +7511,7 @@
           "lib/win81/MetroLog.dll": {}
         }
       },
-      "Microsoft.Band/1.3.20420": {
+      "Microsoft.Band/1.3.20628": {
         "compile": {
           "lib/uap10.0/Google.Protobuf.dll": {},
           "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
@@ -7741,12 +7741,12 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
       "reactiveui-core/6.5.0": {
@@ -9232,14 +9232,14 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.25": {
+      "UwCore/0.1.26": {
         "dependencies": {
-          "Caliburn.Micro": "3.0.0",
+          "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.4",
+          "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-          "Newtonsoft.Json": "8.0.3",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
         "compile": {
@@ -9251,9 +9251,9 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Caliburn.Micro/3.0.0": {
+      "Caliburn.Micro/3.0.1": {
         "dependencies": {
-          "Caliburn.Micro.Core": "[3.0.0]",
+          "Caliburn.Micro.Core": "[3.0.1]",
           "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
         },
         "compile": {
@@ -9265,7 +9265,7 @@
           "lib/uap10.0/Caliburn.Micro.Platform.UWP.dll": {}
         }
       },
-      "Caliburn.Micro.Core/3.0.0": {
+      "Caliburn.Micro.Core/3.0.1": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         },
@@ -9285,7 +9285,7 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.4": {
+      "JetBrains.Annotations/10.1.5": {
         "dependencies": {
           "System.Runtime": "4.0.0"
         },
@@ -9306,7 +9306,7 @@
           "lib/win81/MetroLog.dll": {}
         }
       },
-      "Microsoft.Band/1.3.20420": {
+      "Microsoft.Band/1.3.20628": {
         "compile": {
           "lib/uap10.0/Google.Protobuf.dll": {},
           "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
@@ -9544,12 +9544,12 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
       "reactiveui-core/6.5.0": {
@@ -11077,14 +11077,14 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.25": {
+      "UwCore/0.1.26": {
         "dependencies": {
-          "Caliburn.Micro": "3.0.0",
+          "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.4",
+          "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-          "Newtonsoft.Json": "8.0.3",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
         "compile": {
@@ -11096,9 +11096,9 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Caliburn.Micro/3.0.0": {
+      "Caliburn.Micro/3.0.1": {
         "dependencies": {
-          "Caliburn.Micro.Core": "[3.0.0]",
+          "Caliburn.Micro.Core": "[3.0.1]",
           "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
         },
         "compile": {
@@ -11110,7 +11110,7 @@
           "lib/uap10.0/Caliburn.Micro.Platform.UWP.dll": {}
         }
       },
-      "Caliburn.Micro.Core/3.0.0": {
+      "Caliburn.Micro.Core/3.0.1": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10+uap10.0/Caliburn.Micro.dll": {}
         },
@@ -11130,7 +11130,7 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.4": {
+      "JetBrains.Annotations/10.1.5": {
         "dependencies": {
           "System.Runtime": "4.0.0"
         },
@@ -11151,7 +11151,7 @@
           "lib/win81/MetroLog.dll": {}
         }
       },
-      "Microsoft.Band/1.3.20420": {
+      "Microsoft.Band/1.3.20628": {
         "compile": {
           "lib/uap10.0/Google.Protobuf.dll": {},
           "lib/uap10.0/Microsoft.Band.Phone_UAP.dll": {},
@@ -11381,12 +11381,12 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
       "reactiveui-core/6.5.0": {
@@ -12872,14 +12872,14 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.25": {
+      "UwCore/0.1.26": {
         "dependencies": {
-          "Caliburn.Micro": "3.0.0",
+          "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.4",
+          "JetBrains.Annotations": "10.1.5",
           "MetroLog": "1.0.1",
-          "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-          "Newtonsoft.Json": "8.0.3",
+          "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1",
+          "Newtonsoft.Json": "9.0.1",
           "Splat": "1.6.2"
         },
         "compile": {
@@ -12892,11 +12892,11 @@
     }
   },
   "libraries": {
-    "Caliburn.Micro/3.0.0": {
-      "sha512": "T1zB9MKeK6T1cEsWk6eZOn/gUbPXREN77naMw0kersIIssSQVhxnic6CxtAd65G2mUDq8rdKpMfPbwxNWYYwxQ==",
+    "Caliburn.Micro/3.0.1": {
+      "sha512": "6RaRnvbHnwm2kx9N+xyI6+qCLDJaAGsV1JgKlQ2QWApYNinpqO1GglwZdCWQ6eWj0var+XjbM8V7NYqB/C1elg==",
       "type": "package",
       "files": [
-        "Caliburn.Micro.3.0.0.nupkg.sha512",
+        "Caliburn.Micro.3.0.1.nupkg.sha512",
         "Caliburn.Micro.nuspec",
         "lib/MonoAndroid10/Caliburn.Micro.Platform.Core.dll",
         "lib/MonoAndroid10/Caliburn.Micro.Platform.Core.xml",
@@ -12953,11 +12953,11 @@
         "lib/wpa81/Microsoft.Xaml.Interactivity.dll"
       ]
     },
-    "Caliburn.Micro.Core/3.0.0": {
-      "sha512": "HEbJwHbK9ExB1tHgFijKlij7yAyIFqMSsDlhQwp2nssOUhUE9iOBMLXTYhO9wsTu2+yvkvjkca77BUXKsmoR+w==",
+    "Caliburn.Micro.Core/3.0.1": {
+      "sha512": "CZPp0HVaHiW/N6JGsXpyJXnoyVRhFMY+H2uZcD24oNPczLOX1WuWsyVrSdagqUhjZnP1wV42Y6PkIUXEWWgOCg==",
       "type": "package",
       "files": [
-        "Caliburn.Micro.Core.3.0.0.nupkg.sha512",
+        "Caliburn.Micro.Core.3.0.1.nupkg.sha512",
         "Caliburn.Micro.Core.nuspec",
         "lib/net40/Caliburn.Micro.XML",
         "lib/net40/Caliburn.Micro.dll",
@@ -12979,16 +12979,15 @@
         "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll"
       ]
     },
-    "JetBrains.Annotations/10.1.4": {
-      "sha512": "5WN2N7ba4yGPShBdIPkqPveu7AjFNeGeLpMIJpFfkjK7MPPNN6hqMCh1ZU8ohaAwdBiWdrWrZ1uEIGYv0Keelg==",
+    "JetBrains.Annotations/10.1.5": {
+      "sha512": "LRyTrsiTWsV4C4cUMfdEkAdd8S0BREvj3hXZ1gGr3GZGFf0q2KW3IFGMPOguAxOrWH44Nw12jqr37B1Jph2E6A==",
       "type": "package",
       "files": [
-        "JetBrains.Annotations.10.1.4.nupkg.sha512",
+        "JetBrains.Annotations.10.1.5.nupkg.sha512",
         "JetBrains.Annotations.nuspec",
         "lib/dotnet/JetBrains.Annotations.Dotnet.dll",
-        "lib/dotnet/JetBrains.Annotations.Dotnet.xml",
-        "lib/net20/JetBrains.Annotations.dll",
-        "lib/net20/JetBrains.Annotations.xml",
+        "lib/net/JetBrains.Annotations.dll",
+        "lib/net/JetBrains.Annotations.xml",
         "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.dll",
         "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.xml",
         "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/JetBrains.Annotations.PCL328.dll",
@@ -13029,11 +13028,11 @@
         "lib/wpa81/MetroLog.pri"
       ]
     },
-    "Microsoft.Band/1.3.20420": {
-      "sha512": "88Q8CsLXd3Gi5x0nP0UxWwSzTuvuJ+YzipDLC20XHmBmE00yEWTKMavKOcZgnQNIScAbTEmIuM8CiFENXDHq9w==",
+    "Microsoft.Band/1.3.20628": {
+      "sha512": "pXvYuw8wm+rqGmgWPGkg81UE43ZSPO3nqH1aPGUjekQM7J6SHVA7va31MdZbXbodtbnLWyj9ZnbM8crHwfZqHQ==",
       "type": "package",
       "files": [
-        "Microsoft.Band.1.3.20420.nupkg.sha512",
+        "Microsoft.Band.1.3.20628.nupkg.sha512",
         "Microsoft.Band.nuspec",
         "content/netcore451/Package.appxmanifest.transform",
         "content/wpa81/Package.appxmanifest.transform",
@@ -13682,11 +13681,11 @@
         "lib/uap10.0/Microsoft.Xaml.Interactivity.xml"
       ]
     },
-    "Newtonsoft.Json/8.0.3": {
-      "sha512": "KGsYQdS2zLH+H8x2cZaSI7e+YZ4SFIbyy1YJQYl6GYBWjf5o4H1A68nxyq+WTyVSOJQ4GqS/DiPE+UseUizgMg==",
+    "Newtonsoft.Json/9.0.1": {
+      "sha512": "U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
       "type": "package",
       "files": [
-        "Newtonsoft.Json.8.0.3.nupkg.sha512",
+        "Newtonsoft.Json.9.0.1.nupkg.sha512",
         "Newtonsoft.Json.nuspec",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
@@ -13696,10 +13695,12 @@
         "lib/net40/Newtonsoft.Json.xml",
         "lib/net45/Newtonsoft.Json.dll",
         "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "tools/install.ps1"
       ]
     },
@@ -16781,11 +16782,11 @@
         "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.25": {
-      "sha512": "ldm7ICpuvEGNsugd69kUmJAf2rSXTCQbE0k/0BWo0eQa5bm4IfauC/KFMfa9ZgzYwkwjVQvjmehFBi5YDUvV7A==",
+    "UwCore/0.1.26": {
+      "sha512": "3OI1lV+ffwn6EDaCZ4mH6/Mk/95FdtoHwovS15Uwz6T69Nbj/ZnCy5JFz+Cu02BBksBVrmC2Ms1lkRCmVWyN9w==",
       "type": "package",
       "files": [
-        "UwCore.0.1.25.nupkg.sha512",
+        "UwCore.0.1.26.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pri",
