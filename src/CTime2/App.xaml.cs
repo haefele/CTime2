@@ -117,14 +117,7 @@ namespace CTime2
         {
             try
             {
-                var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("CTime2VoiceCommands.xml", CreationCollisionOption.ReplaceExisting);
-
-                using (var vcd = typeof (CTime2VoiceCommandService).GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.VoiceCommandService.CTime2VoiceCommands.xml"))
-                using (var fileStream = await file.OpenStreamForWriteAsync())
-                {
-                    await vcd.CopyToAsync(fileStream);
-                }
-
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///CTime2.VoiceCommandService/CTime2VoiceCommands.xml"));
                 await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
             }
             catch (Exception exception)

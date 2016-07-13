@@ -125,7 +125,9 @@
     <Compile Include="Strings\CTime2VoiceCommandServiceResources.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CTime2VoiceCommands.xml" />
+    <Content Include="CTime2VoiceCommands.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CTime2.Core\CTime2.Core.csproj">
