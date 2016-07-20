@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using CTime2.Common;
+using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using CTime2.Views.AttendanceList;
 using CTime2.Views.Overview;
@@ -21,6 +24,7 @@ namespace CTime2.ApplicationModes
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly IDialogService _dialogService;
+        private readonly ICTimeService _cTimeService;
 
         private readonly HamburgerItem _overviewHamburgerItem;
         private readonly HamburgerItem _myTimesHamburgerItem;
@@ -28,13 +32,15 @@ namespace CTime2.ApplicationModes
         private readonly HamburgerItem _logoutHamburgerItem;
         private readonly HamburgerItem _statisticsItem;
 
-        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService)
+        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService, ICTimeService cTimeService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(dialogService, nameof(dialogService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
 
             this._applicationStateService = applicationStateService;
             this._dialogService = dialogService;
+            this._cTimeService = cTimeService;
 
             this._overviewHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Overview"), Symbol.Globe, typeof(OverviewViewModel));
             this._myTimesHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar, typeof(YourTimesViewModel));
@@ -81,14 +87,70 @@ namespace CTime2.ApplicationModes
             switch (parsed.Action)
             {
                 case CTimeStartupAction.Checkin:
-                    await this._dialogService.ShowAsync("Checkin!", "Yeah!");
+                    await this.StampAsync(TimeState.Entered);
                     break;
                 case CTimeStartupAction.Checkout:
-                    await this._dialogService.ShowAsync("Checkout!", "Yeah!");
+                    await this.StampAsync(TimeState.Left);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private async Task StampAsync(TimeState timeState)
+        {
+            var stampHelper = new CTimeStampHelper(this._applicationStateService, this._cTimeService);
+            var callbackHandler = new CTimeStampHelperCallback(
+                this.OnNotLoggedIn,
+                this.SupportsQuestions,
+                this.OnDidNothing,
+                this.OnAlreadyCheckedInWannaCheckOut,
+                this.OnAlreadyCheckedIn,
+                this.OnAlreadyCheckedOutWannaCheckIn,
+                this.OnAlreadyCheckedOut,
+                this.OnSuccess);
+
+            await stampHelper.Stamp(callbackHandler, timeState);
+        }
+
+        private Task OnNotLoggedIn()
+        {
+            return this._dialogService.ShowAsync("Nicht angemeldet.");
+        }
+
+        private bool SupportsQuestions()
+        {
+            return true;
+        }
+
+        private Task OnDidNothing()
+        {
+            return Task.CompletedTask;
+        }
+
+        private Task<bool> OnAlreadyCheckedInWannaCheckOut()
+        {
+            return Task.FromResult(true);
+        }
+
+        private Task OnAlreadyCheckedIn()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task<bool> OnAlreadyCheckedOutWannaCheckIn()
+        {
+            return Task.FromResult(true);
+        }
+
+        private Task OnAlreadyCheckedOut()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task OnSuccess(TimeState arg)
+        {
+            return this._dialogService.ShowAsync("Erfolgreich gestempelt.");
         }
     }
 }
