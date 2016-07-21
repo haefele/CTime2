@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Security.Credentials.UI;
+using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Strings;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 
@@ -22,18 +25,21 @@ namespace CTime2.Core.Services.Biometrics
         {
             Guard.NotNull(user, nameof(user));
 
-            var result = await UserConsentVerifier.RequestVerificationAsync("Login merken.");
+            var result = await UserConsentVerifier.RequestVerificationAsync(CTime2CoreResources.Get("BiometricsService.RememberLogin"));
 
             if (result == UserConsentVerificationResult.Verified)
             {
-                this._applicationStateService.Set("BiometricAuth", user, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+                this._applicationStateService.SetBiometricAuthUser(user);
+            }
+            else if (result == UserConsentVerificationResult.DeviceNotPresent)
+            {
+                throw new CTimeException(CTime2CoreResources.Get("BiometricsService.NoBiometricDevicePresent"));
             }
         }
 
         public bool HasRememberedUser()
         {
-            var user = this._applicationStateService.Get<User>("BiometricAuth", UwCore.Services.ApplicationState.ApplicationState.Roaming);
-            return user != null;
+            return this._applicationStateService.GetBiometricAuthUser() != null;
         }
 
         public async Task<User> BiometricAuthAsync()
@@ -41,12 +47,12 @@ namespace CTime2.Core.Services.Biometrics
             if (this.HasRememberedUser() == false)
                 return null;
 
-            var result = await UserConsentVerifier.RequestVerificationAsync("Login merken.");
+            var result = await UserConsentVerifier.RequestVerificationAsync(CTime2CoreResources.Get("BiometricsService.Login"));
 
             if (result != UserConsentVerificationResult.Verified)
                 return null;
 
-            return this._applicationStateService.Get<User>("BiometricAuth", UwCore.Services.ApplicationState.ApplicationState.Roaming);
+            return this._applicationStateService.GetBiometricAuthUser();
         }
     }
 }

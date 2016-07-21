@@ -83,4 +83,13 @@
   <data name="BandService.Error" xml:space="preserve">
     <value>Error...</value>
   </data>
+  <data name="BiometricsService.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="BiometricsService.RememberLogin" xml:space="preserve">
+    <value>Remember login.</value>
+  </data>
+  <data name="BiometricsService.NoBiometricDevicePresent" xml:space="preserve">
+    <value>Unfortunately, there is no device available.</value>
+  </data>
 </root>

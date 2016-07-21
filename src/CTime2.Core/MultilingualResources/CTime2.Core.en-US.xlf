@@ -100,6 +100,18 @@
           <source>Fehler...</source>
           <target state="translated">Error...</target>
         </trans-unit>
+        <trans-unit id="BiometricsService.Login" translate="yes" xml:space="preserve">
+          <source>Anmeldung</source>
+          <target state="translated" state-qualifier="tm-suggestion">Login</target>
+        </trans-unit>
+        <trans-unit id="BiometricsService.RememberLogin" translate="yes" xml:space="preserve">
+          <source>Login merken.</source>
+          <target state="translated" state-qualifier="mt-suggestion">Remember login.</target>
+        </trans-unit>
+        <trans-unit id="BiometricsService.NoBiometricDevicePresent" translate="yes" xml:space="preserve">
+          <source>Leider ist kein passendes Gerät vorhanden.</source>
+          <target state="translated">Unfortunately, there is no device available.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

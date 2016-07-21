@@ -171,6 +171,15 @@
   <data name="BandService.Test" xml:space="preserve">
     <value>Testen</value>
   </data>
+  <data name="BiometricsService.Login" xml:space="preserve">
+    <value>Anmeldung</value>
+  </data>
+  <data name="BiometricsService.NoBiometricDevicePresent" xml:space="preserve">
+    <value>Leider ist kein passendes Gerät vorhanden.</value>
+  </data>
+  <data name="BiometricsService.RememberLogin" xml:space="preserve">
+    <value>Login merken.</value>
+  </data>
   <data name="CTimeService.ErrorWhileLoadingAttendanceList" xml:space="preserve">
     <value>Beim Laden der Anwesenheitsliste ist ein Fehler aufgetreten.</value>
   </data>

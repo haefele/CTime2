@@ -14,5 +14,15 @@ namespace CTime2.Core.Services.ApplicationState
         {
             self.Set("User", currentUser, UwCore.Services.ApplicationState.ApplicationState.Local);
         }
+
+        public static User GetBiometricAuthUser(this IApplicationStateService self)
+        {
+            return self.Get<User>("BiometricAuth", UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
+
+        public static void SetBiometricAuthUser(this IApplicationStateService self, User biometricAuthUser)
+        {
+            self.Set("BiometricAuth", biometricAuthUser, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
     }
 }
