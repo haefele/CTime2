@@ -8,6 +8,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
+using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
@@ -19,14 +20,14 @@ namespace CTime2.Views.Statistics
     public class StatisticsViewModel : ReactiveScreen
     {
         #region Fields
-        private readonly IApplicationStateService _sessionStateService;
+        private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
-        private readonly ILoadingService _loadingService;
         private readonly IDialogService _dialogService;
-        private readonly IExceptionHandler _exceptionHandler;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
+
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticItem>> _statisticsHelper;
         #endregion
 
         #region Properties
@@ -40,22 +41,32 @@ namespace CTime2.Views.Statistics
             get { return this._endDate; }
             set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
         }
-        public BindableCollection<StatisticItem> Statistics { get; }
+
+        public ReactiveObservableCollection<StatisticItem> Statistics => this._statisticsHelper.Value;
+        #endregion
+
+        #region Commands
+        public ReactiveCommand<ReactiveObservableCollection<StatisticItem>> LoadStatistics { get; }
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(IApplicationStateService sessionStateService, ICTimeService cTimeService, ILoadingService loadingService, IDialogService dialogService, IExceptionHandler exceptionHandler)
+        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService)
         {
-            this._sessionStateService = sessionStateService;
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+            Guard.NotNull(dialogService, nameof(dialogService));
+
+            this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
-            this._loadingService = loadingService;
             this._dialogService = dialogService;
-            this._exceptionHandler = exceptionHandler;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Statistics");
 
-            this.Statistics = new BindableCollection<StatisticItem>();
-
+            this.LoadStatistics = ReactiveCommand.CreateAsyncTask(_ => this.LoadStatisticsImpl());
+            this.LoadStatistics.AttachExceptionHandler();
+            this.LoadStatistics.AttachLoadingService(CTime2Resources.Get("Loading.Statistics"));
+            this.LoadStatistics.ToLoadedProperty(this, f => f.Statistics, out this._statisticsHelper);
+            
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
         }
@@ -64,83 +75,54 @@ namespace CTime2.Views.Statistics
         #region Methods
         protected override async void OnActivate()
         {
-            await this.RefreshAsync();
+            await this.LoadStatistics.ExecuteAsyncTask();
         }
-
-        public async Task CurrentMonth()
+        
+        private async Task<ReactiveObservableCollection<StatisticItem>> LoadStatisticsImpl()
         {
-            this.StartDate = DateTimeOffset.Now.StartOfMonth();
-            this.EndDate = DateTimeOffset.Now.EndOfMonth();
+            var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
-            await this.RefreshAsync();
-        }
-        public async Task LastMonth()
-        {
-            this.StartDate = DateTimeOffset.Now.StartOfMonth().AddMonths(-1);
-            this.EndDate = DateTimeOffset.Now.EndOfMonth().AddMonths(-1);
+            var timesByDay = TimesByDay.Create(times)
+                .Where(this.IsTimeByDayForStatistic)
+                .ToList();
 
-            await this.RefreshAsync();
-        }
-        public async Task LastSevenDays()
-        {
-            this.StartDate = DateTimeOffset.Now.WithoutTime().AddDays(-6); //Last 6 days plus today
-            this.EndDate = DateTimeOffset.Now.WithoutTime();
-
-            await this.RefreshAsync();
-        }
-        public async Task RefreshAsync()
-        {
-            using (this._loadingService.Show(CTime2Resources.Get("Loading.Statistics")))
+            if (times.Count == 0 || timesByDay.Count == 0 || timesByDay.Count(f => f.Hours != TimeSpan.Zero) == 0)
             {
-                try
-                {
-                    var times = await this._cTimeService.GetTimes(this._sessionStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
-                    
-                    var timesByDay = TimesByDay.Create(times)
-                        .Where(this.IsTimeByDayForStatistic)
-                        .ToList();
-
-                    if (times.Count == 0 || timesByDay.Count == 0)
-                    {
-                        await this._dialogService.ShowAsync(CTime2Resources.Get("Statistics.NoTimesBetweenStartAndEndDate"));
-                        return;
-                    }
-
-                    var totalWorkTime = TimeSpan.FromMinutes(timesByDay.Where(f => f.Hours != TimeSpan.Zero).Sum(f => f.Hours.TotalMinutes));
-
-                    var totalWorkDays = timesByDay.Count(f => f.Hours != TimeSpan.Zero);
-
-                    var averageWorkTime = TimeSpan.FromMinutes(totalWorkTime.TotalMinutes / totalWorkDays);
-
-                    var averageEnterTime = TimeSpan.FromMinutes(
-                        timesByDay.Where(f => f.DayStartTime != null).Sum(f => f.DayStartTime.Value.TotalMinutes) /
-                        timesByDay.Count(f => f.DayStartTime != null));
-
-                    var averageLeaveTime = TimeSpan.FromMinutes(
-                        timesByDay.Where(f => f.DayEndTime != null).Sum(f => f.DayEndTime.Value.TotalMinutes) /
-                        timesByDay.Count(f => f.DayEndTime != null));
-
-                    var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
-
-                    var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * TimeSpan.FromHours(8).TotalMinutes;
-                    var workTimePoolInMinutes = (int)(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
-
-                    this.Statistics.Clear();
-
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.TrimMilliseconds().ToString("T")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToDateTime().ToString("T")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))));
-                    this.Statistics.Add(new StatisticItem(CTime2Resources.Get("Statistics.OverTimePool"), workTimePoolInMinutes.ToString()));
-                }
-                catch (Exception exception)
-                {
-                    await this._exceptionHandler.HandleAsync(exception);
-                }
+                await this._dialogService.ShowAsync(CTime2Resources.Get("Statistics.NoTimesBetweenStartAndEndDate"));
+                return new ReactiveObservableCollection<StatisticItem>();
             }
+
+            var totalWorkTime = TimeSpan.FromMinutes(timesByDay.Where(f => f.Hours != TimeSpan.Zero).Sum(f => f.Hours.TotalMinutes));
+
+            var totalWorkDays = timesByDay.Count(f => f.Hours != TimeSpan.Zero);
+
+            var averageWorkTime = TimeSpan.FromMinutes(totalWorkTime.TotalMinutes / totalWorkDays);
+
+            var averageEnterTime = TimeSpan.FromMinutes(
+                timesByDay.Where(f => f.DayStartTime != null).Sum(f => f.DayStartTime.Value.TotalMinutes) /
+                timesByDay.Count(f => f.DayStartTime != null));
+
+            var averageLeaveTime = TimeSpan.FromMinutes(
+                timesByDay.Where(f => f.DayEndTime != null).Sum(f => f.DayEndTime.Value.TotalMinutes) /
+                timesByDay.Count(f => f.DayEndTime != null));
+
+            var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
+
+            var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * TimeSpan.FromHours(8).TotalMinutes;
+            var workTimePoolInMinutes = (int)(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
+
+            return new ReactiveObservableCollection<StatisticItem>
+            {
+                new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T")),
+                new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.TrimMilliseconds().ToString("T")),
+                new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToDateTime().ToString("T")),
+                new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")),
+                new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()),
+                new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))),
+                new StatisticItem(CTime2Resources.Get("Statistics.OverTimePool"), workTimePoolInMinutes.ToString())
+            };
         }
+
         private bool IsTimeByDayForStatistic(TimesByDay timesByDay)
         {
             if (timesByDay.Day != DateTime.Today)
