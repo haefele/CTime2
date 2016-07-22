@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation.Collections;
+using Caliburn.Micro;
 using CTime2.Core.Services.CTime;
 using Microsoft.Band;
 using UwCore.Logging;
@@ -33,7 +34,7 @@ namespace CTime2.BandService
                 if (triggerDetails.Name == "com.microsoft.band.observer")
                 {
                     var applicationStateService = new ApplicationStateService();
-                    var cTimeService = new CTimeService();
+                    var cTimeService = new CTimeService(new EventAggregator());
 
                     var bandService = new Core.Services.Band.BandService(applicationStateService, cTimeService);
 

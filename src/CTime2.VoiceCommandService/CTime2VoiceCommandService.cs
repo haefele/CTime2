@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
+using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using CTime2.VoiceCommandService.Strings;
@@ -45,7 +46,7 @@ namespace CTime2.VoiceCommandService
 
                     var applicationStateService = new ApplicationStateService();
                     await applicationStateService.RestoreStateAsync();
-                    var cTimeService = new CTimeService();
+                    var cTimeService = new CTimeService(new EventAggregator());
 
                     var stampHelper = new CTimeStampHelper(applicationStateService, cTimeService);
                     var stampHelperCallback = new CTimeStampHelperCallback(

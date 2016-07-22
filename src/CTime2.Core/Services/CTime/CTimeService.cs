@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 using Windows.Security.Cryptography.Certificates;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using Caliburn.Micro;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Events;
 using CTime2.Core.Strings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UwCore.Common;
 using UwCore.Logging;
 
 namespace CTime2.Core.Services.CTime
@@ -22,8 +25,14 @@ namespace CTime2.Core.Services.CTime
     {
         private static readonly Logger Logger = LoggerFactory.GetLogger<CTimeService>();
 
-        public CTimeService()
+        private readonly IEventAggregator _eventAggregator;
+
+        public CTimeService(IEventAggregator eventAggregator)
         {
+            Guard.NotNull(eventAggregator, nameof(eventAggregator));
+
+            this._eventAggregator = eventAggregator;
+
             this.AddCTimeCertificate();
         }
 
@@ -100,17 +109,25 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("SaveTimer.php", new Dictionary<string, string>
-                {
-                    {"RFID", string.Empty},
-                    {"TimerKind", ((int) state).ToString()},
-                    {"TimerText", string.Empty},
-                    {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
-                    {"EmployeeGUID", employeeGuid},
-                    {"GUID", companyId}
-                });
+                //var responseJson = await this.SendRequestAsync("SaveTimer.php", new Dictionary<string, string>
+                //{
+                //    {"RFID", string.Empty},
+                //    {"TimerKind", ((int) state).ToString()},
+                //    {"TimerText", string.Empty},
+                //    {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
+                //    {"EmployeeGUID", employeeGuid},
+                //    {"GUID", companyId}
+                //});
 
-                return responseJson?.Value<int>("State") == 0;
+                //if (responseJson?.Value<int>("State") == 0)
+                {
+                    this._eventAggregator.PublishOnCurrentThread(new UserStamped());
+                    return true;
+                }
+                //else
+                //{
+                //    return false;
+                //}
             }
             catch (Exception exception)
             {

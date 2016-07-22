@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using CTime2.Common;
@@ -113,9 +115,10 @@ namespace CTime2.ApplicationModes
             await stampHelper.Stamp(callbackHandler, timeState);
         }
 
+        #region StampHelper Callbacks
         private Task OnNotLoggedIn()
         {
-            return this._dialogService.ShowAsync("Nicht angemeldet.");
+            throw new NotImplementedException();
         }
 
         private bool SupportsQuestions()
@@ -128,9 +131,19 @@ namespace CTime2.ApplicationModes
             return Task.CompletedTask;
         }
 
-        private Task<bool> OnAlreadyCheckedInWannaCheckOut()
+        private async Task<bool> OnAlreadyCheckedInWannaCheckOut()
         {
-            return Task.FromResult(true);
+            bool checkOut = false;
+
+            var checkOutCommand = new UICommand(CTime2Resources.Get("StampHelper.CheckOut"), _ => checkOut = true);
+            var noCommand = new UICommand(CTime2Resources.Get("StampHelper.No"));
+
+            string message = CTime2Resources.Get("StampHelper.AlreadyCheckedInWannaCheckOutMessage");
+            string title = CTime2Resources.Get("StampHelper.AlreadyCheckedInWannaCheckOutTitle");
+
+            await this._dialogService.ShowAsync(message, title, new List<UICommand> { checkOutCommand, noCommand });
+
+            return checkOut;
         }
 
         private Task OnAlreadyCheckedIn()
@@ -138,9 +151,19 @@ namespace CTime2.ApplicationModes
             throw new NotImplementedException();
         }
 
-        private Task<bool> OnAlreadyCheckedOutWannaCheckIn()
+        private async Task<bool> OnAlreadyCheckedOutWannaCheckIn()
         {
-            return Task.FromResult(true);
+            bool checkIn = false;
+
+            var checkOutCommand = new UICommand(CTime2Resources.Get("StampHelper.CheckIn"), _ => checkIn = true);
+            var noCommand = new UICommand(CTime2Resources.Get("StampHelper.No"));
+
+            string message = CTime2Resources.Get("StampHelper.AlreadyCheckedOutWannaCheckInMessage");
+            string title = CTime2Resources.Get("StampHelper.AlreadyCheckedOutWannaCheckInTitle");
+
+            await this._dialogService.ShowAsync(message, title, new List<UICommand> { checkOutCommand, noCommand });
+
+            return checkIn;
         }
 
         private Task OnAlreadyCheckedOut()
@@ -150,7 +173,8 @@ namespace CTime2.ApplicationModes
 
         private Task OnSuccess(TimeState arg)
         {
-            return this._dialogService.ShowAsync("Erfolgreich gestempelt.");
+            return Task.CompletedTask;
         }
+        #endregion
     }
 }

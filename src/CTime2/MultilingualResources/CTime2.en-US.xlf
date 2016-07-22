@@ -282,6 +282,34 @@ You just have to authentificate yourself.</target>
           <source>Überstunden Pool (in Minuten)</source>
           <target state="translated">Overtime (in minutes)</target>
         </trans-unit>
+        <trans-unit id="StampHelper.AlreadyCheckedInWannaCheckOutMessage" translate="yes" xml:space="preserve">
+          <source>Sie sind bereits eingestempelt. Möchten Sie sich ausstempeln?</source>
+          <target state="new">Sie sind bereits eingestempelt. Möchten Sie sich ausstempeln?</target>
+        </trans-unit>
+        <trans-unit id="StampHelper.AlreadyCheckedInWannaCheckOutTitle" translate="yes" xml:space="preserve">
+          <source>Bereits eingestempelt</source>
+          <target state="new">Bereits eingestempelt</target>
+        </trans-unit>
+        <trans-unit id="StampHelper.AlreadyCheckedOutWannaCheckInMessage" translate="yes" xml:space="preserve">
+          <source>Sie sind bereits ausgestempelt. Möchten Sie sich einstempeln?</source>
+          <target state="new">Sie sind bereits ausgestempelt. Möchten Sie sich einstempeln?</target>
+        </trans-unit>
+        <trans-unit id="StampHelper.AlreadyCheckedOutWannaCheckInTitle" translate="yes" xml:space="preserve">
+          <source>Bereits ausgestempelt</source>
+          <target state="new">Bereits ausgestempelt</target>
+        </trans-unit>
+        <trans-unit id="StampHelper.CheckIn" translate="yes" xml:space="preserve">
+          <source>Einstempeln</source>
+          <target state="new">Einstempeln</target>
+        </trans-unit>
+        <trans-unit id="StampHelper.CheckOut" translate="yes" xml:space="preserve">
+          <source>Ausstempeln</source>
+          <target state="new">Ausstempeln</target>
+        </trans-unit>
+        <trans-unit id="StampHelper.No" translate="yes" xml:space="preserve">
+          <source>Nein</source>
+          <target state="new">Nein</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
+using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Extensions;
@@ -22,7 +23,7 @@ using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Overview
 {
-    public class OverviewViewModel : ReactiveConductor<StampTimeStateViewModelBase>, IHandleWithTask<ApplicationResumed>
+    public class OverviewViewModel : ReactiveConductor<StampTimeStateViewModelBase>, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
@@ -146,6 +147,11 @@ namespace CTime2.Views.Overview
         }
 
         async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
+        {
+            await this.RefreshCurrentState.ExecuteAsyncTask();
+        }
+
+        async Task IHandleWithTask<UserStamped>.Handle(UserStamped message)
         {
             await this.RefreshCurrentState.ExecuteAsyncTask();
         }
