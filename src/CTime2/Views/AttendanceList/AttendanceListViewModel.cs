@@ -34,7 +34,8 @@ namespace CTime2.Views.AttendanceList
             this.LoadUsers = ReactiveCommand.CreateAsyncTask(_ => this.LoadUsersImpl());
             this.LoadUsers.AttachLoadingService(CTime2Resources.Get("Loading.AttendanceList"));
             this.LoadUsers.AttachExceptionHandler();
-            this.LoadUsers.ToProperty(this, f => f.Users, out this._usersHelper);
+            this.LoadUsers.TrackEvent("LoadAttendanceList");
+            this.LoadUsers.ToLoadedProperty(this, f => f.Users, out this._usersHelper);
         }
 
         private async Task<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsersImpl()

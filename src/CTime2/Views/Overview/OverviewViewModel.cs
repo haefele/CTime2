@@ -73,6 +73,7 @@ namespace CTime2.Views.Overview
             this.RefreshCurrentState = ReactiveCommand.CreateAsyncTask(_ => this.RefreshCurrentStateImpl());
             this.RefreshCurrentState.AttachExceptionHandler();
             this.RefreshCurrentState.AttachLoadingService(CTime2Resources.Get("Loading.CurrentState"));
+            this.RefreshCurrentState.TrackEvent("RefreshCurrentState");
 
             eventAggregator.SubscribeScreen(this);
         }

@@ -65,6 +65,7 @@ namespace CTime2.Views.Statistics
             this.LoadStatistics = ReactiveCommand.CreateAsyncTask(_ => this.LoadStatisticsImpl());
             this.LoadStatistics.AttachExceptionHandler();
             this.LoadStatistics.AttachLoadingService(CTime2Resources.Get("Loading.Statistics"));
+            this.LoadStatistics.TrackEvent("LoadStatistics");
             this.LoadStatistics.ToLoadedProperty(this, f => f.Statistics, out this._statisticsHelper);
             
             this.StartDate = DateTimeOffset.Now.StartOfMonth();

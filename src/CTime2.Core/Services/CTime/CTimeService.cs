@@ -109,25 +109,25 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                //var responseJson = await this.SendRequestAsync("SaveTimer.php", new Dictionary<string, string>
-                //{
-                //    {"RFID", string.Empty},
-                //    {"TimerKind", ((int) state).ToString()},
-                //    {"TimerText", string.Empty},
-                //    {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
-                //    {"EmployeeGUID", employeeGuid},
-                //    {"GUID", companyId}
-                //});
+                var responseJson = await this.SendRequestAsync("SaveTimer.php", new Dictionary<string, string>
+                {
+                    {"RFID", string.Empty},
+                    {"TimerKind", ((int) state).ToString()},
+                    {"TimerText", string.Empty},
+                    {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
+                    {"EmployeeGUID", employeeGuid},
+                    {"GUID", companyId}
+                });
 
-                //if (responseJson?.Value<int>("State") == 0)
+                if (responseJson?.Value<int>("State") == 0)
                 {
                     this._eventAggregator.PublishOnCurrentThread(new UserStamped());
                     return true;
                 }
-                //else
-                //{
-                //    return false;
-                //}
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception exception)
             {

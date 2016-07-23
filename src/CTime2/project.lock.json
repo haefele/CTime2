@@ -37,15 +37,23 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.5": {
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
+      "HockeySDK.Core/4.1.3": {
         "compile": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
         "runtime": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
+        }
+      },
+      "HockeySDK.UWP/4.1.3": {
+        "dependencies": {
+          "HockeySDK.Core": "4.1.3"
+        },
+        "compile": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
         }
       },
       "MetroLog/1.0.1": {
@@ -1960,11 +1968,11 @@
           }
         }
       },
-      "UwCore/0.1.27": {
+      "UwCore/0.1.31": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.5",
+          "HockeySDK.UWP": "4.1.3",
           "MetroLog": "1.0.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
@@ -2021,15 +2029,23 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.5": {
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
+      "HockeySDK.Core/4.1.3": {
         "compile": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
         "runtime": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
+        }
+      },
+      "HockeySDK.UWP/4.1.3": {
+        "dependencies": {
+          "HockeySDK.Core": "4.1.3"
+        },
+        "compile": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
         }
       },
       "MetroLog/1.0.1": {
@@ -3805,11 +3821,11 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.27": {
+      "UwCore/0.1.31": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.5",
+          "HockeySDK.UWP": "4.1.3",
           "MetroLog": "1.0.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
@@ -3866,15 +3882,23 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.5": {
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
+      "HockeySDK.Core/4.1.3": {
         "compile": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
         "runtime": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
+        }
+      },
+      "HockeySDK.UWP/4.1.3": {
+        "dependencies": {
+          "HockeySDK.Core": "4.1.3"
+        },
+        "compile": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
         }
       },
       "MetroLog/1.0.1": {
@@ -5608,11 +5632,11 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.27": {
+      "UwCore/0.1.31": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.5",
+          "HockeySDK.UWP": "4.1.3",
           "MetroLog": "1.0.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
@@ -5669,15 +5693,23 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.5": {
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
+      "HockeySDK.Core/4.1.3": {
         "compile": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
         "runtime": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
+        }
+      },
+      "HockeySDK.UWP/4.1.3": {
+        "dependencies": {
+          "HockeySDK.Core": "4.1.3"
+        },
+        "compile": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
         }
       },
       "MetroLog/1.0.1": {
@@ -7461,11 +7493,11 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.27": {
+      "UwCore/0.1.31": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.5",
+          "HockeySDK.UWP": "4.1.3",
           "MetroLog": "1.0.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
@@ -7522,15 +7554,23 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.5": {
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
+      "HockeySDK.Core/4.1.3": {
         "compile": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
         "runtime": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
+        }
+      },
+      "HockeySDK.UWP/4.1.3": {
+        "dependencies": {
+          "HockeySDK.Core": "4.1.3"
+        },
+        "compile": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
         }
       },
       "MetroLog/1.0.1": {
@@ -9264,11 +9304,11 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.27": {
+      "UwCore/0.1.31": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.5",
+          "HockeySDK.UWP": "4.1.3",
           "MetroLog": "1.0.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
@@ -9325,15 +9365,23 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.5": {
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
+      "HockeySDK.Core/4.1.3": {
         "compile": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
         "runtime": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
+        }
+      },
+      "HockeySDK.UWP/4.1.3": {
+        "dependencies": {
+          "HockeySDK.Core": "4.1.3"
+        },
+        "compile": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
         }
       },
       "MetroLog/1.0.1": {
@@ -11117,11 +11165,11 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.27": {
+      "UwCore/0.1.31": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.5",
+          "HockeySDK.UWP": "4.1.3",
           "MetroLog": "1.0.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
@@ -11178,15 +11226,23 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
-      "JetBrains.Annotations/10.1.5": {
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
+      "HockeySDK.Core/4.1.3": {
         "compile": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
         "runtime": {
-          "lib/dotnet/JetBrains.Annotations.Dotnet.dll": {}
+          "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
+        }
+      },
+      "HockeySDK.UWP/4.1.3": {
+        "dependencies": {
+          "HockeySDK.Core": "4.1.3"
+        },
+        "compile": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
         }
       },
       "MetroLog/1.0.1": {
@@ -12920,11 +12976,11 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.27": {
+      "UwCore/0.1.31": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
-          "JetBrains.Annotations": "10.1.5",
+          "HockeySDK.UWP": "4.1.3",
           "MetroLog": "1.0.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
           "Newtonsoft.Json": "9.0.1",
@@ -13035,19 +13091,32 @@
         "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll"
       ]
     },
-    "JetBrains.Annotations/10.1.5": {
-      "sha512": "LRyTrsiTWsV4C4cUMfdEkAdd8S0BREvj3hXZ1gGr3GZGFf0q2KW3IFGMPOguAxOrWH44Nw12jqr37B1Jph2E6A==",
+    "HockeySDK.Core/4.1.3": {
+      "sha512": "FdJXZ2oWnijwCYcKRnGyEUL5qqX2QE3v5pZdNhOX5B4qogoDYjcG/75xO3SXKG1IdzenDPxFYjT2x14wTWJ2yg==",
       "type": "package",
+      "path": "HockeySDK.Core/4.1.3",
       "files": [
-        "JetBrains.Annotations.10.1.5.nupkg.sha512",
-        "JetBrains.Annotations.nuspec",
-        "lib/dotnet/JetBrains.Annotations.Dotnet.dll",
-        "lib/net/JetBrains.Annotations.dll",
-        "lib/net/JetBrains.Annotations.xml",
-        "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.dll",
-        "lib/portable-net4+sl4+wp7+netcore45/JetBrains.Annotations.PCL1.xml",
-        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/JetBrains.Annotations.PCL328.dll",
-        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/JetBrains.Annotations.PCL328.xml"
+        "HockeySDK.Core.4.1.3.nupkg.sha512",
+        "HockeySDK.Core.nuspec",
+        "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll",
+        "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll.CodeAnalysisLog.xml",
+        "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll.lastcodeanalysissucceeded",
+        "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.XML"
+      ]
+    },
+    "HockeySDK.UWP/4.1.3": {
+      "sha512": "BRzV7TcYkw9Yzhd6ek/HAxSoEdnk3UVXPZ44GV7faCdS6IygGUeokEWQ8t0RUYxx47JyDdqH7KezZXbwfjhiYA==",
+      "type": "package",
+      "path": "HockeySDK.UWP/4.1.3",
+      "files": [
+        "HockeySDK.UWP.4.1.3.nupkg.sha512",
+        "HockeySDK.UWP.nuspec",
+        "lib/uap10.0/Microsoft.HockeyApp.Kit.dll",
+        "lib/uap10.0/Microsoft.HockeyApp.Kit.dll.CodeAnalysisLog.xml",
+        "lib/uap10.0/Microsoft.HockeyApp.Kit.dll.lastcodeanalysissucceeded",
+        "lib/uap10.0/Microsoft.HockeyApp.Kit.pri",
+        "lib/uap10.0/Microsoft.HockeyApp.Kit/Properties/Microsoft.HockeyApp.Kit.rd.xml",
+        "tools/Init.ps1"
       ]
     },
     "MetroLog/1.0.1": {
@@ -16838,11 +16907,12 @@
         "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.27": {
-      "sha512": "uWhPsjUmClZqK445OOYpHTQuPa1msozvXVhUeyC2TGl6fG1t3fLGvzeU1tcqMEHJjthZpikcVhIWmW/3p0zPiA==",
+    "UwCore/0.1.31": {
+      "sha512": "13F6KLGtJQzhqLBwWfggwV15sp6dktQjhbQZzlT4V56W6UxWGc4v9z/OC77bBsMQ9NDaKmSjL+pF5kqF+wJ1rw==",
       "type": "package",
+      "path": "UwCore/0.1.31",
       "files": [
-        "UwCore.0.1.27.nupkg.sha512",
+        "UwCore.0.1.31.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pri",
@@ -16892,7 +16962,7 @@
     "": [
       "Microsoft.Band >= 1.3.20628",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.1.0",
-      "UwCore >= 0.1.27",
+      "UwCore >= 0.1.31",
       "WindowsStateTriggers >= 1.1.0"
     ],
     "UAP,Version=v10.0": []

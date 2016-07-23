@@ -23,14 +23,17 @@ namespace CTime2.Views.Overview.CheckedOut
             this.CheckIn = ReactiveCommand.CreateAsyncTask(_ => this.CheckInImpl());
             this.CheckIn.AttachExceptionHandler();
             this.CheckIn.AttachLoadingService(CTime2Resources.Get("Loading.CheckIn"));
+            this.CheckIn.TrackEvent("CheckIn");
 
             this.CheckInHomeOffice = ReactiveCommand.CreateAsyncTask(_ => this.CheckInHomeOfficeImpl());
             this.CheckInHomeOffice.AttachExceptionHandler();
             this.CheckInHomeOffice.AttachLoadingService(CTime2Resources.Get("Loading.CheckIn"));
+            this.CheckInHomeOffice.TrackEvent("CheckInHomeOffice");
 
             this.CheckInTrip = ReactiveCommand.CreateAsyncTask(_ => this.CheckInTripImpl());
             this.CheckInTrip.AttachExceptionHandler();
             this.CheckInTrip.AttachLoadingService(CTime2Resources.Get("Loading.CheckIn"));
+            this.CheckInTrip.TrackEvent("CheckInTrip");
         }
 
         private async Task CheckInImpl()

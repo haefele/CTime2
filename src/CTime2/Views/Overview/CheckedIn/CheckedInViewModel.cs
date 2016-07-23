@@ -22,10 +22,12 @@ namespace CTime2.Views.Overview.CheckedIn
             this.CheckOut = ReactiveCommand.CreateAsyncTask(_ => this.CheckOutImpl());
             this.CheckOut.AttachExceptionHandler();
             this.CheckOut.AttachLoadingService(CTime2Resources.Get("Loading.CheckedOut"));
+            this.CheckOut.TrackEvent("CheckOut");
 
             this.Pause = ReactiveCommand.CreateAsyncTask(_ => this.PauseImpl());
             this.Pause.AttachExceptionHandler();
             this.Pause.AttachLoadingService(CTime2Resources.Get("Loading.Pause"));
+            this.Pause.TrackEvent("Pause");
         }
 
         private async Task CheckOutImpl()

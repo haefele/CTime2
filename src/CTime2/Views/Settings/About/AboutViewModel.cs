@@ -32,6 +32,8 @@ namespace CTime2.Views.Settings.About
 
             this.SendFeedback = ReactiveCommand.CreateAsyncTask(_ => this.SendFeedbackImpl());
             this.SendFeedback.AttachExceptionHandler();
+            this.SendFeedback.AttachLoadingService(CTime2Resources.Get("Loading.SendFeedback"));
+            this.SendFeedback.TrackEvent("SendFeedback");
         }
 
         private async Task SendFeedbackImpl()

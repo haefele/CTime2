@@ -50,6 +50,7 @@ namespace CTime2.Views.YourTimes
             this.LoadTimes = ReactiveCommand.CreateAsyncTask(_ => this.LoadTimesImpl());
             this.LoadTimes.AttachExceptionHandler();
             this.LoadTimes.AttachLoadingService(CTime2Resources.Get("Loading.Times"));
+            this.LoadTimes.TrackEvent("LoadTimes");
             this.LoadTimes.ToLoadedProperty(this, f => f.Times, out this._timesHelper);
 
             this.StartDate = DateTimeOffset.Now.StartOfMonth();

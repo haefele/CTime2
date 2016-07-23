@@ -284,31 +284,39 @@ You just have to authentificate yourself.</target>
         </trans-unit>
         <trans-unit id="StampHelper.AlreadyCheckedInWannaCheckOutMessage" translate="yes" xml:space="preserve">
           <source>Sie sind bereits eingestempelt. Möchten Sie sich ausstempeln?</source>
-          <target state="new">Sie sind bereits eingestempelt. Möchten Sie sich ausstempeln?</target>
+          <target state="translated">You are already checked in. Do you want to check out?</target>
         </trans-unit>
         <trans-unit id="StampHelper.AlreadyCheckedInWannaCheckOutTitle" translate="yes" xml:space="preserve">
           <source>Bereits eingestempelt</source>
-          <target state="new">Bereits eingestempelt</target>
+          <target state="translated">Already checked in</target>
         </trans-unit>
         <trans-unit id="StampHelper.AlreadyCheckedOutWannaCheckInMessage" translate="yes" xml:space="preserve">
           <source>Sie sind bereits ausgestempelt. Möchten Sie sich einstempeln?</source>
-          <target state="new">Sie sind bereits ausgestempelt. Möchten Sie sich einstempeln?</target>
+          <target state="translated">You are already checked out. Do you want to check in?</target>
         </trans-unit>
         <trans-unit id="StampHelper.AlreadyCheckedOutWannaCheckInTitle" translate="yes" xml:space="preserve">
           <source>Bereits ausgestempelt</source>
-          <target state="new">Bereits ausgestempelt</target>
+          <target state="translated">Already checked out</target>
         </trans-unit>
         <trans-unit id="StampHelper.CheckIn" translate="yes" xml:space="preserve">
           <source>Einstempeln</source>
-          <target state="new">Einstempeln</target>
+          <target state="translated">Checkin</target>
         </trans-unit>
         <trans-unit id="StampHelper.CheckOut" translate="yes" xml:space="preserve">
           <source>Ausstempeln</source>
-          <target state="new">Ausstempeln</target>
+          <target state="translated">Checkout</target>
         </trans-unit>
         <trans-unit id="StampHelper.No" translate="yes" xml:space="preserve">
           <source>Nein</source>
-          <target state="new">Nein</target>
+          <target state="translated" state-qualifier="tm-suggestion">No</target>
+        </trans-unit>
+        <trans-unit id="Loading.RememberedLogin" translate="yes" xml:space="preserve">
+          <source>Anmeldung merken</source>
+          <target state="translated">Remember login</target>
+        </trans-unit>
+        <trans-unit id="Loading.SendFeedback" translate="yes" xml:space="preserve">
+          <source>Feedback senden</source>
+          <target state="translated" state-qualifier="tm-suggestion">Submit Feedback</target>
         </trans-unit>
       </group>
     </body>

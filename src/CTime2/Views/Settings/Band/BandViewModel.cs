@@ -45,10 +45,12 @@ namespace CTime2.Views.Settings.Band
                     ? CTime2Resources.Get("Loading.RemoveTileFromBand")
                     : CTime2Resources.Get("Loading.AddTileToBand"));
             this.ToggleTile.AttachExceptionHandler();
+            this.ToggleTile.TrackEvent("ToggleBandTile");
 
             this.Reload = ReactiveCommand.CreateAsyncTask(_ => this.ReloadImpl());
             this.Reload.AttachLoadingService(CTime2Resources.Get("Loading.Band"));
             this.Reload.AttachExceptionHandler();
+            this.Reload.TrackEvent("ReloadBandInfo");
 
             eventAggregator.SubscribeScreen(this);
         }

@@ -216,4 +216,31 @@ You just have to authentificate yourself.</value>
   <data name="Statistics.OverTimePool" xml:space="preserve">
     <value>Overtime (in minutes)</value>
   </data>
+  <data name="StampHelper.AlreadyCheckedInWannaCheckOutMessage" xml:space="preserve">
+    <value>You are already checked in. Do you want to check out?</value>
+  </data>
+  <data name="StampHelper.AlreadyCheckedInWannaCheckOutTitle" xml:space="preserve">
+    <value>Already checked in</value>
+  </data>
+  <data name="StampHelper.AlreadyCheckedOutWannaCheckInMessage" xml:space="preserve">
+    <value>You are already checked out. Do you want to check in?</value>
+  </data>
+  <data name="StampHelper.AlreadyCheckedOutWannaCheckInTitle" xml:space="preserve">
+    <value>Already checked out</value>
+  </data>
+  <data name="StampHelper.CheckIn" xml:space="preserve">
+    <value>Checkin</value>
+  </data>
+  <data name="StampHelper.CheckOut" xml:space="preserve">
+    <value>Checkout</value>
+  </data>
+  <data name="StampHelper.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Loading.RememberedLogin" xml:space="preserve">
+    <value>Remember login</value>
+  </data>
+  <data name="Loading.SendFeedback" xml:space="preserve">
+    <value>Submit Feedback</value>
+  </data>
 </root>

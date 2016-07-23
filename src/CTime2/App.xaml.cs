@@ -32,6 +32,7 @@ using CTime2.Views.Settings.Others;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
 using CTime2.VoiceCommandService;
+using Microsoft.HockeyApp;
 using UwCore.Application;
 using UwCore.Extensions;
 using UwCore.Hamburger;
@@ -112,7 +113,12 @@ namespace CTime2
             yield return typeof(SettingsViewModel);
             yield return typeof(OthersViewModel);
         }
-        
+
+        public override string GetHockeyAppId()
+        {
+            return "16f525b1f6c04b6b987253bd8801dc20";
+        }
+
         private async void ConfigureVoiceCommands()
         {
             try

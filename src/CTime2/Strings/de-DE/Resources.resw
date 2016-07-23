@@ -342,4 +342,10 @@ Dazu musst du dich dich einmal authentifizieren.</value>
   <data name="StampHelper.No" xml:space="preserve">
     <value>Nein</value>
   </data>
+  <data name="Loading.RememberedLogin" xml:space="preserve">
+    <value>Anmeldung merken</value>
+  </data>
+  <data name="Loading.SendFeedback" xml:space="preserve">
+    <value>Feedback senden</value>
+  </data>
 </root>

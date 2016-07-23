@@ -32,6 +32,8 @@ namespace CTime2.Views.Settings.Others
 
             this.RememberLogin = ReactiveCommand.CreateAsyncTask(canRememberLogin, _ => this.RememberLoginImpl());
             this.RememberLogin.AttachExceptionHandler();
+            this.RememberLogin.AttachLoadingService(CTime2Resources.Get("Loading.RememberedLogin"));
+            this.RememberLogin.TrackEvent("SetupRememberLogin");
 
             this.DisplayName = CTime2Resources.Get("Navigation.Others");
         }
