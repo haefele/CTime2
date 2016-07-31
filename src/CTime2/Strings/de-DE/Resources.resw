@@ -348,4 +348,11 @@ Dazu musst du dich dich einmal authentifizieren.</value>
   <data name="Loading.SendFeedback" xml:space="preserve">
     <value>Feedback senden</value>
   </data>
+  <data name="NoInternetConnection.Message" xml:space="preserve">
+    <value>Leider ist gerade keine Internetverbindung vorhanden. 
+Diese App wird eventuell nicht komplett funktionieren.</value>
+  </data>
+  <data name="NoInternetConnection.Title" xml:space="preserve">
+    <value>Keine Internetverbindung</value>
+  </data>
 </root>

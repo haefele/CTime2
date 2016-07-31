@@ -318,6 +318,16 @@ You just have to authentificate yourself.</target>
           <source>Feedback senden</source>
           <target state="translated" state-qualifier="tm-suggestion">Submit Feedback</target>
         </trans-unit>
+        <trans-unit id="NoInternetConnection.Message" translate="yes" xml:space="preserve">
+          <source>Leider ist gerade keine Internetverbindung vorhanden. 
+Diese App wird eventuell nicht komplett funktionieren.</source>
+          <target state="translated">Unfortunately there is no internet connection. 
+This app may not work completely.</target>
+        </trans-unit>
+        <trans-unit id="NoInternetConnection.Title" translate="yes" xml:space="preserve">
+          <source>Keine Internetverbindung</source>
+          <target state="translated">No internet connection</target>
+        </trans-unit>
       </group>
     </body>
   </file>

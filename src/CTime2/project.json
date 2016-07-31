@@ -1,8 +1,9 @@
 ﻿{
   "dependencies": {
+    "AdaptiveTriggerLibrary": "1.2.1",
     "Microsoft.Band": "1.3.20628",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "UwCore": "0.1.33",
+    "UwCore": "0.1.35",
     "WindowsStateTriggers": "1.1.0"
   },
   "frameworks": {

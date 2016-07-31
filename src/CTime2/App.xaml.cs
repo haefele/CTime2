@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
@@ -19,6 +17,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Licenses;
 using CTime2.Strings;
 using CTime2.Views.AttendanceList;
+using CTime2.Views.HeaderDetails;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
 using CTime2.Views.Overview.CheckedIn;
@@ -31,8 +30,6 @@ using CTime2.Views.Settings.Band;
 using CTime2.Views.Settings.Others;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
-using CTime2.VoiceCommandService;
-using Microsoft.HockeyApp;
 using UwCore.Application;
 using UwCore.Extensions;
 using UwCore.Hamburger;
@@ -59,6 +56,8 @@ namespace CTime2
 
         public override void CustomizeApplication(IApplication application)
         {
+            application.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
+
             application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }
 
@@ -112,6 +111,7 @@ namespace CTime2
             yield return typeof(BandViewModel);
             yield return typeof(SettingsViewModel);
             yield return typeof(OthersViewModel);
+            yield return typeof(HeaderDetailsViewModel);
         }
 
         public override string GetHockeyAppId()

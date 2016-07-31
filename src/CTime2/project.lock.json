@@ -3,6 +3,28 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "AdaptiveTriggerLibrary/1.2.1": {
+        "compile": {
+          "lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win10-arm/lib/uap10.0/AdaptiveTriggerLibrary.dll": {
+            "assetType": "runtime",
+            "rid": "win10-arm"
+          },
+          "runtimes/win10-x64/lib/uap10.0/AdaptiveTriggerLibrary.dll": {
+            "assetType": "runtime",
+            "rid": "win10-x64"
+          },
+          "runtimes/win10-x86/lib/uap10.0/AdaptiveTriggerLibrary.dll": {
+            "assetType": "runtime",
+            "rid": "win10-x86"
+          }
+        }
+      },
       "Caliburn.Micro/3.0.1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.1]",
@@ -1968,7 +1990,7 @@
           }
         }
       },
-      "UwCore/0.1.33": {
+      "UwCore/0.1.35": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -1995,6 +2017,14 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "AdaptiveTriggerLibrary/1.2.1": {
+        "compile": {
+          "runtimes/win10-arm/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtime": {
+          "runtimes/win10-arm/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        }
+      },
       "Caliburn.Micro/3.0.1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.1]",
@@ -3821,7 +3851,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.33": {
+      "UwCore/0.1.35": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -3848,6 +3878,14 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "AdaptiveTriggerLibrary/1.2.1": {
+        "compile": {
+          "runtimes/win10-arm/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtime": {
+          "runtimes/win10-arm/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        }
+      },
       "Caliburn.Micro/3.0.1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.1]",
@@ -5632,7 +5670,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.33": {
+      "UwCore/0.1.35": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -5659,6 +5697,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "AdaptiveTriggerLibrary/1.2.1": {
+        "compile": {
+          "runtimes/win10-x64/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtime": {
+          "runtimes/win10-x64/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        }
+      },
       "Caliburn.Micro/3.0.1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.1]",
@@ -7493,7 +7539,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.33": {
+      "UwCore/0.1.35": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -7520,6 +7566,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "AdaptiveTriggerLibrary/1.2.1": {
+        "compile": {
+          "runtimes/win10-x64/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtime": {
+          "runtimes/win10-x64/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        }
+      },
       "Caliburn.Micro/3.0.1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.1]",
@@ -9304,7 +9358,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.33": {
+      "UwCore/0.1.35": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -9331,6 +9385,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "AdaptiveTriggerLibrary/1.2.1": {
+        "compile": {
+          "runtimes/win10-x86/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtime": {
+          "runtimes/win10-x86/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        }
+      },
       "Caliburn.Micro/3.0.1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.1]",
@@ -11165,7 +11227,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.33": {
+      "UwCore/0.1.35": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -11192,6 +11254,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "AdaptiveTriggerLibrary/1.2.1": {
+        "compile": {
+          "runtimes/win10-x86/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        },
+        "runtime": {
+          "runtimes/win10-x86/lib/uap10.0/AdaptiveTriggerLibrary.dll": {}
+        }
+      },
       "Caliburn.Micro/3.0.1": {
         "dependencies": {
           "Caliburn.Micro.Core": "[3.0.1]",
@@ -12976,7 +13046,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.33": {
+      "UwCore/0.1.35": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -13004,6 +13074,20 @@
     }
   },
   "libraries": {
+    "AdaptiveTriggerLibrary/1.2.1": {
+      "sha512": "jCPKGKXRymW+l0351huEsm3Mb9Op6oh4X3UuizhKOOvlNaDUmqGHm8vybPy+pGNTQzEANtar6sZ5OUclA8QtCQ==",
+      "type": "package",
+      "path": "AdaptiveTriggerLibrary/1.2.1",
+      "files": [
+        "AdaptiveTriggerLibrary.1.2.1.nupkg.sha512",
+        "AdaptiveTriggerLibrary.nuspec",
+        "lib/uap10.0/AdaptiveTriggerLibrary.dll",
+        "lib/uap10.0/AdaptiveTriggerLibrary.xml",
+        "runtimes/win10-arm/lib/uap10.0/AdaptiveTriggerLibrary.dll",
+        "runtimes/win10-x64/lib/uap10.0/AdaptiveTriggerLibrary.dll",
+        "runtimes/win10-x86/lib/uap10.0/AdaptiveTriggerLibrary.dll"
+      ]
+    },
     "Caliburn.Micro/3.0.1": {
       "sha512": "6RaRnvbHnwm2kx9N+xyI6+qCLDJaAGsV1JgKlQ2QWApYNinpqO1GglwZdCWQ6eWj0var+XjbM8V7NYqB/C1elg==",
       "type": "package",
@@ -16907,12 +16991,12 @@
         "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.33": {
-      "sha512": "I02H2CXszTN2J1RyuyTvj06mIXytwUXQWRuitFBkNRC7VNIsVWFO6pg7z9Lygg+4TKKX62EstrZUak+BOVLe4Q==",
+    "UwCore/0.1.35": {
+      "sha512": "kKN1SnBQ2+bB+iJkoLCwPFeKxCWexD+i5W/WAv6TM+gbFVgHtDdntJ8zK2kh1H9C4FkjTSPVljMrWyOVMXfWHw==",
       "type": "package",
-      "path": "UwCore/0.1.33",
+      "path": "UwCore/0.1.35",
       "files": [
-        "UwCore.0.1.33.nupkg.sha512",
+        "UwCore.0.1.35.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pdb",
@@ -16925,6 +17009,7 @@
     "WindowsStateTriggers/1.1.0": {
       "sha512": "63CKlow5uM8/WnhqX8dGMabUZlg3CKKdkao++BuXffTXqPfUyoMfI8vcc9qKcH1TL9dDEj7jWLAqcwkdObhIqQ==",
       "type": "package",
+      "path": "WindowsStateTriggers/1.1.0",
       "files": [
         "WindowsStateTriggers.1.1.0.nupkg.sha512",
         "WindowsStateTriggers.nuspec",
@@ -16961,9 +17046,10 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "AdaptiveTriggerLibrary >= 1.2.1",
       "Microsoft.Band >= 1.3.20628",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.1.0",
-      "UwCore >= 0.1.33",
+      "UwCore >= 0.1.35",
       "WindowsStateTriggers >= 1.1.0"
     ],
     "UAP,Version=v10.0": []

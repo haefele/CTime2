@@ -243,4 +243,11 @@ You just have to authentificate yourself.</value>
   <data name="Loading.SendFeedback" xml:space="preserve">
     <value>Submit Feedback</value>
   </data>
+  <data name="NoInternetConnection.Message" xml:space="preserve">
+    <value>Unfortunately there is no internet connection. 
+This app may not work completely.</value>
+  </data>
+  <data name="NoInternetConnection.Title" xml:space="preserve">
+    <value>No internet connection</value>
+  </data>
 </root>
