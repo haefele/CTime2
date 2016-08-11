@@ -13,6 +13,7 @@ using CTime2.Views.AttendanceList;
 using CTime2.Views.Overview;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
+using Microsoft.HockeyApp;
 using UwCore.Application;
 using UwCore.Common;
 using UwCore.Extensions;
@@ -53,6 +54,9 @@ namespace CTime2.ApplicationModes
 
         public override void Enter()
         {
+            var currentUser = this._applicationStateService.GetCurrentUser();
+            HockeyClient.Current.UpdateContactInfo($"{currentUser.FirstName} {currentUser.Name}", currentUser.Email);
+
             this.Application.Actions.Add(this._overviewHamburgerItem);
             this.Application.Actions.Add(this._myTimesHamburgerItem);
             this.Application.Actions.Add(this._attendanceListHamburgerItem);
