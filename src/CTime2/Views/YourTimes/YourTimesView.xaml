@@ -40,7 +40,8 @@
                     </GroupStyle.HeaderContainerStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate x:DataType="local:TimesByDay">
-                            <Grid>
+                            <Grid Loaded="FrameworkElement_OnLoaded" 
+                                  DataContextChanged="FrameworkElement_OnDataContextChanged">
                                 <TextBlock Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, Mode=OneWay}" />
                                 <TextBlock Text="{x:Bind Hours, Mode=OneWay}" 
                                            HorizontalAlignment="Right"

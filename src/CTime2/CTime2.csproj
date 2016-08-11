@@ -103,6 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\SymbolEx.cs" />
+    <Compile Include="Common\VisualTreeHelperEx.cs" />
     <Compile Include="Controls\StampButton.cs" />
     <Compile Include="Controls\UserImage.cs" />
     <Compile Include="Converter\BooleanNegationConverter.cs" />
