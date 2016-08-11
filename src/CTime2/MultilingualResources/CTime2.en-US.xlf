@@ -328,6 +328,10 @@ This app may not work completely.</target>
           <source>Keine Internetverbindung</source>
           <target state="translated">No internet connection</target>
         </trans-unit>
+        <trans-unit id="Statistics.CalculatedLeaveTimeToday" translate="yes" xml:space="preserve">
+          <source>Heutiges Arbeitsende</source>
+          <target state="translated">Today's working end</target>
+        </trans-unit>
       </group>
     </body>
   </file>

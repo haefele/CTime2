@@ -112,6 +112,17 @@ namespace CTime2.Views.Statistics
             var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * TimeSpan.FromHours(8).TotalMinutes;
             var workTimePoolInMinutes = (int)(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
 
+            var timeToday = timesByDay.FirstOrDefault(f => f.Day.Date == DateTime.Today);
+            var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();
+            var workTimeTodayToUseUpOverTimePool = TimeSpan.FromHours(8)
+                - TimeSpan.FromMinutes(workTimePoolInMinutes)
+                - (timeToday?.Hours ?? TimeSpan.Zero)
+                + (latestTimeToday?.Duration ?? TimeSpan.Zero);
+            var hadBreakAlready = timeToday?.Times.Count >= 2;
+            var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
+                + (hadBreakAlready ? TimeSpan.Zero : TimeSpan.FromHours(1)) 
+                + workTimeTodayToUseUpOverTimePool;
+            
             return new ReactiveObservableCollection<StatisticItem>
             {
                 new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T")),
@@ -120,7 +131,8 @@ namespace CTime2.Views.Statistics
                 new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")),
                 new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()),
                 new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))),
-                new StatisticItem(CTime2Resources.Get("Statistics.OverTimePool"), workTimePoolInMinutes.ToString())
+                new StatisticItem(CTime2Resources.Get("Statistics.OverTimePool"), workTimePoolInMinutes.ToString()),
+                new StatisticItem(CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"), expectedWorkEnd.ToString("T")),
             };
         }
 

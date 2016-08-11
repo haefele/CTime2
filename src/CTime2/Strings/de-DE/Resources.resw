@@ -355,4 +355,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="NoInternetConnection.Title" xml:space="preserve">
     <value>Keine Internetverbindung</value>
   </data>
+  <data name="Statistics.CalculatedLeaveTimeToday" xml:space="preserve">
+    <value>Heutiges Arbeitsende</value>
+  </data>
 </root>
