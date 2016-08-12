@@ -20,6 +20,20 @@
         <converter:FormatStringConverter x:Key="DateTimeToDayNumberConverter" FormatString="ddd dd. MMMM" />
         
         <converter:FormatStringConverter x:Key="DateTimeToStringConverter" FormatString="t" PlaceholderString="?" />
+        <Style x:Key="DefaultListViewHeaderItemStyle" 
+               TargetType="ListViewHeaderItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style x:Key="SaturdayListViewHeaderItemStyle" 
+               TargetType="ListViewHeaderItem" 
+               BasedOn="{StaticResource DefaultListViewHeaderItemStyle}">
+            <Setter Property="Background" Value="{ThemeResource SystemListAccentLowColor}" />
+        </Style>
+        <Style x:Key="SundayListViewHeaderItemStyle" 
+               TargetType="ListViewHeaderItem"  
+               BasedOn="{StaticResource DefaultListViewHeaderItemStyle}">
+            <Setter Property="Background" Value="{ThemeResource SystemListAccentMediumColor }" />
+        </Style>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -32,12 +46,8 @@
                   SelectionMode="None"
                   Grid.Row="0">
             <ListView.GroupStyle>
-                <GroupStyle HidesIfEmpty="True">
-                    <GroupStyle.HeaderContainerStyle>
-                        <Style TargetType="ListViewHeaderItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </GroupStyle.HeaderContainerStyle>
+                <GroupStyle HidesIfEmpty="True"
+                            HeaderContainerStyle="{StaticResource DefaultListViewHeaderItemStyle}">
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate x:DataType="local:TimesByDay">
                             <Grid Loaded="FrameworkElement_OnLoaded" 

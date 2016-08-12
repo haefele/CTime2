@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -36,15 +37,15 @@ namespace CTime2.Views.YourTimes
 
             if (viewModel.Day.DayOfWeek == DayOfWeek.Saturday)
             {
-                headerItem.Background = (Brush)Application.Current.Resources["CTimeLightGray"];
+                headerItem.Style = (Style)this.Resources["SaturdayListViewHeaderItemStyle"];
             }
             else if (viewModel.Day.DayOfWeek == DayOfWeek.Sunday)
             {
-                headerItem.Background = (Brush)Application.Current.Resources["CTimeDarkGray"];
+                headerItem.Style = (Style)this.Resources["SundayListViewHeaderItemStyle"];
             }
             else
             {
-                headerItem.ClearValue(BackgroundProperty);
+                headerItem.Style = (Style)this.Resources["DefaultListViewHeaderItemStyle"];
             }
         }
     }
