@@ -21,33 +21,45 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView ItemsSource="{Binding Source={StaticResource GroupedAttendingUsers}}"
+        <GridView ItemsSource="{Binding Source={StaticResource GroupedAttendingUsers}}"
                   SelectionMode="None">
-            <ListView.GroupStyle>
+            <GridView.GroupStyle>
                 <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate x:DataType="local:AttendingUserByIsAttending">
                             <TextBlock Text="{x:Bind IsAttending, Converter={StaticResource BooleanToAttendingStringConverter}}" />
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid HorizontalAlignment="Center" 
+                                           Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
                 </GroupStyle>
-            </ListView.GroupStyle>
-            <ListView.ItemTemplate>
+            </GridView.GroupStyle>
+            <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:AttendingUser">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" 
+                                Width="140" 
+                                Height="90">
                         <controls:UserImage Image="{x:Bind ImageAsPng, Mode=OneWay}"
                                             BorderBrush="{x:Bind IsAttending, Converter={StaticResource BooleanToAttendingBrushConverter}}"
-                                            Width="32"
-                                            Height="32" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Margin="5, 0, 0, 0">
-                            <Run Text="{x:Bind FirstName, Mode=OneWay}" />
-                            <Run />
-                            <Run Text="{x:Bind Name, Mode=OneWay}" />
-                        </TextBlock>
+                                            Margin="0, 3, 0, 0"
+                                            Width="64"
+                                            Height="64" />
+                        <Viewbox HorizontalAlignment="Stretch"
+                                 StretchDirection="DownOnly">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Margin="0, 2, 0, 0">
+                                <Run Text="{x:Bind FirstName, Mode=OneWay}" />
+                                <Run />
+                                <Run Text="{x:Bind Name, Mode=OneWay}" />
+                            </TextBlock>
+                        </Viewbox>
                     </StackPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>            
-        </ListView>
+            </GridView.ItemTemplate>            
+        </GridView>
     </Grid>
 </Page>
