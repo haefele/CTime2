@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     
     <Page.Resources>
-        <ControlTemplate x:Key="CustomChartControlTemplate" TargetType="charting:Chart">
+        <ControlTemplate x:Key="NoLegendChartControlTemplate" TargetType="charting:Chart">
             <Border Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
@@ -49,30 +49,43 @@
                 </Grid>
             </Border>
         </ControlTemplate>
+
+        <Style x:Key="ThickAccentColorPolylineStyle" TargetType="Polyline">
+            <Setter Property="StrokeThickness" Value="5" />
+            <Setter Property="Stroke" Value="{StaticResource SystemAccentColor}" />
+        </Style>
+
+        <Style x:Key="AccentColorLineDataPointStyle" TargetType="charting:LineDataPoint">
+            <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="Width" Value="10" />
+            <Setter Property="Height" Value="10" />
+        </Style>
+
+        <Style x:Key="SmallAxisLabelStyle" TargetType="charting:AxisLabel">
+            <Setter Property="FontSize" Value="10" />
+        </Style>
+
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <charting:Chart x:Name="LineChart"
                         Title="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
-                        Template="{StaticResource CustomChartControlTemplate}">
+                        Template="{StaticResource NoLegendChartControlTemplate}">
             <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
                                  IndependentValueBinding="{Binding Date}"
-                                 DependentValueBinding="{Binding Value}">
-                <charting:LineSeries.PolylineStyle>
-                    <Style TargetType="Polyline">
-                        <Setter Property="StrokeThickness" Value="5" />
-                        <Setter Property="Stroke" Value="{ThemeResource SystemAccentColor}" />
-                    </Style>
-                </charting:LineSeries.PolylineStyle>
-                <charting:LineSeries.DataPointStyle>
-                    <Style TargetType="charting:LineDataPoint">
-                        <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
-                        <Setter Property="BorderBrush" Value="White" />
-                        <Setter Property="BorderThickness" Value="3" />
-                        <Setter Property="Width" Value="10" />
-                        <Setter Property="Height" Value="10" />
-                    </Style>
-                </charting:LineSeries.DataPointStyle>
+                                 DependentValueBinding="{Binding Value}"
+                                 PolylineStyle="{StaticResource ThickAccentColorPolylineStyle}"
+                                 DataPointStyle="{StaticResource AccentColorLineDataPointStyle}">
+                <charting:LineSeries.IndependentAxis>
+                    <charting:DateTimeAxis Orientation="X" 
+                                           Location="Bottom" 
+                                           MajorTickMarkStyle="{x:Null}"
+                                           MinorTickMarkStyle="{x:Null}"
+                                           AxisLabelStyle="{StaticResource SmallAxisLabelStyle}"
+                                           x:Name="DateTimeAxis" />
+                </charting:LineSeries.IndependentAxis>
                 <charting:LineSeries.DependentRangeAxis>
                     <charting:LinearAxis Orientation="Y" 
                                          Location="Right" 
@@ -86,22 +99,9 @@
                                 <Setter Property="Stroke" Value="LightGray" />
                                 <Setter Property="StrokeThickness" Value="1" />
                             </Style>
-                        </charting:LinearAxis.GridLineStyle>    
+                        </charting:LinearAxis.GridLineStyle>
                     </charting:LinearAxis>
                 </charting:LineSeries.DependentRangeAxis>
-                <charting:LineSeries.IndependentAxis>
-                    <charting:DateTimeAxis Orientation="X" 
-                                           Location="Bottom" 
-                                           MajorTickMarkStyle="{x:Null}"
-                                           MinorTickMarkStyle="{x:Null}"
-                                           x:Name="DateTimeAxis">
-                        <charting:DateTimeAxis.AxisLabelStyle>
-                            <Style TargetType="charting:AxisLabel">
-                                <Setter Property="FontSize" Value="10" />
-                            </Style>
-                        </charting:DateTimeAxis.AxisLabelStyle>
-                    </charting:DateTimeAxis>
-                </charting:LineSeries.IndependentAxis>
             </charting:LineSeries>
         </charting:Chart>
     </Grid>
