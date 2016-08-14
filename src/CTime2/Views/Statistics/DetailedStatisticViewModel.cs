@@ -80,7 +80,29 @@ namespace CTime2.Views.Statistics
                 .OrderBy(f => f.Day)
                 .ToList();
             
-            return new ReactiveObservableCollection<StatisticChartItem>(this.GetChartItems(timesByDay));
+            var result = new ReactiveObservableCollection<StatisticChartItem>(this.GetChartItems(timesByDay));
+
+            this.EnsureAllDatesAreThere(result);
+
+            return result;
+        }
+        
+        private void EnsureAllDatesAreThere(ReactiveObservableCollection<StatisticChartItem> result)
+        {
+            var endDate = new DateTimeOffset(result.Max(f => f.Date));
+
+            for (var date = this.StartDate; date <= endDate; date = date.AddDays(1))
+            {
+                var dateIsMissing = result.Any(f => f.Date == date) == false;
+                if (dateIsMissing)
+                {
+                    result.Add(new StatisticChartItem
+                    {
+                        Date = date.Date,
+                        Value = 0
+                    });
+                }
+            }
         }
 
         private IEnumerable<StatisticChartItem> GetChartItems(IList<TimesByDay> times)
