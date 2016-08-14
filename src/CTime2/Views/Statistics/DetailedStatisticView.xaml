@@ -70,40 +70,44 @@
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <charting:Chart x:Name="LineChart"
-                        Title="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
-                        Template="{StaticResource NoLegendChartControlTemplate}">
-            <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
-                                 IndependentValueBinding="{Binding Date}"
-                                 DependentValueBinding="{Binding Value}"
-                                 PolylineStyle="{StaticResource ThickAccentColorPolylineStyle}"
-                                 DataPointStyle="{StaticResource AccentColorLineDataPointStyle}">
-                <charting:LineSeries.IndependentAxis>
-                    <charting:DateTimeAxis Orientation="X" 
-                                           Location="Bottom" 
-                                           MajorTickMarkStyle="{x:Null}"
-                                           MinorTickMarkStyle="{x:Null}"
-                                           AxisLabelStyle="{StaticResource SmallAxisLabelStyle}"
-                                           x:Name="DateTimeAxis" />
-                </charting:LineSeries.IndependentAxis>
-                <charting:LineSeries.DependentRangeAxis>
-                    <charting:LinearAxis Orientation="Y" 
-                                         Location="Right" 
-                                         Title="Stunden"
-                                         ShowGridLines="True" 
-                                         MajorTickMarkStyle="{x:Null}"
-                                         MinorTickMarkStyle="{x:Null}"
-                                         x:Name="ValueAxis">
-                        <charting:LinearAxis.GridLineStyle>
-                            <Style TargetType="Line">
-                                <Setter Property="Stroke" Value="LightGray" />
-                                <Setter Property="StrokeThickness" Value="1" />
-                            </Style>
-                        </charting:LinearAxis.GridLineStyle>
-                    </charting:LinearAxis>
-                </charting:LineSeries.DependentRangeAxis>
-            </charting:LineSeries>
-        </charting:Chart>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Hidden">
+            <charting:Chart x:Name="LineChart"
+                            MinWidth="600"
+                            Title="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+                            Template="{StaticResource NoLegendChartControlTemplate}">
+                <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
+                                     IndependentValueBinding="{Binding Date}"
+                                     DependentValueBinding="{Binding Value}"
+                                     PolylineStyle="{StaticResource ThickAccentColorPolylineStyle}"
+                                     DataPointStyle="{StaticResource AccentColorLineDataPointStyle}">
+                    <charting:LineSeries.IndependentAxis>
+                        <charting:DateTimeAxis Orientation="X" 
+                                               Location="Bottom" 
+                                               MajorTickMarkStyle="{x:Null}"
+                                               MinorTickMarkStyle="{x:Null}"
+                                               AxisLabelStyle="{StaticResource SmallAxisLabelStyle}"
+                                               x:Name="DateTimeAxis" />
+                    </charting:LineSeries.IndependentAxis>
+                    <charting:LineSeries.DependentRangeAxis>
+                        <charting:LinearAxis Orientation="Y" 
+                                             Location="Right" 
+                                             Title="Stunden"
+                                             ShowGridLines="True" 
+                                             MajorTickMarkStyle="{x:Null}"
+                                             MinorTickMarkStyle="{x:Null}"
+                                             x:Name="ValueAxis">
+                            <charting:LinearAxis.GridLineStyle>
+                                <Style TargetType="Line">
+                                    <Setter Property="Stroke" Value="LightGray" />
+                                    <Setter Property="StrokeThickness" Value="1" />
+                                </Style>
+                            </charting:LinearAxis.GridLineStyle>
+                        </charting:LinearAxis>
+                    </charting:LineSeries.DependentRangeAxis>
+                </charting:LineSeries>
+            </charting:Chart>
+        </ScrollViewer>
     </Grid>
 </Page>
  
