@@ -14,15 +14,19 @@ using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Statistics
 {
-    public class ChartItem
+    public class StatisticChartItem
     {
         public DateTime Date { get; set; }
         public double Value { get; set; }
     }
 
-    public enum ChartKind
+    public enum StatisticChartKind
     {
-        WorkTime
+        WorkTime,
+        BreakTime,
+        EnterTime,
+        LeaveTime,
+        OverTime,
     }
 
     public class DetailedStatisticViewModel : ReactiveScreen
@@ -31,21 +35,21 @@ namespace CTime2.Views.Statistics
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
 
-        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<ChartItem>> _chartItemsHelper;
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticChartItem>> _chartItemsHelper;
         #endregion
 
         #region Properties
-        public ReactiveObservableCollection<ChartItem> ChartItems => this._chartItemsHelper.Value;
+        public ReactiveObservableCollection<StatisticChartItem> ChartItems => this._chartItemsHelper.Value;
         #endregion
 
         #region Commands
-        public ReactiveCommand<ReactiveObservableCollection<ChartItem>> LoadChart { get; }
+        public ReactiveCommand<ReactiveObservableCollection<StatisticChartItem>> LoadChart { get; }
         #endregion
 
         #region Parameters
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset EndDate { get; set; }
-        public ChartKind Chart { get; set; }
+        public StatisticChartKind StatisticChart { get; set; }
         #endregion
 
         public DetailedStatisticViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
@@ -64,11 +68,10 @@ namespace CTime2.Views.Statistics
 
         protected override async void OnActivate()
         {
-            this.DisplayName = this.GetDisplayName();
             await this.LoadChart.ExecuteAsyncTask();
         }
 
-        private async Task<ReactiveObservableCollection<ChartItem>> LoadChartImpl()
+        private async Task<ReactiveObservableCollection<StatisticChartItem>> LoadChartImpl()
         {
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
@@ -77,19 +80,47 @@ namespace CTime2.Views.Statistics
                 .OrderBy(f => f.Day)
                 .ToList();
             
-            return new ReactiveObservableCollection<ChartItem>(timesByDay.Select(f => new ChartItem
-            {
-                Date = f.Day,
-                Value = f.Hours.TotalHours
-            }));
+            return new ReactiveObservableCollection<StatisticChartItem>(this.GetChartItems(timesByDay));
         }
 
-        private string GetDisplayName()
+        private IEnumerable<StatisticChartItem> GetChartItems(IList<TimesByDay> times)
         {
-            switch (this.Chart)
+            switch (this.StatisticChart)
             {
-                case ChartKind.WorkTime:
-                    return "Arbeitsdauer";
+                case StatisticChartKind.WorkTime:
+                    return times
+                        .Select(f => new StatisticChartItem
+                        {
+                            Date = f.Day,
+                            Value = f.Hours.TotalHours
+                        });
+
+                case StatisticChartKind.BreakTime:
+                    return times
+                        .Where(f => f.DayStartTime != null && f.DayEndTime != null)
+                        .Select(f => new StatisticChartItem
+                        {
+                            Date = f.Day,
+                            Value = f.DayEndTime.Value.TotalMinutes - f.DayStartTime.Value.TotalMinutes - f.Hours.TotalMinutes
+                        });
+
+                case StatisticChartKind.EnterTime:
+                    return times
+                        .Select(f => new StatisticChartItem
+                        {
+                            Date = f.Day,
+                            Value = f.DayStartTime?.TotalHours ?? 0
+                        });
+
+                case StatisticChartKind.LeaveTime:
+                    return times
+                        .Select(f => new StatisticChartItem
+                        {
+                            Date = f.Day,
+                            Value = f.DayEndTime?.TotalHours ?? 0
+                        });
+
+                case StatisticChartKind.OverTime:
                 default:
                     throw new ArgumentOutOfRangeException();
             }

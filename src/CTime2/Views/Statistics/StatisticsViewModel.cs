@@ -130,24 +130,52 @@ namespace CTime2.Views.Statistics
             
             return new ReactiveObservableCollection<StatisticItem>
             {
-                new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T"), this.ShowDetailsForAverageWorkTime),
-                new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.TrimMilliseconds().ToString("T")),
-                new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToDateTime().ToString("T")),
-                new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")),
-                new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkDays"), totalWorkDays.ToString()),
-                new StatisticItem(CTime2Resources.Get("Statistics.TotalWorkTime"), totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))),
-                new StatisticItem(CTime2Resources.Get("Statistics.OverTimePool"), workTimePoolInMinutes.ToString()),
-                new StatisticItem(CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"), expectedWorkEnd.ToString("T")),
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.AverageWorkTime"), 
+                    averageWorkTime.TrimMilliseconds().ToString("T"), 
+                    () => this.ShowDetails(StatisticChartKind.WorkTime)),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.AverageBreakTime"), 
+                    averageBreakTime.TrimMilliseconds().ToString("T"),
+                    () => this.ShowDetails(StatisticChartKind.BreakTime)),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.AverageEnterTime"), 
+                    averageEnterTime.ToDateTime().ToString("T"),
+                    () => this.ShowDetails(StatisticChartKind.EnterTime)),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.AverageLeaveTime"), 
+                    averageLeaveTime.ToDateTime().ToString("T"),
+                    () => this.ShowDetails(StatisticChartKind.LeaveTime)),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.TotalWorkDays"), 
+                    totalWorkDays.ToString()),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.TotalWorkTime"), 
+                    totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.OverTimePool"), 
+                    workTimePoolInMinutes.ToString(),
+                    () => this.ShowDetails(StatisticChartKind.OverTime)),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"), 
+                    expectedWorkEnd.ToString("T")),
             };
         }
 
-        private void ShowDetailsForAverageWorkTime()
+        private void ShowDetails(StatisticChartKind chartKind)
         {
             this._navigationService.Popup
                 .For<DetailedStatisticViewModel>()
                 .WithParam(f => f.StartDate, this.StartDate)
                 .WithParam(f => f.EndDate, this.EndDate)
-                .WithParam(f => f.Chart, ChartKind.WorkTime)
+                .WithParam(f => f.StatisticChart, chartKind)
                 .Navigate();
         }
         #endregion
