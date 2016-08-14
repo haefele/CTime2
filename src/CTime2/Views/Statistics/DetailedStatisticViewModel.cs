@@ -90,6 +90,10 @@ namespace CTime2.Views.Statistics
         private void EnsureAllDatesAreThere(ReactiveObservableCollection<StatisticChartItem> result)
         {
             var endDate = new DateTimeOffset(result.Max(f => f.Date));
+            if (this.EndDate >= DateTimeOffset.Now)
+            {
+                endDate = DateTimeOffset.Now;
+            }
 
             for (var date = this.StartDate; date <= endDate; date = date.AddDays(1))
             {
