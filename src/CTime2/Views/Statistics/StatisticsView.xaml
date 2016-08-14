@@ -20,6 +20,8 @@
 
         <ListView Grid.Row="0" 
                   ItemsSource="{x:Bind ViewModel.Statistics, Mode=OneWay}"
+                  ItemClick="ListViewBase_OnItemClick"
+                  IsItemClickEnabled="True"
                   SelectionMode="None"
                   Margin="20">
             <ListView.ItemContainerStyle>

@@ -37,5 +37,11 @@ namespace CTime2.Views.Statistics
 
             await this.ViewModel.LoadStatistics.ExecuteAsyncTask();
         }
+
+        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var statisticItem = (StatisticItem) e.ClickedItem;
+            statisticItem.ShowDetails?.Invoke();
+        }
     }
 }

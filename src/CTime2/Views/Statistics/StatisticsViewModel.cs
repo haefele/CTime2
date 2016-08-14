@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
@@ -14,6 +15,7 @@ using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using UwCore.Services.ExceptionHandler;
 using UwCore.Services.Loading;
+using INavigationService = UwCore.Services.Navigation.INavigationService;
 
 namespace CTime2.Views.Statistics
 {
@@ -23,7 +25,8 @@ namespace CTime2.Views.Statistics
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IDialogService _dialogService;
-
+        private readonly INavigationService _navigationService;
+        
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
 
@@ -50,15 +53,17 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService)
+        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(dialogService, nameof(dialogService));
+            Guard.NotNull(navigationService, nameof(navigationService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._dialogService = dialogService;
+            this._navigationService = navigationService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Statistics");
 
@@ -84,9 +89,9 @@ namespace CTime2.Views.Statistics
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var timesByDay = TimesByDay.Create(times)
-                .Where(this.IsTimeByDayForStatistic)
+                .Where(TimesByDay.IsForStatistic)
                 .ToList();
-
+            
             if (times.Count == 0 || timesByDay.Count == 0 || timesByDay.Count(f => f.Hours != TimeSpan.Zero) == 0)
             {
                 await this._dialogService.ShowAsync(CTime2Resources.Get("Statistics.NoTimesBetweenStartAndEndDate"));
@@ -125,7 +130,7 @@ namespace CTime2.Views.Statistics
             
             return new ReactiveObservableCollection<StatisticItem>
             {
-                new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T")),
+                new StatisticItem(CTime2Resources.Get("Statistics.AverageWorkTime"), averageWorkTime.TrimMilliseconds().ToString("T"), this.ShowDetailsForAverageWorkTime),
                 new StatisticItem(CTime2Resources.Get("Statistics.AverageBreakTime"), averageBreakTime.TrimMilliseconds().ToString("T")),
                 new StatisticItem(CTime2Resources.Get("Statistics.AverageEnterTime"), averageEnterTime.ToDateTime().ToString("T")),
                 new StatisticItem(CTime2Resources.Get("Statistics.AverageLeaveTime"), averageLeaveTime.ToDateTime().ToString("T")),
@@ -136,15 +141,14 @@ namespace CTime2.Views.Statistics
             };
         }
 
-        private bool IsTimeByDayForStatistic(TimesByDay timesByDay)
+        private void ShowDetailsForAverageWorkTime()
         {
-            if (timesByDay.Day != DateTime.Today)
-                return true;
-
-            if (timesByDay.Times.Count(f => f.ClockOutTime.HasValue) >= 2)
-                return true;
-
-            return false;
+            this._navigationService.Popup
+                .For<DetailedStatisticViewModel>()
+                .WithParam(f => f.StartDate, this.StartDate)
+                .WithParam(f => f.EndDate, this.EndDate)
+                .WithParam(f => f.Chart, ChartKind.WorkTime)
+                .Navigate();
         }
         #endregion
     }
