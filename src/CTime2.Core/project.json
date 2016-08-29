@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
     "Microsoft.Band": "1.3.20628",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "UwCore": "0.1.35"
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "UwCore": "0.1.36"
   },
   "frameworks": {
     "uap10.0": {}
