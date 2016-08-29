@@ -38,13 +38,11 @@
                         <primitives:EdgePanel x:Name="ChartArea"
                                               Grid.Column="0"
                                               Style="{TemplateBinding ChartAreaStyle}">
-                            <Grid x:Name="PlotArea" 
-                                  Canvas.ZIndex="-1"
+                            <Grid Canvas.ZIndex="-1"
                                   Style="{TemplateBinding PlotAreaStyle}" />
                             <Border Canvas.ZIndex="10"
                                     BorderBrush="#FFFFFF"
                                     BorderThickness="0" />
-                            <Canvas x:Name="CustomLineCanvas" Background="Transparent" />
                         </primitives:EdgePanel>
                         
                     </Grid>
@@ -74,16 +72,6 @@
             <Setter Property="StrokeThickness" Value="1" />
         </Style>
 
-        <Style x:Key="SaturdayLineStyle" TargetType="Line">
-            <Setter Property="StrokeThickness" Value="1" />
-            <Setter Property="Stroke" Value="{ThemeResource SystemListAccentLowColor}" />
-        </Style>
-
-        <Style x:Key="SundayLineStyle" TargetType="Line">
-            <Setter Property="StrokeThickness" Value="1" />
-            <Setter Property="Stroke" Value="{ThemeResource SystemListAccentMediumColor}" />
-        </Style>
-
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -91,11 +79,9 @@
                       VerticalScrollBarVisibility="Hidden">
             <charting:Chart x:Name="LineChart"
                             MinWidth="600"
-                            LayoutUpdated="LineChart_OnLayoutUpdated"
                             Title="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
                             Template="{StaticResource NoLegendChartControlTemplate}">
-                <charting:LineSeries x:Name="LineSeries" 
-                                     ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
+                <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
                                      IndependentValueBinding="{Binding Date}"
                                      DependentValueBinding="{Binding Value}"
                                      PolylineStyle="{StaticResource ThickAccentColorPolylineStyle}"

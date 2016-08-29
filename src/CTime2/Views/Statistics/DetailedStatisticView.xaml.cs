@@ -23,50 +23,5 @@ namespace CTime2.Views.Statistics
             
             this.DateTimeAxis.IntervalType = DateTimeIntervalType.Weeks;
         }
-
-        private bool _addedLines = false;
-        private void LineChart_OnLayoutUpdated(object sender, object e)
-        {
-            var canvas = this.LineChart.GetDescendantsOfType<Canvas>().FirstOrDefault(f => f.Name == "CustomLineCanvas");
-            var plotArea = this.LineChart.GetDescendantsOfType<Grid>().FirstOrDefault(f => f.Name == "PlotArea");
-
-            if (canvas == null || plotArea == null)
-                return;
-
-            if (this.LineSeries.ItemsSource == null)
-                return;
-
-            if (this._addedLines)
-                return;
-
-            int index = 0;
-            foreach (StatisticChartItem item in this.LineSeries.ItemsSource)
-            {
-                if (item.Date.DayOfWeek == DayOfWeek.Saturday ||
-                    item.Date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    var point = this.LineSeries.Points[index];
-
-                    var styleName = item.Date.DayOfWeek == DayOfWeek.Saturday
-                        ? "SaturdayLineStyle"
-                        : "SundayLineStyle";
-
-                    var line = new Line
-                    {
-                        Style = (Style) this.Resources[styleName],
-                        X1 = point.X,
-                        X2 = point.X,
-                        Y1 = -10.0,
-                        Y2 = plotArea.ActualHeight
-                    };
-
-                    canvas.Children.Add(line);
-                }
-
-                index++;
-            }
-
-            this._addedLines = true;
-        }
     }
 }
