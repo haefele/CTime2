@@ -82,6 +82,8 @@
                             Title="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
                             Template="{StaticResource NoLegendChartControlTemplate}">
                 <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
+                                     SelectionChanged="DataPointSeries_OnSelectionChanged"
+                                     IsSelectionEnabled="True"
                                      IndependentValueBinding="{Binding Date}"
                                      DependentValueBinding="{Binding Value}"
                                      PolylineStyle="{StaticResource ThickAccentColorPolylineStyle}"
