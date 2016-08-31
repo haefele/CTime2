@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d">
-    
+
     <Page.Resources>
         <ControlTemplate x:Key="NoLegendChartControlTemplate" TargetType="charting:Chart">
             <Border Background="{TemplateBinding Background}"
@@ -34,7 +34,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <primitives:EdgePanel x:Name="ChartArea"
                                               Grid.Column="0"
                                               Style="{TemplateBinding ChartAreaStyle}">
@@ -44,7 +44,7 @@
                                     BorderBrush="#FFFFFF"
                                     BorderThickness="0" />
                         </primitives:EdgePanel>
-                        
+
                     </Grid>
                 </Grid>
             </Border>
@@ -61,6 +61,74 @@
             <Setter Property="BorderThickness" Value="3" />
             <Setter Property="Width" Value="10" />
             <Setter Property="Height" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="charting:LineDataPoint">
+                        <Grid x:Name="Root" Opacity="0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.1" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                           Duration="00:00:00.0010000"
+                                                                           Storyboard.TargetName="MouseOverHighlight"
+                                                                           Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00"
+                                                                      Value="0.24" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                        </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="RevealStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.001" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Shown">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0"
+                                                             Storyboard.TargetName="Root"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Hidden">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0"
+                                                             Storyboard.TargetName="Root"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            
+                            <Ellipse Stroke="{TemplateBinding BorderBrush}"
+                                     Fill="{TemplateBinding Background}" />
+                            
+                            <Ellipse x:Name="MouseOverHighlight"
+                                     Opacity="0"
+                                     Fill="White" />
+
+                            <Grid Margin="-15, -20, -15, 0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Padding="2"
+                                  Background="#D8FFFFFF">
+                                <ContentControl Content="{TemplateBinding FormattedDependentValue}"
+                                                FontSize="12"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Top"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalContentAlignment="Top" />
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="SmallAxisLabelStyle" TargetType="charting:AxisLabel">
@@ -71,10 +139,14 @@
             <Setter Property="Stroke" Value="LightGray" />
             <Setter Property="StrokeThickness" Value="1" />
         </Style>
+        <ControlTemplate x:Key="LineDataPointControlTemplate1" TargetType="charting:LineDataPoint"/>
 
     </Page.Resources>
-    
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <charting:LineDataPoint Template="{StaticResource LineDataPointControlTemplate1}" />
+
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Hidden">
             <charting:Chart x:Name="LineChart"
@@ -112,4 +184,3 @@
         </ScrollViewer>
     </Grid>
 </Page>
- 
