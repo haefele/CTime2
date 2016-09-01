@@ -22,6 +22,9 @@ namespace CTime2.Views.Statistics.DetailedStatistic
 
         string ICustomDataPointFormat.Format(double value)
         {
+            if (value == 0)
+                return "-";
+
             var date = DateTime.Today.Add(TimeSpan.FromHours(value));
             return date.ToString("t");
         }

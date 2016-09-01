@@ -332,6 +332,46 @@ This app may not work completely.</target>
           <source>Heutiges Arbeitsende</source>
           <target state="translated">Today's working end</target>
         </trans-unit>
+        <trans-unit id="Loading.LoadCharts" translate="yes" xml:space="preserve">
+          <source>Lade Diagram...</source>
+          <target state="translated" state-qualifier="mt-suggestion">Loading diagram...</target>
+        </trans-unit>
+        <trans-unit id="BreakTimeChart.Title" translate="yes" xml:space="preserve">
+          <source>Pause</source>
+          <target state="translated">break</target>
+        </trans-unit>
+        <trans-unit id="BreakTimeValueAxis.Title" translate="yes" xml:space="preserve">
+          <source>Minuten</source>
+          <target state="translated" state-qualifier="tm-suggestion">minutes</target>
+        </trans-unit>
+        <trans-unit id="EnterAndLeaveTimeChart.Title" translate="yes" xml:space="preserve">
+          <source>Arbeitsbeginn und Arbeitsende</source>
+          <target state="translated">beginning and end of work</target>
+        </trans-unit>
+        <trans-unit id="EnterAndLeaveTimeValueAxis.Title" translate="yes" xml:space="preserve">
+          <source>Uhrzeit</source>
+          <target state="translated">time</target>
+        </trans-unit>
+        <trans-unit id="OverTimeChart.Title" translate="yes" xml:space="preserve">
+          <source>Überstunden</source>
+          <target state="translated">overtime</target>
+        </trans-unit>
+        <trans-unit id="OverTimeValueAxis.Title" translate="yes" xml:space="preserve">
+          <source>Minuten</source>
+          <target state="translated">minutes</target>
+        </trans-unit>
+        <trans-unit id="Statistics.WorkTimeDataPointFormat" translate="yes" xml:space="preserve">
+          <source>{0} h {1} min</source>
+          <target state="translated" state-qualifier="tm-suggestion">{0} h {1} min</target>
+        </trans-unit>
+        <trans-unit id="WorkTimeChart.Title" translate="yes" xml:space="preserve">
+          <source>Arbeitszeit</source>
+          <target state="translated">working time</target>
+        </trans-unit>
+        <trans-unit id="WorkTimeValueAxis.Title" translate="yes" xml:space="preserve">
+          <source>Stunden</source>
+          <target state="translated">ours</target>
+        </trans-unit>
       </group>
     </body>
   </file>

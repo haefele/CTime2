@@ -253,4 +253,34 @@ This app may not work completely.</value>
   <data name="Statistics.CalculatedLeaveTimeToday" xml:space="preserve">
     <value>Today's working end</value>
   </data>
+  <data name="Loading.LoadCharts" xml:space="preserve">
+    <value>Loading diagram...</value>
+  </data>
+  <data name="BreakTimeChart.Title" xml:space="preserve">
+    <value>break</value>
+  </data>
+  <data name="BreakTimeValueAxis.Title" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="EnterAndLeaveTimeChart.Title" xml:space="preserve">
+    <value>beginning and end of work</value>
+  </data>
+  <data name="EnterAndLeaveTimeValueAxis.Title" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="OverTimeChart.Title" xml:space="preserve">
+    <value>overtime</value>
+  </data>
+  <data name="OverTimeValueAxis.Title" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
+    <value>{0} h {1} min</value>
+  </data>
+  <data name="WorkTimeChart.Title" xml:space="preserve">
+    <value>working time</value>
+  </data>
+  <data name="WorkTimeValueAxis.Title" xml:space="preserve">
+    <value>ours</value>
+  </data>
 </root>

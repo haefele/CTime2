@@ -11,20 +11,21 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Hidden">
-            <charting:Chart Title="Arbeitsbeginn und Arbeitsende"
+            <charting:Chart x:Uid="EnterAndLeaveTimeChart"
+                            Title="~Arbeitsbeginn und Arbeitsende"
                             Style="{StaticResource NoLegendChartStyle}">
                 <charting:Chart.Axes>
                     <charting:DateTimeAxis Style="{StaticResource BottomDateTimeAxisStyle}" />
-                    <charting:LinearAxis Style="{StaticResource RightLinearAxisStyle}" Title="Uhrzeit" x:Name="ValueAxis" />
+                    <charting:LinearAxis Style="{StaticResource RightLinearAxisStyle}" x:Uid="EnterAndLeaveTimeValueAxis" Title="~Uhrzeit" x:Name="ValueAxis" />
                 </charting:Chart.Axes>
 
-                <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[0], Mode=OneWay}"
+                <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[1], Mode=OneWay}"
                                      SelectionChanged="DataPointSeries_OnSelectionChanged"
                                      Style="{StaticResource AccentColorLineSeriesStyle}"
                                      IndependentValueBinding="{Binding Date}"
                                      DependentValueBinding="{Binding Value}" />
 
-                <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[1], Mode=OneWay}"
+                <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[0], Mode=OneWay}"
                                      SelectionChanged="DataPointSeries_OnSelectionChanged"
                                      Style="{StaticResource AccentColorLineSeriesStyle}"
                                      IndependentValueBinding="{Binding Date}"

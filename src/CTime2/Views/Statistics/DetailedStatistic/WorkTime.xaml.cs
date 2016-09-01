@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
+using CTime2.Strings;
 
 namespace CTime2.Views.Statistics.DetailedStatistic
 {
@@ -23,7 +24,7 @@ namespace CTime2.Views.Statistics.DetailedStatistic
         string ICustomDataPointFormat.Format(double value)
         {
             var timeSpan = TimeSpan.FromHours(value);
-            return string.Format("{0} h {1} min", timeSpan.Hours, timeSpan.Minutes);
+            return string.Format(CTime2Resources.Get("Statistics.WorkTimeDataPointFormat"), timeSpan.Hours, timeSpan.Minutes);
         }
     }
 }

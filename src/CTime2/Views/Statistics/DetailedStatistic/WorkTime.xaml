@@ -13,11 +13,12 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Hidden">
-            <charting:Chart Title="Arbeitszeit"
+            <charting:Chart x:Uid="WorkTimeChart" 
+                            Title="Arbeitszeit"
                             Style="{StaticResource NoLegendChartStyle}">
                 <charting:Chart.Axes>
                     <charting:DateTimeAxis Style="{StaticResource BottomDateTimeAxisStyle}" />
-                    <charting:LinearAxis Style="{StaticResource RightLinearAxisStyle}" x:Name="ValueAxis"  />
+                    <charting:LinearAxis Style="{StaticResource RightLinearAxisStyle}" x:Uid="WorkTimeValueAxis" Title="~Stunden" x:Name="ValueAxis"  />
                 </charting:Chart.Axes>
 
                 <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[0], Mode=OneWay}"

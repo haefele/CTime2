@@ -358,4 +358,34 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="Statistics.CalculatedLeaveTimeToday" xml:space="preserve">
     <value>Heutiges Arbeitsende</value>
   </data>
+  <data name="BreakTimeChart.Title" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="BreakTimeValueAxis.Title" xml:space="preserve">
+    <value>Minuten</value>
+  </data>
+  <data name="EnterAndLeaveTimeChart.Title" xml:space="preserve">
+    <value>Arbeitsbeginn und Arbeitsende</value>
+  </data>
+  <data name="EnterAndLeaveTimeValueAxis.Title" xml:space="preserve">
+    <value>Uhrzeit</value>
+  </data>
+  <data name="Loading.LoadCharts" xml:space="preserve">
+    <value>Lade Diagram...</value>
+  </data>
+  <data name="OverTimeChart.Title" xml:space="preserve">
+    <value>Überstunden</value>
+  </data>
+  <data name="OverTimeValueAxis.Title" xml:space="preserve">
+    <value>Minuten</value>
+  </data>
+  <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
+    <value>{0} h {1} min</value>
+  </data>
+  <data name="WorkTimeChart.Title" xml:space="preserve">
+    <value>Arbeitszeit</value>
+  </data>
+  <data name="WorkTimeValueAxis.Title" xml:space="preserve">
+    <value>Stunden</value>
+  </data>
 </root>

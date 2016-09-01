@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Data;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore.Common;
@@ -69,7 +70,7 @@ namespace CTime2.Views.Statistics
 
             this.LoadChart = ReactiveCommand.CreateAsyncTask(_ => this.LoadChartImpl());
             this.LoadChart.AttachExceptionHandler();
-            this.LoadChart.AttachLoadingService("Lade Diagram");
+            this.LoadChart.AttachLoadingService(CTime2Resources.Get("Loading.LoadCharts"));
             this.LoadChart.ToLoadedProperty(this, f => f.ChartItems, out this._chartItemsHelper);
         }
 

@@ -377,7 +377,6 @@
     <Style x:Key="RightLinearAxisStyle" TargetType="charting:LinearAxis">
         <Setter Property="Orientation" Value="Y" />
         <Setter Property="Location" Value="Right" />
-        <Setter Property="Title" Value="Stunden" />
         <Setter Property="ShowGridLines" Value="True" />
         <Setter Property="MajorTickMarkStyle" Value="{x:Null}" />
         <Setter Property="MinorTickMarkStyle" Value="{x:Null}" />
