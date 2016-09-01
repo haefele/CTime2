@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace CTime2.Views.Statistics.DetailedStatistic
 {
-    public sealed partial class EnterAndLeaveTime : Page
+    public sealed partial class EnterAndLeaveTime : Page, ICustomDataPointFormat
     {
         public DetailedStatisticViewModel ViewModel => this.DataContext as DetailedStatisticViewModel;
 
@@ -18,6 +18,12 @@ namespace CTime2.Views.Statistics.DetailedStatistic
         private void DataPointSeries_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.ViewModel.NavigateTo((StatisticChartItem)e.AddedItems.First());
+        }
+
+        string ICustomDataPointFormat.Format(double value)
+        {
+            var date = DateTime.Today.Add(TimeSpan.FromHours(value));
+            return date.ToString("t");
         }
     }
 }

@@ -181,8 +181,12 @@
     <Compile Include="Views\Statistics\DetailedStatistic\EnterAndLeaveTime.xaml.cs">
       <DependentUpon>EnterAndLeaveTime.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Statistics\DetailedStatistic\ICustomDataPointFormat.cs" />
     <Compile Include="Views\Statistics\DetailedStatistic\OverTime.xaml.cs">
       <DependentUpon>OverTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\DetailedStatistic\DisplayDataPoint.xaml.cs">
+      <DependentUpon>DisplayDataPoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistics\DetailedStatistic\WorkTime.xaml.cs">
       <DependentUpon>WorkTime.xaml</DependentUpon>
@@ -288,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Statistics\DetailedStatistic\OverTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\DetailedStatistic\DisplayDataPoint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

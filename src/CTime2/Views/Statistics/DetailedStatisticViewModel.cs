@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
@@ -143,23 +145,25 @@ namespace CTime2.Views.Statistics
                              .Select(f => new StatisticChartItem
                              {
                                  Date = f.Day,
-                                 Value = f.DayEndTime.Value.TotalMinutes - f.DayStartTime.Value.TotalMinutes - f.Hours.TotalMinutes
+                                 Value = Math.Round(f.DayEndTime.Value.TotalMinutes - f.DayStartTime.Value.TotalMinutes - f.Hours.TotalMinutes)
                              })
                     };
 
                 case StatisticChartKind.EnterAndLeaveTime:
                     return new[]
                     {
-                        times.Select(f => new StatisticChartItem
-                        {
-                            Date = f.Day,
-                            Value = Math.Round(f.DayStartTime?.TotalHours ?? 0, 1)
-                        }),
-                        times.Select(f => new StatisticChartItem
-                        {
-                            Date = f.Day,
-                            Value = Math.Round(f.DayEndTime?.TotalHours ?? 0, 1)
-                        })
+                        times.Where(f => f.DayStartTime != null)
+                             .Select(f => new StatisticChartItem
+                             {
+                                 Date = f.Day,
+                                 Value = f.DayStartTime.Value.TotalHours
+                             }),
+                        times.Where(f => f.DayEndTime != null)
+                             .Select(f => new StatisticChartItem
+                             {
+                                 Date = f.Day,
+                                 Value = f.DayEndTime.Value.TotalHours
+                             })
                     };
 
                 case StatisticChartKind.OverTime:
@@ -170,7 +174,7 @@ namespace CTime2.Views.Statistics
                             Date = f.Day,
                             Value = f.DayStartTime == null && f.DayEndTime == null //Use 0 and not -480 if we have no times at one day (Weekend)
                                 ? 0 
-                                : Math.Round((f.Hours - TimeSpan.FromHours(8)).TotalMinutes, 1)
+                                : Math.Round((f.Hours - TimeSpan.FromHours(8)).TotalMinutes)
                         })
                     };
                 default:
