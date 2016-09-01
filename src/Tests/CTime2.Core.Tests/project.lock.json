@@ -2221,7 +2221,7 @@
           }
         }
       },
-      "UwCore/0.1.36": {
+      "UwCore/0.1.37": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -4588,7 +4588,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.36": {
+      "UwCore/0.1.37": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -6994,7 +6994,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.36": {
+      "UwCore/0.1.37": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -9370,7 +9370,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.36": {
+      "UwCore/0.1.37": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -11785,7 +11785,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.36": {
+      "UwCore/0.1.37": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -14161,7 +14161,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.36": {
+      "UwCore/0.1.37": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -16576,7 +16576,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.36": {
+      "UwCore/0.1.37": {
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
           "Caliburn.Micro.ReactiveUI": "2.3.0",
@@ -23257,12 +23257,12 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.36": {
-      "sha512": "tmy48S9OludE8kHexczJq2QPo9XPeYW7z/RCkFM0j74qvU8vbSrnXDIyH1i1PCIR5PViBSOKdpnOWRxBvnF+Hw==",
+    "UwCore/0.1.37": {
+      "sha512": "DlFCjrgIo72wgtK8T6fXBgiAPocbSJ7jyb8nPwAkqsNN3cb0CUPuUAaRNfCvSrvaGHHi2RqBqerhAzqnt4fW/A==",
       "type": "package",
-      "path": "UwCore/0.1.36",
+      "path": "UwCore/0.1.37",
       "files": [
-        "UwCore.0.1.36.nupkg.sha512",
+        "UwCore.0.1.37.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pdb",

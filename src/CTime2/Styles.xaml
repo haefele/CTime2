@@ -3,7 +3,10 @@
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CTime2">
+    xmlns:local="using:CTime2"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:primitives="using:WinRTXamlToolkit.Controls.DataVisualization.Charting.Primitives"
+    xmlns:dataVisualization="using:WinRTXamlToolkit.Controls.DataVisualization">
 
     <Style x:Key="CenteredPivotStyle" TargetType="Pivot">
         <Setter Property="Margin" Value="0"/>
@@ -216,4 +219,163 @@
     <SolidColorBrush x:Key="CTimeOrange" Color="#f1c40f" />
     <SolidColorBrush x:Key="CTimeLightGray" Color="#95a5a6" />
     <SolidColorBrush x:Key="CTimeDarkGray" Color="#7f8c8d" />
+
+    <Style x:Key="ThickAccentColorPolylineStyle" TargetType="Polyline">
+        <Setter Property="StrokeThickness" Value="5" />
+        <Setter Property="Stroke" Value="{StaticResource SystemAccentColor}" />
+    </Style>
+
+    <Style x:Key="AccentColorLineDataPointStyle" TargetType="charting:LineDataPoint">
+        <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
+        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="charting:LineDataPoint">
+                    <Grid x:Name="Root" Opacity="0">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.1" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                           Duration="00:00:00.0010000"
+                                                                           Storyboard.TargetName="MouseOverHighlight"
+                                                                           Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00"
+                                                                      Value="0.24" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="RevealStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.001" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Shown">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0"
+                                                             Storyboard.TargetName="Root"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Hidden">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0"
+                                                             Storyboard.TargetName="Root"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Ellipse Stroke="{TemplateBinding BorderBrush}"
+                                     Fill="{TemplateBinding Background}" />
+
+                        <Ellipse x:Name="MouseOverHighlight"
+                                     Opacity="0"
+                                     Fill="White" />
+
+                        <Grid Margin="-15, -20, -15, 0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Padding="2"
+                                  Background="#D8FFFFFF">
+                            <ContentControl Content="{TemplateBinding FormattedDependentValue}"
+                                                FontSize="12"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Top"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalContentAlignment="Top" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SmallAxisLabelStyle" TargetType="charting:AxisLabel">
+        <Setter Property="FontSize" Value="10" />
+    </Style>
+
+    <Style x:Key="GridLineStyle"  TargetType="Line">
+        <Setter Property="Stroke" Value="LightGray" />
+        <Setter Property="StrokeThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="NoLegendChartStyle" TargetType="charting:Chart">
+        <Setter Property="MinWidth" Value="800" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="charting:Chart">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <dataVisualization:Title Content="{TemplateBinding Title}"
+                                                     Style="{TemplateBinding TitleStyle}" />
+
+                            <!-- Use a nested Grid to avoid possible clipping behavior resulting from ColumnSpan+Width=Auto -->
+                            <Grid Grid.Row="1"
+                                  Margin="0,15,0,15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <primitives:EdgePanel x:Name="ChartArea"
+                                                      Grid.Column="0"
+                                                      Style="{TemplateBinding ChartAreaStyle}">
+                                    <Grid Canvas.ZIndex="-1"
+                                          Style="{TemplateBinding PlotAreaStyle}" />
+                                    <Border Canvas.ZIndex="10"
+                                            BorderBrush="#FFFFFF"
+                                            BorderThickness="0" />
+                                </primitives:EdgePanel>
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AccentColorLineSeriesStyle" TargetType="charting:LineSeries">
+        <Setter Property="IsSelectionEnabled" Value="True" />
+        <Setter Property="PolylineStyle" Value="{StaticResource ThickAccentColorPolylineStyle}" />
+        <Setter Property="DataPointStyle" Value="{StaticResource AccentColorLineDataPointStyle}" />
+    </Style>
+    
+    <Style x:Key="BottomDateTimeAxisStyle" TargetType="charting:DateTimeAxis">
+        <Setter Property="Orientation" Value="X" />
+        <Setter Property="Location" Value="Bottom" />
+        <Setter Property="MinorTickMarkStyle" Value="{x:Null}" />
+        <Setter Property="MajorTickMarkStyle" Value="{x:Null}" />
+        <Setter Property="AxisLabelStyle" Value="{StaticResource SmallAxisLabelStyle}" />
+    </Style>
+    
+    <Style x:Key="RightLinearAxisStyle" TargetType="charting:LinearAxis">
+        <Setter Property="Orientation" Value="Y" />
+        <Setter Property="Location" Value="Right" />
+        <Setter Property="Title" Value="Stunden" />
+        <Setter Property="ShowGridLines" Value="True" />
+        <Setter Property="MajorTickMarkStyle" Value="{x:Null}" />
+        <Setter Property="MinorTickMarkStyle" Value="{x:Null}" />
+        <Setter Property="GridLineStyle" Value="{StaticResource GridLineStyle}" />
+    </Style>
+
 </ResourceDictionary>

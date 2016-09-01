@@ -174,10 +174,19 @@
       <DependentUpon>TripCheckedInView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Overview\TripCheckedIn\TripCheckedInViewModel.cs" />
-    <Compile Include="Views\Statistics\DetailedStatisticView.xaml.cs">
-      <DependentUpon>DetailedStatisticView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Statistics\DetailedStatisticViewModel.cs" />
+    <Compile Include="Views\Statistics\DetailedStatistic\BreakTime.xaml.cs">
+      <DependentUpon>BreakTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\DetailedStatistic\EnterAndLeaveTime.xaml.cs">
+      <DependentUpon>EnterAndLeaveTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\DetailedStatistic\OverTime.xaml.cs">
+      <DependentUpon>OverTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\DetailedStatistic\WorkTime.xaml.cs">
+      <DependentUpon>WorkTime.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Statistics\StatisticItem.cs" />
     <Compile Include="Views\Statistics\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
@@ -270,7 +279,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Statistics\DetailedStatisticView.xaml">
+    <Page Include="Views\Statistics\DetailedStatistic\BreakTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\DetailedStatistic\EnterAndLeaveTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\DetailedStatistic\OverTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\DetailedStatistic\WorkTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
