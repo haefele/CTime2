@@ -370,7 +370,7 @@ This app may not work completely.</target>
         </trans-unit>
         <trans-unit id="WorkTimeValueAxis.Title" translate="yes" xml:space="preserve">
           <source>Stunden</source>
-          <target state="translated">ours</target>
+          <target state="translated">hours</target>
         </trans-unit>
       </group>
     </body>

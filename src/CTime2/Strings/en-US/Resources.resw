@@ -281,6 +281,6 @@ This app may not work completely.</value>
     <value>working time</value>
   </data>
   <data name="WorkTimeValueAxis.Title" xml:space="preserve">
-    <value>ours</value>
+    <value>hours</value>
   </data>
 </root>
