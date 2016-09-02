@@ -191,6 +191,8 @@
     <Compile Include="Views\Statistics\DetailedStatistic\WorkTime.xaml.cs">
       <DependentUpon>WorkTime.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Statistics\StatisticChartItem.cs" />
+    <Compile Include="Views\Statistics\StatisticChartKind.cs" />
     <Compile Include="Views\Statistics\StatisticItem.cs" />
     <Compile Include="Views\Statistics\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
