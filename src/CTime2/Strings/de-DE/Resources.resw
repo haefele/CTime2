@@ -380,7 +380,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
     <value>Minuten</value>
   </data>
   <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
-    <value>{0} h {1} min</value>
+    <value>{0} h {1} m</value>
   </data>
   <data name="WorkTimeChart.Title" xml:space="preserve">
     <value>Arbeitszeit</value>

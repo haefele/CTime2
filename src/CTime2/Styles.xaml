@@ -275,6 +275,7 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
+                        
 
                         <Ellipse Stroke="{TemplateBinding BorderBrush}"
                                  Fill="{TemplateBinding Background}" />
@@ -283,13 +284,12 @@
                                  Opacity="0"
                                  Fill="White" />
 
-                        <Grid Margin="-20, -20, -20, 0"
+                        <Grid Margin="-30, -20, -30, 0"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top"
                               Padding="2"
                               Background="#D8FFFFFF">
                             <ContentControl Content="{TemplateBinding DependentValue}"
-                                            FontSize="12"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Top"
                                             HorizontalContentAlignment="Stretch"

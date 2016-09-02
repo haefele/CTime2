@@ -361,8 +361,8 @@ This app may not work completely.</target>
           <target state="translated">minutes</target>
         </trans-unit>
         <trans-unit id="Statistics.WorkTimeDataPointFormat" translate="yes" xml:space="preserve">
-          <source>{0} h {1} min</source>
-          <target state="translated" state-qualifier="tm-suggestion">{0} h {1} min</target>
+          <source>{0} h {1} m</source>
+          <target state="translated">{0} h {1} m</target>
         </trans-unit>
         <trans-unit id="WorkTimeChart.Title" translate="yes" xml:space="preserve">
           <source>Arbeitszeit</source>

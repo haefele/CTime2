@@ -146,7 +146,7 @@ namespace CTime2.Views.Statistics
                              .Select(f => new StatisticChartItem
                              {
                                  Date = f.Day,
-                                 Value = Math.Round(f.DayEndTime.Value.TotalMinutes - f.DayStartTime.Value.TotalMinutes - f.Hours.TotalMinutes)
+                                 Value = f.DayEndTime.Value.TotalMinutes - f.DayStartTime.Value.TotalMinutes - f.Hours.TotalMinutes
                              })
                     };
 
@@ -175,7 +175,7 @@ namespace CTime2.Views.Statistics
                             Date = f.Day,
                             Value = f.DayStartTime == null && f.DayEndTime == null //Use 0 and not -480 if we have no times at one day (Weekend)
                                 ? 0 
-                                : Math.Round((f.Hours - TimeSpan.FromHours(8)).TotalMinutes)
+                                : (f.Hours - TimeSpan.FromHours(8)).TotalMinutes
                         })
                     };
                 default:

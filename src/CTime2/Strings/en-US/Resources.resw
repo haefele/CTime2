@@ -275,7 +275,7 @@ This app may not work completely.</value>
     <value>minutes</value>
   </data>
   <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
-    <value>{0} h {1} min</value>
+    <value>{0} h {1} m</value>
   </data>
   <data name="WorkTimeChart.Title" xml:space="preserve">
     <value>working time</value>
