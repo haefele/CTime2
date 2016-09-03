@@ -85,11 +85,11 @@ namespace CTime2.Views.Statistics
 
             return this.GetChartItems(timesByDay)
                 .Select(f => new ReactiveObservableCollection<StatisticChartItem>(f))
-                .Select(f => { this.EnsureAllDatesAreThere(f); return f; })
+                .Select(f => { this.EnsureAllDatesAreThere(f, valueForFilledDates:0); return f; })
                 .ToArray();
         }
 
-        private void EnsureAllDatesAreThere(ReactiveObservableCollection<StatisticChartItem> result)
+        private void EnsureAllDatesAreThere(ICollection<StatisticChartItem> result, double valueForFilledDates)
         {
             var endDate = new DateTimeOffset(result.Max(f => f.Date));
             if (this.EndDate >= DateTimeOffset.Now)
@@ -105,7 +105,7 @@ namespace CTime2.Views.Statistics
                     result.Add(new StatisticChartItem
                     {
                         Date = date.Date,
-                        Value = 0
+                        Value = valueForFilledDates
                     });
                 }
             }
@@ -154,15 +154,28 @@ namespace CTime2.Views.Statistics
                     };
 
                 case StatisticChartKind.OverTime:
+                    var result = new List<StatisticChartItem>();
+
+                    foreach (var time in times)
+                    {
+                        var previousDay = result.LastOrDefault();
+
+                        var change = time.DayStartTime == null && time.DayEndTime == null //Use 0 and not -480 if we have no times at one day (Weekend)
+                            ? 0
+                            : (time.Hours - TimeSpan.FromHours(8)).TotalMinutes;
+
+                        result.Add(new StatisticChartItem
+                        {
+                            Date = time.Day,
+                            Value = (previousDay?.Value ?? 0) + change
+                        });
+                    }
+
+                    this.EnsureAllDatesAreThere(result,valueForFilledDates: result.Last().Value);
+
                     return new[]
                     {
-                        times.Select(f => new StatisticChartItem
-                        {
-                            Date = f.Day,
-                            Value = f.DayStartTime == null && f.DayEndTime == null //Use 0 and not -480 if we have no times at one day (Weekend)
-                                ? 0 
-                                : (f.Hours - TimeSpan.FromHours(8)).TotalMinutes
-                        })
+                        result
                     };
                 default:
                     throw new ArgumentOutOfRangeException();
