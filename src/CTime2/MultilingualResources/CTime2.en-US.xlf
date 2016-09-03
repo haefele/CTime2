@@ -372,6 +372,10 @@ This app may not work completely.</target>
           <source>Stunden</source>
           <target state="translated">hours</target>
         </trans-unit>
+        <trans-unit id="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Zu dieser Statistik gibt es ein Diagram.</source>
+          <target state="translated">There is a diagram for this statistic.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

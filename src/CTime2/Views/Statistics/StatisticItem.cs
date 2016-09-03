@@ -7,7 +7,7 @@ namespace CTime2.Views.Statistics
         public string Name { get; }
 
         public string Value { get; }
-
+        
         public Action ShowDetails { get; }
 
         public StatisticItem(string name, string value, Action showDetails = null)

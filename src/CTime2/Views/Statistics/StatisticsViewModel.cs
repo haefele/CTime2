@@ -15,6 +15,7 @@ using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using UwCore.Services.ExceptionHandler;
 using UwCore.Services.Loading;
+using Action = System.Action;
 using INavigationService = UwCore.Services.Navigation.INavigationService;
 
 namespace CTime2.Views.Statistics
@@ -127,34 +128,36 @@ namespace CTime2.Views.Statistics
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
                 + (hadBreakAlready ? TimeSpan.Zero : TimeSpan.FromHours(1)) 
                 + workTimeTodayToUseUpOverTimePool;
-
-            Action<StatisticChartKind> showDetailsIfMultipleTimes = statisticChartKind =>
-            {
-                if (timesByDay.Count > 1)
-                    this.ShowDetails(statisticChartKind);
-            };
             
             return new ReactiveObservableCollection<StatisticItem>
             {
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageWorkTime"), 
                     averageWorkTime.TrimMilliseconds().ToString("T"),
-                    () => showDetailsIfMultipleTimes(StatisticChartKind.WorkTime)),
+                    timesByDay.Count > 1 
+                        ? () => this.ShowDetails(StatisticChartKind.WorkTime) 
+                        : (Action)null),
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageBreakTime"), 
                     averageBreakTime.TrimMilliseconds().ToString("T"),
-                    () => showDetailsIfMultipleTimes(StatisticChartKind.BreakTime)),
+                    timesByDay.Count > 1 
+                        ? () => this.ShowDetails(StatisticChartKind.BreakTime) 
+                        : (Action)null),
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageEnterTime"), 
                     averageEnterTime.ToDateTime().ToString("T"),
-                    () => showDetailsIfMultipleTimes(StatisticChartKind.EnterAndLeaveTime)),
+                    timesByDay.Count > 1 
+                        ? () => this.ShowDetails(StatisticChartKind.EnterAndLeaveTime) 
+                        : (Action)null),
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageLeaveTime"), 
                     averageLeaveTime.ToDateTime().ToString("T"),
-                    () => showDetailsIfMultipleTimes(StatisticChartKind.EnterAndLeaveTime)),
+                    timesByDay.Count > 1 
+                        ? () => this.ShowDetails(StatisticChartKind.EnterAndLeaveTime)
+                        : (Action)null),
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.TotalWorkDays"), 
@@ -167,7 +170,9 @@ namespace CTime2.Views.Statistics
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.OverTimePool"), 
                     workTimePoolInMinutes.ToString(),
-                    () => showDetailsIfMultipleTimes(StatisticChartKind.OverTime)),
+                    timesByDay.Count > 1 
+                        ? () => this.ShowDetails(StatisticChartKind.OverTime)
+                        : (Action)null),
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"), 

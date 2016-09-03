@@ -9,8 +9,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:uwCoreConverter="using:UwCore.Converter"
+    xmlns:converter="using:CTime2.Converter"
+    xmlns:uwp="using:FontAwesome.UWP"
     mc:Ignorable="d"
     >
+    <Page.Resources>
+        <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -44,6 +50,13 @@
                                    HorizontalAlignment="Center"
                                    Style="{StaticResource TitleTextBlockStyle}"
                                    Grid.Row="1" />
+
+                        <uwp:FontAwesome Grid.Row="0" 
+                                         Grid.RowSpan="2" 
+                                         x:Uid="StatisticItemHasDetailsIcon"
+                                         Icon="LineChart"
+                                         Visibility="{x:Bind ShowDetails, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}"
+                                         HorizontalAlignment="Right" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

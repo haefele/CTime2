@@ -388,4 +388,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="WorkTimeValueAxis.Title" xml:space="preserve">
     <value>Stunden</value>
   </data>
+  <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Zu dieser Statistik gibt es ein Diagram.</value>
+  </data>
 </root>

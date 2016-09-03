@@ -59,6 +59,14 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
+      "FontAwesome.UWP/4.5.0.8": {
+        "compile": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        }
+      },
       "HockeySDK.Core/4.1.3": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
@@ -2329,6 +2337,14 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
+        }
+      },
+      "FontAwesome.UWP/4.5.0.8": {
+        "compile": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
         }
       },
       "HockeySDK.Core/4.1.3": {
@@ -4681,6 +4697,14 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
+        }
+      },
+      "FontAwesome.UWP/4.5.0.8": {
+        "compile": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
         }
       },
       "HockeySDK.Core/4.1.3": {
@@ -7074,6 +7098,14 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
+      "FontAwesome.UWP/4.5.0.8": {
+        "compile": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        }
+      },
       "HockeySDK.Core/4.1.3": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
@@ -9433,6 +9465,14 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
+        }
+      },
+      "FontAwesome.UWP/4.5.0.8": {
+        "compile": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
         }
       },
       "HockeySDK.Core/4.1.3": {
@@ -11835,6 +11875,14 @@
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
         }
       },
+      "FontAwesome.UWP/4.5.0.8": {
+        "compile": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        }
+      },
       "HockeySDK.Core/4.1.3": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
@@ -14194,6 +14242,14 @@
         },
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll": {}
+        }
+      },
+      "FontAwesome.UWP/4.5.0.8": {
+        "compile": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/FontAwesome.UWP.dll": {}
         }
       },
       "HockeySDK.Core/4.1.3": {
@@ -16656,6 +16712,24 @@
         "lib/portable-net45+win8+wp8+wpa81/Caliburn.Micro.ReactiveUI.dll"
       ]
     },
+    "FontAwesome.UWP/4.5.0.8": {
+      "sha512": "HVoUY9gvrYRMxiyt+UyM8fM1SagiXVjmfyXYWCbcXwx4ydugGukf2fOoEXXfaFU4Se9TPNLTD4cp4FEHLXq6og==",
+      "type": "package",
+      "path": "FontAwesome.UWP/4.5.0.8",
+      "files": [
+        "FontAwesome.UWP.4.5.0.8.nupkg.sha512",
+        "FontAwesome.UWP.nuspec",
+        "lib/net35/FontAwesome.WPF.dll",
+        "lib/net35/FontAwesome.WPF.xml",
+        "lib/net40/FontAwesome.WPF.dll",
+        "lib/net40/FontAwesome.WPF.xml",
+        "lib/uap10.0/FontAwesome.UWP.XML",
+        "lib/uap10.0/FontAwesome.UWP.dll",
+        "lib/uap10.0/FontAwesome.UWP.pri",
+        "lib/uap10.0/FontAwesome.UWP/FontAwesome.otf",
+        "tools/install.ps1"
+      ]
+    },
     "HockeySDK.Core/4.1.3": {
       "sha512": "FdJXZ2oWnijwCYcKRnGyEUL5qqX2QE3v5pZdNhOX5B4qogoDYjcG/75xO3SXKG1IdzenDPxFYjT2x14wTWJ2yg==",
       "type": "package",
@@ -16670,8 +16744,9 @@
       ]
     },
     "HockeySDK.UWP/4.1.3": {
-      "sha512": "TlWuK1HomLUrqpUAzvBLIDj4tQhpYozlamJYZYhJe3v5a9Kn7gsGIvXJnOdZUidsvcfHfbrO46g8WwFEkGZgpQ==",
+      "sha512": "BRzV7TcYkw9Yzhd6ek/HAxSoEdnk3UVXPZ44GV7faCdS6IygGUeokEWQ8t0RUYxx47JyDdqH7KezZXbwfjhiYA==",
       "type": "package",
+      "path": "HockeySDK.UWP/4.1.3",
       "files": [
         "HockeySDK.UWP.4.1.3.nupkg.sha512",
         "HockeySDK.UWP.nuspec",
@@ -23957,6 +24032,7 @@
   "projectFileDependencyGroups": {
     "": [
       "AdaptiveTriggerLibrary >= 1.2.1",
+      "FontAwesome.UWP >= 4.5.0.8",
       "Microsoft.Band >= 1.3.20628",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "UwCore >= 0.1.37",
