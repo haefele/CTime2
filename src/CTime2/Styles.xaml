@@ -237,6 +237,23 @@
             <Setter.Value>
                 <ControlTemplate TargetType="charting:LineDataPoint">
                     <Grid x:Name="Root" Opacity="0">
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Light">
+                                        <!-- I took these values from a real tooltip, these are the values windows is using -->
+                                        <SolidColorBrush x:Key="DataPointLabelBackgroundBrush" Color="#F2F2F2" />
+                                        <SolidColorBrush x:Key="DataPointLabelBorderBrush" Color="#CCCCCC" />
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <!-- I took these values from a real tooltip, these are the values windows is using -->
+                                        <SolidColorBrush x:Key="DataPointLabelBackgroundBrush" Color="#2B2B2B" />
+                                        <SolidColorBrush x:Key="DataPointLabelBorderBrush" Color="#797979" />
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Grid.Resources>
+                        
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualStateGroup.Transitions>
@@ -290,7 +307,9 @@
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top"
                               Padding="2"
-                              Background="#D8FFFFFF">
+                              BorderBrush="{ThemeResource DataPointLabelBorderBrush}"
+                              BorderThickness="1"
+                              Background="{ThemeResource DataPointLabelBackgroundBrush}">
                             <ContentControl Content="{TemplateBinding DependentValue}"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Top"
