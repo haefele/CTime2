@@ -18,7 +18,7 @@
                             Style="{StaticResource NoLegendChartStyle}">
                 <charting:Chart.Axes>
                     <charting:DateTimeAxis Style="{StaticResource BottomDateTimeAxisStyle}" />
-                    <charting:LinearAxis Style="{StaticResource RightLinearAxisStyle}" x:Uid="WorkTimeValueAxis" Title="~Stunden" x:Name="ValueAxis"  />
+                    <charting:LinearAxis Style="{StaticResource LeftLinearAxisStyle}" x:Uid="WorkTimeValueAxis" Title="~Stunden" x:Name="ValueAxis"  />
                 </charting:Chart.Axes>
 
                 <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[0], Mode=OneWay}"

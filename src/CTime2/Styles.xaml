@@ -395,9 +395,9 @@
         <Setter Property="AxisLabelStyle" Value="{StaticResource SmallAxisLabelStyle}" />
     </Style>
     
-    <Style x:Key="RightLinearAxisStyle" TargetType="charting:LinearAxis">
+    <Style x:Key="LeftLinearAxisStyle" TargetType="charting:LinearAxis">
         <Setter Property="Orientation" Value="Y" />
-        <Setter Property="Location" Value="Right" />
+        <Setter Property="Location" Value="Left" />
         <Setter Property="ShowGridLines" Value="True" />
         <Setter Property="MajorTickMarkStyle" Value="{x:Null}" />
         <Setter Property="MinorTickMarkStyle" Value="{x:Null}" />
