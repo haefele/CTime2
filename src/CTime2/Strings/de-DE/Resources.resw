@@ -394,4 +394,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="GoToMyTimesAppBarButton.Label" xml:space="preserve">
     <value>Zu Meine Zeiten</value>
   </data>
+  <data name="Statistics.TitleFormat" xml:space="preserve">
+    <value>Statistiken von {0:d} bis {1:d}</value>
+  </data>
 </root>

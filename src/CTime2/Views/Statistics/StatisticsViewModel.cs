@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
@@ -31,10 +32,17 @@ namespace CTime2.Views.Statistics
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
 
+        private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticItem>> _statisticsHelper;
         #endregion
 
         #region Properties
+        public override string DisplayName
+        {
+            get { return this._displayNameHelper.Value; }
+            set { }
+        }
+
         public DateTimeOffset StartDate
         {
             get { return this._startDate; }
@@ -65,8 +73,10 @@ namespace CTime2.Views.Statistics
             this._cTimeService = cTimeService;
             this._dialogService = dialogService;
             this._navigationService = navigationService;
-
-            this.DisplayName = CTime2Resources.Get("Navigation.Statistics");
+            
+            this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
+                .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
+                .ToLoadedProperty(this, f => f.DisplayName, out this._displayNameHelper);
 
             this.LoadStatistics = ReactiveCommand.CreateAsyncTask(_ => this.LoadStatisticsImpl());
             this.LoadStatistics.AttachExceptionHandler();

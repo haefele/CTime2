@@ -380,6 +380,10 @@ This app may not work completely.</target>
           <source>Zu Meine Zeiten</source>
           <target state="translated">Go to my times</target>
         </trans-unit>
+        <trans-unit id="Statistics.TitleFormat" translate="yes" xml:space="preserve">
+          <source>Statistiken von {0:d} bis {1:d}</source>
+          <target state="translated">Statistics from {0:d} to {1:d}</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -289,4 +289,7 @@ This app may not work completely.</value>
   <data name="GoToMyTimesAppBarButton.Label" xml:space="preserve">
     <value>Go to my times</value>
   </data>
+  <data name="Statistics.TitleFormat" xml:space="preserve">
+    <value>Statistics from {0:d} to {1:d}</value>
+  </data>
 </root>
