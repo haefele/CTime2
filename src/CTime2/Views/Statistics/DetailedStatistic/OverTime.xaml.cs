@@ -15,7 +15,7 @@ namespace CTime2.Views.Statistics.DetailedStatistic
 
         private void DataPointSeries_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.ViewModel.NavigateTo((StatisticChartItem)e.AddedItems.First());
+            this.ViewModel.GoToMyTimesForStatisticChartItem((StatisticChartItem)e.AddedItems.First());
         }
 
         string ICustomDataPointFormat.Format(double value)

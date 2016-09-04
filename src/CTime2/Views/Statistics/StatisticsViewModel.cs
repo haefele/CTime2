@@ -184,7 +184,6 @@ namespace CTime2.Views.Statistics
         {
             this._navigationService.Popup
                 .For<DetailedStatisticViewModel>()
-                .Context(chartKind.ToString())
                 .WithParam(f => f.StartDate, this.StartDate)
                 .WithParam(f => f.EndDate, this.EndDate)
                 .WithParam(f => f.StatisticChart, chartKind)

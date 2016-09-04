@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="CTime2.Views.Statistics.DetailedStatisticView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CTime2.Views.Statistics"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
+    xmlns:uwp="using:FontAwesome.UWP"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <ContentControl Grid.Row="0"
+                        VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        micro:View.Context="{x:Bind ViewModel.StatisticChart}" 
+                        micro:View.Model="{x:Bind ViewModel}"
+                        />
+        
+        <CommandBar Grid.Row="1">
+            <AppBarButton Label="Zu Meine Zeiten wechseln"
+                          Icon="Go"
+                          Command="{x:Bind ViewModel.GoToMyTimesCommand}"
+                          />
+        </CommandBar>
+    </Grid>
+</Page>

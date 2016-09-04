@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
+using System.Reactive;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
@@ -36,6 +32,7 @@ namespace CTime2.Views.Statistics
 
         #region Commands
         public ReactiveCommand<ReactiveObservableCollection<StatisticChartItem>[]> LoadChart { get; }
+        public ReactiveCommand<Unit> GoToMyTimesCommand { get; set; }
         #endregion
 
         #region Parameters
@@ -58,9 +55,12 @@ namespace CTime2.Views.Statistics
             this.LoadChart.AttachExceptionHandler();
             this.LoadChart.AttachLoadingService(CTime2Resources.Get("Loading.LoadCharts"));
             this.LoadChart.ToLoadedProperty(this, f => f.ChartItems, out this._chartItemsHelper);
+
+            this.GoToMyTimesCommand = ReactiveCommand.CreateAsyncTask(_ => this.GoToMyTimes());
+            this.GoToMyTimesCommand.AttachExceptionHandler();
         }
 
-        public void NavigateTo(StatisticChartItem chartItem)
+        public void GoToMyTimesForStatisticChartItem(StatisticChartItem chartItem)
         {
             this._navigationService
                 .For<YourTimesViewModel>()
@@ -87,6 +87,17 @@ namespace CTime2.Views.Statistics
                 .Select(f => new ReactiveObservableCollection<StatisticChartItem>(f))
                 .Select(f => { this.EnsureAllDatesAreThere(f, valueForFilledDates:0); return f; })
                 .ToArray();
+        }
+
+        private Task GoToMyTimes()
+        {
+            this._navigationService
+                .For<YourTimesViewModel>()
+                .WithParam(f => f.StartDate, this.StartDate)
+                .WithParam(f => f.EndDate, this.EndDate)
+                .Navigate();
+
+            return Task.CompletedTask;
         }
 
         private void EnsureAllDatesAreThere(ICollection<StatisticChartItem> result, double valueForFilledDates)
@@ -171,7 +182,7 @@ namespace CTime2.Views.Statistics
                         });
                     }
 
-                    this.EnsureAllDatesAreThere(result,valueForFilledDates: result.Last().Value);
+                    this.EnsureAllDatesAreThere(result, valueForFilledDates:result.Last().Value);
 
                     return new[]
                     {

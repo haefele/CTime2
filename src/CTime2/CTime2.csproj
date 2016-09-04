@@ -175,6 +175,9 @@
       <DependentUpon>TripCheckedInView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Overview\TripCheckedIn\TripCheckedInViewModel.cs" />
+    <Compile Include="Views\Statistics\DetailedStatisticView.xaml.cs">
+      <DependentUpon>DetailedStatisticView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Statistics\DetailedStatisticViewModel.cs" />
     <Compile Include="Views\Statistics\DetailedStatistic\BreakTime.xaml.cs">
       <DependentUpon>BreakTime.xaml</DependentUpon>
@@ -283,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Overview\TripCheckedIn\TripCheckedInView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\DetailedStatisticView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
