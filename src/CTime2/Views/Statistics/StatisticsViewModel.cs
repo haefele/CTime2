@@ -126,7 +126,7 @@ namespace CTime2.Views.Statistics
             var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
 
             var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * TimeSpan.FromHours(8).TotalMinutes;
-            var workTimePoolInMinutes = (int)(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
+            var workTimePoolInMinutes = (int)Math.Round(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
 
             var timeToday = TimesByDay.Create(times).FirstOrDefault(f => f.Day.Date == DateTime.Today);
             var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();

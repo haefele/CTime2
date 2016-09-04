@@ -384,6 +384,14 @@ This app may not work completely.</target>
           <source>Statistiken von {0:d} bis {1:d}</source>
           <target state="translated">Statistics from {0:d} to {1:d}</target>
         </trans-unit>
+        <trans-unit id="Statistics.BreakTimeDataPointFormat" translate="yes" xml:space="preserve">
+          <source>{0} m</source>
+          <target state="translated">{0} m</target>
+        </trans-unit>
+        <trans-unit id="Statistics.OverTimeDataPointFormat" translate="yes" xml:space="preserve">
+          <source>{0} m</source>
+          <target state="translated">{0} m</target>
+        </trans-unit>
       </group>
     </body>
   </file>

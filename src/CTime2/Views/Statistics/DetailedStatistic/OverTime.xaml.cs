@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
+using CTime2.Strings;
 
 namespace CTime2.Views.Statistics.DetailedStatistic
 {
@@ -20,7 +21,8 @@ namespace CTime2.Views.Statistics.DetailedStatistic
 
         string ICustomDataPointFormat.Format(double value)
         {
-            return Math.Round(value).ToString();
+            var overTime = (int)Math.Round(value);
+            return CTime2Resources.GetFormatted("Statistics.OverTimeDataPointFormat", overTime);
         }
     }
 }

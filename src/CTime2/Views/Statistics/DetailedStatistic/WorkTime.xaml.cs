@@ -24,7 +24,7 @@ namespace CTime2.Views.Statistics.DetailedStatistic
         string ICustomDataPointFormat.Format(double value)
         {
             var timeSpan = TimeSpan.FromHours(value);
-            return string.Format(CTime2Resources.Get("Statistics.WorkTimeDataPointFormat"), timeSpan.Hours, timeSpan.Minutes);
+            return CTime2Resources.GetFormatted("Statistics.WorkTimeDataPointFormat", timeSpan.Hours, timeSpan.Minutes);
         }
     }
 }

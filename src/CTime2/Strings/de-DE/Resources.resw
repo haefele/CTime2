@@ -397,4 +397,10 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="Statistics.TitleFormat" xml:space="preserve">
     <value>Statistiken von {0:d} bis {1:d}</value>
   </data>
+  <data name="Statistics.BreakTimeDataPointFormat" xml:space="preserve">
+    <value>{0} m</value>
+  </data>
+  <data name="Statistics.OverTimeDataPointFormat" xml:space="preserve">
+    <value>{0} m</value>
+  </data>
 </root>

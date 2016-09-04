@@ -171,7 +171,7 @@ namespace CTime2.Views.Statistics
                     {
                         var previousDay = result.LastOrDefault();
 
-                        var change = time.DayStartTime == null && time.DayEndTime == null //Use 0 and not -480 if we have no times at one day (Weekend)
+                        var change = time.Hours == TimeSpan.Zero //Use 0 and not -480 if we have no times at one day (Weekend)
                             ? 0
                             : (time.Hours - TimeSpan.FromHours(8)).TotalMinutes;
 
