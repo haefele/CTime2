@@ -135,59 +135,64 @@ namespace CTime2.Views.Statistics
                 - (timeToday?.Hours ?? TimeSpan.Zero)
                 + (latestTimeToday?.Duration ?? TimeSpan.Zero);
             var hadBreakAlready = timeToday?.Times.Count >= 2;
+            var hasExpectedWorkEnd = (latestTimeToday?.ClockInTime) != null;
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
                 + (hadBreakAlready ? TimeSpan.Zero : TimeSpan.FromHours(1)) 
                 + workTimeTodayToUseUpOverTimePool;
-            
-            return new ReactiveObservableCollection<StatisticItem>
+
+            var statisticItems = new List<StatisticItem>
             {
                 new StatisticItem(
-                    CTime2Resources.Get("Statistics.AverageWorkTime"), 
+                    CTime2Resources.Get("Statistics.AverageWorkTime"),
                     averageWorkTime.TrimMilliseconds().ToString("T"),
-                    timesByDay.Count > 1 
-                        ? () => this.ShowDetails(StatisticChartKind.WorkTime) 
+                    timesByDay.Count > 1
+                        ? () => this.ShowDetails(StatisticChartKind.WorkTime)
                         : (Action)null),
 
                 new StatisticItem(
-                    CTime2Resources.Get("Statistics.AverageBreakTime"), 
+                    CTime2Resources.Get("Statistics.AverageBreakTime"),
                     averageBreakTime.TrimMilliseconds().ToString("T"),
-                    timesByDay.Count > 1 
-                        ? () => this.ShowDetails(StatisticChartKind.BreakTime) 
+                    timesByDay.Count > 1
+                        ? () => this.ShowDetails(StatisticChartKind.BreakTime)
                         : (Action)null),
 
                 new StatisticItem(
-                    CTime2Resources.Get("Statistics.AverageEnterTime"), 
+                    CTime2Resources.Get("Statistics.AverageEnterTime"),
                     averageEnterTime.ToDateTime().ToString("T"),
-                    timesByDay.Count > 1 
-                        ? () => this.ShowDetails(StatisticChartKind.EnterAndLeaveTime) 
-                        : (Action)null),
-
-                new StatisticItem(
-                    CTime2Resources.Get("Statistics.AverageLeaveTime"), 
-                    averageLeaveTime.ToDateTime().ToString("T"),
-                    timesByDay.Count > 1 
+                    timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.EnterAndLeaveTime)
                         : (Action)null),
 
                 new StatisticItem(
-                    CTime2Resources.Get("Statistics.TotalWorkDays"), 
-                    totalWorkDays.ToString()),
-
-                new StatisticItem(
-                    CTime2Resources.Get("Statistics.TotalWorkTime"), 
-                    totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))),
-
-                new StatisticItem(
-                    CTime2Resources.Get("Statistics.OverTimePool"), 
-                    workTimePoolInMinutes.ToString(),
-                    timesByDay.Count > 1 
-                        ? () => this.ShowDetails(StatisticChartKind.OverTime)
+                    CTime2Resources.Get("Statistics.AverageLeaveTime"),
+                    averageLeaveTime.ToDateTime().ToString("T"),
+                    timesByDay.Count > 1
+                        ? () => this.ShowDetails(StatisticChartKind.EnterAndLeaveTime)
                         : (Action)null),
 
                 new StatisticItem(
-                    CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"), 
-                    expectedWorkEnd.ToString("T")),
+                    CTime2Resources.Get("Statistics.TotalWorkDays"),
+                    totalWorkDays.ToString()),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.TotalWorkTime"),
+                    totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))),
+
+                new StatisticItem(
+                    CTime2Resources.Get("Statistics.OverTimePool"),
+                    workTimePoolInMinutes.ToString(),
+                    timesByDay.Count > 1
+                        ? () => this.ShowDetails(StatisticChartKind.OverTime)
+                        : (Action)null),
+
+                hasExpectedWorkEnd 
+                    ? new StatisticItem(
+                        CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"),
+                        expectedWorkEnd.ToString("T"))
+                    : null
             };
+
+            return new ReactiveObservableCollection<StatisticItem>(statisticItems.Where(f => f != null));
         }
 
         private void ShowDetails(StatisticChartKind chartKind)
