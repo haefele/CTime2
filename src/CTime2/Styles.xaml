@@ -222,10 +222,12 @@
 
     <Style x:Key="ThickAccentColorPolylineStyle" TargetType="Polyline">
         <Setter Property="StrokeThickness" Value="5" />
-        <Setter Property="Stroke" Value="{StaticResource SystemAccentColor}" />
+        <!-- This is a static resource, because a ThemeResource doesnt work here, so at least the point and the line have the same color -->
+        <Setter Property="Stroke" Value="{StaticResource SystemAccentColor}" /> 
     </Style>
 
     <Style x:Key="AccentColorLineDataPointStyle" TargetType="charting:LineDataPoint">
+        <!-- This is a static resource, because a ThemeResource doesnt work for the line, so at least the point and the line have the same color -->
         <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
         <Setter Property="BorderBrush" Value="White" />
         <Setter Property="BorderThickness" Value="3" />
