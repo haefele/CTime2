@@ -286,4 +286,7 @@ This app may not work completely.</value>
   <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>There is a diagram for this statistic.</value>
   </data>
+  <data name="GoToMyTimesAppBarButton.Label" xml:space="preserve">
+    <value>Go to my times</value>
+  </data>
 </root>

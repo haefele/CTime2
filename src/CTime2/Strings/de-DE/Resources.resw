@@ -391,4 +391,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Zu dieser Statistik gibt es ein Diagram.</value>
   </data>
+  <data name="GoToMyTimesAppBarButton.Label" xml:space="preserve">
+    <value>Zu Meine Zeiten</value>
+  </data>
 </root>

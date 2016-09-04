@@ -376,6 +376,10 @@ This app may not work completely.</target>
           <source>Zu dieser Statistik gibt es ein Diagram.</source>
           <target state="translated">There is a diagram for this statistic.</target>
         </trans-unit>
+        <trans-unit id="GoToMyTimesAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Zu Meine Zeiten</source>
+          <target state="translated">Go to my times</target>
+        </trans-unit>
       </group>
     </body>
   </file>

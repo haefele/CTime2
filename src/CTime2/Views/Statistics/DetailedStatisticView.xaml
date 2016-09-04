@@ -23,7 +23,8 @@
                         />
         
         <CommandBar Grid.Row="1">
-            <AppBarButton Label="Zu Meine Zeiten wechseln"
+            <AppBarButton x:Uid="GoToMyTimesAppBarButton"
+                          Label="~Zu Meine Zeiten wechseln"
                           Icon="Go"
                           Command="{x:Bind ViewModel.GoToMyTimesCommand}"
                           />
