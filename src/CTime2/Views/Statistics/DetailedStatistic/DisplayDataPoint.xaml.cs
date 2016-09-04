@@ -36,6 +36,11 @@ namespace CTime2.Views.Statistics.DetailedStatistic
         {
             var formatter = this.GetAncestors().OfType<ICustomDataPointFormat>().FirstOrDefault();
 
+            if (formatter == null && this.Tag is DependencyObject)
+            {
+                formatter = ((DependencyObject) this.Tag).GetAncestors().OfType<ICustomDataPointFormat>().FirstOrDefault();
+            }
+
             this.DisplayValue = formatter != null
                 ? formatter.Format(newValue)
                 : newValue.ToString();

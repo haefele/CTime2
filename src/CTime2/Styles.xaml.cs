@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace CTime2
 {
@@ -12,6 +13,11 @@ namespace CTime2
         public Styles()
         {
             this.InitializeComponent();
+        }
+
+        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var placementTarget = ToolTipService.GetPlacementTarget((DependencyObject) sender);
         }
     }
 }

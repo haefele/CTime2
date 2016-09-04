@@ -6,7 +6,8 @@
     xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     xmlns:primitives="using:WinRTXamlToolkit.Controls.DataVisualization.Charting.Primitives"
     xmlns:dataVisualization="using:WinRTXamlToolkit.Controls.DataVisualization"
-    xmlns:detailedStatistic="using:CTime2.Views.Statistics.DetailedStatistic">
+    xmlns:detailedStatistic="using:CTime2.Views.Statistics.DetailedStatistic"
+    xmlns:statistics="using:CTime2.Views.Statistics">
 
     <Style x:Key="CenteredPivotStyle" TargetType="Pivot">
         <Setter Property="Margin" Value="0"/>
@@ -236,7 +237,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="charting:LineDataPoint">
-                    <Grid x:Name="Root" Opacity="0">
+                    <Grid x:Name="Root" Opacity="0" DataContext="{Binding RelativeSource={RelativeSource Self}}">
                         <Grid.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
@@ -295,6 +296,10 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         
+                        <ToolTipService.ToolTip>
+                            <detailedStatistic:DisplayDataPoint FontSize="16" ActualValue="{TemplateBinding DependentValue}" Tag="{Binding}" />
+                        </ToolTipService.ToolTip>
+                        
 
                         <Ellipse Stroke="{TemplateBinding BorderBrush}"
                                  Fill="{TemplateBinding Background}" />
@@ -303,7 +308,7 @@
                                  Opacity="0"
                                  Fill="White" />
 
-                        <Grid Margin="-30, -20, -30, 0"
+                        <Grid Margin="-30, -24, -30, 0"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top"
                               Padding="2"
@@ -317,7 +322,7 @@
                                             VerticalContentAlignment="Top">
                                 <ContentControl.ContentTemplate>
                                     <DataTemplate>
-                                        <detailedStatistic:DisplayDataPoint ActualValue="{Binding}" />
+                                        <detailedStatistic:DisplayDataPoint FontSize="12"  ActualValue="{Binding}" />
                                     </DataTemplate>
                                 </ContentControl.ContentTemplate>
                             </ContentControl>
