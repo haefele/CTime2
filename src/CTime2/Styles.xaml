@@ -351,7 +351,7 @@
     </Style>
 
     <Style x:Key="NoLegendChartStyle" TargetType="charting:Chart">
-        <Setter Property="MinWidth" Value="800" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="charting:Chart">
@@ -370,21 +370,20 @@
 
                             <!-- Use a nested Grid to avoid possible clipping behavior resulting from ColumnSpan+Width=Auto -->
                             <Grid Grid.Row="1"
-                                  Margin="0,15,0,15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <primitives:EdgePanel x:Name="ChartArea"
-                                                      Grid.Column="0"
-                                                      Style="{TemplateBinding ChartAreaStyle}">
-                                    <Grid Canvas.ZIndex="-1"
-                                          Style="{TemplateBinding PlotAreaStyle}" />
-                                    <Border Canvas.ZIndex="10"
-                                            BorderBrush="#FFFFFF"
-                                            BorderThickness="0" />
-                                </primitives:EdgePanel>
+                                  Margin="0, 15, 0, 0">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                              VerticalScrollBarVisibility="Hidden">
+                                    <primitives:EdgePanel x:Name="ChartArea"
+                                                          Margin="0, 0, 0, 15"
+                                                          MinWidth="800"
+                                                          Style="{TemplateBinding ChartAreaStyle}">
+                                        <Grid Canvas.ZIndex="-1"
+                                              Style="{TemplateBinding PlotAreaStyle}" />
+                                        <Border Canvas.ZIndex="10"
+                                                BorderBrush="#FFFFFF"
+                                                BorderThickness="0" />
+                                    </primitives:EdgePanel>
+                                </ScrollViewer>
 
                             </Grid>
                         </Grid>

@@ -9,22 +9,19 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Hidden">
-            <charting:Chart x:Uid="BreakTimeChart" 
-                            Title="~Pause"
-                            Style="{StaticResource NoLegendChartStyle}">
-                <charting:Chart.Axes>
-                    <charting:DateTimeAxis Style="{StaticResource BottomDateTimeAxisStyle}" />
-                    <charting:LinearAxis Style="{StaticResource LeftLinearAxisStyle}" x:Uid="BreakTimeValueAxis" Title="~Minuten" x:Name="ValueAxis" />
-                </charting:Chart.Axes>
+        <charting:Chart x:Uid="BreakTimeChart" 
+                        Title="~Pause"
+                        Style="{StaticResource NoLegendChartStyle}">
+            <charting:Chart.Axes>
+                <charting:DateTimeAxis Style="{StaticResource BottomDateTimeAxisStyle}" />
+                <charting:LinearAxis Style="{StaticResource LeftLinearAxisStyle}" x:Uid="BreakTimeValueAxis" Title="~Minuten" x:Name="ValueAxis" />
+            </charting:Chart.Axes>
 
-                <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[0], Mode=OneWay}"
-                                     SelectionChanged="DataPointSeries_OnSelectionChanged"
-                                     Style="{StaticResource AccentColorLineSeriesStyle}"
-                                     IndependentValueBinding="{Binding Date}"
-                                     DependentValueBinding="{Binding Value}" />
-            </charting:Chart>
-        </ScrollViewer>
+            <charting:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[0], Mode=OneWay}"
+                                    SelectionChanged="DataPointSeries_OnSelectionChanged"
+                                    Style="{StaticResource AccentColorLineSeriesStyle}"
+                                    IndependentValueBinding="{Binding Date}"
+                                    DependentValueBinding="{Binding Value}" />
+        </charting:Chart>
     </Grid>
 </Page>
