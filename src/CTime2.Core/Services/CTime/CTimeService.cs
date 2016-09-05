@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +13,6 @@ using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Strings;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UwCore.Common;
 using UwCore.Logging;
@@ -40,7 +38,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("GetRFIDbyLoginName.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("V2/LoginV2.php", new Dictionary<string, string>
                 {
                     {"Password", password},
                     {"LoginName", emailAddress}
@@ -75,11 +73,12 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("GetTimeTrackList.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("V2/GetTimerListV2.php", new Dictionary<string, string>
                 {
                     {"EmployeeGUID", employeeGuid},
-                    {"DateTill", end.ToString("dd.MM.yyyy")},
-                    {"DateFrom", start.ToString("dd.MM.yyyy")}
+                    {"DateTill", end.ToString("yyyy-MM-dd")},
+                    {"DateFrom", start.ToString("yyyy-MM-dd")},
+                    {"Summary", 1.ToString()}
                 });
 
                 if (responseJson == null)
@@ -90,11 +89,26 @@ namespace CTime2.Core.Services.CTime
                     .OfType<JObject>()
                     .Select(f => new Time
                     {
-                        Day = f.Value<DateTime>("day"),
-                        Hours = TimeSpan.FromHours(double.Parse(f.Value<string>("DayHours") ?? "0", CultureInfo.InvariantCulture)),
-                        State = f["TimeTrackType"].ToObject<int?>() == 0 ? null : (TimeState?)f["TimeTrackType"].ToObject<int?>(),
+                        Day = f.Value<DateTime>("DayDate"),
+                        Hours = TimeSpan.Parse(f.Value<string>("TimeHour_IST_HR")),
+                        State = f["TimeTrackTypePure"].ToObject<int?>() != 0 
+                            ? (TimeState?)f["TimeTrackTypePure"].ToObject<int?>()
+                            : null,
                         ClockInTime = f["TimeTrackIn"].ToObject<DateTime?>(),
                         ClockOutTime = f["TimeTrackOut"].ToObject<DateTime?>(),
+                    })
+                    .Select(f =>
+                    {
+                        if (f.ClockInTime != null && f.ClockOutTime != null)
+                        {
+                            f.State = (f.State ?? 0) | TimeState.Left;
+                        }
+                        else if (f.ClockInTime != null)
+                        {
+                            f.State = (f.State ?? 0) | TimeState.Entered;
+                        }
+
+                        return f;
                     })
                     .ToList();
             }
@@ -109,9 +123,8 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("SaveTimer.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", new Dictionary<string, string>
                 {
-                    {"RFID", string.Empty},
                     {"TimerKind", ((int) state).ToString()},
                     {"TimerText", string.Empty},
                     {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
@@ -166,7 +179,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("GetPresenceList.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
                 {
                     {"GUID", companyId}
                 });
