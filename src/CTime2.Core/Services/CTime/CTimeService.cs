@@ -110,6 +110,7 @@ namespace CTime2.Core.Services.CTime
 
                         return f;
                     })
+                    .Where(f => f.Day <= DateTime.Today || f.ClockInTime != null || f.ClockOutTime != null)
                     .ToList();
             }
             catch (Exception exception)
