@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography.Certificates;
 using Windows.Web.Http;
@@ -41,7 +43,8 @@ namespace CTime2.Core.Services.CTime
                 var responseJson = await this.SendRequestAsync("V2/LoginV2.php", new Dictionary<string, string>
                 {
                     {"Password", password},
-                    {"LoginName", emailAddress}
+                    {"LoginName", emailAddress},
+                    {"Crypt", 0.ToString()}
                 });
 
                 var user = responseJson?
@@ -205,6 +208,15 @@ namespace CTime2.Core.Services.CTime
                 Logger.Error(exception, $"Exception in method {nameof(this.GetAttendingUsers)}. Company Id: {companyId}");
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }
+        }
+
+        private string GetHashedPassword(string password)
+        {
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            var hashedPasswordBytes = MD5.Create().ComputeHash(passwordBytes);
+            var hashedPasswordString = BitConverter.ToString(hashedPasswordBytes);
+
+            return hashedPasswordString.Replace("-", string.Empty).ToLower();
         }
 
         private async Task<JObject> SendRequestAsync(string function, Dictionary<string, string> data)
