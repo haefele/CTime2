@@ -8,16 +8,19 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography.Certificates;
+using Windows.Storage;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Caliburn.Micro;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
+using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Strings;
 using Newtonsoft.Json.Linq;
 using UwCore.Common;
 using UwCore.Logging;
+using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.CTime
 {
@@ -26,12 +29,15 @@ namespace CTime2.Core.Services.CTime
         private static readonly Logger Logger = LoggerFactory.GetLogger<CTimeService>();
 
         private readonly IEventAggregator _eventAggregator;
+        private readonly IApplicationStateService _applicationStateService;
 
-        public CTimeService(IEventAggregator eventAggregator)
+        public CTimeService(IEventAggregator eventAggregator, IApplicationStateService applicationStateService)
         {
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
 
             this._eventAggregator = eventAggregator;
+            this._applicationStateService = applicationStateService;
 
             this.AddCTimeCertificate();
         }
@@ -183,25 +189,53 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
+                var cacheEtag = this._applicationStateService.GetAttendanceListImageCacheEtag();
+
                 var responseJson = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
                 {
-                    {"GUID", companyId}
+                    {"GUID", companyId},
+                    {"cacheDate", cacheEtag ?? string.Empty }
                 });
 
                 if (responseJson == null)
                     return new List<AttendingUser>();
 
-                return responseJson
+                var newCacheEtag = responseJson
                     .Value<JArray>("Result")
                     .OfType<JObject>()
-                    .Select(f => new AttendingUser
+                    .Select(f => f.Value<string>("cacheDate"))
+                    .FirstOrDefault();
+
+                this._applicationStateService.SetAttendanceListImageCacheEtag(newCacheEtag);
+
+                var result = responseJson
+                    .Value<JArray>("Result")
+                    .OfType<JObject>()
+                    .Select(f => new
                     {
-                        Name = f.Value<string>("EmployeeName"),
-                        FirstName = f.Value<string>("EmployeeFirstName"),
-                        IsAttending = f.Value<int>("PresenceStatus") == 1,
-                        ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? string.Empty),
+                        EmployeeI3D = f.Value<int>("EmployeeI3D"),
+                        Employee = new AttendingUser
+                        {
+                            Name = f.Value<string>("EmployeeName"),
+                            FirstName = f.Value<string>("EmployeeFirstName"),
+                            IsAttending = f.Value<int>("PresenceStatus") == 1,
+                            ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? string.Empty),
+                        }
                     })
-                    .ToList();
+                    .ToDictionary(f => f.EmployeeI3D, f => f.Employee);
+
+                var imageCache = new EmployeeImageCache();
+                if (newCacheEtag == cacheEtag)
+                {
+                    await imageCache.FillWithCachedImages(result);
+                }
+
+                if (newCacheEtag != cacheEtag)
+                {
+                    await imageCache.CacheImagesAsync(result);
+                }
+
+                return result.Select(f => f.Value).ToList();
             }
             catch (Exception exception)
             {
@@ -209,7 +243,7 @@ namespace CTime2.Core.Services.CTime
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }
         }
-
+        
         private string GetHashedPassword(string password)
         {
             var passwordBytes = Encoding.UTF8.GetBytes(password);
@@ -267,5 +301,67 @@ namespace CTime2.Core.Services.CTime
                 CertificateStores.TrustedRootCertificationAuthorities.Add(certificate);
             }
         }
+
+        #region Internal
+        private class EmployeeImageCache
+        {
+            public async Task FillWithCachedImages(Dictionary<int, AttendingUser> users)
+            {
+                foreach (var user in users)
+                {
+                    user.Value.ImageAsPng = await this.GetCachedImageAsync(user.Key);
+                }
+            }
+
+            private async Task<byte[]> GetCachedImageAsync(int employeeI3D)
+            {
+                var imageFileName = this.GetImageName(employeeI3D);
+                var imagesFolder = await this.GetImagesFolderAsync();
+
+                if (await imagesFolder.TryGetItemAsync(imageFileName) == null)
+                    return null;
+
+                var imageFile = await imagesFolder.GetFileAsync(imageFileName);
+
+                using (var imageStream = await imageFile.OpenStreamForReadAsync())
+                using (var memoryStream = new MemoryStream())
+                {
+                    await imageStream.CopyToAsync(memoryStream);
+
+                    return memoryStream.ToArray();
+                }
+            }
+
+            public async Task CacheImagesAsync(Dictionary<int, AttendingUser> users)
+            {
+                foreach (var user in users)
+                {
+                    await this.CacheImageAsync(user.Key, user.Value.ImageAsPng);
+                }
+            }
+
+            private async Task CacheImageAsync(int employeeI3D, byte[] image)
+            {
+                var imageFileName = this.GetImageName(employeeI3D);
+                var imagesFolder = await this.GetImagesFolderAsync();
+                
+                var imageFile = await imagesFolder.CreateFileAsync(imageFileName, CreationCollisionOption.ReplaceExisting);
+                using (var imageStream = await imageFile.OpenStreamForWriteAsync())
+                {
+                    await imageStream.WriteAsync(image, 0, image.Length);
+                }
+            }
+
+            private string GetImageName(int employeeI3D)
+            {
+                return $"AttendingUser-{employeeI3D}.png";
+            }
+
+            private async Task<StorageFolder> GetImagesFolderAsync()
+            {
+                return await ApplicationData.Current.LocalFolder.CreateFolderAsync("AttendingUserImages", CreationCollisionOption.OpenIfExists);
+            }
+        }
+        #endregion
     }
 }

@@ -46,7 +46,7 @@ namespace CTime2.VoiceCommandService
 
                     var applicationStateService = new ApplicationStateService();
                     await applicationStateService.RestoreStateAsync();
-                    var cTimeService = new CTimeService(new EventAggregator());
+                    var cTimeService = new CTimeService(new EventAggregator(), applicationStateService);
 
                     var stampHelper = new CTimeStampHelper(applicationStateService, cTimeService);
                     var stampHelperCallback = new CTimeStampHelperCallback(

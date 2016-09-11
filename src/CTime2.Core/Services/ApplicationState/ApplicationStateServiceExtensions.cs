@@ -24,5 +24,15 @@ namespace CTime2.Core.Services.ApplicationState
         {
             self.Set("BiometricAuth", biometricAuthUser, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
+
+        public static string GetAttendanceListImageCacheEtag(this IApplicationStateService self)
+        {
+            return self.Get<string>("AttendanceListImageCacheEtag", UwCore.Services.ApplicationState.ApplicationState.Local);
+        }
+
+        public static void SetAttendanceListImageCacheEtag(this IApplicationStateService self, string etag)
+        {
+            self.Set("AttendanceListImageCacheEtag", etag, UwCore.Services.ApplicationState.ApplicationState.Local);
+        }
     }
 }
