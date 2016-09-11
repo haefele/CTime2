@@ -29,6 +29,7 @@ using CTime2.Views.Settings.About;
 using CTime2.Views.Settings.Band;
 using CTime2.Views.Settings.Others;
 using CTime2.Views.Statistics;
+using CTime2.Views.UpdateNotes;
 using CTime2.Views.YourTimes;
 using UwCore.Application;
 using UwCore.Extensions;
@@ -113,11 +114,17 @@ namespace CTime2
             yield return typeof(OthersViewModel);
             yield return typeof(HeaderDetailsViewModel);
             yield return typeof(DetailedStatisticViewModel);
+            yield return typeof(UpdateNotesViewModel);
         }
 
         public override string GetHockeyAppId()
         {
             return "16f525b1f6c04b6b987253bd8801dc20";
+        }
+
+        public override Type GetUpdateNotesViewModelType()
+        {
+            return typeof(UpdateNotesViewModel);
         }
 
         private async void ConfigureVoiceCommands()

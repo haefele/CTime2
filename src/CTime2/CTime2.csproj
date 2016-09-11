@@ -202,6 +202,10 @@
       <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistics\StatisticsViewModel.cs" />
+    <Compile Include="Views\UpdateNotes\UpdateNotesView.xaml.cs">
+      <DependentUpon>UpdateNotesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateNotes\UpdateNotesViewModel.cs" />
     <Compile Include="Views\YourTimes\TimeForGrouping.cs" />
     <Compile Include="Views\YourTimes\TimesByDay.cs" />
     <Compile Include="Views\YourTimes\YourTimesView.xaml.cs">
@@ -314,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Statistics\StatisticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateNotes\UpdateNotesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

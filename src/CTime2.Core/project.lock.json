@@ -2349,7 +2349,7 @@
           }
         }
       },
-      "UwCore/0.1.47": {
+      "UwCore/0.1.51": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -4823,7 +4823,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.47": {
+      "UwCore/0.1.51": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -7336,7 +7336,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.47": {
+      "UwCore/0.1.51": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -9819,7 +9819,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.47": {
+      "UwCore/0.1.51": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -12341,7 +12341,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.47": {
+      "UwCore/0.1.51": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -14824,7 +14824,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.47": {
+      "UwCore/0.1.51": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -17346,7 +17346,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.47": {
+      "UwCore/0.1.51": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -17468,8 +17468,9 @@
       ]
     },
     "HockeySDK.UWP/4.1.3": {
-      "sha512": "TlWuK1HomLUrqpUAzvBLIDj4tQhpYozlamJYZYhJe3v5a9Kn7gsGIvXJnOdZUidsvcfHfbrO46g8WwFEkGZgpQ==",
+      "sha512": "BRzV7TcYkw9Yzhd6ek/HAxSoEdnk3UVXPZ44GV7faCdS6IygGUeokEWQ8t0RUYxx47JyDdqH7KezZXbwfjhiYA==",
       "type": "package",
+      "path": "HockeySDK.UWP/4.1.3",
       "files": [
         "HockeySDK.UWP.4.1.3.nupkg.sha512",
         "HockeySDK.UWP.nuspec",
@@ -23977,11 +23978,12 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.47": {
-      "sha512": "/lS27RwuS2n6bI8ZI1poizhmSK5E73IVS/7gA636uNZE4vlFhTVMlKuWbWPujypAk/ZKMsOYv32G8h1jGDhDlg==",
+    "UwCore/0.1.51": {
+      "sha512": "d6MK8RH/E37iNTxf0sI1xwNlbu+PjU9KUOckxqzJiLIbfaT0+DufVocdEcxyGabiQXV1YlKyJ8Pa9e7GHHINrQ==",
       "type": "package",
+      "path": "UwCore/0.1.51",
       "files": [
-        "UwCore.0.1.47.nupkg.sha512",
+        "UwCore.0.1.51.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pdb",
@@ -23999,8 +24001,10 @@
     "": [
       "Microsoft.Band >= 1.3.20628",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
-      "UwCore >= 0.1.47"
+      "UwCore >= 0.1.51"
     ],
     "UAP,Version=v10.0": []
-  }
+  },
+  "tools": {},
+  "projectFileToolGroups": {}
 }
