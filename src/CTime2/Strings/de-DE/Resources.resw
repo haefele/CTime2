@@ -403,4 +403,10 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="Statistics.OverTimeDataPointFormat" xml:space="preserve">
     <value>{0} m</value>
   </data>
+  <data name="TheNewVersionFormat" xml:space="preserve">
+    <value>Die neue Version {0} wurde installiert.</value>
+  </data>
+  <data name="UpdateForCtimeUniversalTextBlock.Text" xml:space="preserve">
+    <value>Update für c-time Universal!</value>
+  </data>
 </root>

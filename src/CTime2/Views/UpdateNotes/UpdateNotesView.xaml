@@ -35,17 +35,14 @@
                          FontSize="60" />
 
         <Viewbox Grid.Row="1" StretchDirection="DownOnly" HorizontalAlignment="Left">
-            <TextBlock Text="Update for c-time Universal!" 
+            <TextBlock x:Uid="UpdateForCtimeUniversalTextBlock"
+                       Text="~Update for c-time Universal!" 
                        Style="{StaticResource TitleTextBlockStyle}"
                        Foreground="{StaticResource SystemControlHighlightAccentBrush}" />
         </Viewbox>
 
         <Viewbox Grid.Row="2" StretchDirection="DownOnly" Margin="0, 3, 0, 0" HorizontalAlignment="Left">
-            <TextBlock>
-                <Run>The new version </Run>
-                <Run Text="{x:Bind ViewModel.CurrentVersion}" />
-                <Run> has been installed.</Run>
-            </TextBlock>
+            <TextBlock Text="{x:Bind ViewModel.NewVersionInstalled}" />
         </Viewbox>
         
         

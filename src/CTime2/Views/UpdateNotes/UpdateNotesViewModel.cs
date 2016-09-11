@@ -1,6 +1,6 @@
-﻿using System;
-using Windows.ApplicationModel;
+﻿using Windows.ApplicationModel;
 using Caliburn.Micro.ReactiveUI;
+using CTime2.Strings;
 using ReactiveUI;
 using UwCore.Extensions;
 
@@ -8,17 +8,17 @@ namespace CTime2.Views.UpdateNotes
 {
     public class UpdateNotesViewModel : ReactiveScreen
     {
-        private Version _currentVersion;
+        private string _newVersionInstalled;
 
-        public Version CurrentVersion
+        public string NewVersionInstalled
         {
-            get { return this._currentVersion; }
-            set { this.RaiseAndSetIfChanged(ref this._currentVersion, value); }
+            get { return this._newVersionInstalled; }
+            set { this.RaiseAndSetIfChanged(ref this._newVersionInstalled, value); }
         }
 
         public UpdateNotesViewModel()
         {
-            this.CurrentVersion = Package.Current.Id.Version.ToVersion();
+            this.NewVersionInstalled = CTime2Resources.GetFormatted("TheNewVersionFormat", Package.Current.Id.Version.ToVersion());
         }
     }
 }

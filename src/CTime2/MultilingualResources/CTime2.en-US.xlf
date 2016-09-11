@@ -392,6 +392,14 @@ This app may not work completely.</target>
           <source>{0} m</source>
           <target state="translated">{0} m</target>
         </trans-unit>
+        <trans-unit id="UpdateForCtimeUniversalTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Update für c-time Universal!</source>
+          <target state="translated">Update for c-time Universal!</target>
+        </trans-unit>
+        <trans-unit id="TheNewVersionFormat" translate="yes" xml:space="preserve">
+          <source>Die neue Version {0} wurde installiert.</source>
+          <target state="translated">The new version {0} has been installed.</target>
+        </trans-unit>
       </group>
     </body>
   </file>
