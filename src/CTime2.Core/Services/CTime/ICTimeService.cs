@@ -9,8 +9,16 @@ namespace CTime2.Core.Services.CTime
     {
         Task<User> Login(string emailAddress, string password);
         Task<IList<Time>> GetTimes(string employeeGuid, DateTime start, DateTime end);
-        Task<bool> SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state);
+        Task SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state, bool withGeolocation);
         Task<Time> GetCurrentTime(string employeeGuid);
         Task<IList<AttendingUser>> GetAttendingUsers(string companyId);
+    }
+
+    public static class CTimeServiceExtensions
+    {
+        public static async Task SaveTimer(this ICTimeService self, User user, TimeState state)
+        {
+            await self.SaveTimer(user.Id, DateTime.Now, user.CompanyId, state, user.SupportsGeoLocation);
+        }
     }
 }

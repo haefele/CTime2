@@ -14,6 +14,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
 using CTime2.Strings;
 using CTime2.Views.AttendanceList;
@@ -72,7 +73,8 @@ namespace CTime2
                 .Singleton<ICTimeService, CTimeService>()
                 .Singleton<ILicensesService, LicensesService>()
                 .Singleton<IBandService, Core.Services.Band.BandService>()
-                .Singleton<IBiometricsService, BiometricsService>();
+                .Singleton<IBiometricsService, BiometricsService>()
+                .Singleton<IGeoLocationService, GeoLocationService>();
         }
 
         public override ApplicationMode GetCurrentMode()

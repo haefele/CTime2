@@ -8,5 +8,6 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public byte[] ImageAsPng { get; set; }
+        public bool SupportsGeoLocation { get; set; }
     }
 }

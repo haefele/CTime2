@@ -29,9 +29,7 @@ namespace CTime2.Views.Overview
         protected async Task Stamp(TimeState state)
         {
             await this._cTimeService.SaveTimer(
-                this._applicationStateService.GetCurrentUser().Id,
-                DateTime.Now,
-                this._applicationStateService.GetCurrentUser().CompanyId,
+                this._applicationStateService.GetCurrentUser(),
                 state);
 
             await this.Container.RefreshCurrentState.ExecuteAsyncTask();

@@ -111,9 +111,7 @@ namespace CTime2.Core.Services.CTime
 
             _logger.Debug(() => "Saving the timer.");
             await this._cTimeService.SaveTimer(
-                this._sessionStateService.GetCurrentUser().Id,
-                DateTime.Now,
-                this._sessionStateService.GetCurrentUser().CompanyId,
+                this._sessionStateService.GetCurrentUser(),
                 timeState);
 
             _logger.Debug(() => "Finished voice command.");

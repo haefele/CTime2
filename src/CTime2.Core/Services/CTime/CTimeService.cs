@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 using Windows.Security.Cryptography.Certificates;
 using Windows.Storage;
 using Windows.Web.Http;
@@ -16,6 +18,7 @@ using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Strings;
 using Newtonsoft.Json.Linq;
 using UwCore.Common;
@@ -30,14 +33,17 @@ namespace CTime2.Core.Services.CTime
 
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IGeoLocationService _geoLocationService;
 
-        public CTimeService(IEventAggregator eventAggregator, IApplicationStateService applicationStateService)
+        public CTimeService(IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService)
         {
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(geoLocationService, nameof(geoLocationService));
 
             this._eventAggregator = eventAggregator;
             this._applicationStateService = applicationStateService;
+            this._geoLocationService = geoLocationService;
 
             this.AddCTimeCertificate();
         }
@@ -69,6 +75,7 @@ namespace CTime2.Core.Services.CTime
                     FirstName = user.Value<string>("EmployeeFirstName"),
                     Name = user.Value<string>("EmployeeName"),
                     ImageAsPng = Convert.FromBase64String(user.Value<string>("EmployeePhoto") ?? string.Empty),
+                    SupportsGeoLocation = user.Value<int>("GeolocationAllowed") == 1,
                 };
             }
             catch (Exception exception)
@@ -129,27 +136,28 @@ namespace CTime2.Core.Services.CTime
             }
         }
 
-        public async Task<bool> SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state)
+        public async Task SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state, bool withGeolocation)
         {
             try
             {
+                Geopoint location = withGeolocation
+                    ? await this._geoLocationService.TryGetGeoLocationAsync()
+                    : null;
+
                 var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", new Dictionary<string, string>
                 {
                     {"TimerKind", ((int) state).ToString()},
                     {"TimerText", string.Empty},
                     {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
                     {"EmployeeGUID", employeeGuid},
-                    {"GUID", companyId}
+                    {"GUID", companyId},
+                    {"lat", location?.Position.Latitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
+                    {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
                 });
 
                 if (responseJson?.Value<int>("State") == 0)
                 {
                     this._eventAggregator.PublishOnCurrentThread(new UserStamped());
-                    return true;
-                }
-                else
-                {
-                    return false;
                 }
             }
             catch (Exception exception)
