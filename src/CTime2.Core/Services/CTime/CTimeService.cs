@@ -54,9 +54,9 @@ namespace CTime2.Core.Services.CTime
             {
                 var responseJson = await this.SendRequestAsync("V2/LoginV2.php", new Dictionary<string, string>
                 {
-                    {"Password", password},
+                    {"Password", this.GetHashedPassword(password)},
                     {"LoginName", emailAddress},
-                    {"Crypt", 0.ToString()}
+                    {"Crypt", 1.ToString()}
                 });
 
                 var user = responseJson?
