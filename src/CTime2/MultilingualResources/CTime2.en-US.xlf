@@ -400,6 +400,14 @@ This app may not work completely.</target>
           <source>Die neue Version {0} wurde installiert.</source>
           <target state="translated">The new version {0} has been installed.</target>
         </trans-unit>
+        <trans-unit id="GeoLocationNotAvailableTextSetter.Value" translate="yes" xml:space="preserve">
+          <source>Position wird nicht übertragen</source>
+          <target state="new">Position wird nicht übertragen</target>
+        </trans-unit>
+        <trans-unit id="GeoLocationAvailableTextSetter.Value" translate="yes" xml:space="preserve">
+          <source>Position wird übertragen</source>
+          <target state="new">Position wird übertragen</target>
+        </trans-unit>
       </group>
     </body>
   </file>

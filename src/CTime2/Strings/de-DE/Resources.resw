@@ -409,4 +409,10 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="UpdateForCtimeUniversalTextBlock.Text" xml:space="preserve">
     <value>Update für c-time Universal!</value>
   </data>
+  <data name="GeoLocationAvailableTextSetter.Value" xml:space="preserve">
+    <value>Position wird übertragen</value>
+  </data>
+  <data name="GeoLocationNotAvailableTextSetter.Value" xml:space="preserve">
+    <value>Position wird nicht übertragen</value>
+  </data>
 </root>

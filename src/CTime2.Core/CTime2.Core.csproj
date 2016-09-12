@@ -169,6 +169,7 @@
     <Compile Include="Data\User.cs" />
     <Compile Include="Services\CTime\ICTimeStampHelperCallback.cs" />
     <Compile Include="Services\GeoLocation\GeoLocationService.cs" />
+    <Compile Include="Services\GeoLocation\GeoLocationState.cs" />
     <Compile Include="Services\GeoLocation\IGeoLocationService.cs" />
     <Compile Include="Services\Licenses\ILicensesService.cs" />
     <Compile Include="Data\License.cs" />

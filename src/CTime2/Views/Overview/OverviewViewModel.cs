@@ -9,6 +9,7 @@ using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.GeoLocation;
 using CTime2.Extensions;
 using CTime2.Strings;
 using CTime2.Views.Overview.CheckedIn;
@@ -27,6 +28,7 @@ namespace CTime2.Views.Overview
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
+        private readonly IGeoLocationService _geoLocationService;
 
         private readonly Timer _timer;
 
@@ -36,6 +38,7 @@ namespace CTime2.Views.Overview
         private string _welcomeMessage;
         private TimeSpan _currentTime;
         private byte[] _myImage;
+        private GeoLocationState _geoLocationState;
 
         public string WelcomeMessage
         {
@@ -54,17 +57,25 @@ namespace CTime2.Views.Overview
             get { return this._myImage; }
             set { this.RaiseAndSetIfChanged(ref this._myImage, value); }
         }
-        
+
+        public GeoLocationState GeoLocationState
+        {
+            get { return this._geoLocationState; }
+            set { this.RaiseAndSetIfChanged(ref this._geoLocationState, value); }
+        }
+
         public ReactiveCommand<Unit> RefreshCurrentState { get; }
 
-        public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator)
+        public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IGeoLocationService geoLocationService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
+            Guard.NotNull(geoLocationService, nameof(geoLocationService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
+            this._geoLocationService = geoLocationService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
@@ -80,8 +91,12 @@ namespace CTime2.Views.Overview
 
         protected override async void OnActivate()
         {
-            this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", this._applicationStateService.GetCurrentUser().FirstName);
-            this.MyImage = this._applicationStateService.GetCurrentUser().ImageAsPng;
+            var currentUser = this._applicationStateService.GetCurrentUser();
+
+            this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", currentUser.FirstName);
+            this.MyImage = currentUser.ImageAsPng;
+
+            this.GeoLocationState = await this._geoLocationService.GetGeoLocationStateAsync(currentUser);
             
             await this.RefreshCurrentState.ExecuteAsyncTask();
         }

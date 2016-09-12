@@ -1,21 +1,60 @@
-﻿<Page
-    x:Class="CTime2.Views.Overview.OverviewView"
-    
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:CTime2.Converter"
-    xmlns:controls="using:CTime2.Controls"
-    xmlns:micro="using:Caliburn.Micro"
-    xmlns:data="using:CTime2.Core.Data"
-    xmlns:uwp="using:FontAwesome.UWP">
-    
+﻿<Page x:Class="CTime2.Views.Overview.OverviewView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converter="using:CTime2.Converter"
+      xmlns:controls="using:CTime2.Controls"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:data="using:CTime2.Core.Data"
+      xmlns:uwp="using:FontAwesome.UWP"
+      xmlns:windowsStateTriggers="using:WindowsStateTriggers"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
     <Page.Resources>
-        <converter:FormatStringConverter x:Key="CurrentTimeToStringConverter" FormatString="hh\:mm\:ss" />
-        <converter:TimeStateToBrushConverter x:Key="TimeStateToBrushConverter" EnteredBrush="{StaticResource CTimeGreen}" LeftBrush="{StaticResource CTimeRed}" >
-        </converter:TimeStateToBrushConverter>
+        <converter:FormatStringConverter x:Key="CurrentTimeToStringConverter"
+                                         FormatString="hh\:mm\:ss" />
+        <converter:TimeStateToBrushConverter x:Key="TimeStateToBrushConverter"
+                                             EnteredBrush="{StaticResource CTimeGreen}"
+                                             LeftBrush="{StaticResource CTimeRed}" />
     </Page.Resources>
-    
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="GeoLocationStates">
+                <VisualState x:Name="NotRequired">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.GeoLocationState, Mode=OneWay}" EqualTo="NotRequired" />
+                    </VisualState.StateTriggers>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0"
+                                         To="0"
+                                         Storyboard.TargetProperty="(UIElement.Opacity)"
+                                         Storyboard.TargetName="GeoLocationStackPanel"
+                                         d:IsOptimized="True" />
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="RequiredNotAvailable">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.GeoLocationState, Mode=OneWay}" EqualTo="RequiredNotAvailable" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter x:Uid="GeoLocationNotAvailableTextSetter" Target="GeoLocationTextBlock.(TextBlock.Text)" Value="~Position wird nicht übertragen" />
+                        <Setter Target="GeoLocationIcon.Foreground" Value="{StaticResource CTimeRed}" />
+                        <Setter Target="GeoLocationTextBlock.Foreground" Value="{StaticResource CTimeRed}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="RequiredAndAvailable">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.GeoLocationState, Mode=OneWay}" EqualTo="RequiredAndAvailable" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter x:Uid="GeoLocationAvailableTextSetter" Target="GeoLocationTextBlock.(TextBlock.Text)" Value="~Position wird übertragen" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -59,19 +98,24 @@
                         VerticalAlignment="Bottom"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Bottom" />
-        
-        <StackPanel Grid.Row="3" 
+
+        <StackPanel x:Name="GeoLocationStackPanel"
+                    Grid.Row="3"
                     Margin="0, 5, 0, 5"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
-            
-            <uwp:FontAwesome Icon="Globe" 
-                             FontSize="18"
-                             Margin="0, 0, 8, 0"/>
-            
-            <TextBlock Text="Geo-Position wird übertragen" FontSize="14" />
+
+            <TextBlock x:Name="GeoLocationIcon"
+                       FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE81D;"
+                       FontSize="18"
+                       Margin="0, 0, 8, 0" />
+
+            <TextBlock x:Uid="GeoLocationTextBlock"
+                       x:Name="GeoLocationTextBlock"
+                       Text="~Position wird übertragen"
+                       FontSize="14" />
         </StackPanel>
-        
 
     </Grid>
 </Page>

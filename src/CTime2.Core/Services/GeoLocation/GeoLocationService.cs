@@ -1,11 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using CTime2.Core.Data;
 
 namespace CTime2.Core.Services.GeoLocation
 {
     public class GeoLocationService : IGeoLocationService
     {
+        public async Task<GeoLocationState> GetGeoLocationStateAsync(User user)
+        {
+            if (user.SupportsGeoLocation == false)
+                return GeoLocationState.NotRequired;
+
+            if (await this.HasAccessAsync() == false)
+                return GeoLocationState.RequiredNotAvailable;
+
+            return GeoLocationState.RequiredAndAvailable;
+        }
+
         public async Task<bool> HasAccessAsync()
         {
             var access = await Geolocator.RequestAccessAsync();
