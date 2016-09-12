@@ -12,6 +12,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Extensions;
 using CTime2.Strings;
+using CTime2.Views.GeoLocationInfo;
 using CTime2.Views.Overview.CheckedIn;
 using CTime2.Views.Overview.CheckedOut;
 using CTime2.Views.Overview.HomeOfficeCheckedIn;
@@ -21,6 +22,7 @@ using UwCore.Application.Events;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using INavigationService = UwCore.Services.Navigation.INavigationService;
 
 namespace CTime2.Views.Overview
 {
@@ -29,6 +31,7 @@ namespace CTime2.Views.Overview
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IGeoLocationService _geoLocationService;
+        private readonly INavigationService _navigationService;
 
         private readonly Timer _timer;
 
@@ -65,17 +68,20 @@ namespace CTime2.Views.Overview
         }
 
         public ReactiveCommand<Unit> RefreshCurrentState { get; }
+        public ReactiveCommand<Unit> ShowGeoLocationInfo { get; }
 
-        public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IGeoLocationService geoLocationService)
+        public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IGeoLocationService geoLocationService, INavigationService navigationService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(geoLocationService, nameof(geoLocationService));
+            Guard.NotNull(navigationService, nameof(navigationService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._geoLocationService = geoLocationService;
+            this._navigationService = navigationService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
@@ -85,6 +91,10 @@ namespace CTime2.Views.Overview
             this.RefreshCurrentState.AttachExceptionHandler();
             this.RefreshCurrentState.AttachLoadingService(CTime2Resources.Get("Loading.CurrentState"));
             this.RefreshCurrentState.TrackEvent("RefreshCurrentState");
+
+            this.ShowGeoLocationInfo = ReactiveCommand.CreateAsyncTask(_ => this.ShowGeoLocationInfoImpl());
+            this.ShowGeoLocationInfo.AttachExceptionHandler();
+            this.ShowGeoLocationInfo.TrackEvent("GeoLocationInfo");
 
             eventAggregator.SubscribeScreen(this);
         }
@@ -152,6 +162,13 @@ namespace CTime2.Views.Overview
                 this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
             }
             #endregion
+        }
+
+        private Task ShowGeoLocationInfoImpl()
+        {
+            this._navigationService.Popup.For<GeoLocationInfoViewModel>().Navigate();
+
+            return Task.CompletedTask;
         }
 
         private void Tick(object state)

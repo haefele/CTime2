@@ -9,6 +9,8 @@
       xmlns:windowsStateTriggers="using:WindowsStateTriggers"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -104,6 +106,11 @@
                     Margin="0, 5, 0, 5"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="PointerPressed">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.ShowGeoLocationInfo}" />
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
 
             <TextBlock x:Name="GeoLocationIcon"
                        FontFamily="Segoe MDL2 Assets"
@@ -115,6 +122,7 @@
                        x:Name="GeoLocationTextBlock"
                        Text="~Position wird übertragen"
                        FontSize="14" />
+            
         </StackPanel>
 
     </Grid>

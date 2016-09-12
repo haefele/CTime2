@@ -122,6 +122,10 @@
     <Compile Include="Styles.xaml.cs">
       <DependentUpon>Styles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GeoLocationInfo\GeoLocationInfoView.xaml.cs">
+      <DependentUpon>GeoLocationInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GeoLocationInfo\GeoLocationInfoViewModel.cs" />
     <Compile Include="Views\HeaderDetails\HeaderDetailsView.xaml.cs">
       <DependentUpon>HeaderDetailsView.xaml</DependentUpon>
     </Compile>
@@ -244,6 +248,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\GeoLocationInfo\GeoLocationInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HeaderDetails\HeaderDetailsView.xaml">
       <SubType>Designer</SubType>

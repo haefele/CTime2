@@ -18,6 +18,7 @@ using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
 using CTime2.Strings;
 using CTime2.Views.AttendanceList;
+using CTime2.Views.GeoLocationInfo;
 using CTime2.Views.HeaderDetails;
 using CTime2.Views.Login;
 using CTime2.Views.Overview;
@@ -117,6 +118,7 @@ namespace CTime2
             yield return typeof(HeaderDetailsViewModel);
             yield return typeof(DetailedStatisticViewModel);
             yield return typeof(UpdateNotesViewModel);
+            yield return typeof(GeoLocationInfoViewModel);
         }
 
         public override string GetHockeyAppId()
