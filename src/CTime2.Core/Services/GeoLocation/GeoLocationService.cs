@@ -28,7 +28,12 @@ namespace CTime2.Core.Services.GeoLocation
         {
             if (await this.HasAccessAsync())
             {
-                var location = await new Geolocator().GetGeopositionAsync();
+                var geoLocator = new Geolocator {DesiredAccuracyInMeters = 10};
+                var location = await geoLocator.GetGeopositionAsync();
+
+                if (location.Coordinate.Accuracy > 100) //If it's not at least accurate to 100 meters, we don't use the value
+                    return null;
+
                 return location.Coordinate.Point;
             }
 
