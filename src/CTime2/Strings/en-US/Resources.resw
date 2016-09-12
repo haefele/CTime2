@@ -304,4 +304,10 @@ This app may not work completely.</value>
   <data name="TheNewVersionFormat" xml:space="preserve">
     <value>The new version {0} has been installed.</value>
   </data>
+  <data name="GeoLocationNotAvailableTextSetter.Value" xml:space="preserve">
+    <value>Location will not be transferred</value>
+  </data>
+  <data name="GeoLocationAvailableTextSetter.Value" xml:space="preserve">
+    <value>Location will be transferred</value>
+  </data>
 </root>

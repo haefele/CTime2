@@ -402,11 +402,11 @@ This app may not work completely.</target>
         </trans-unit>
         <trans-unit id="GeoLocationNotAvailableTextSetter.Value" translate="yes" xml:space="preserve">
           <source>Position wird nicht übertragen</source>
-          <target state="new">Position wird nicht übertragen</target>
+          <target state="translated">Location will not be transferred</target>
         </trans-unit>
         <trans-unit id="GeoLocationAvailableTextSetter.Value" translate="yes" xml:space="preserve">
           <source>Position wird übertragen</source>
-          <target state="new">Position wird übertragen</target>
+          <target state="translated">Location will be transferred</target>
         </trans-unit>
       </group>
     </body>
