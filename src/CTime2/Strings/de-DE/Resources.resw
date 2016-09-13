@@ -415,4 +415,16 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="GeoLocationNotAvailableTextSetter.Value" xml:space="preserve">
     <value>Position wird nicht übertragen</value>
   </data>
+  <data name="GeoLocationAdvantagesRun.Text" xml:space="preserve">
+    <value>Das gibt deiner Firma die Möglichkeit zu sehen, wo du dich befunden hast, als du dich ein- bzw. ausgestempelt hast.</value>
+  </data>
+  <data name="GeoLocationCanBeActivatedRun.Text" xml:space="preserve">
+    <value>c-time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</value>
+  </data>
+  <data name="GeoLocationHowToDeactivateRun.Text" xml:space="preserve">
+    <value>Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</value>
+  </data>
+  <data name="GeoLocationInfoTitleTextBlock.Text" xml:space="preserve">
+    <value>Position übertragen</value>
+  </data>
 </root>

@@ -408,6 +408,22 @@ This app may not work completely.</target>
           <source>Position wird übertragen</source>
           <target state="translated">Location will be transferred</target>
         </trans-unit>
+        <trans-unit id="GeoLocationAdvantagesRun.Text" translate="yes" xml:space="preserve">
+          <source>Das gibt deiner Firma die Möglichkeit zu sehen, wo du dich befunden hast, als du dich ein- bzw. ausgestempelt hast.</source>
+          <target state="translated">This gives your company the opportunity to see where you have been when you checked-in or -out.</target>
+        </trans-unit>
+        <trans-unit id="GeoLocationCanBeActivatedRun.Text" translate="yes" xml:space="preserve">
+          <source>c-time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</source>
+          <target state="translated">c-time can be adjusted so that the current position should be transferred if you stamp.</target>
+        </trans-unit>
+        <trans-unit id="GeoLocationInfoTitleTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Position übertragen</source>
+          <target state="translated">Transfer position</target>
+        </trans-unit>
+        <trans-unit id="GeoLocationHowToDeactivateRun.Text" translate="yes" xml:space="preserve">
+          <source>Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</source>
+          <target state="translated">Of course you disable position detection in the settings either globally, or only for this app.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

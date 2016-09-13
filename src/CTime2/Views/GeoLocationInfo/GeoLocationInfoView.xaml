@@ -5,9 +5,51 @@
     xmlns:local="using:CTime2.Views.GeoLocationInfo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    
+    MaxWidth="320"
+    MaxHeight="360"
+    >
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="Red"></Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Viewbox Grid.Row="0"
+                 StretchDirection="DownOnly"
+                 HorizontalAlignment="Left">
+            <TextBlock x:Uid="GeoLocationInfoTitleTextBlock"
+                       Text="~Position übertragen"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Foreground="{StaticResource SystemControlHighlightAccentBrush}" />
+        </Viewbox>
+
+        <Rectangle Grid.Row="1"
+                   Fill="{ThemeResource BorderBrush}"
+                   Height="1"
+                   Margin="0, 10, 0, 10" />
+        
+        <RichTextBlock Grid.Row="2" IsTextSelectionEnabled="False">
+            <Paragraph><Run x:Uid="GeoLocationCanBeActivatedRun">~c-time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</Run></Paragraph>
+            <Paragraph Margin="0, 10, 0, 0"><Run x:Uid="GeoLocationAdvantagesRun">~Das gibt deiner Firma die Möglichkeit zu sehen, wo du dich befunden hast, als du dich ein- bzw. ausgestemplt hast.</Run></Paragraph>
+            <Paragraph Margin="0, 10, 0, 0"><Run x:Uid="GeoLocationHowToDeactivateRun">~Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</Run></Paragraph>
+        </RichTextBlock>
+        
+        <Button Grid.Row="3" Margin="0, 10, 0, 0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Click="OpenSettingsButton_OnClick">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <SymbolIcon Grid.Column="0" Symbol="Setting" />
+                <TextBlock Grid.Column="1" Margin="5, 0, 0, 0" Text="Einstellungen öffnen" />
+            </Grid>
+        </Button>
     </Grid>
 </Page>

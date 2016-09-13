@@ -310,4 +310,16 @@ This app may not work completely.</value>
   <data name="GeoLocationAvailableTextSetter.Value" xml:space="preserve">
     <value>Location will be transferred</value>
   </data>
+  <data name="GeoLocationAdvantagesRun.Text" xml:space="preserve">
+    <value>This gives your company the opportunity to see where you have been when you checked-in or -out.</value>
+  </data>
+  <data name="GeoLocationCanBeActivatedRun.Text" xml:space="preserve">
+    <value>c-time can be adjusted so that the current position should be transferred if you stamp.</value>
+  </data>
+  <data name="GeoLocationInfoTitleTextBlock.Text" xml:space="preserve">
+    <value>Transfer position</value>
+  </data>
+  <data name="GeoLocationHowToDeactivateRun.Text" xml:space="preserve">
+    <value>Of course you disable position detection in the settings either globally, or only for this app.</value>
+  </data>
 </root>
