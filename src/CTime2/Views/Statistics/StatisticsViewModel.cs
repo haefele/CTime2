@@ -116,7 +116,7 @@ namespace CTime2.Views.Statistics
             }
 
             var timesByDay = allTimes
-                .Where(f => TimesByDay.IsForStatistic(f, this.IncludeToday.Value))
+                .Where(f => f.Day.Date != DateTime.Today || this.IncludeToday.Value)
                 .ToList();
             
             if (times.Count == 0 || timesByDay.Count == 0 || timesByDay.Count(f => f.Hours != TimeSpan.Zero) == 0)
@@ -151,7 +151,7 @@ namespace CTime2.Views.Statistics
                 - (timeToday?.Hours ?? TimeSpan.Zero)
                 + (latestTimeToday?.Duration ?? TimeSpan.Zero);
             var hadBreakAlready = timeToday?.Times.Count >= 2;
-            var hasExpectedWorkEnd = (latestTimeToday?.ClockInTime) != null && this.IncludeToday.GetValueOrDefault() == false;
+            var hasExpectedWorkEnd = (latestTimeToday?.ClockInTime) != null;
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
                 + (hadBreakAlready ? TimeSpan.Zero : TimeSpan.FromHours(1)) 
                 + workTimeTodayToUseUpOverTimePool;
@@ -218,6 +218,7 @@ namespace CTime2.Views.Statistics
                 .WithParam(f => f.StartDate, this.StartDate)
                 .WithParam(f => f.EndDate, this.EndDate)
                 .WithParam(f => f.StatisticChart, chartKind)
+                .WithParam(f => f.IncludeToday, this.IncludeToday.GetValueOrDefault())
                 .Navigate();
         }
         #endregion

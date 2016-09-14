@@ -39,6 +39,7 @@ namespace CTime2.Views.Statistics
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset EndDate { get; set; }
         public StatisticChartKind StatisticChart { get; set; }
+        public bool IncludeToday { get; set; }
         #endregion
 
         public DetailedStatisticViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, INavigationService navigationService)
@@ -79,7 +80,7 @@ namespace CTime2.Views.Statistics
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var timesByDay = TimesByDay.Create(times)
-                .Where(f => TimesByDay.IsForStatistic(f, false))
+                .Where(f => f.Day.Date != DateTime.Today || this.IncludeToday)
                 .OrderBy(f => f.Day)
                 .ToList();
 
