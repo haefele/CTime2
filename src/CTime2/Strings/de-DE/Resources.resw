@@ -427,4 +427,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="GeoLocationInfoTitleTextBlock.Text" xml:space="preserve">
     <value>Position übertragen</value>
   </data>
+  <data name="IncludeTodayAppBarToggleButton.Label" xml:space="preserve">
+    <value>Mit Heute</value>
+  </data>
 </root>

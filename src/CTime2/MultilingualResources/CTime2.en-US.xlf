@@ -424,6 +424,10 @@ This app may not work completely.</target>
           <source>Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</source>
           <target state="translated">Of course you disable position detection in the settings either globally, or only for this app.</target>
         </trans-unit>
+        <trans-unit id="IncludeTodayAppBarToggleButton.Label" translate="yes" xml:space="preserve">
+          <source>Mit Heute</source>
+          <target state="translated">With today</target>
+        </trans-unit>
       </group>
     </body>
   </file>

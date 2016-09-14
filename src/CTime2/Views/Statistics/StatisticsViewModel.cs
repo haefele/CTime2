@@ -29,11 +29,12 @@ namespace CTime2.Views.Statistics
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         
+        private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
-
-        private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
+        private bool? _includeToday;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticItem>> _statisticsHelper;
+
         #endregion
 
         #region Properties
@@ -52,6 +53,11 @@ namespace CTime2.Views.Statistics
         {
             get { return this._endDate; }
             set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
+        }
+        public bool? IncludeToday
+        {
+            get { return this._includeToday; }
+            set { this.RaiseAndSetIfChanged(ref this._includeToday, value); }
         }
 
         public ReactiveObservableCollection<StatisticItem> Statistics => this._statisticsHelper.Value;
@@ -99,8 +105,18 @@ namespace CTime2.Views.Statistics
         {
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
-            var timesByDay = TimesByDay.Create(times)
-                .Where(TimesByDay.IsForStatistic)
+            var allTimes = TimesByDay.Create(times).ToList();
+
+            //If "IncludeToday" is NULL, we have to set it to either true or false
+            //NULL is the default value when the first time the LoadStatistics command is executed
+            if (this.IncludeToday.HasValue == false)
+            {
+                var timesToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today)?.Times.Count(f => f.ClockInTime != null && f.ClockOutTime != null);
+                this.IncludeToday = timesToday.HasValue && timesToday.Value >= 2;
+            }
+
+            var timesByDay = allTimes
+                .Where(f => TimesByDay.IsForStatistic(f, this.IncludeToday.Value))
                 .ToList();
             
             if (times.Count == 0 || timesByDay.Count == 0 || timesByDay.Count(f => f.Hours != TimeSpan.Zero) == 0)
@@ -128,14 +144,14 @@ namespace CTime2.Views.Statistics
             var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * TimeSpan.FromHours(8).TotalMinutes;
             var workTimePoolInMinutes = (int)Math.Round(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
 
-            var timeToday = TimesByDay.Create(times).FirstOrDefault(f => f.Day.Date == DateTime.Today);
+            var timeToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today);
             var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();
             var workTimeTodayToUseUpOverTimePool = TimeSpan.FromHours(8)
                 - TimeSpan.FromMinutes(workTimePoolInMinutes)
                 - (timeToday?.Hours ?? TimeSpan.Zero)
                 + (latestTimeToday?.Duration ?? TimeSpan.Zero);
             var hadBreakAlready = timeToday?.Times.Count >= 2;
-            var hasExpectedWorkEnd = (latestTimeToday?.ClockInTime) != null;
+            var hasExpectedWorkEnd = (latestTimeToday?.ClockInTime) != null && this.IncludeToday.GetValueOrDefault() == false;
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
                 + (hadBreakAlready ? TimeSpan.Zero : TimeSpan.FromHours(1)) 
                 + workTimeTodayToUseUpOverTimePool;

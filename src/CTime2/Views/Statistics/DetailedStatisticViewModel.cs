@@ -79,7 +79,7 @@ namespace CTime2.Views.Statistics
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var timesByDay = TimesByDay.Create(times)
-                .Where(TimesByDay.IsForStatistic)
+                .Where(f => TimesByDay.IsForStatistic(f, false))
                 .OrderBy(f => f.Day)
                 .ToList();
 

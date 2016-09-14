@@ -322,4 +322,7 @@ This app may not work completely.</value>
   <data name="GeoLocationHowToDeactivateRun.Text" xml:space="preserve">
     <value>Of course you disable position detection in the settings either globally, or only for this app.</value>
   </data>
+  <data name="IncludeTodayAppBarToggleButton.Label" xml:space="preserve">
+    <value>With today</value>
+  </data>
 </root>

@@ -39,15 +39,12 @@ namespace CTime2.Views.YourTimes
             return result;
         }
 
-        public static bool IsForStatistic(TimesByDay timesByDay)
+        public static bool IsForStatistic(TimesByDay timesByDay, bool includeToday)
         {
             if (timesByDay.Day != DateTime.Today)
                 return true;
 
-            if (timesByDay.Times.Count(f => f.ClockOutTime.HasValue) >= 2)
-                return true;
-
-            return false;
+            return includeToday;
         }
     }
 }
