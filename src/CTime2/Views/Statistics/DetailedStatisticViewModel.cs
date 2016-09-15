@@ -174,7 +174,7 @@ namespace CTime2.Views.Statistics
 
                         var change = time.Hours == TimeSpan.Zero //Use 0 and not -480 if we have no times at one day (Weekend)
                             ? 0
-                            : (time.Hours - TimeSpan.FromHours(8)).TotalMinutes;
+                            : (time.Hours - this._applicationStateService.GetWorkDayHours()).TotalMinutes;
 
                         result.Add(new StatisticChartItem
                         {

@@ -125,6 +125,9 @@ namespace CTime2.Views.Statistics
                 return new ReactiveObservableCollection<StatisticItem>();
             }
 
+            var workDayHours = this._applicationStateService.GetWorkDayHours();
+            var workDayBreak = this._applicationStateService.GetWorkDayBreak();
+
             var totalWorkTime = TimeSpan.FromMinutes(timesByDay.Where(f => f.Hours != TimeSpan.Zero).Sum(f => f.Hours.TotalMinutes));
 
             var totalWorkDays = timesByDay.Count(f => f.Hours != TimeSpan.Zero);
@@ -141,19 +144,19 @@ namespace CTime2.Views.Statistics
 
             var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
 
-            var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * TimeSpan.FromHours(8).TotalMinutes;
+            var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * workDayHours.TotalMinutes;
             var workTimePoolInMinutes = (int)Math.Round(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
 
             var timeToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today);
             var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();
-            var workTimeTodayToUseUpOverTimePool = TimeSpan.FromHours(8)
+            var workTimeTodayToUseUpOverTimePool = workDayHours
                 - TimeSpan.FromMinutes(workTimePoolInMinutes)
                 - (timeToday?.Hours ?? TimeSpan.Zero)
                 + (latestTimeToday?.Duration ?? TimeSpan.Zero);
             var hadBreakAlready = timeToday?.Times.Count >= 2;
             var hasExpectedWorkEnd = (latestTimeToday?.ClockInTime) != null;
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
-                + (hadBreakAlready ? TimeSpan.Zero : TimeSpan.FromHours(1)) 
+                + (hadBreakAlready ? TimeSpan.Zero : workDayBreak) 
                 + workTimeTodayToUseUpOverTimePool;
 
             var statisticItems = new List<StatisticItem>
