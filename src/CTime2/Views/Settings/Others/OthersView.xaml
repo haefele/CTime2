@@ -10,21 +10,20 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
+        <TextBlock Text="Anmeldung merken" Grid.Row="0" Style="{StaticResource SubtitleTextBlockStyle}" />
+        
         <TextBlock Grid.Row="1" 
-                   TextAlignment="Center"
                    x:Uid="RememberLoginTextBlock"
-                   Text="~Du kannst deine aktuelle Anmeldung merken lassen.&#xD;&#xA;&#xD;&#xA;Dazu musst du dich dich einmal authentifizieren." />
+                   Text="~Du kannst deine aktuelle Anmeldung merken lassen.&#xD;&#xA;Dazu musst du dich dich einmal authentifizieren." />
         
         <Button Content="~Anmeldung merken" 
                 x:Uid="RememberLoginButton"
                 Grid.Row="2"
-                Margin="0, 50, 0, 0"
-                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Command="{x:Bind ViewModel.RememberLogin}" />
     </Grid>

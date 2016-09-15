@@ -264,10 +264,8 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         </trans-unit>
         <trans-unit id="RememberLoginTextBlock.Text" translate="yes" xml:space="preserve">
           <source>Du kannst deine aktuelle Anmeldung merken lassen.
-
 Dazu musst du dich dich einmal authentifizieren.</source>
           <target state="translated">You can let this app remember your current login.
-
 You just have to authentificate yourself.</target>
         </trans-unit>
         <trans-unit id="Navigation.Band" translate="yes" xml:space="preserve">

@@ -204,7 +204,6 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   </data>
   <data name="RememberLoginTextBlock.Text" xml:space="preserve">
     <value>You can let this app remember your current login.
-
 You just have to authentificate yourself.</value>
   </data>
   <data name="Navigation.Band" xml:space="preserve">

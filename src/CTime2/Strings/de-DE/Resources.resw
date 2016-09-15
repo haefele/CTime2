@@ -282,7 +282,6 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   </data>
   <data name="RememberLoginTextBlock.Text" xml:space="preserve">
     <value>Du kannst deine aktuelle Anmeldung merken lassen.
-
 Dazu musst du dich dich einmal authentifizieren.</value>
   </data>
   <data name="StartDateAppBarButton.Label" xml:space="preserve">

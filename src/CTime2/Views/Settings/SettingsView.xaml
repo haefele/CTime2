@@ -9,12 +9,13 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         
         <Pivot ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-               SelectedItem="{Binding ActiveItem, Mode=TwoWay}" 
-               Style="{StaticResource CenteredPivotStyle}"
-               >
+               SelectedItem="{Binding ActiveItem, Mode=TwoWay}">
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="reactiveUi:ReactiveScreen">
-                    <TextBlock Text="{x:Bind DisplayName}" />
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Home" />
+                        <TextBlock Margin="5, 0, 0, 0" Text="{x:Bind DisplayName}" />
+                    </StackPanel>
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
