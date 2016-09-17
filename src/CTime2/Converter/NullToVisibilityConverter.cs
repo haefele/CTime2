@@ -8,7 +8,12 @@ namespace CTime2.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value == null 
+            bool isNull = value == null;
+
+            if (value is string)
+                isNull = string.IsNullOrWhiteSpace((string) value);
+
+            return isNull 
                 ? Visibility.Collapsed 
                 : Visibility.Visible;
         }

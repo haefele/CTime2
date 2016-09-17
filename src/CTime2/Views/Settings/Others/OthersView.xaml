@@ -6,9 +6,33 @@
 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="using:CTime2.Views.Settings"
+    xmlns:controls="using:CTime2.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel>
+            <controls:SettingsGroup Header="Notifications" Description="Here you can specify how notifications should behave, where they should be displayed and so on." >
+                <controls:SettingsItem Description="Get notifications from apps and other senders">
+                    <ToggleSwitch IsOn="True" />
+                </controls:SettingsItem>
+                <controls:SettingsItem Description="Show notifications on lock screen">
+                    <ToggleSwitch IsOn="True" />
+                </controls:SettingsItem>
+                <controls:SettingsItem Description="Show alarms, reminders, and incoming VoIP calls on the lock screen">
+                    <ToggleSwitch IsOn="True" />
+                </controls:SettingsItem>
+                <controls:SettingsItem Description="Hide notifications when I'm duplicating my screen">
+                    <ToggleSwitch />
+                </controls:SettingsItem>
+                <controls:SettingsItem Description="Get tips, tricks, and suggestions as you use Windows">
+                    <ToggleSwitch IsOn="True" />
+                </controls:SettingsItem>
+            </controls:SettingsGroup>
+        </StackPanel>
+    </ScrollViewer>
+
+    <!--<Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -26,5 +50,8 @@
                 Grid.Row="2"
                 VerticalAlignment="Top"
                 Command="{x:Bind ViewModel.RememberLogin}" />
-    </Grid>
+    </Grid>-->
 </UserControl>
+
+
+

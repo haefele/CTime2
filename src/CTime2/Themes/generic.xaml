@@ -60,5 +60,75 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="controls:SettingsGroup">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:SettingsGroup">
+                    <Grid>
+                        <Grid.Resources>
+                            <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                    
+                        <TextBlock Grid.Row="0" 
+                                   TextWrapping="Wrap"
+                                   Style="{StaticResource TitleTextBlockStyle}" 
+                                   Text="{TemplateBinding Header}" 
+                                   Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header, Converter={StaticResource NullToVisibilityConverter}}"
+                                   Margin="0, 0, 0, 8"/>
+
+                        <TextBlock Grid.Row="1" 
+                                   TextWrapping="Wrap"
+                                   Text="{TemplateBinding Description}"
+                                   Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Description, Converter={StaticResource NullToVisibilityConverter}}" />
+
+                        <ItemsControl Grid.Row="2" 
+                                      ItemsSource="{TemplateBinding Settings}"
+                                      Margin="0, 8, 0, 0">
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="controls:SettingsItem">
+                                    <Setter Property="Margin" Value="0, 10, 0, 0" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>
+                        
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="controls:SettingsItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:SettingsItem">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.Resources>
+                            <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" 
+                                   TextWrapping="Wrap"
+                                   Text="{TemplateBinding Description}"
+                                   Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Description, Converter={StaticResource NullToVisibilityConverter}}" />
+                        
+                        <ContentPresenter Grid.Row="1" 
+                                          Content="{TemplateBinding Content}" />
+                        
+                    </Grid>
+                
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
 
