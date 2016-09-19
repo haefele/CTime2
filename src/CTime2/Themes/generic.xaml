@@ -85,14 +85,15 @@
                         <TextBlock Grid.Row="1" 
                                    TextWrapping="Wrap"
                                    Text="{TemplateBinding Description}"
+                                   Margin="0, 0, 0, 8"
                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Description, Converter={StaticResource NullToVisibilityConverter}}" />
 
                         <ItemsControl Grid.Row="2" 
-                                      ItemsSource="{TemplateBinding Settings}"
-                                      Margin="0, 8, 0, 0">
+                                      ItemsSource="{TemplateBinding Settings}">
                             <ItemsControl.ItemContainerStyle>
                                 <Style TargetType="controls:SettingsItem">
-                                    <Setter Property="Margin" Value="0, 10, 0, 0" />
+                                    <Setter Property="Margin" Value="0, 0, 0, 10" />
+                                    <Setter Property="HorizontalAlignment" Value="Left" />
                                 </Style>
                             </ItemsControl.ItemContainerStyle>
                         </ItemsControl>
@@ -104,6 +105,7 @@
     </Style>
     
     <Style TargetType="controls:SettingsItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:SettingsItem">
@@ -122,7 +124,9 @@
                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Description, Converter={StaticResource NullToVisibilityConverter}}" />
                         
                         <ContentPresenter Grid.Row="1" 
-                                          Content="{TemplateBinding Content}" />
+                                          Content="{TemplateBinding Content}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         
                     </Grid>
                 

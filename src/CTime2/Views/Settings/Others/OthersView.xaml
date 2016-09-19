@@ -8,25 +8,39 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="using:CTime2.Views.Settings"
     xmlns:controls="using:CTime2.Controls"
+    xmlns:foundation="using:Windows.Foundation"
+    xmlns:converter="using:UwCore.Converter"
     mc:Ignorable="d">
 
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <controls:SettingsGroup Header="Notifications" Description="Here you can specify how notifications should behave, where they should be displayed and so on." >
-                <controls:SettingsItem Description="Get notifications from apps and other senders">
-                    <ToggleSwitch IsOn="True" />
+            <controls:SettingsGroup x:Uid="LoginSettingsGroup" Header="~Anmeldung">
+                <controls:SettingsItem x:Uid="RememberLoginSettingsItem" 
+                                       Description="~Du kannst deine aktuelle Anmeldung merken lassen.&#xD;&#xA;Dazu musst du dich dich einmal authentifizieren.">
+                    <Button x:Uid="RememberLoginButton"
+                            Content="~Anmeldung merken" 
+                            Command="{x:Bind ViewModel.RememberLogin}" />
                 </controls:SettingsItem>
-                <controls:SettingsItem Description="Show notifications on lock screen">
-                    <ToggleSwitch IsOn="True" />
+            </controls:SettingsGroup>
+            <controls:SettingsGroup Header="Zeiten">
+                <controls:SettingsItem Description="Work time">
+                    <ComboBox ItemsSource="{x:Bind ViewModel.WorkTimes}" 
+                              SelectedItem="{x:Bind ViewModel.SelectedWorkTime}" Width="100">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.Resources>
+                                        <converter:FormatStringConverter x:Key="TimeSpanFormatConverter" FormatString="hh mm" />
+                                    </Grid.Resources>
+                                    
+                                    <TextBlock Text="{Binding Converter={StaticResource TimeSpanFormatConverter}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </controls:SettingsItem>
-                <controls:SettingsItem Description="Show alarms, reminders, and incoming VoIP calls on the lock screen">
-                    <ToggleSwitch IsOn="True" />
-                </controls:SettingsItem>
-                <controls:SettingsItem Description="Hide notifications when I'm duplicating my screen">
-                    <ToggleSwitch />
-                </controls:SettingsItem>
-                <controls:SettingsItem Description="Get tips, tricks, and suggestions as you use Windows">
-                    <ToggleSwitch IsOn="True" />
+                <controls:SettingsItem Description="Break time">
+                    <ComboBox Width="100" />
                 </controls:SettingsItem>
             </controls:SettingsGroup>
         </StackPanel>

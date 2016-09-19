@@ -1,4 +1,6 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Linq;
+using System.Reactive;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Caliburn.Micro.ReactiveUI;
@@ -17,6 +19,9 @@ namespace CTime2.Views.Settings.Others
         private readonly IBiometricsService _biometricsService;
         private readonly IApplicationStateService _applicationStateService;
 
+        public ReactiveObservableCollection<TimeSpan> WorkTimes { get; set; }
+        public TimeSpan SelectedWorkTime { get; set; }
+
         public ReactiveCommand<Unit> RememberLogin { get; }
 
         public OthersViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService)
@@ -26,6 +31,12 @@ namespace CTime2.Views.Settings.Others
 
             this._biometricsService = biometricsService;
             this._applicationStateService = applicationStateService;
+            
+            this.WorkTimes = new ReactiveObservableCollection<TimeSpan>(Enumerable
+                .Repeat((object) null, 100)
+                .Select((_, i) => TimeSpan.FromHours(0.25*(i + 1))));
+
+            this.SelectedWorkTime = this.WorkTimes.FirstOrDefault();
 
             var canRememberLogin = new ReplaySubject<bool>(1);
             canRememberLogin.OnNext(this._applicationStateService.GetCurrentUser() != null);
