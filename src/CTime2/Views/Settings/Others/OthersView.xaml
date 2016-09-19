@@ -9,8 +9,19 @@
     xmlns:settings="using:CTime2.Views.Settings"
     xmlns:controls="using:CTime2.Controls"
     xmlns:foundation="using:Windows.Foundation"
-    xmlns:converter="using:UwCore.Converter"
+    xmlns:converter="using:CTime2.Converter"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Key="TimeSpanDataTemplate">
+            <Grid>
+                <Grid.Resources>
+                    <converter:FormatStringConverter x:Key="TimeSpanFormatConverter" FormatString="hh\ \h\ mm\ \m\i\n" />
+                </Grid.Resources>
+
+                <TextBlock Text="{Binding Converter={StaticResource TimeSpanFormatConverter}}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
 
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalScrollBarVisibility="Auto">
         <StackPanel>
@@ -22,49 +33,26 @@
                             Command="{x:Bind ViewModel.RememberLogin}" />
                 </controls:SettingsItem>
             </controls:SettingsGroup>
-            <controls:SettingsGroup Header="Zeiten">
-                <controls:SettingsItem Description="Work time">
-                    <ComboBox ItemsSource="{x:Bind ViewModel.WorkTimes}" 
-                              SelectedItem="{x:Bind ViewModel.SelectedWorkTime}" Width="100">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.Resources>
-                                        <converter:FormatStringConverter x:Key="TimeSpanFormatConverter" FormatString="hh mm" />
-                                    </Grid.Resources>
-                                    
-                                    <TextBlock Text="{Binding Converter={StaticResource TimeSpanFormatConverter}}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+            <controls:SettingsGroup x:Uid="TimesSettingsGroup" 
+                                    Header="~Zeiten">
+                <controls:SettingsItem x:Uid="WorkTimeSettingsItem" 
+                                       Description="~Arbeitsdauer">
+                    <ComboBox ItemsSource="{x:Bind ViewModel.WorkTimes, Mode=OneWay}" 
+                              SelectedItem="{Binding SelectedWorkTime, Mode=TwoWay}" 
+                              Width="130"
+                              ItemTemplate="{StaticResource TimeSpanDataTemplate}" />
                 </controls:SettingsItem>
-                <controls:SettingsItem Description="Break time">
-                    <ComboBox Width="100" />
+                <controls:SettingsItem x:Uid="BreakTimeSettingsItem" 
+                                       Description="~Pausendauer">
+                    <ComboBox Width="130"
+                              ItemsSource="{x:Bind ViewModel.BreakTimes, Mode=OneWay}"
+                              SelectedItem="{Binding SelectedBreakTime, Mode=TwoWay}"
+                              ItemTemplate="{StaticResource TimeSpanDataTemplate}" />
                 </controls:SettingsItem>
             </controls:SettingsGroup>
         </StackPanel>
     </ScrollViewer>
-
-    <!--<Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <TextBlock Text="Anmeldung merken" Grid.Row="0" Style="{StaticResource SubtitleTextBlockStyle}" />
-        
-        <TextBlock Grid.Row="1" 
-                   x:Uid="RememberLoginTextBlock"
-                   Text="~Du kannst deine aktuelle Anmeldung merken lassen.&#xD;&#xA;Dazu musst du dich dich einmal authentifizieren." />
-        
-        <Button Content="~Anmeldung merken" 
-                x:Uid="RememberLoginButton"
-                Grid.Row="2"
-                VerticalAlignment="Top"
-                Command="{x:Bind ViewModel.RememberLogin}" />
-    </Grid>-->
+    
 </UserControl>
 
 

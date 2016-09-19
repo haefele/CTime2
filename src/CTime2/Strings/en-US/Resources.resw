@@ -202,10 +202,6 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="RememberLoginButton.Content" xml:space="preserve">
     <value>Remember login</value>
   </data>
-  <data name="RememberLoginTextBlock.Text" xml:space="preserve">
-    <value>You can let this app remember your current login.
-You just have to authentificate yourself.</value>
-  </data>
   <data name="Navigation.Band" xml:space="preserve">
     <value>Band</value>
   </data>
@@ -323,5 +319,21 @@ This app may not work completely.</value>
   </data>
   <data name="IncludeTodayAppBarToggleButton.Label" xml:space="preserve">
     <value>With today</value>
+  </data>
+  <data name="RememberLoginSettingsItem.Description" xml:space="preserve">
+    <value>You can let this app remember your current login.
+You just have to authenticate yourself.</value>
+  </data>
+  <data name="BreakTimeSettingsItem.Description" xml:space="preserve">
+    <value>Break duration</value>
+  </data>
+  <data name="LoginSettingsGroup.Header" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="TimesSettingsGroup.Header" xml:space="preserve">
+    <value>Times</value>
+  </data>
+  <data name="WorkTimeSettingsItem.Description" xml:space="preserve">
+    <value>Work duration</value>
   </data>
 </root>

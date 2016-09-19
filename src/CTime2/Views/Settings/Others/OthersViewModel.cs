@@ -21,6 +21,9 @@ namespace CTime2.Views.Settings.Others
 
         public ReactiveObservableCollection<TimeSpan> WorkTimes { get; set; }
         public TimeSpan SelectedWorkTime { get; set; }
+        
+        public ReactiveObservableCollection<TimeSpan> BreakTimes { get; set; }
+        public TimeSpan SelectedBreakTime { get; set; }
 
         public ReactiveCommand<Unit> RememberLogin { get; }
 
@@ -33,10 +36,11 @@ namespace CTime2.Views.Settings.Others
             this._applicationStateService = applicationStateService;
             
             this.WorkTimes = new ReactiveObservableCollection<TimeSpan>(Enumerable
-                .Repeat((object) null, 100)
-                .Select((_, i) => TimeSpan.FromHours(0.25*(i + 1))));
-
-            this.SelectedWorkTime = this.WorkTimes.FirstOrDefault();
+                .Repeat((object) null, 4*24)
+                .Select((_, i) => TimeSpan.FromHours(0.25*i)));
+            this.BreakTimes = new ReactiveObservableCollection<TimeSpan>(Enumerable
+                .Repeat((object)null, 4 * 24)
+                .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
 
             var canRememberLogin = new ReplaySubject<bool>(1);
             canRememberLogin.OnNext(this._applicationStateService.GetCurrentUser() != null);
@@ -49,10 +53,22 @@ namespace CTime2.Views.Settings.Others
             this.DisplayName = CTime2Resources.Get("Navigation.Others");
         }
 
+        protected override void OnDeactivate(bool close)
+        {
+            this._applicationStateService.SetWorkDayHours(this.SelectedWorkTime);
+            this._applicationStateService.SetWorkDayBreak(this.SelectedBreakTime);
+        }
+
         private async Task RememberLoginImpl()
         {
             var user = this._applicationStateService.GetCurrentUser();
             await this._biometricsService.RememberUserForBiometricAuthAsync(user);
+        }
+
+        protected override void OnActivate()
+        {
+            this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
+            this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
         }
     }
 }

@@ -262,12 +262,6 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Anmeldung merken</source>
           <target state="translated">Remember login</target>
         </trans-unit>
-        <trans-unit id="RememberLoginTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Du kannst deine aktuelle Anmeldung merken lassen.
-Dazu musst du dich dich einmal authentifizieren.</source>
-          <target state="translated">You can let this app remember your current login.
-You just have to authentificate yourself.</target>
-        </trans-unit>
         <trans-unit id="Navigation.Band" translate="yes" xml:space="preserve">
           <source>Band</source>
           <target state="translated">Band</target>
@@ -425,6 +419,28 @@ This app may not work completely.</target>
         <trans-unit id="IncludeTodayAppBarToggleButton.Label" translate="yes" xml:space="preserve">
           <source>Mit Heute</source>
           <target state="translated">With today</target>
+        </trans-unit>
+        <trans-unit id="RememberLoginSettingsItem.Description" translate="yes" xml:space="preserve">
+          <source>Du kannst deine aktuelle Anmeldung merken lassen.
+Dazu musst du dich dich einmal authentifizieren.</source>
+          <target state="translated">You can let this app remember your current login.
+You just have to authenticate yourself.</target>
+        </trans-unit>
+        <trans-unit id="BreakTimeSettingsItem.Description" translate="yes" xml:space="preserve">
+          <source>Pausendauer</source>
+          <target state="translated">Break duration</target>
+        </trans-unit>
+        <trans-unit id="LoginSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Anmeldung</source>
+          <target state="translated">Login</target>
+        </trans-unit>
+        <trans-unit id="TimesSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Zeiten</source>
+          <target state="translated">Times</target>
+        </trans-unit>
+        <trans-unit id="WorkTimeSettingsItem.Description" translate="yes" xml:space="preserve">
+          <source>Arbeitsdauer</source>
+          <target state="translated">Work duration</target>
         </trans-unit>
       </group>
     </body>

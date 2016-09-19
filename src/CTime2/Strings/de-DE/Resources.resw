@@ -280,7 +280,7 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   <data name="RememberLoginButton.Content" xml:space="preserve">
     <value>Anmeldung merken</value>
   </data>
-  <data name="RememberLoginTextBlock.Text" xml:space="preserve">
+  <data name="RememberLoginSettingsItem.Description" xml:space="preserve">
     <value>Du kannst deine aktuelle Anmeldung merken lassen.
 Dazu musst du dich dich einmal authentifizieren.</value>
   </data>
@@ -428,5 +428,17 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="IncludeTodayAppBarToggleButton.Label" xml:space="preserve">
     <value>Mit Heute</value>
+  </data>
+  <data name="BreakTimeSettingsItem.Description" xml:space="preserve">
+    <value>Pausendauer</value>
+  </data>
+  <data name="LoginSettingsGroup.Header" xml:space="preserve">
+    <value>Anmeldung</value>
+  </data>
+  <data name="TimesSettingsGroup.Header" xml:space="preserve">
+    <value>Zeiten</value>
+  </data>
+  <data name="WorkTimeSettingsItem.Description" xml:space="preserve">
+    <value>Arbeitsdauer</value>
   </data>
 </root>
