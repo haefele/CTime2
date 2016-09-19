@@ -442,6 +442,10 @@ You just have to authenticate yourself.</target>
           <source>Arbeitsdauer</source>
           <target state="translated">Work duration</target>
         </trans-unit>
+        <trans-unit id="OpenSettingsTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Einstellungen öffnen</source>
+          <target state="translated">Open settings</target>
+        </trans-unit>
       </group>
     </body>
   </file>

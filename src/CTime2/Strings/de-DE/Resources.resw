@@ -435,6 +435,9 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="LoginSettingsGroup.Header" xml:space="preserve">
     <value>Anmeldung</value>
   </data>
+  <data name="OpenSettingsTextBlock.Text" xml:space="preserve">
+    <value>Einstellungen öffnen</value>
+  </data>
   <data name="TimesSettingsGroup.Header" xml:space="preserve">
     <value>Zeiten</value>
   </data>

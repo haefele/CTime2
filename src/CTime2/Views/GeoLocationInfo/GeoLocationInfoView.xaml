@@ -48,7 +48,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <SymbolIcon Grid.Column="0" Symbol="Setting" />
-                <TextBlock Grid.Column="1" Margin="5, 0, 0, 0" Text="Einstellungen öffnen" />
+                <TextBlock Grid.Column="1" Margin="5, 0, 0, 0" x:Uid="OpenSettingsTextBlock" Text="~Einstellungen öffnen" />
             </Grid>
         </Button>
     </Grid>

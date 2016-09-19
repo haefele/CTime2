@@ -336,4 +336,7 @@ You just have to authenticate yourself.</value>
   <data name="WorkTimeSettingsItem.Description" xml:space="preserve">
     <value>Work duration</value>
   </data>
+  <data name="OpenSettingsTextBlock.Text" xml:space="preserve">
+    <value>Open settings</value>
+  </data>
 </root>
