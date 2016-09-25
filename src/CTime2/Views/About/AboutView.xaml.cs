@@ -1,4 +1,4 @@
-﻿namespace CTime2.Views.Settings.About
+﻿namespace CTime2.Views.About
 {
     public sealed partial class AboutView
     {

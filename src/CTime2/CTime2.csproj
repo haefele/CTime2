@@ -131,10 +131,10 @@
       <DependentUpon>HeaderDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HeaderDetails\HeaderDetailsViewModel.cs" />
-    <Compile Include="Views\Settings\About\AboutView.xaml.cs">
+    <Compile Include="Views\About\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Settings\About\AboutViewModel.cs" />
+    <Compile Include="Views\About\AboutViewModel.cs" />
     <Compile Include="Views\AttendanceList\AttendanceListView.xaml.cs">
       <DependentUpon>AttendanceListView.xaml</DependentUpon>
     </Compile>
@@ -259,7 +259,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings\About\AboutView.xaml">
+    <Page Include="Views\About\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

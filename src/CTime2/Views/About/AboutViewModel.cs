@@ -7,10 +7,10 @@ using Windows.Storage.Streams;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Strings;
 using ReactiveUI;
-using UwCore.Logging;
 using UwCore.Extensions;
+using UwCore.Logging;
 
-namespace CTime2.Views.Settings.About
+namespace CTime2.Views.About
 {
     public class AboutViewModel : ReactiveScreen
     {

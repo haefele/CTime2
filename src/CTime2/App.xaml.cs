@@ -17,6 +17,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
 using CTime2.Strings;
+using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
 using CTime2.Views.GeoLocationInfo;
 using CTime2.Views.HeaderDetails;
@@ -27,7 +28,6 @@ using CTime2.Views.Overview.CheckedOut;
 using CTime2.Views.Overview.HomeOfficeCheckedIn;
 using CTime2.Views.Overview.TripCheckedIn;
 using CTime2.Views.Settings;
-using CTime2.Views.Settings.About;
 using CTime2.Views.Settings.Band;
 using CTime2.Views.Settings.Others;
 using CTime2.Views.Statistics;
@@ -61,6 +61,7 @@ namespace CTime2
         {
             application.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
 
+            application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
             application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }
 
