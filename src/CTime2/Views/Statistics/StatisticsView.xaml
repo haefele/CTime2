@@ -63,28 +63,13 @@
             <AppBarToggleButton Label="~Mit Heute"
                                 x:Uid="IncludeTodayAppBarToggleButton"
                                 IsChecked="{x:Bind ViewModel.IncludeToday, Mode=TwoWay}"
-                                Icon="CalendarDay">
-                <interactivity:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="Checked">
-                        <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
-                    </core:EventTriggerBehavior>
-                    <core:EventTriggerBehavior EventName="Unchecked">
-                        <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
-                    </core:EventTriggerBehavior>
-                </interactivity:Interaction.Behaviors>
-            </AppBarToggleButton>
+                                Icon="CalendarDay" />
             <AppBarButton Icon="Filter"
                           x:Uid="StartDateAppBarButton"
                           Label="~Startdatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
-                                      Placement="Top">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="DatePicked">
-                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </DatePickerFlyout>
+                                      Placement="Top" />
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
@@ -92,13 +77,7 @@
                           Label="~Enddatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
-                                      Placement="Top">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="DatePicked">
-                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </DatePickerFlyout>
+                                      Placement="Top" />
                 </AppBarButton.Flyout>
             </AppBarButton>
 

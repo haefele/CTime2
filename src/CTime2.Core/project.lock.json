@@ -2349,7 +2349,7 @@
           }
         }
       },
-      "UwCore/0.1.54": {
+      "UwCore/0.1.55": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -4823,7 +4823,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.54": {
+      "UwCore/0.1.55": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -7336,7 +7336,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.54": {
+      "UwCore/0.1.55": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -9819,7 +9819,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.54": {
+      "UwCore/0.1.55": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -12341,7 +12341,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.54": {
+      "UwCore/0.1.55": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -14824,7 +14824,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.54": {
+      "UwCore/0.1.55": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -17346,7 +17346,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "UwCore/0.1.54": {
+      "UwCore/0.1.55": {
         "type": "package",
         "dependencies": {
           "Caliburn.Micro": "3.0.1",
@@ -23976,11 +23976,11 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "UwCore/0.1.54": {
-      "sha512": "wEBTW2Y5sOyDriCtpTuwZunogSrBVmexLDrZvU0cF46x5LLqxlX8SQoMmKv93BVnTz8pFr9USw/ljfzWrEpwBQ==",
+    "UwCore/0.1.55": {
+      "sha512": "2EVeQdx0Pbyy9rRfLPwUjZ32TqrwI2nqwmFAgFbQz6J0+hq9PGrhmUDTwAzkKpiWHXNQvR2lcbMWRiIMzjlIww==",
       "type": "package",
       "files": [
-        "UwCore.0.1.54.nupkg.sha512",
+        "UwCore.0.1.55.nupkg.sha512",
         "UwCore.nuspec",
         "lib/uap10.0/UwCore.dll",
         "lib/uap10.0/UwCore.pdb",
@@ -23998,7 +23998,7 @@
     "": [
       "Microsoft.Band >= 1.3.20628",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
-      "UwCore >= 0.1.54"
+      "UwCore >= 0.1.55"
     ],
     "UAP,Version=v10.0": []
   }

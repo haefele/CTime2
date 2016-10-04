@@ -13,6 +13,7 @@ using ReactiveUI;
 using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
+using UwCore.Logging;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using UwCore.Services.ExceptionHandler;
@@ -84,13 +85,17 @@ namespace CTime2.Views.Statistics
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
                 .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
-
+            
             this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
                 .HandleExceptions()
                 .TrackEvent("LoadStatistics");
             this.LoadStatistics.ToProperty(this, f => f.Statistics, out this._statisticsHelper);
-            
+
+            this.WhenAnyValue(f => f.StartDate, f => f.EndDate, f => f.IncludeToday)
+                .Throttle(TimeSpan.FromMilliseconds(50))
+                .Subscribe(async _ => await this.LoadStatistics.ExecuteAsync());
+
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
         }
@@ -104,6 +109,8 @@ namespace CTime2.Views.Statistics
         
         private async Task<ReactiveObservableCollection<StatisticItem>> LoadStatisticsImpl()
         {
+            LoggerFactory.GetLogger<StatisticsViewModel>().Debug("Hoi");
+
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var allTimes = TimesByDay.Create(times).ToList();
