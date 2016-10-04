@@ -4,6 +4,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
@@ -19,7 +20,7 @@ namespace CTime2.Views.AttendanceList
 
         public ReactiveObservableCollection<AttendingUserByIsAttending> Users => this._usersHelper.Value;
 
-        public ReactiveCommand<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsers { get; }
+        public UwCoreCommand<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsers { get; }
 
         public AttendanceListViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
         {
@@ -30,12 +31,13 @@ namespace CTime2.Views.AttendanceList
             this._applicationStateService = applicationStateService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.AttendanceList");
-            
-            this.LoadUsers = ReactiveCommand.CreateAsyncTask(_ => this.LoadUsersImpl());
-            this.LoadUsers.AttachLoadingService(CTime2Resources.Get("Loading.AttendanceList"));
-            this.LoadUsers.AttachExceptionHandler();
-            this.LoadUsers.TrackEvent("LoadAttendanceList");
-            this.LoadUsers.ToLoadedProperty(this, f => f.Users, out this._usersHelper);
+
+            this.LoadUsers = UwCoreCommand.Create(this.LoadUsersImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.AttendanceList"))
+                .HandleExceptions()
+                .TrackEvent("LoadAttendanceList");
+
+            this.LoadUsers.ToProperty(this, f => f.Users, out this._usersHelper);
         }
 
         private async Task<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsersImpl()
@@ -46,7 +48,7 @@ namespace CTime2.Views.AttendanceList
 
         protected override async void OnActivate()
         {
-            await this.LoadUsers.ExecuteAsyncTask();
+            await this.LoadUsers.ExecuteAsync();
         }
     }
 }

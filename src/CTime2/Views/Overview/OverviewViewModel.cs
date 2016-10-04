@@ -18,6 +18,7 @@ using CTime2.Views.Overview.CheckedOut;
 using CTime2.Views.Overview.HomeOfficeCheckedIn;
 using CTime2.Views.Overview.TripCheckedIn;
 using ReactiveUI;
+using UwCore;
 using UwCore.Application.Events;
 using UwCore.Common;
 using UwCore.Extensions;
@@ -67,8 +68,8 @@ namespace CTime2.Views.Overview
             set { this.RaiseAndSetIfChanged(ref this._geoLocationState, value); }
         }
 
-        public ReactiveCommand<Unit> RefreshCurrentState { get; }
-        public ReactiveCommand<Unit> ShowGeoLocationInfo { get; }
+        public UwCoreCommand<Unit> RefreshCurrentState { get; }
+        public UwCoreCommand<Unit> ShowGeoLocationInfo { get; }
 
         public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IGeoLocationService geoLocationService, INavigationService navigationService)
         {
@@ -86,15 +87,15 @@ namespace CTime2.Views.Overview
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-            
-            this.RefreshCurrentState = ReactiveCommand.CreateAsyncTask(_ => this.RefreshCurrentStateImpl());
-            this.RefreshCurrentState.AttachExceptionHandler();
-            this.RefreshCurrentState.AttachLoadingService(CTime2Resources.Get("Loading.CurrentState"));
-            this.RefreshCurrentState.TrackEvent("RefreshCurrentState");
 
-            this.ShowGeoLocationInfo = ReactiveCommand.CreateAsyncTask(_ => this.ShowGeoLocationInfoImpl());
-            this.ShowGeoLocationInfo.AttachExceptionHandler();
-            this.ShowGeoLocationInfo.TrackEvent("GeoLocationInfo");
+            this.RefreshCurrentState = UwCoreCommand.Create(this.RefreshCurrentStateImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.CurrentState"))
+                .HandleExceptions()
+                .TrackEvent("RefreshCurrentState");
+
+            this.ShowGeoLocationInfo = UwCoreCommand.Create(this.ShowGeoLocationInfoImpl)
+                .HandleExceptions()
+                .TrackEvent("GeoLocationInfo");
 
             eventAggregator.SubscribeScreen(this);
         }
@@ -108,7 +109,7 @@ namespace CTime2.Views.Overview
 
             this.GeoLocationState = await this._geoLocationService.GetGeoLocationStateAsync(currentUser);
             
-            await this.RefreshCurrentState.ExecuteAsyncTask();
+            await this.RefreshCurrentState.ExecuteAsync();
         }
         
         private async Task RefreshCurrentStateImpl()
@@ -181,12 +182,12 @@ namespace CTime2.Views.Overview
 
         async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
         {
-            await this.RefreshCurrentState.ExecuteAsyncTask();
+            await this.RefreshCurrentState.ExecuteAsync();
         }
 
         async Task IHandleWithTask<UserStamped>.Handle(UserStamped message)
         {
-            await this.RefreshCurrentState.ExecuteAsyncTask();
+            await this.RefreshCurrentState.ExecuteAsync();
         }
     }
 }

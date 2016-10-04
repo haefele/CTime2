@@ -4,6 +4,7 @@ using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
@@ -13,21 +14,21 @@ namespace CTime2.Views.Overview.TripCheckedIn
     {
         public override TimeState CurrentState => TimeState.Entered | TimeState.Trip;
 
-        public ReactiveCommand<Unit> CheckOut { get; }
-        public ReactiveCommand<Unit> Pause { get; }
+        public UwCoreCommand<Unit> CheckOut { get; }
+        public UwCoreCommand<Unit> Pause { get; }
 
         public TripCheckedInViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
             : base(cTimeService, applicationStateService)
         {
-            this.CheckOut = ReactiveCommand.CreateAsyncTask(_ => this.CheckOutImpl());
-            this.CheckOut.AttachExceptionHandler();
-            this.CheckOut.AttachLoadingService(CTime2Resources.Get("Loading.CheckOut"));
-            this.CheckOut.TrackEvent("CheckOut");
+            this.CheckOut = UwCoreCommand.Create(this.CheckOutImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.CheckOut"))
+                .HandleExceptions()
+                .TrackEvent("CheckOut");
 
-            this.Pause = ReactiveCommand.CreateAsyncTask(_ => this.PauseImpl());
-            this.Pause.AttachExceptionHandler();
-            this.Pause.AttachLoadingService(CTime2Resources.Get("Loading.Pause"));
-            this.Pause.TrackEvent("Pause");
+            this.Pause = UwCoreCommand.Create(this.PauseImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.Pause"))
+                .HandleExceptions()
+                .TrackEvent("Pause");
         }
 
         private async Task CheckOutImpl()

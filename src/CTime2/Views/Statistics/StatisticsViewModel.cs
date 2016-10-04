@@ -10,6 +10,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
+using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
@@ -64,7 +65,7 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Commands
-        public ReactiveCommand<ReactiveObservableCollection<StatisticItem>> LoadStatistics { get; }
+        public UwCoreCommand<ReactiveObservableCollection<StatisticItem>> LoadStatistics { get; }
         #endregion
 
         #region Constructors
@@ -82,13 +83,13 @@ namespace CTime2.Views.Statistics
             
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
-                .ToLoadedProperty(this, f => f.DisplayName, out this._displayNameHelper);
+                .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
 
-            this.LoadStatistics = ReactiveCommand.CreateAsyncTask(_ => this.LoadStatisticsImpl());
-            this.LoadStatistics.AttachExceptionHandler();
-            this.LoadStatistics.AttachLoadingService(CTime2Resources.Get("Loading.Statistics"));
-            this.LoadStatistics.TrackEvent("LoadStatistics");
-            this.LoadStatistics.ToLoadedProperty(this, f => f.Statistics, out this._statisticsHelper);
+            this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
+                .HandleExceptions()
+                .TrackEvent("LoadStatistics");
+            this.LoadStatistics.ToProperty(this, f => f.Statistics, out this._statisticsHelper);
             
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
@@ -98,7 +99,7 @@ namespace CTime2.Views.Statistics
         #region Methods
         protected override async void OnActivate()
         {
-            await this.LoadStatistics.ExecuteAsyncTask();
+            await this.LoadStatistics.ExecuteAsync();
         }
         
         private async Task<ReactiveObservableCollection<StatisticItem>> LoadStatisticsImpl()

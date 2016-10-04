@@ -12,6 +12,7 @@ using CTime2.Core.Services.Biometrics;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore;
 using UwCore.Application;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
@@ -43,8 +44,8 @@ namespace CTime2.Views.Login
             set { this.RaiseAndSetIfChanged(ref this._password, value); }
         }
 
-        public ReactiveCommand<Unit> Login { get; }
-        public ReactiveCommand<Unit> RememberedLogin { get; }
+        public UwCoreCommand<Unit> Login { get; }
+        public UwCoreCommand<Unit> RememberedLogin { get; }
 
         public LoginViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IApplication application, IDialogService dialogService, IBiometricsService biometricsService)
         {
@@ -62,17 +63,17 @@ namespace CTime2.Views.Login
 
             var canLogin = this.WhenAnyValue(f => f.EmailAddress, f => f.Password, (email, password) =>
                 string.IsNullOrWhiteSpace(email) == false && string.IsNullOrWhiteSpace(password) == false);
-            this.Login = ReactiveCommand.CreateAsyncTask(canLogin, _ => this.LoginImpl());
-            this.Login.AttachLoadingService(CTime2Resources.Get("Loading.LoggingIn"));
-            this.Login.AttachExceptionHandler();
-            this.Login.TrackEvent("Login");
+            this.Login = UwCoreCommand.Create(canLogin, this.LoginImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.LoggingIn"))
+                .HandleExceptions()
+                .TrackEvent("Login");
 
             var canRememberedLogin = new ReplaySubject<bool>(1);
             canRememberedLogin.OnNext(this._biometricsService.HasRememberedUser());
-            this.RememberedLogin = ReactiveCommand.CreateAsyncTask(canRememberedLogin, _ => this.RememberedLoginImpl());
-            this.RememberedLogin.AttachLoadingService(CTime2Resources.Get("Loading.LoggingIn"));
-            this.RememberedLogin.AttachExceptionHandler();
-            this.RememberedLogin.TrackEvent("LoginRemembered");
+            this.RememberedLogin = UwCoreCommand.Create(canRememberedLogin, this.RememberedLoginImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.LoggingIn"))
+                .HandleExceptions()
+                .TrackEvent("LoginRemembered");
 
             this.DisplayName = CTime2Resources.Get("Navigation.Login");
         }

@@ -32,7 +32,7 @@ namespace CTime2.Views.Overview
                 this._applicationStateService.GetCurrentUser(),
                 state);
 
-            await this.Container.RefreshCurrentState.ExecuteAsyncTask();
+            await this.Container.RefreshCurrentState.ExecuteAsync();
         }
     }
 }

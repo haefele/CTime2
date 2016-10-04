@@ -9,6 +9,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
+using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
@@ -31,8 +32,8 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Commands
-        public ReactiveCommand<ReactiveObservableCollection<StatisticChartItem>[]> LoadChart { get; }
-        public ReactiveCommand<Unit> GoToMyTimesCommand { get; set; }
+        public UwCoreCommand<ReactiveObservableCollection<StatisticChartItem>[]> LoadChart { get; }
+        public UwCoreCommand<Unit> GoToMyTimesCommand { get; set; }
         #endregion
 
         #region Parameters
@@ -52,13 +53,13 @@ namespace CTime2.Views.Statistics
             this._applicationStateService = applicationStateService;
             this._navigationService = navigationService;
 
-            this.LoadChart = ReactiveCommand.CreateAsyncTask(_ => this.LoadChartImpl());
-            this.LoadChart.AttachExceptionHandler();
-            this.LoadChart.AttachLoadingService(CTime2Resources.Get("Loading.LoadCharts"));
-            this.LoadChart.ToLoadedProperty(this, f => f.ChartItems, out this._chartItemsHelper);
+            this.LoadChart = UwCoreCommand.Create(this.LoadChartImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.LoadCharts"))
+                .HandleExceptions();
+            this.LoadChart.ToProperty(this, f => f.ChartItems, out this._chartItemsHelper);
 
-            this.GoToMyTimesCommand = ReactiveCommand.CreateAsyncTask(_ => this.GoToMyTimes());
-            this.GoToMyTimesCommand.AttachExceptionHandler();
+            this.GoToMyTimesCommand = UwCoreCommand.Create(this.GoToMyTimes)
+                .HandleExceptions();
         }
 
         public void GoToMyTimesForStatisticChartItem(StatisticChartItem chartItem)
@@ -72,7 +73,7 @@ namespace CTime2.Views.Statistics
 
         protected override async void OnActivate()
         {
-            await this.LoadChart.ExecuteAsyncTask();
+            await this.LoadChart.ExecuteAsync();
         }
 
         private async Task<ReactiveObservableCollection<StatisticChartItem>[]> LoadChartImpl()

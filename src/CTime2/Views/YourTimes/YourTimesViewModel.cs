@@ -5,6 +5,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
@@ -35,7 +36,7 @@ namespace CTime2.Views.YourTimes
             set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
         }
 
-        public ReactiveCommand<ReactiveObservableCollection<TimesByDay>> LoadTimes { get; }
+        public UwCoreCommand<ReactiveObservableCollection<TimesByDay>> LoadTimes { get; }
 
         public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService)
         {
@@ -47,11 +48,11 @@ namespace CTime2.Views.YourTimes
 
             this.DisplayName = CTime2Resources.Get("Navigation.MyTimes");
 
-            this.LoadTimes = ReactiveCommand.CreateAsyncTask(_ => this.LoadTimesImpl());
-            this.LoadTimes.AttachExceptionHandler();
-            this.LoadTimes.AttachLoadingService(CTime2Resources.Get("Loading.Times"));
-            this.LoadTimes.TrackEvent("LoadTimes");
-            this.LoadTimes.ToLoadedProperty(this, f => f.Times, out this._timesHelper);
+            this.LoadTimes = UwCoreCommand.Create(this.LoadTimesImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.Times"))
+                .HandleExceptions()
+                .TrackEvent("LoadTimes");
+            this.LoadTimes.ToProperty(this, f => f.Times, out this._timesHelper);
 
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
@@ -59,7 +60,7 @@ namespace CTime2.Views.YourTimes
 
         protected override async void OnActivate()
         {
-            await this.LoadTimes.ExecuteAsyncTask();
+            await this.LoadTimes.ExecuteAsync();
         }
         
         private async Task<ReactiveObservableCollection<TimesByDay>> LoadTimesImpl()

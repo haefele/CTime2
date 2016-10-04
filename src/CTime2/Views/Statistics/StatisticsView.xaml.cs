@@ -19,7 +19,7 @@ namespace CTime2.Views.Statistics
             this.ViewModel.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.ViewModel.EndDate = DateTimeOffset.Now.EndOfMonth();
 
-            await this.ViewModel.LoadStatistics.ExecuteAsyncTask();
+            await this.ViewModel.LoadStatistics.ExecuteAsync();
         }
 
         private async void LastMonth_OnClick(object sender, RoutedEventArgs e)
@@ -27,7 +27,7 @@ namespace CTime2.Views.Statistics
             this.ViewModel.StartDate = DateTimeOffset.Now.StartOfMonth().AddMonths(-1);
             this.ViewModel.EndDate = DateTimeOffset.Now.EndOfMonth().AddMonths(-1);
 
-            await this.ViewModel.LoadStatistics.ExecuteAsyncTask();
+            await this.ViewModel.LoadStatistics.ExecuteAsync();
         }
 
         private async void LastSevenDays_OnClick(object sender, RoutedEventArgs e)
@@ -35,7 +35,7 @@ namespace CTime2.Views.Statistics
             this.ViewModel.StartDate = DateTimeOffset.Now.WithoutTime().AddDays(-6); //Last 6 days plus today
             this.ViewModel.EndDate = DateTimeOffset.Now.WithoutTime();
 
-            await this.ViewModel.LoadStatistics.ExecuteAsyncTask();
+            await this.ViewModel.LoadStatistics.ExecuteAsync();
         }
 
         private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)

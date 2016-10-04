@@ -7,6 +7,7 @@ using Windows.Storage.Streams;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore;
 using UwCore.Extensions;
 using UwCore.Logging;
 
@@ -22,7 +23,7 @@ namespace CTime2.Views.About
             set { this.RaiseAndSetIfChanged(ref this._currentVersion, value); }
         }
 
-        public ReactiveCommand<Unit> SendFeedback { get; }
+        public UwCoreCommand<Unit> SendFeedback { get; }
 
         public AboutViewModel()
         {
@@ -30,10 +31,10 @@ namespace CTime2.Views.About
 
             this.CurrentVersion = Package.Current.Id.Version.ToVersion();
 
-            this.SendFeedback = ReactiveCommand.CreateAsyncTask(_ => this.SendFeedbackImpl());
-            this.SendFeedback.AttachExceptionHandler();
-            this.SendFeedback.AttachLoadingService(CTime2Resources.Get("Loading.SendFeedback"));
-            this.SendFeedback.TrackEvent("SendFeedback");
+            this.SendFeedback = UwCoreCommand.Create(this.SendFeedbackImpl)
+                .HandleExceptions()
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.SendFeedback"))
+                .TrackEvent("SendFeedback");
         }
 
         private async Task SendFeedbackImpl()

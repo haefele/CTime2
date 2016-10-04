@@ -11,6 +11,7 @@ using CTime2.Core.Services.Biometrics;
 using CTime2.Strings;
 using CTime2.Views.About;
 using ReactiveUI;
+using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
@@ -58,9 +59,9 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._state, value); }
         }
 
-        public ReactiveCommand<Unit> Reload { get; }
-        public ReactiveCommand<Unit> RememberLogin { get; }
-        public ReactiveCommand<Unit> ToggleBandTile { get; }
+        public UwCoreCommand<Unit> Reload { get; }
+        public UwCoreCommand<Unit> RememberLogin { get; }
+        public UwCoreCommand<Unit> ToggleBandTile { get; }
 
         public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IBandService bandService)
         {
@@ -74,23 +75,23 @@ namespace CTime2.Views.Settings
 
             var canRememberLogin = new ReplaySubject<bool>(1);
             canRememberLogin.OnNext(this._applicationStateService.GetCurrentUser() != null);
-            this.RememberLogin = ReactiveCommand.CreateAsyncTask(canRememberLogin, _ => this.RememberLoginImpl());
-            this.RememberLogin.AttachExceptionHandler();
-            this.RememberLogin.AttachLoadingService(CTime2Resources.Get("Loading.RememberedLogin"));
-            this.RememberLogin.TrackEvent("SetupRememberLogin");
+            this.RememberLogin = UwCoreCommand.Create(canRememberLogin, this.RememberLoginImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.RememberedLogin"))
+                .HandleExceptions()
+                .TrackEvent("SetupRememberLogin");
 
             var canToggleTile = this.WhenAnyValue(f => f.State, state => state != BandState.NotConnected);
-            this.ToggleBandTile = ReactiveCommand.CreateAsyncTask(canToggleTile, _ => this.ToggleTileImpl());
-            this.ToggleBandTile.AttachLoadingService(() => this.State == BandState.Installed
+            this.ToggleBandTile = UwCoreCommand.Create(canToggleTile, this.ToggleTileImpl)
+                .ShowLoadingOverlay(() => this.State == BandState.Installed
                     ? CTime2Resources.Get("Loading.RemoveTileFromBand")
-                    : CTime2Resources.Get("Loading.AddTileToBand"));
-            this.ToggleBandTile.AttachExceptionHandler();
-            this.ToggleBandTile.TrackEvent("ToggleBandTile");
+                    : CTime2Resources.Get("Loading.AddTileToBand"))
+                .HandleExceptions()
+                .TrackEvent("ToggleBandTile");
 
-            this.Reload = ReactiveCommand.CreateAsyncTask(_ => this.ReloadImpl());
-            this.Reload.AttachLoadingService(CTime2Resources.Get("Loading.Settings"));
-            this.Reload.AttachExceptionHandler();
-            this.Reload.TrackEvent("ReloadBandInfo");
+            this.Reload = UwCoreCommand.Create(this.ReloadImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.Settings"))
+                .HandleExceptions()
+                .TrackEvent("ReloadSettings");
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
 
@@ -107,7 +108,7 @@ namespace CTime2.Views.Settings
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
 
-            await this.Reload.ExecuteAsyncTask();
+            await this.Reload.ExecuteAsync();
         }
 
         protected override void OnDeactivate(bool close)
