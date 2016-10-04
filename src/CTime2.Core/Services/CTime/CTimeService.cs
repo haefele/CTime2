@@ -100,8 +100,8 @@ namespace CTime2.Core.Services.CTime
                 if (responseJson == null)
                     return new List<Time>();
                 
-                return responseJson
-                    .Value<JArray>("Result")
+                return (responseJson
+                    .Value<JArray>("Result") ?? new JArray())
                     .OfType<JObject>()
                     .Select(f => new Time
                     {
