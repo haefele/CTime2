@@ -28,8 +28,6 @@ using CTime2.Views.Overview.CheckedOut;
 using CTime2.Views.Overview.HomeOfficeCheckedIn;
 using CTime2.Views.Overview.TripCheckedIn;
 using CTime2.Views.Settings;
-using CTime2.Views.Settings.Band;
-using CTime2.Views.Settings.Others;
 using CTime2.Views.Statistics;
 using CTime2.Views.UpdateNotes;
 using CTime2.Views.YourTimes;
@@ -113,9 +111,7 @@ namespace CTime2
             yield return typeof(CheckedOutViewModel);
             yield return typeof(HomeOfficeCheckedInViewModel);
             yield return typeof(TripCheckedInViewModel);
-            yield return typeof(BandViewModel);
             yield return typeof(SettingsViewModel);
-            yield return typeof(OthersViewModel);
             yield return typeof(HeaderDetailsViewModel);
             yield return typeof(DetailedStatisticViewModel);
             yield return typeof(UpdateNotesViewModel);

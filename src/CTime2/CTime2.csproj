@@ -140,11 +140,7 @@
     </Compile>
     <Compile Include="Views\AttendanceList\AttendanceListViewModel.cs" />
     <Compile Include="Views\AttendanceList\AttendingUserByIsAttending.cs" />
-    <Compile Include="Views\Settings\Band\BandView.xaml.cs">
-      <DependentUpon>BandView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\Band\BandViewModel.cs" />
-    <Compile Include="Views\Settings\Band\BandViewModelState.cs" />
+    <Compile Include="Views\Settings\BandState.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -158,10 +154,6 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsViewModel.cs" />
-    <Compile Include="Views\Settings\Others\OthersView.xaml.cs">
-      <DependentUpon>OthersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\Others\OthersViewModel.cs" />
     <Compile Include="ApplicationModes\LoggedInApplicationMode.cs" />
     <Compile Include="ApplicationModes\LoggedOutApplicationMode.cs" />
     <Compile Include="Views\Overview\CheckedIn\CheckedInView.xaml.cs">
@@ -267,10 +259,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Settings\Band\BandView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Login\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -280,10 +268,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Settings\Others\OthersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

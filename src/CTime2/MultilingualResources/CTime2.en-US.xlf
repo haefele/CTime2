@@ -194,25 +194,9 @@
           <source>Tile ist nicht installiert!</source>
           <target state="translated">Tile is not installed!</target>
         </trans-unit>
-        <trans-unit id="BandIntegrationTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Diese App kann sich in dein Microsoft Band 2 integrieren.
-
-Probiere es einfach aus!
-
-Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</source>
-          <target state="translated">This app can integrate with your Microsoft Band 2. 
- 
-Just give it a try!
- 
-Add the tile to your Microsoft Band 2 and use it to check-in!</target>
-        </trans-unit>
         <trans-unit id="Loading.AddTileToBand" translate="yes" xml:space="preserve">
           <source>Installiere Tile...</source>
           <target state="translated">Installing tile...</target>
-        </trans-unit>
-        <trans-unit id="Loading.Band" translate="yes" xml:space="preserve">
-          <source>Lade Band...</source>
-          <target state="translated">Loading Band...</target>
         </trans-unit>
         <trans-unit id="Loading.RemoveTileFromBand" translate="yes" xml:space="preserve">
           <source>Entferne Tile...</source>
@@ -261,14 +245,6 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         <trans-unit id="RememberLoginButton.Content" translate="yes" xml:space="preserve">
           <source>Anmeldung merken</source>
           <target state="translated">Remember login</target>
-        </trans-unit>
-        <trans-unit id="Navigation.Band" translate="yes" xml:space="preserve">
-          <source>Band</source>
-          <target state="translated">Band</target>
-        </trans-unit>
-        <trans-unit id="Navigation.Others" translate="yes" xml:space="preserve">
-          <source>Anderes</source>
-          <target state="translated">Others</target>
         </trans-unit>
         <trans-unit id="Statistics.OverTimePool" translate="yes" xml:space="preserve">
           <source>Überstunden Pool (in Minuten)</source>
@@ -445,6 +421,22 @@ You just have to authenticate yourself.</target>
         <trans-unit id="OpenSettingsTextBlock.Text" translate="yes" xml:space="preserve">
           <source>Einstellungen öffnen</source>
           <target state="translated">Open settings</target>
+        </trans-unit>
+        <trans-unit id="Loading.Settings" translate="yes" xml:space="preserve">
+          <source>Lade Einstellungen...</source>
+          <target state="translated">Loading settings...</target>
+        </trans-unit>
+        <trans-unit id="BandSettingsGroup.Description" translate="yes" xml:space="preserve">
+          <source>Diese App kann sich in dein Microsoft Band 2 integrieren.
+Probiere es einfach aus!
+Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</source>
+          <target state="translated">This app can integrate with your Microsoft Band 2. 
+Just give it a try!
+Add the tile to your Microsoft Band 2 and use it to check-in!</target>
+        </trans-unit>
+        <trans-unit id="BandSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Band</source>
+          <target state="translated">Band</target>
         </trans-unit>
       </group>
     </body>

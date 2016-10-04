@@ -123,11 +123,9 @@
   <data name="AppNameTextBlock.Text" xml:space="preserve">
     <value>c-time Universal</value>
   </data>
-  <data name="BandIntegrationTextBlock.Text" xml:space="preserve">
+  <data name="BandSettingsGroup.Description" xml:space="preserve">
     <value>Diese App kann sich in dein Microsoft Band 2 integrieren.
-
 Probiere es einfach aus!
-
 Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</value>
   </data>
   <data name="BandNotConnectedTextSetter.Value" xml:space="preserve">
@@ -202,8 +200,8 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   <data name="Loading.AttendanceList" xml:space="preserve">
     <value>Lade Anwesenheitsliste...</value>
   </data>
-  <data name="Loading.Band" xml:space="preserve">
-    <value>Lade Band...</value>
+  <data name="Loading.Settings" xml:space="preserve">
+    <value>Lade Einstellungen...</value>
   </data>
   <data name="Loading.CheckIn" xml:space="preserve">
     <value>Einstempeln...</value>
@@ -241,9 +239,6 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   <data name="Navigation.AttendanceList" xml:space="preserve">
     <value>Anwesenheitsliste</value>
   </data>
-  <data name="Navigation.Band" xml:space="preserve">
-    <value>Band</value>
-  </data>
   <data name="Navigation.Login" xml:space="preserve">
     <value>Anmeldung</value>
   </data>
@@ -252,9 +247,6 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   </data>
   <data name="Navigation.MyTimes" xml:space="preserve">
     <value>Meine Zeiten</value>
-  </data>
-  <data name="Navigation.Others" xml:space="preserve">
-    <value>Anderes</value>
   </data>
   <data name="Navigation.Overview" xml:space="preserve">
     <value>Übersicht</value>
@@ -443,5 +435,8 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="WorkTimeSettingsItem.Description" xml:space="preserve">
     <value>Arbeitsdauer</value>
+  </data>
+  <data name="BandSettingsGroup.Header" xml:space="preserve">
+    <value>Band</value>
   </data>
 </root>

@@ -1,6 +1,6 @@
-﻿namespace CTime2.Views.Settings.Band
+﻿namespace CTime2.Views.Settings
 {
-    public enum BandViewModelState
+    public enum BandState
     {
         Loading,
         Installed,
