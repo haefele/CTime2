@@ -40,15 +40,17 @@ namespace CTime2.Views.AttendanceList
             this.LoadUsers.ToProperty(this, f => f.Users, out this._usersHelper);
         }
 
+        protected override async void OnActivate()
+        {
+            base.OnActivate();
+
+            await this.LoadUsers.ExecuteAsync();
+        }
+
         private async Task<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsersImpl()
         {
             var attendingUsers = await this._cTimeService.GetAttendingUsers(this._applicationStateService.GetCurrentUser().CompanyId);
             return new ReactiveObservableCollection<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(attendingUsers));
-        }
-
-        protected override async void OnActivate()
-        {
-            await this.LoadUsers.ExecuteAsync();
         }
     }
 }

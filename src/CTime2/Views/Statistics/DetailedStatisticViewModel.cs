@@ -73,6 +73,8 @@ namespace CTime2.Views.Statistics
 
         protected override async void OnActivate()
         {
+            base.OnActivate();
+
             await this.LoadChart.ExecuteAsync();
         }
 

@@ -50,6 +50,8 @@ namespace CTime2
         
         public override void CustomConfiguration()
         {
+            base.CustomConfiguration();
+
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
             this.ConfigureJumpList();
@@ -57,6 +59,8 @@ namespace CTime2
 
         public override void CustomizeApplication(IApplication application)
         {
+            base.CustomizeApplication(application);
+
             application.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
 
             application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
@@ -65,6 +69,8 @@ namespace CTime2
 
         public override void ConfigureContainer(WinRTContainer container)
         {
+            base.ConfigureContainer(container);
+
             container
                 .PerRequest<LoggedOutApplicationMode>()
                 .PerRequest<LoggedInApplicationMode>();

@@ -102,6 +102,8 @@ namespace CTime2.Views.Overview
 
         protected override async void OnActivate()
         {
+            base.OnActivate();
+
             var currentUser = this._applicationStateService.GetCurrentUser();
 
             this.WelcomeMessage = CTime2Resources.GetFormatted("Overview.WelcomeMessageFormat", currentUser.FirstName);

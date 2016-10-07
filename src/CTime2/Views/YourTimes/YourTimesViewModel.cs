@@ -60,6 +60,8 @@ namespace CTime2.Views.YourTimes
 
         protected override async void OnActivate()
         {
+            base.OnActivate();
+
             await this.LoadTimes.ExecuteAsync();
         }
         

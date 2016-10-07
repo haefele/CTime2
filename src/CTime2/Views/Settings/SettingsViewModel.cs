@@ -105,6 +105,8 @@ namespace CTime2.Views.Settings
 
         protected override async void OnActivate()
         {
+            base.OnActivate();
+
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
 
@@ -113,6 +115,8 @@ namespace CTime2.Views.Settings
 
         protected override void OnDeactivate(bool close)
         {
+            base.OnDeactivate(close);
+
             this._applicationStateService.SetWorkDayHours(this.SelectedWorkTime);
             this._applicationStateService.SetWorkDayBreak(this.SelectedBreakTime);
         }
