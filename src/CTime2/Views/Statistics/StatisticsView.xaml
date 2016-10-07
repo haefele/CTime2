@@ -63,13 +63,25 @@
             <AppBarToggleButton Label="~Mit Heute"
                                 x:Uid="IncludeTodayAppBarToggleButton"
                                 IsChecked="{x:Bind ViewModel.IncludeToday, Mode=TwoWay}"
-                                Icon="CalendarDay" />
+                                Icon="CalendarDay">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </AppBarToggleButton>
             <AppBarButton Icon="Filter"
                           x:Uid="StartDateAppBarButton"
                           Label="~Startdatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
-                                      Placement="Top" />
+                                      Placement="Top">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="DatePicked">
+                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </DatePickerFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
@@ -77,7 +89,13 @@
                           Label="~Enddatum">
                 <AppBarButton.Flyout>
                     <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
-                                      Placement="Top" />
+                                      Placement="Top">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="DatePicked">
+                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </DatePickerFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
 

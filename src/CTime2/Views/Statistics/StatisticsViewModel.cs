@@ -82,35 +82,31 @@ namespace CTime2.Views.Statistics
             this._dialogService = dialogService;
             this._navigationService = navigationService;
             
-            this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
-                .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
-                .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
-            
             this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
                 .HandleExceptions()
                 .TrackEvent("LoadStatistics");
             this.LoadStatistics.ToProperty(this, f => f.Statistics, out this._statisticsHelper);
 
-            this.WhenAnyValue(f => f.StartDate, f => f.EndDate, f => f.IncludeToday)
-                .Throttle(TimeSpan.FromMilliseconds(50))
-                .Subscribe(async _ => await this.LoadStatistics.ExecuteAsync());
-
+            this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
+                .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
+                .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
+            
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
         }
         #endregion
 
-        #region Methods
         protected override async void OnActivate()
         {
+            base.OnActivate();
+
             await this.LoadStatistics.ExecuteAsync();
         }
-        
+
+        #region Methods
         private async Task<ReactiveObservableCollection<StatisticItem>> LoadStatisticsImpl()
         {
-            LoggerFactory.GetLogger<StatisticsViewModel>().Debug("Hoi");
-
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var allTimes = TimesByDay.Create(times).ToList();
