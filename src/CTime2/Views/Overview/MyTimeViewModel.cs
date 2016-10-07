@@ -9,12 +9,14 @@ using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
+using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore;
 using UwCore.Application.Events;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using INavigationService = UwCore.Services.Navigation.INavigationService;
 
 namespace CTime2.Views.Overview
 {
@@ -22,6 +24,8 @@ namespace CTime2.Views.Overview
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
+        private readonly INavigationService _navigationService;
+
         private readonly Timer _timer;
 
         private DateTime _timerStartNow;
@@ -44,14 +48,18 @@ namespace CTime2.Views.Overview
 
         public UwCoreCommand<Unit> RefreshTimer { get; }
 
-        public MyTimeViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator)
+        public UwCoreCommand<Unit> GoToMyTimes { get; }
+
+        public MyTimeViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, INavigationService navigationService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
+            Guard.NotNull(navigationService, nameof(navigationService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
+            this._navigationService = navigationService;
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
 
@@ -59,6 +67,10 @@ namespace CTime2.Views.Overview
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.CurrentTime"))
                 .HandleExceptions()
                 .TrackEvent("RefreshTimer");
+
+            this.GoToMyTimes = UwCoreCommand.Create(this.GoToMyTimesImpl)
+                .HandleExceptions()
+                .TrackEvent("TimerGoToMyTimes");
 
             eventAggregator.SubscribeScreen(this);
         }
@@ -92,6 +104,16 @@ namespace CTime2.Views.Overview
             {
                 this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
             }
+        }
+
+        private Task GoToMyTimesImpl()
+        {
+            this._navigationService.For<YourTimesViewModel>()
+                .WithParam(f => f.StartDate, DateTimeOffset.Now.WithoutTime())
+                .WithParam(f => f.EndDate, DateTimeOffset.Now.WithoutTime())
+                .Navigate();
+
+            return Task.CompletedTask;
         }
 
         private void Tick(object state)
