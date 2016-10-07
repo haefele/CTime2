@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Xaml;
 using CTime2.Core.Data;
 using UwCore.Services.ApplicationState;
 
@@ -54,6 +55,16 @@ namespace CTime2.Core.Services.ApplicationState
         public static void SetWorkDayBreak(this IApplicationStateService self, TimeSpan hours)
         {
             self.Set("WorkDayBreak", hours, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
+
+        public static ElementTheme GetApplicationTheme(this IApplicationStateService self)
+        {
+            return self.Get<ElementTheme?>("ApplicationTheme", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? ElementTheme.Default;
+        }
+
+        public static void SetApplicationTheme(this IApplicationStateService self, ElementTheme theme)
+        {
+            self.Set("ApplicationTheme", theme, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
     }
 }

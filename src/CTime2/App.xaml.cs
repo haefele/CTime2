@@ -61,6 +61,8 @@ namespace CTime2
         {
             base.CustomizeApplication(application);
 
+            application.Theme = IoC.Get<IApplicationStateService>().GetApplicationTheme();
+
             application.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
 
             application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));

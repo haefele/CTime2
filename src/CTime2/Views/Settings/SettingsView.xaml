@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:windowsStateTriggers="using:WindowsStateTriggers"
     xmlns:controls="using:CTime2.Controls"
-    xmlns:converter="using:UwCore.Converter">
+    xmlns:converter="using:UwCore.Converter"
+    xmlns:converter1="using:CTime2.Converter">
     
     <Page.Resources>
         <DataTemplate x:Key="TimeSpanDataTemplate">
@@ -17,6 +18,7 @@
                 <TextBlock Text="{Binding Converter={StaticResource TimeSpanFormatConverter}}" />
             </Grid>
         </DataTemplate>
+        <converter1:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Page.Resources>
 
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalScrollBarVisibility="Auto">
@@ -95,6 +97,40 @@
                     <Button x:Name="BandButton" 
                             Content="~Test" 
                             Command="{x:Bind ViewModel.ToggleBandTile}" />
+                </controls:SettingsItem>
+            </controls:SettingsGroup>
+            <controls:SettingsGroup Header="~Theme"
+                                    x:Uid="ThemeSettingsGroup">
+                <controls:SettingsItem>
+                    <StackPanel>
+                        <RadioButton x:Uid="ThemeFromSystemRadioButton" Content="~Vom System">
+                            <RadioButton.IsChecked>
+                                <Binding Path="Theme" Converter="{StaticResource EnumToBooleanConverter}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ConverterParameter>
+                                        <ElementTheme>Default</ElementTheme>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton x:Uid="LightThemeRadioButton" Content="~Hell">
+                            <RadioButton.IsChecked>
+                                <Binding Path="Theme" Converter="{StaticResource EnumToBooleanConverter}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ConverterParameter>
+                                        <ElementTheme>Light</ElementTheme>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton x:Uid="DarkThemeRadioButton" Content="~Dunkel">
+                            <RadioButton.IsChecked>
+                                <Binding Path="Theme" Converter="{StaticResource EnumToBooleanConverter}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ConverterParameter>
+                                        <ElementTheme>Dark</ElementTheme>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                    </StackPanel>
                 </controls:SettingsItem>
             </controls:SettingsGroup>
         </StackPanel>

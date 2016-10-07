@@ -1,4 +1,5 @@
 using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using CTime2.Core.Data;
@@ -29,6 +30,19 @@ namespace CTime2.Converter
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotSupportedException();
+        }
+    }
+
+    public class EnumToBooleanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            return value.Equals(parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return (bool) value ? parameter : DependencyProperty.UnsetValue;
         }
     }
 }

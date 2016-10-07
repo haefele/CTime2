@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
@@ -12,6 +14,7 @@ using CTime2.Strings;
 using CTime2.Views.About;
 using ReactiveUI;
 using UwCore;
+using UwCore.Application;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
@@ -23,12 +26,14 @@ namespace CTime2.Views.Settings
         private readonly IBiometricsService _biometricsService;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IBandService _bandService;
+        private readonly IApplication _application;
 
         private ReactiveObservableCollection<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
         private ReactiveObservableCollection<TimeSpan> _breakTimes;
         private TimeSpan _selectedBreakTime;
         private BandState _state;
+        private ElementTheme _theme;
 
         public ReactiveObservableCollection<TimeSpan> WorkTimes
         {
@@ -53,17 +58,24 @@ namespace CTime2.Views.Settings
             get { return this._selectedBreakTime; }
             set { this.RaiseAndSetIfChanged(ref this._selectedBreakTime, value); }
         }
+
         public BandState State
         {
             get { return this._state; }
             set { this.RaiseAndSetIfChanged(ref this._state, value); }
         }
 
+        public ElementTheme Theme
+        {
+            get { return this._theme; }
+            set { this.RaiseAndSetIfChanged(ref this._theme, value); }
+        }
+
         public UwCoreCommand<Unit> Reload { get; }
         public UwCoreCommand<Unit> RememberLogin { get; }
         public UwCoreCommand<Unit> ToggleBandTile { get; }
 
-        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IBandService bandService)
+        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IBandService bandService, IApplication application)
         {
             Guard.NotNull(biometricsService, nameof(biometricsService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
@@ -72,6 +84,7 @@ namespace CTime2.Views.Settings
             this._biometricsService = biometricsService;
             this._applicationStateService = applicationStateService;
             this._bandService = bandService;
+            this._application = application;
 
             var canRememberLogin = new ReplaySubject<bool>(1);
             canRememberLogin.OnNext(this._applicationStateService.GetCurrentUser() != null);
@@ -93,11 +106,35 @@ namespace CTime2.Views.Settings
                 .HandleExceptions()
                 .TrackEvent("ReloadSettings");
 
+            this.Theme = this._applicationStateService.GetApplicationTheme();
+            this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
+            this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
+
+            this.WhenAnyValue(f => f.Theme)
+                .Subscribe(theme =>
+                {
+                    this._application.Theme = theme;
+                    this._applicationStateService.SetApplicationTheme(theme);
+                });
+
+            this.WhenAnyValue(f => f.SelectedWorkTime)
+                .Subscribe(workTime =>
+                {
+                    this._applicationStateService.SetWorkDayHours(workTime);
+                });
+
+            this.WhenAnyValue(f => f.SelectedBreakTime)
+                .Subscribe(breakTime =>
+                {
+                    this._applicationStateService.SetWorkDayBreak(breakTime);
+                });
+
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
 
             this.WorkTimes = new ReactiveObservableCollection<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
+
             this.BreakTimes = new ReactiveObservableCollection<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
@@ -107,18 +144,7 @@ namespace CTime2.Views.Settings
         {
             base.OnActivate();
 
-            this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
-            this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
-
             await this.Reload.ExecuteAsync();
-        }
-
-        protected override void OnDeactivate(bool close)
-        {
-            base.OnDeactivate(close);
-
-            this._applicationStateService.SetWorkDayHours(this.SelectedWorkTime);
-            this._applicationStateService.SetWorkDayBreak(this.SelectedBreakTime);
         }
 
         private async Task RememberLoginImpl()

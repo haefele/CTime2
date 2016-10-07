@@ -438,6 +438,22 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Band</source>
           <target state="translated">Band</target>
         </trans-unit>
+        <trans-unit id="DarkThemeRadioButton.Content" translate="yes" xml:space="preserve">
+          <source>Dunkel</source>
+          <target state="translated">Dark</target>
+        </trans-unit>
+        <trans-unit id="LightThemeRadioButton.Content" translate="yes" xml:space="preserve">
+          <source>Hell</source>
+          <target state="translated">Light</target>
+        </trans-unit>
+        <trans-unit id="ThemeFromSystemRadioButton.Content" translate="yes" xml:space="preserve">
+          <source>Vom System</source>
+          <target state="translated">From system</target>
+        </trans-unit>
+        <trans-unit id="ThemeSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Theme</source>
+          <target state="translated">Theme</target>
+        </trans-unit>
       </group>
     </body>
   </file>

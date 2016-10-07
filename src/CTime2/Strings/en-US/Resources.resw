@@ -334,4 +334,16 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="BandSettingsGroup.Header" xml:space="preserve">
     <value>Band</value>
   </data>
+  <data name="DarkThemeRadioButton.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="LightThemeRadioButton.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeFromSystemRadioButton.Content" xml:space="preserve">
+    <value>From system</value>
+  </data>
+  <data name="ThemeSettingsGroup.Header" xml:space="preserve">
+    <value>Theme</value>
+  </data>
 </root>
