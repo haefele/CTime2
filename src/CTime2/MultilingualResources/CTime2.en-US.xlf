@@ -48,7 +48,7 @@
         </trans-unit>
         <trans-unit id="Loading.AttendanceList" translate="yes" xml:space="preserve">
           <source>Lade Anwesenheitsliste...</source>
-          <target state="translated" state-qualifier="mt-suggestion">Loading attendance list...</target>
+          <target state="translated">Loading attendance list...</target>
         </trans-unit>
         <trans-unit id="Loading.CurrentState" translate="yes" xml:space="preserve">
           <source>Lade Status...</source>
@@ -453,6 +453,14 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         <trans-unit id="ThemeSettingsGroup.Header" translate="yes" xml:space="preserve">
           <source>Theme</source>
           <target state="translated">Theme</target>
+        </trans-unit>
+        <trans-unit id="CurrentOverTimeTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Überstunden:</source>
+          <target state="translated">Overtime:</target>
+        </trans-unit>
+        <trans-unit id="Loading.CurrentTime" translate="yes" xml:space="preserve">
+          <source>Lade Zeit...</source>
+          <target state="translated">Loading time...</target>
         </trans-unit>
       </group>
     </body>

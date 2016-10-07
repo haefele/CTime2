@@ -33,27 +33,16 @@ namespace CTime2.Views.Overview
         private readonly ICTimeService _cTimeService;
         private readonly IGeoLocationService _geoLocationService;
         private readonly INavigationService _navigationService;
-
-        private readonly Timer _timer;
-
-        private DateTime _timerStartNow;
-        private TimeSpan _timerStartTimeForDay;
-
+        
         private string _welcomeMessage;
-        private TimeSpan _currentTime;
         private byte[] _myImage;
         private GeoLocationState _geoLocationState;
+        private MyTimeViewModel _myTimeViewModel;
 
         public string WelcomeMessage
         {
             get { return this._welcomeMessage; }
             set { this.RaiseAndSetIfChanged(ref this._welcomeMessage, value); }
-        }
-
-        public TimeSpan CurrentTime
-        {
-            get { return this._currentTime; }
-            set { this.RaiseAndSetIfChanged(ref this._currentTime, value); }
         }
 
         public byte[] MyImage
@@ -66,6 +55,12 @@ namespace CTime2.Views.Overview
         {
             get { return this._geoLocationState; }
             set { this.RaiseAndSetIfChanged(ref this._geoLocationState, value); }
+        }
+
+        public MyTimeViewModel MyTimeViewModel
+        {
+            get { return this._myTimeViewModel; }
+            set { this.RaiseAndSetIfChanged(ref this._myTimeViewModel, value); }
         }
 
         public UwCoreCommand<Unit> RefreshCurrentState { get; }
@@ -86,8 +81,6 @@ namespace CTime2.Views.Overview
 
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
-            this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-
             this.RefreshCurrentState = UwCoreCommand.Create(this.RefreshCurrentStateImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.CurrentState"))
                 .HandleExceptions()
@@ -96,6 +89,9 @@ namespace CTime2.Views.Overview
             this.ShowGeoLocationInfo = UwCoreCommand.Create(this.ShowGeoLocationInfoImpl)
                 .HandleExceptions()
                 .TrackEvent("GeoLocationInfo");
+
+            this.MyTimeViewModel = IoC.Get<MyTimeViewModel>();
+            this.MyTimeViewModel.ConductWith(this);
 
             eventAggregator.SubscribeScreen(this);
         }
@@ -117,8 +113,7 @@ namespace CTime2.Views.Overview
         private async Task RefreshCurrentStateImpl()
         {
             var currentTime = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
-
-            #region Update State
+            
             StampTimeStateViewModelBase currentState;
 
             if (currentTime == null || currentTime.State.IsLeft())
@@ -143,28 +138,6 @@ namespace CTime2.Views.Overview
             }
 
             this.ActivateItem(currentState);
-            #endregion
-
-            #region Update Timer
-            this._timerStartNow = DateTime.Now;
-
-            var timeToAdd = currentTime != null && currentTime.State.IsEntered()
-                ? this._timerStartNow - (currentTime.ClockInTime ?? this._timerStartNow)
-                : TimeSpan.Zero;
-
-            var timeToday = currentTime?.Hours ?? TimeSpan.Zero;
-
-            this.CurrentTime = this._timerStartTimeForDay = timeToday + timeToAdd;
-
-            if (currentTime != null && currentTime.State.IsEntered())
-            {
-                this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
-            }
-            else
-            {
-                this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-            }
-            #endregion
         }
 
         private Task ShowGeoLocationInfoImpl()
@@ -172,14 +145,6 @@ namespace CTime2.Views.Overview
             this._navigationService.Popup.For<GeoLocationInfoViewModel>().Navigate();
 
             return Task.CompletedTask;
-        }
-
-        private void Tick(object state)
-        {
-            Execute.OnUIThread(() =>
-            {
-                this.CurrentTime = this._timerStartTimeForDay + (DateTime.Now - this._timerStartNow);
-            });
         }
 
         async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)

@@ -346,4 +346,10 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="ThemeSettingsGroup.Header" xml:space="preserve">
     <value>Theme</value>
   </data>
+  <data name="CurrentOverTimeTextBlock.Text" xml:space="preserve">
+    <value>Overtime:</value>
+  </data>
+  <data name="Loading.CurrentTime" xml:space="preserve">
+    <value>Loading time...</value>
+  </data>
 </root>

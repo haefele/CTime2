@@ -451,4 +451,10 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="ThemeSettingsGroup.Header" xml:space="preserve">
     <value>Theme</value>
   </data>
+  <data name="CurrentOverTimeTextBlock.Text" xml:space="preserve">
+    <value>Überstunden:</value>
+  </data>
+  <data name="Loading.CurrentTime" xml:space="preserve">
+    <value>Lade Zeit...</value>
+  </data>
 </root>

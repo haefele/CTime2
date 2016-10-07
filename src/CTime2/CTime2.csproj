@@ -140,6 +140,10 @@
     </Compile>
     <Compile Include="Views\AttendanceList\AttendanceListViewModel.cs" />
     <Compile Include="Views\AttendanceList\AttendingUserByIsAttending.cs" />
+    <Compile Include="Views\Overview\MyTimeView.xaml.cs">
+      <DependentUpon>MyTimeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overview\MyTimeViewModel.cs" />
     <Compile Include="Views\Settings\BandState.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -260,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overview\MyTimeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
