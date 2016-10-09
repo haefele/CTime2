@@ -462,6 +462,74 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Lade Zeit...</source>
           <target state="translated">Loading time...</target>
         </trans-unit>
+        <trans-unit id="GeoLocationContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>c-time hat diese Funktion schon länger unterstützt, jetzt unterstützt auch diese App die Geolokalisierung beim Stempeln.</source>
+          <target state="translated">c-time has had this feature for a while now, but finally this app supports geolocation as well.</target>
+        </trans-unit>
+        <trans-unit id="GeoLocationContent2Run.Text" translate="yes" xml:space="preserve">
+          <source>Dabei wird, wenn man ein- oder ausstempelt, die eigene Position an c-time übertragen.</source>
+          <target state="translated">That means, if you check-in or -out, your position will be send to c-time.</target>
+        </trans-unit>
+        <trans-unit id="GeoLocationContent3Run.Text" translate="yes" xml:space="preserve">
+          <source>In der Übersicht wird dafür nun ein eigenes Icon angezeigt.</source>
+          <target state="translated">In the overview you will see a icon for that.</target>
+        </trans-unit>
+        <trans-unit id="GeoLocationHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Geolokalisierung beim Stempeln!</source>
+          <target state="translated">Stamp with geolocation!</target>
+        </trans-unit>
+        <trans-unit id="OtherChangesContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>In den Statistiken kann man jetzt selbst bestimmen, ob der heutige Tag mit in die Statistiken einbezogen werden soll oder nicht.</source>
+          <target state="translated">In the statistics, you can now decide whether today is included in the statistics.</target>
+        </trans-unit>
+        <trans-unit id="OtherChangesHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Andere Verbesserungen!</source>
+          <target state="translated">Other improvements!</target>
+        </trans-unit>
+        <trans-unit id="OverviewUpdatesContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>Wenn man seine heutige Arbeitszeit voll hat, werden die Überstunden separat hochgezählt.</source>
+          <target state="translated">If you have worked long enough today, your overtime will be in a separate counter.</target>
+        </trans-unit>
+        <trans-unit id="OverviewUpdatesContent2Run.Text" translate="yes" xml:space="preserve">
+          <source>Beim Klick auf seine Zeit, wechselt man automatisch zu "Meine Zeiten" für den heutigen Tag.</source>
+          <target state="translated">If you click on your time, you will switch automatically to "My times" for today.</target>
+        </trans-unit>
+        <trans-unit id="OverviewUpdatesHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Verbesserungen in der Übersicht</source>
+          <target state="translated">Improvements in the overview</target>
+        </trans-unit>
+        <trans-unit id="SettingsRemakeContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>In den neuen Einstellungen kann man hinterlegen wie lange ein Arbeitstag und die Pause dauert.</source>
+          <target state="translated">In the new settings you can define how long a work day and the break is.</target>
+        </trans-unit>
+        <trans-unit id="SettingsRemakeContent2Run.Text" translate="yes" xml:space="preserve">
+          <source>Diese Werte werden dann in den Statistiken und in der Übersicht für die Überstunden verwendet.</source>
+          <target state="translated">These values are used in the statistics and overview for the overtime.</target>
+        </trans-unit>
+        <trans-unit id="SettingsRemakeContent3Run.Text" translate="yes" xml:space="preserve">
+          <source>Außerdem kann man das Theme dieser App einstellen.</source>
+          <target state="translated">Also, you can set the theme of this app.</target>
+        </trans-unit>
+        <trans-unit id="SettingsRemakeHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Einstellungen überarbeitet!</source>
+          <target state="translated">Reworked settings!</target>
+        </trans-unit>
+        <trans-unit id="UpdateToNewCTimeApiContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>Diese App verwendet nun die neue c-time API.</source>
+          <target state="translated">This app now uses the new c-time API.</target>
+        </trans-unit>
+        <trans-unit id="UpdateToNewCTimeApiContent2Run.Text" translate="yes" xml:space="preserve">
+          <source>Dadurch ist die Anmeldung sichere geworden, das Passwort wird jetzt nicht mehr an den Server übertragen.</source>
+          <target state="translated">That means the login is more secure now, your password will not be sent to the server.</target>
+        </trans-unit>
+        <trans-unit id="UpdateToNewCTimeApiContent3Run.Text" translate="yes" xml:space="preserve">
+          <source>Außerdem wird die Anwesenheitsliste nun viel schneller geladen.</source>
+          <target state="translated">Also, the attendance list will load much faster.</target>
+        </trans-unit>
+        <trans-unit id="UpdateToNewCTimeApiHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Update auf die neue c-time API!</source>
+          <target state="translated">Update to use the new c-time API!</target>
+        </trans-unit>
       </group>
     </body>
   </file>

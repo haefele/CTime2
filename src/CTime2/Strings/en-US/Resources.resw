@@ -352,4 +352,55 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="Loading.CurrentTime" xml:space="preserve">
     <value>Loading time...</value>
   </data>
+  <data name="GeoLocationContent1Run.Text" xml:space="preserve">
+    <value>c-time has had this feature for a while now, but finally this app supports geolocation as well.</value>
+  </data>
+  <data name="GeoLocationContent2Run.Text" xml:space="preserve">
+    <value>That means, if you check-in or -out, your position will be send to c-time.</value>
+  </data>
+  <data name="GeoLocationContent3Run.Text" xml:space="preserve">
+    <value>In the overview you will see a icon for that.</value>
+  </data>
+  <data name="GeoLocationHeaderRun.Text" xml:space="preserve">
+    <value>Stamp with geolocation!</value>
+  </data>
+  <data name="OtherChangesContent1Run.Text" xml:space="preserve">
+    <value>In the statistics, you can now decide whether today is included in the statistics.</value>
+  </data>
+  <data name="OtherChangesHeaderRun.Text" xml:space="preserve">
+    <value>Other improvements!</value>
+  </data>
+  <data name="OverviewUpdatesContent1Run.Text" xml:space="preserve">
+    <value>If you have worked long enough today, your overtime will be in a separate counter.</value>
+  </data>
+  <data name="OverviewUpdatesContent2Run.Text" xml:space="preserve">
+    <value>If you click on your time, you will switch automatically to "My times" for today.</value>
+  </data>
+  <data name="OverviewUpdatesHeaderRun.Text" xml:space="preserve">
+    <value>Improvements in the overview</value>
+  </data>
+  <data name="SettingsRemakeContent1Run.Text" xml:space="preserve">
+    <value>In the new settings you can define how long a work day and the break is.</value>
+  </data>
+  <data name="SettingsRemakeContent2Run.Text" xml:space="preserve">
+    <value>These values are used in the statistics and overview for the overtime.</value>
+  </data>
+  <data name="SettingsRemakeContent3Run.Text" xml:space="preserve">
+    <value>Also, you can set the theme of this app.</value>
+  </data>
+  <data name="SettingsRemakeHeaderRun.Text" xml:space="preserve">
+    <value>Reworked settings!</value>
+  </data>
+  <data name="UpdateToNewCTimeApiContent1Run.Text" xml:space="preserve">
+    <value>This app now uses the new c-time API.</value>
+  </data>
+  <data name="UpdateToNewCTimeApiContent2Run.Text" xml:space="preserve">
+    <value>That means the login is more secure now, your password will not be sent to the server.</value>
+  </data>
+  <data name="UpdateToNewCTimeApiContent3Run.Text" xml:space="preserve">
+    <value>Also, the attendance list will load much faster.</value>
+  </data>
+  <data name="UpdateToNewCTimeApiHeaderRun.Text" xml:space="preserve">
+    <value>Update to use the new c-time API!</value>
+  </data>
 </root>
