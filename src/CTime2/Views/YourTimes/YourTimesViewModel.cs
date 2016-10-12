@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
@@ -17,10 +18,17 @@ namespace CTime2.Views.YourTimes
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
 
+        private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<TimesByDay>> _timesHelper;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
+
+        public override string DisplayName
+        {
+            get { return this._displayNameHelper.Value; }
+            set { }
+        }
 
         public ReactiveObservableCollection<TimesByDay> Times => this._timesHelper.Value;
 
@@ -45,8 +53,10 @@ namespace CTime2.Views.YourTimes
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
-
-            this.DisplayName = CTime2Resources.Get("Navigation.MyTimes");
+            
+            this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
+                .Select(f => CTime2Resources.GetFormatted("MyTimes.TitleFormat", this.StartDate, this.EndDate))
+                .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
 
             this.LoadTimes = UwCoreCommand.Create(this.LoadTimesImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Times"))

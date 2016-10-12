@@ -386,7 +386,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
     <value>Zu Meine Zeiten</value>
   </data>
   <data name="Statistics.TitleFormat" xml:space="preserve">
-    <value>Statistiken von {0:d} bis {1:d}</value>
+    <value>Statistiken vom {0:d} bis {1:d}</value>
   </data>
   <data name="Statistics.BreakTimeDataPointFormat" xml:space="preserve">
     <value>{0} m</value>
@@ -507,5 +507,8 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="UpdateToNewCTimeApiHeaderRun.Text" xml:space="preserve">
     <value>Update auf die neue c-time API!</value>
+  </data>
+  <data name="MyTimes.TitleFormat" xml:space="preserve">
+    <value>Meine Zeiten vom {0:d} bis {1:d}</value>
   </data>
 </root>

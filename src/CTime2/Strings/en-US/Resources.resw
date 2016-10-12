@@ -403,4 +403,7 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="UpdateToNewCTimeApiHeaderRun.Text" xml:space="preserve">
     <value>Update to use the new c-time API!</value>
   </data>
+  <data name="MyTimes.TitleFormat" xml:space="preserve">
+    <value>My times from {0:d} to {1:d}</value>
+  </data>
 </root>
