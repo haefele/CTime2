@@ -36,7 +36,6 @@ namespace CTime2.Views.Statistics
         private DateTimeOffset _endDate;
         private bool? _includeToday;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticItem>> _statisticsHelper;
-
         #endregion
 
         #region Properties

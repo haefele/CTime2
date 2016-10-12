@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using UwCore.Extensions;
@@ -12,6 +13,22 @@ namespace CTime2.Views.Statistics
         public StatisticsView()
         { 
             this.InitializeComponent();
+        }
+
+        private void StatisticsView_OnDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            this.ViewModel.PropertyChanged += this.ViewModelOnPropertyChanged;
+        }
+
+        private void ViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(this.ViewModel.StartDate) ||
+                e.PropertyName == nameof(this.ViewModel.EndDate))
+            {
+                this.IncludeTodayAppBarToggleButton.Visibility = this.ViewModel.StartDate.Date <= DateTime.Today && this.ViewModel.EndDate.Date >= DateTime.Today
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
         }
 
         private async void CurrentMonth_OnClick(object sender, RoutedEventArgs e)
