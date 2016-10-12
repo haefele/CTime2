@@ -230,7 +230,8 @@ namespace CTime2.Core.Services.CTime
                             ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? string.Empty),
                         }
                     })
-                    .ToDictionary(f => f.EmployeeI3D, f => f.Employee);
+                    .GroupBy(f => f.EmployeeI3D)
+                    .ToDictionary(f => f.Key, f => f.Select(d => d.Employee).FirstOrDefault());
 
                 var imageCache = new EmployeeImageCache();
                 if (newCacheEtag == cacheEtag)
