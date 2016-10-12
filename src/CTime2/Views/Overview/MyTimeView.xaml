@@ -28,6 +28,7 @@
         </Grid.RowDefinitions>
         
         <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                   Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
                    HorizontalAlignment="Center"
                    x:Uid="CurrentTimeTextBlock"
                    Text="~Deine Zeit:"
@@ -40,6 +41,7 @@
                    Grid.Row="1"/>
 
         <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                   Foreground="{ThemeResource SystemListAccentHighColor}"
                    Visibility="{x:Bind ViewModel.OverTime, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"
                    FontSize="20"
                    x:Uid="CurrentOverTimeTextBlock"
