@@ -120,7 +120,7 @@
         </trans-unit>
         <trans-unit id="Statistics.AverageEnterTime" translate="yes" xml:space="preserve">
           <source>ø Arbeitsbeginn</source>
-          <target state="translated">ø work begin</target>
+          <target state="translated">c-time Universal is an unofficial app for the attendance software c-time.</target>
         </trans-unit>
         <trans-unit id="Statistics.AverageLeaveTime" translate="yes" xml:space="preserve">
           <source>ø Arbeitsende</source>
@@ -533,6 +533,10 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         <trans-unit id="MyTimes.TitleFormat" translate="yes" xml:space="preserve">
           <source>Meine Zeiten vom {0:d} bis {1:d}</source>
           <target state="translated">My times from {0:d} to {1:d}</target>
+        </trans-unit>
+        <trans-unit id="Statistics.CalculatedLeaveTimeTodayWithoutOverTime" translate="yes" xml:space="preserve">
+          <source>Heutiges Arbeitsende (ohne Überstunden)</source>
+          <target state="translated">Today's working end (without overtime)</target>
         </trans-unit>
       </group>
     </body>

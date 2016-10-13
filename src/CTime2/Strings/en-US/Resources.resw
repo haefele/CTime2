@@ -97,7 +97,7 @@
     <value>ø pause length</value>
   </data>
   <data name="Statistics.AverageEnterTime" xml:space="preserve">
-    <value>ø work begin</value>
+    <value>c-time Universal is an unofficial app for the attendance software c-time.</value>
   </data>
   <data name="Statistics.AverageLeaveTime" xml:space="preserve">
     <value>ø work end</value>
@@ -405,5 +405,8 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   </data>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>My times from {0:d} to {1:d}</value>
+  </data>
+  <data name="Statistics.CalculatedLeaveTimeTodayWithoutOverTime" xml:space="preserve">
+    <value>Today's working end (without overtime)</value>
   </data>
 </root>

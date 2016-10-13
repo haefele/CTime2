@@ -511,4 +511,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>Meine Zeiten vom {0:d} bis {1:d}</value>
   </data>
+  <data name="Statistics.CalculatedLeaveTimeTodayWithoutOverTime" xml:space="preserve">
+    <value>Heutiges Arbeitsende (ohne Überstunden)</value>
+  </data>
 </root>

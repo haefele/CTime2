@@ -161,6 +161,7 @@ namespace CTime2.Views.Statistics
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
                 + (hadBreakAlready ? TimeSpan.Zero : workDayBreak) 
                 + workTimeTodayToUseUpOverTimePool;
+            var expectedWorkEndWithoutOverTime = expectedWorkEnd + TimeSpan.FromMinutes(workTimePoolInMinutes);
 
             var statisticItems = new List<StatisticItem>
             {
@@ -211,7 +212,13 @@ namespace CTime2.Views.Statistics
                     ? new StatisticItem(
                         CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"),
                         expectedWorkEnd.ToString("T"))
-                    : null
+                    : null,
+
+                hasExpectedWorkEnd
+                    ? new StatisticItem(
+                        CTime2Resources.Get("Statistics.CalculatedLeaveTimeTodayWithoutOverTime"),
+                        expectedWorkEndWithoutOverTime.ToString("T"))
+                    : null,
             };
 
             return new ReactiveObservableCollection<StatisticItem>(statisticItems.Where(f => f != null));
