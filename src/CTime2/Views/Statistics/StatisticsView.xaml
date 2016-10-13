@@ -43,6 +43,7 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="{x:Bind Name, Mode=OneWay}"
+                                   Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
                                    HorizontalAlignment="Center"
                                    Grid.Row="0" />
                         <TextBlock Text="{x:Bind Value, Mode=OneWay}"
@@ -54,6 +55,7 @@
                                          Grid.RowSpan="2"
                                          x:Uid="StatisticItemHasDetailsIcon"
                                          Icon="LineChart"
+                                         Foreground="{ThemeResource SystemListAccentHighColor}"
                                          Visibility="{x:Bind ShowDetails, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}"
                                          HorizontalAlignment="Right" />
                     </Grid>
