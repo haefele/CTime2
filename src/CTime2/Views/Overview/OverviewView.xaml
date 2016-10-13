@@ -60,6 +60,7 @@
 
             <TextBlock Text="{x:Bind ViewModel.WelcomeMessage, Mode=OneWay}"
                        Style="{ThemeResource TitleTextBlockStyle}"
+                       Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Margin="0, 10, 0, 10" />
