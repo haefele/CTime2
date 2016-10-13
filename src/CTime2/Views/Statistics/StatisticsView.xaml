@@ -9,7 +9,9 @@
       xmlns:uwCoreConverter="using:UwCore.Converter"
       xmlns:converter="using:CTime2.Converter"
       xmlns:uwp="using:FontAwesome.UWP"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      DataContextChanged="StatisticsView_OnDataContextChanged"
+      >
     <Page.Resources>
         <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
     </Page.Resources>
@@ -61,6 +63,7 @@
 
         <CommandBar Grid.Row="1">
             <AppBarToggleButton Label="~Mit Heute"
+                                x:Name="IncludeTodayAppBarToggleButton"
                                 x:Uid="IncludeTodayAppBarToggleButton"
                                 IsChecked="{x:Bind ViewModel.IncludeToday, Mode=TwoWay}"
                                 Icon="CalendarDay">

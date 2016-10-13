@@ -349,7 +349,7 @@ This app may not work completely.</target>
           <target state="translated">Go to my times</target>
         </trans-unit>
         <trans-unit id="Statistics.TitleFormat" translate="yes" xml:space="preserve">
-          <source>Statistiken von {0:d} bis {1:d}</source>
+          <source>Statistiken vom {0:d} bis {1:d}</source>
           <target state="translated">Statistics from {0:d} to {1:d}</target>
         </trans-unit>
         <trans-unit id="Statistics.BreakTimeDataPointFormat" translate="yes" xml:space="preserve">
@@ -529,6 +529,10 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         <trans-unit id="UpdateToNewCTimeApiHeaderRun.Text" translate="yes" xml:space="preserve">
           <source>Update auf die neue c-time API!</source>
           <target state="translated">Update to use the new c-time API!</target>
+        </trans-unit>
+        <trans-unit id="MyTimes.TitleFormat" translate="yes" xml:space="preserve">
+          <source>Meine Zeiten vom {0:d} bis {1:d}</source>
+          <target state="translated">My times from {0:d} to {1:d}</target>
         </trans-unit>
       </group>
     </body>

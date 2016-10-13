@@ -21,15 +21,12 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="GeoLocationStates">
                 <VisualState x:Name="NotRequired">
+                    <VisualState.Setters>
+                        <Setter Target="GeoLocationStackPanel.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.GeoLocationState, Mode=OneWay}" EqualTo="NotRequired" />
                     </VisualState.StateTriggers>
-                    <Storyboard>
-                        <DoubleAnimation Duration="0"
-                                         To="0"
-                                         Storyboard.TargetProperty="(UIElement.Opacity)"
-                                         Storyboard.TargetName="GeoLocationStackPanel" />
-                    </Storyboard>
                 </VisualState>
                 <VisualState x:Name="RequiredNotAvailable">
                     <VisualState.StateTriggers>
@@ -56,7 +53,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">

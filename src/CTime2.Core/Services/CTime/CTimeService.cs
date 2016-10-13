@@ -44,8 +44,6 @@ namespace CTime2.Core.Services.CTime
             this._eventAggregator = eventAggregator;
             this._applicationStateService = applicationStateService;
             this._geoLocationService = geoLocationService;
-
-            this.AddCTimeCertificate();
         }
 
         public async Task<User> Login(string emailAddress, string password)
@@ -292,25 +290,9 @@ namespace CTime2.Core.Services.CTime
 
         private HttpClient GetClient()
         {
-            var filter = new HttpBaseProtocolFilter();
-            filter.IgnorableServerCertificateErrors.Add(ChainValidationResult.InvalidName);
-
-            return new HttpClient(filter);
+            return new HttpClient();
         }
-
-        private void AddCTimeCertificate()
-        {
-            using (var certificateStream = this.GetType().GetTypeInfo().Assembly.GetManifestResourceStream("CTime2.Core.Services.CTime.Certificate.cer"))
-            using (var memoryStream = new MemoryStream())
-            {
-                certificateStream.CopyTo(memoryStream);
-                var buffer = memoryStream.ToArray().AsBuffer();
-
-                var certificate = new Certificate(buffer);
-                CertificateStores.TrustedRootCertificationAuthorities.Add(certificate);
-            }
-        }
-
+        
         #region Internal
         private class EmployeeImageCache
         {
