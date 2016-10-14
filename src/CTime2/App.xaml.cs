@@ -166,11 +166,11 @@ namespace CTime2
                 jumpList.Items.Clear();
 
                 var checkInArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkin };
-                var checkInItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkInArguments), "Check-in");
+                var checkInItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkInArguments), CTime2Resources.Get("StampHelper.CheckIn"));
                 jumpList.Items.Add(checkInItem);
 
                 var checkOutArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkout };
-                var checkOutItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkOutArguments), "Check-out");
+                var checkOutItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkOutArguments), CTime2Resources.Get("StampHelper.CheckOut"));
                 jumpList.Items.Add(checkOutItem);
 
                 await jumpList.SaveAsync();
