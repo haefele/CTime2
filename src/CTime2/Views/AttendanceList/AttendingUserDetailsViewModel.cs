@@ -12,6 +12,7 @@ using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Contacts;
 using CTime2.Core.Services.CTime;
+using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
 using UwCore.Common;
@@ -53,7 +54,7 @@ namespace CTime2.Views.AttendanceList
 
             this.LoadAttendingUser = UwCoreCommand.Create(this.LoadAttendingUserImpl)
                 .HandleExceptions()
-                .ShowLoadingOverlay("Lade Mitarbeiter");
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.Employee"));
             this.LoadAttendingUser.ToProperty(this, f => f.AttendingUser, out this._attendingUserHelper);
             
             var canCall = Observable
@@ -101,8 +102,8 @@ namespace CTime2.Views.AttendanceList
         {
             await this._contactsService.CreateContactAsync(this.AttendingUser);
 
-            var message = $"{this.AttendingUser.FirstName} {this.AttendingUser.Name} wurde erfolgreich als Kontakt angelegt!";
-            var caption = "Kontakt angelegt!";
+            var message = CTime2Resources.GetFormatted("AddAttendingUserToContacts.MessageFormat", this.AttendingUser.FirstName, this.AttendingUser.Name);
+            var caption = CTime2Resources.Get("AddAttendingUserToContacts.Title");
 
             await this._dialogService.ShowAsync(message, caption);
         }

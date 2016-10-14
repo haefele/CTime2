@@ -536,11 +536,43 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         </trans-unit>
         <trans-unit id="Statistics.OverTimePoolSubTitle" translate="yes" xml:space="preserve">
           <source>in Minuten</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">in minutes</target>
+          <target state="translated" state-qualifier="mt-suggestion">in minutes</target>
         </trans-unit>
         <trans-unit id="Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle" translate="yes" xml:space="preserve">
           <source>ohne Überstunden</source>
           <target state="translated">without overtime</target>
+        </trans-unit>
+        <trans-unit id="AddAttendingUserToContacts.MessageFormat" translate="yes" xml:space="preserve">
+          <source>{0} {1} wurde erfolgreich als Kontakt angelegt!</source>
+          <target state="translated">{0} {1} was added as a contact!</target>
+        </trans-unit>
+        <trans-unit id="AddAttendingUserToContacts.Title" translate="yes" xml:space="preserve">
+          <source>Kontakt angelegt!</source>
+          <target state="translated">Contact added!</target>
+        </trans-unit>
+        <trans-unit id="Loading.Employee" translate="yes" xml:space="preserve">
+          <source>Lade Mitarbeiter...</source>
+          <target state="translated">Loading employee...</target>
+        </trans-unit>
+        <trans-unit id="EmailAddressTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>E-Mail Adresse</source>
+          <target state="translated">Email address</target>
+        </trans-unit>
+        <trans-unit id="SendMailButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>E-Mail senden</source>
+          <target state="translated">Send email</target>
+        </trans-unit>
+        <trans-unit id="CallButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Anrufen</source>
+          <target state="translated">Call</target>
+        </trans-unit>
+        <trans-unit id="PhoneNumberTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Telefonnummer</source>
+          <target state="translated">Phone number</target>
+        </trans-unit>
+        <trans-unit id="AddAsContactTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Als Kontakt anlegen</source>
+          <target state="translated">Add as contact</target>
         </trans-unit>
       </group>
     </body>
