@@ -2,14 +2,82 @@
     x:Class="CTime2.Views.AttendanceList.AttendingUserDetailsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:CTime2.Controls"
+    xmlns:converter="using:CTime2.Converter"
+    
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d"
 
     MaxWidth="320"
-    MaxHeight="360">
+    MaxHeight="320">
+    <Page.Resources>
+        <converter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter"
+                                            TrueValue="{StaticResource CTimeGreen}"
+                                            FalseValue="{StaticResource CTimeRed}" />
+    </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Holla" />
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <controls:UserImage Grid.Row="0"
+                            Image="{x:Bind ViewModel.AttendingUser.ImageAsPng, Mode=OneWay}"
+                            Margin="30, 0, 30, 10"
+                            Width="130"
+                            Height="130"
+                            BorderBrush="{x:Bind ViewModel.AttendingUser.IsAttending, Mode=OneWay, Converter={StaticResource BooleanToAttendingBrushConverter}}" />
+
+        <TextBlock Grid.Row="1"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   HorizontalAlignment="Center">
+            <Run Text="{x:Bind ViewModel.AttendingUser.FirstName, Mode=OneWay}" />
+            <Run />
+            <Run Text="{x:Bind ViewModel.AttendingUser.Name, Mode=OneWay}" />
+        </TextBlock>
+
+        <TextBlock Grid.Row="2"
+                   Margin="0, 10, 0, 0"
+                   Text="E-Mail Adresse" Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+
+        <TextBlock Grid.Row="3" 
+                   Text="{x:Bind ViewModel.AttendingUser.EmailAddress, Mode=OneWay}" />
+        
+        <Button Grid.Row="2"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Width="40"
+                Height="40"
+                ToolTipService.ToolTip="E-Mail senden"
+                Command="{x:Bind ViewModel.SendMail}">
+            <SymbolIcon Symbol="Mail" />
+        </Button>
+
+        <TextBlock Grid.Row="4" 
+                   Text="Telefonnummer" 
+                   Margin="0, 10, 0, 0"
+                   Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+
+        <TextBlock Grid.Row="5" 
+                   Text="{x:Bind ViewModel.AttendingUser.PhoneNumber, Mode=OneWay}" />
+
+        <Button Grid.Row="4"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Width="40"
+                Height="40"
+                ToolTipService.ToolTip="Anrufen"
+                Command="{x:Bind ViewModel.Call}">
+            <SymbolIcon Symbol="Phone" />
+        </Button>
     </Grid>
 </Page>
