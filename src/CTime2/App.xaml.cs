@@ -125,6 +125,7 @@ namespace CTime2
             yield return typeof(UpdateNotesViewModel);
             yield return typeof(GeoLocationInfoViewModel);
             yield return typeof(MyTimeViewModel);
+            yield return typeof(AttendingUserDetailsViewModel);
         }
 
         public override string GetHockeyAppId()

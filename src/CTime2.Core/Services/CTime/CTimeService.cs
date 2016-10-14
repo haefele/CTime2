@@ -225,10 +225,13 @@ namespace CTime2.Core.Services.CTime
                         EmployeeI3D = f.Value<int>("EmployeeI3D"),
                         Employee = new AttendingUser
                         {
+                            Id = f.Value<string>("EmployeeI3D"),
                             Name = f.Value<string>("EmployeeName"),
                             FirstName = f.Value<string>("EmployeeFirstName"),
                             IsAttending = f.Value<int>("PresenceStatus") == 1,
                             ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? defaultImageAsBase64),
+                            EmailAddress = f.Value<string>("EmployeeEmail"),
+                            PhoneNumber = f.Value<string>("EmployeePhone"),
                         }
                     })
                     .GroupBy(f => f.EmployeeI3D)

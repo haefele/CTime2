@@ -22,7 +22,9 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView ItemsSource="{Binding Source={StaticResource GroupedAttendingUsers}}"
-                  SelectionMode="None">
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  ItemClick="GridView_ItemClick">
             <GridView.GroupStyle>
                 <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.HeaderTemplate>
