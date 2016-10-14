@@ -193,7 +193,7 @@
     <value>Remember login</value>
   </data>
   <data name="Statistics.OverTimePool" xml:space="preserve">
-    <value>Overtime (in minutes)</value>
+    <value>Overtime</value>
   </data>
   <data name="StampHelper.AlreadyCheckedInWannaCheckOutMessage" xml:space="preserve">
     <value>You are already checked in. Do you want to check out?</value>
@@ -406,7 +406,10 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>My times from {0:d} to {1:d}</value>
   </data>
-  <data name="Statistics.CalculatedLeaveTimeTodayWithoutOverTime" xml:space="preserve">
-    <value>Today's working end (without overtime)</value>
+  <data name="Statistics.OverTimePoolSubTitle" xml:space="preserve">
+    <value>in minutes</value>
+  </data>
+  <data name="Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle" xml:space="preserve">
+    <value>without overtime</value>
   </data>
 </root>

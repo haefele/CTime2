@@ -37,7 +37,11 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:StatisticItem">
                     <Grid Margin="10">
+                        <Grid.Resources>
+                            <uwCoreConverter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+                        </Grid.Resources>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
@@ -46,13 +50,19 @@
                                    Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
                                    HorizontalAlignment="Center"
                                    Grid.Row="0" />
+                        <TextBlock Text="{x:Bind SubTitle, Mode=OneWay}"
+                                   Visibility="{x:Bind SubTitle, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}"
+                                   Foreground="{ThemeResource SystemListAccentHighColor}"
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   Grid.Row="1" />
                         <TextBlock Text="{x:Bind Value, Mode=OneWay}"
                                    HorizontalAlignment="Center"
                                    Style="{StaticResource TitleTextBlockStyle}"
-                                   Grid.Row="1" />
+                                   Grid.Row="2" />
 
                         <uwp:FontAwesome Grid.Row="0"
-                                         Grid.RowSpan="2"
+                                         Grid.RowSpan="3"
                                          x:Uid="StatisticItemHasDetailsIcon"
                                          Icon="LineChart"
                                          Foreground="{ThemeResource SystemListAccentHighColor}"

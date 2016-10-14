@@ -310,7 +310,7 @@ Dazu musst du dich dich einmal authentifizieren.</value>
     <value>Version:</value>
   </data>
   <data name="Statistics.OverTimePool" xml:space="preserve">
-    <value>Überstunden Pool (in Minuten)</value>
+    <value>Überstunden Pool</value>
   </data>
   <data name="StampHelper.AlreadyCheckedInWannaCheckOutMessage" xml:space="preserve">
     <value>Sie sind bereits eingestempelt. Möchten Sie sich ausstempeln?</value>
@@ -511,7 +511,10 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>Meine Zeiten vom {0:d} bis {1:d}</value>
   </data>
-  <data name="Statistics.CalculatedLeaveTimeTodayWithoutOverTime" xml:space="preserve">
-    <value>Heutiges Arbeitsende (ohne Überstunden)</value>
+  <data name="Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle" xml:space="preserve">
+    <value>ohne Überstunden</value>
+  </data>
+  <data name="Statistics.OverTimePoolSubTitle" xml:space="preserve">
+    <value>in Minuten</value>
   </data>
 </root>

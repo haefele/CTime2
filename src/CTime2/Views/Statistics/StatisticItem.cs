@@ -6,13 +6,16 @@ namespace CTime2.Views.Statistics
     {
         public string Name { get; }
 
+        public string SubTitle { get; }
+
         public string Value { get; }
         
         public Action ShowDetails { get; }
 
-        public StatisticItem(string name, string value, Action showDetails = null)
+        public StatisticItem(string name, string subTitle, string value, Action showDetails = null)
         {
             this.Name = name;
+            this.SubTitle = subTitle;
             this.Value = value;
             this.ShowDetails = showDetails;
         }

@@ -247,8 +247,8 @@
           <target state="translated">Remember login</target>
         </trans-unit>
         <trans-unit id="Statistics.OverTimePool" translate="yes" xml:space="preserve">
-          <source>Überstunden Pool (in Minuten)</source>
-          <target state="translated">Overtime (in minutes)</target>
+          <source>Überstunden Pool</source>
+          <target state="translated">Overtime</target>
         </trans-unit>
         <trans-unit id="StampHelper.AlreadyCheckedInWannaCheckOutMessage" translate="yes" xml:space="preserve">
           <source>Sie sind bereits eingestempelt. Möchten Sie sich ausstempeln?</source>
@@ -534,9 +534,13 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Meine Zeiten vom {0:d} bis {1:d}</source>
           <target state="translated">My times from {0:d} to {1:d}</target>
         </trans-unit>
-        <trans-unit id="Statistics.CalculatedLeaveTimeTodayWithoutOverTime" translate="yes" xml:space="preserve">
-          <source>Heutiges Arbeitsende (ohne Überstunden)</source>
-          <target state="translated">Today's working end (without overtime)</target>
+        <trans-unit id="Statistics.OverTimePoolSubTitle" translate="yes" xml:space="preserve">
+          <source>in Minuten</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">in minutes</target>
+        </trans-unit>
+        <trans-unit id="Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle" translate="yes" xml:space="preserve">
+          <source>ohne Überstunden</source>
+          <target state="translated">without overtime</target>
         </trans-unit>
       </group>
     </body>

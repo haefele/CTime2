@@ -167,6 +167,7 @@ namespace CTime2.Views.Statistics
             {
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageWorkTime"),
+                    string.Empty,
                     averageWorkTime.TrimMilliseconds().ToString("T"),
                     timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.WorkTime)
@@ -174,6 +175,7 @@ namespace CTime2.Views.Statistics
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageBreakTime"),
+                    string.Empty,
                     averageBreakTime.TrimMilliseconds().ToString("T"),
                     timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.BreakTime)
@@ -181,6 +183,7 @@ namespace CTime2.Views.Statistics
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageEnterTime"),
+                    string.Empty,
                     averageEnterTime.ToDateTime().ToString("T"),
                     timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.EnterAndLeaveTime)
@@ -188,6 +191,7 @@ namespace CTime2.Views.Statistics
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageLeaveTime"),
+                    string.Empty,
                     averageLeaveTime.ToDateTime().ToString("T"),
                     timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.EnterAndLeaveTime)
@@ -195,14 +199,17 @@ namespace CTime2.Views.Statistics
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.TotalWorkDays"),
+                    string.Empty,
                     totalWorkDays.ToString()),
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.TotalWorkTime"),
+                    string.Empty,
                     totalWorkTime.ToString(CTime2Resources.Get("Statistics.TotalWorkTimeFormat"))),
 
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.OverTimePool"),
+                    CTime2Resources.Get("Statistics.OverTimePoolSubTitle"),
                     workTimePoolInMinutes.ToString(),
                     timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.OverTime)
@@ -211,12 +218,14 @@ namespace CTime2.Views.Statistics
                 hasExpectedWorkEnd 
                     ? new StatisticItem(
                         CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"),
+                        string.Empty,
                         expectedWorkEnd.ToString("T"))
                     : null,
 
                 hasExpectedWorkEnd
                     ? new StatisticItem(
-                        CTime2Resources.Get("Statistics.CalculatedLeaveTimeTodayWithoutOverTime"),
+                        CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"),
+                        CTime2Resources.Get("Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle"),
                         expectedWorkEndWithoutOverTime.ToString("T"))
                     : null,
             };
