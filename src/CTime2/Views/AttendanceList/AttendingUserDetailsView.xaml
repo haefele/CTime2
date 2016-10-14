@@ -8,9 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d"
-
+    
     MaxWidth="320"
-    MaxHeight="320">
+    MaxHeight="346">
     <Page.Resources>
         <converter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter"
                                             TrueValue="{StaticResource CTimeGreen}"
@@ -20,6 +20,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           Padding="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -78,6 +79,16 @@
                 ToolTipService.ToolTip="Anrufen"
                 Command="{x:Bind ViewModel.Call}">
             <SymbolIcon Symbol="Phone" />
+        </Button>
+        
+        <Button Grid.Row="6" 
+                Margin="0, 10, 0, 0"
+                HorizontalAlignment="Stretch"
+                Command="{x:Bind ViewModel.AddAsContact, Mode=OneWay}">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Contact" Margin="0, 0, 5, 0" />
+                <TextBlock>Als Kontakt anlegen</TextBlock>
+            </StackPanel>
         </Button>
     </Grid>
 </Page>

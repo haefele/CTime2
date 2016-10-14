@@ -25,17 +25,18 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.appService" EntryPoint="CTime2.BandService.CTime2BandService">
-          <uap:AppService Name="com.microsoft.band.observer" />
-        </uap:Extension>
         <uap:Extension Category="windows.appService" EntryPoint="CTime2.VoiceCommandService.CTime2VoiceCommandService">
           <uap:AppService Name="CTime2VoiceCommandService" />
+        </uap:Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="CTime2.BandService.CTime2BandService">
+          <uap:AppService Name="com.microsoft.band.observer" />
         </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <uap:Capability Name="contacts" />
     <DeviceCapability Name="bluetooth" />
     <DeviceCapability Name="location" />
   </Capabilities>
