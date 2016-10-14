@@ -11,7 +11,7 @@ namespace CTime2.Core.Services.CTime
         Task<IList<Time>> GetTimes(string employeeGuid, DateTime start, DateTime end);
         Task SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state, bool withGeolocation);
         Task<Time> GetCurrentTime(string employeeGuid);
-        Task<IList<AttendingUser>> GetAttendingUsers(string companyId);
+        Task<IList<AttendingUser>> GetAttendingUsers(string companyId, byte[] defaultImage);
     }
 
     public static class CTimeServiceExtensions

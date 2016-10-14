@@ -74,6 +74,7 @@ namespace CTime2.Core.Services.CTime
                     Name = user.Value<string>("EmployeeName"),
                     ImageAsPng = Convert.FromBase64String(user.Value<string>("EmployeePhoto") ?? string.Empty),
                     SupportsGeoLocation = user.Value<int>("GeolocationAllowed") == 1,
+                    CompanyImageAsPng = Convert.FromBase64String(user.Value<string>("CompanyImage") ?? string.Empty),
                 };
             }
             catch (Exception exception)
@@ -191,7 +192,7 @@ namespace CTime2.Core.Services.CTime
             }
         }
 
-        public async Task<IList<AttendingUser>> GetAttendingUsers(string companyId)
+        public async Task<IList<AttendingUser>> GetAttendingUsers(string companyId, byte[] defaultImage)
         {
             try
             {
@@ -205,6 +206,8 @@ namespace CTime2.Core.Services.CTime
 
                 if (responseJson == null)
                     return new List<AttendingUser>();
+
+                var defaultImageAsBase64 = Convert.ToBase64String(defaultImage ?? new byte[0]);
 
                 var newCacheEtag = responseJson
                     .Value<JArray>("Result")
@@ -225,7 +228,7 @@ namespace CTime2.Core.Services.CTime
                             Name = f.Value<string>("EmployeeName"),
                             FirstName = f.Value<string>("EmployeeFirstName"),
                             IsAttending = f.Value<int>("PresenceStatus") == 1,
-                            ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? string.Empty),
+                            ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? defaultImageAsBase64),
                         }
                     })
                     .GroupBy(f => f.EmployeeI3D)
@@ -300,7 +303,10 @@ namespace CTime2.Core.Services.CTime
             {
                 foreach (var user in users)
                 {
-                    user.Value.ImageAsPng = await this.GetCachedImageAsync(user.Key);
+                    var cachedImage = await this.GetCachedImageAsync(user.Key);
+
+                    if (cachedImage != null && cachedImage.Length > 0)
+                        user.Value.ImageAsPng = cachedImage;
                 }
             }
 

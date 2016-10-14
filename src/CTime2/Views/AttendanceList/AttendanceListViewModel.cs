@@ -49,7 +49,9 @@ namespace CTime2.Views.AttendanceList
 
         private async Task<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsersImpl()
         {
-            var attendingUsers = await this._cTimeService.GetAttendingUsers(this._applicationStateService.GetCurrentUser().CompanyId);
+            var currentUser = this._applicationStateService.GetCurrentUser();
+
+            var attendingUsers = await this._cTimeService.GetAttendingUsers(currentUser.CompanyId, currentUser.CompanyImageAsPng);
             return new ReactiveObservableCollection<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(attendingUsers));
         }
     }
