@@ -78,6 +78,7 @@
                         <TextBlock Grid.Row="0" 
                                    TextWrapping="Wrap"
                                    Style="{StaticResource TitleTextBlockStyle}" 
+                                   Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
                                    Text="{TemplateBinding Header}" 
                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header, Converter={StaticResource NullToVisibilityConverter}}"
                                    Margin="0, 0, 0, 8"/>
