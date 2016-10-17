@@ -85,12 +85,16 @@ namespace CTime2.Views.Overview
         private async Task RefreshTimerImpl()
         {
             var currentTime = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
-
+            
             this._timerStartNow = DateTime.Now;
 
             var timeToAdd = currentTime != null && currentTime.State.IsEntered()
                 ? this._timerStartNow - (currentTime.ClockInTime ?? this._timerStartNow)
                 : TimeSpan.Zero;
+
+            //Make sure we never count down, always up
+            if (timeToAdd < TimeSpan.Zero)
+                timeToAdd = TimeSpan.Zero;
 
             var timeToday = currentTime?.Hours ?? TimeSpan.Zero;
 
