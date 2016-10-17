@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reactive;
-using System.Threading;
+﻿using System.Reactive;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
@@ -10,13 +8,10 @@ using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.GeoLocation;
-using CTime2.Extensions;
 using CTime2.Strings;
 using CTime2.Views.GeoLocationInfo;
 using CTime2.Views.Overview.CheckedIn;
 using CTime2.Views.Overview.CheckedOut;
-using CTime2.Views.Overview.HomeOfficeCheckedIn;
-using CTime2.Views.Overview.TripCheckedIn;
 using ReactiveUI;
 using UwCore;
 using UwCore.Application.Events;
@@ -112,29 +107,17 @@ namespace CTime2.Views.Overview
         
         private async Task RefreshCurrentStateImpl()
         {
-            var currentTime = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
+            var checkedIn = await this._cTimeService.IsCurrentlyCheckedIn(this._applicationStateService.GetCurrentUser().Id);
             
             StampTimeStateViewModelBase currentState;
 
-            if (currentTime == null || currentTime.State.IsLeft())
-            {
-                currentState = IoC.Get<CheckedOutViewModel>();
-            }
-            else if (currentTime.State.IsEntered() && currentTime.State.IsTrip())
-            {
-                currentState = IoC.Get<TripCheckedInViewModel>();
-            }
-            else if (currentTime.State.IsEntered() && currentTime.State.IsHomeOffice())
-            {
-                currentState = IoC.Get<HomeOfficeCheckedInViewModel>();
-            }
-            else if (currentTime.State.IsEntered())
+            if (checkedIn)
             {
                 currentState = IoC.Get<CheckedInViewModel>();
             }
             else
             {
-                throw new CTimeException("Could not determine the current state.");
+                currentState = IoC.Get<CheckedOutViewModel>();
             }
 
             this.ActivateItem(currentState);

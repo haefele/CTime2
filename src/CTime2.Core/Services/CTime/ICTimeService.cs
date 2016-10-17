@@ -20,5 +20,11 @@ namespace CTime2.Core.Services.CTime
         {
             await self.SaveTimer(user.Id, DateTime.Now, user.CompanyId, state, user.SupportsGeoLocation);
         }
+
+        public static async Task<bool> IsCurrentlyCheckedIn(this ICTimeService self, string employeeGuid)
+        {
+            var currentTime = await self.GetCurrentTime(employeeGuid);
+            return currentTime != null && currentTime.State.IsEntered();
+        }
     }
 }

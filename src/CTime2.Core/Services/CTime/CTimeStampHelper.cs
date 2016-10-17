@@ -14,23 +14,23 @@ namespace CTime2.Core.Services.CTime
         #endregion
 
         #region Fields
-        private readonly IApplicationStateService _sessionStateService;
+        private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         #endregion
 
         #region Constructors
-        public CTimeStampHelper(IApplicationStateService sessionStateService, ICTimeService cTimeService)
+        public CTimeStampHelper(IApplicationStateService applicationStateService, ICTimeService cTimeService)
         {
-            this._sessionStateService = sessionStateService;
+            this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
         }
         #endregion
 
         public async Task Stamp(ICTimeStampHelperCallback callback, TimeState timeState)
         {
-            await this._sessionStateService.RestoreStateAsync();
+            await this._applicationStateService.RestoreStateAsync();
 
-            if (this._sessionStateService.GetCurrentUser() == null)
+            if (this._applicationStateService.GetCurrentUser() == null)
             {
                 _logger.Debug(() => "User is not logged in.");
                 await callback.OnNotLoggedIn();
@@ -38,8 +38,7 @@ namespace CTime2.Core.Services.CTime
                 return;
             }
             
-            var currentTime = await this._cTimeService.GetCurrentTime(this._sessionStateService.GetCurrentUser().Id);
-            bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+            bool checkedIn = await this._cTimeService.IsCurrentlyCheckedIn(this._applicationStateService.GetCurrentUser().Id);
 
             if (checkedIn && timeState.IsEntered())
             {
@@ -93,25 +92,9 @@ namespace CTime2.Core.Services.CTime
                 }
             }
 
-            if (timeState.IsLeft())
-            {
-                _logger.Debug(() => "User is checking out. Updating the TimeState to make him check out what he previously checked in (Normal, Trip or Home-Office).");
-                if (currentTime.State.IsTrip())
-                {
-                    _logger.Debug(() => "User checked-in a trip. Update the TimeState to make him check out a trip.");
-                    timeState = timeState | TimeState.Trip;
-                }
-
-                if (currentTime.State.IsHomeOffice())
-                {
-                    _logger.Debug(() => "User checked-in home-office. Update the TimeState to make him check out home-office.");
-                    timeState = timeState | TimeState.HomeOffice;
-                }
-            }
-
             _logger.Debug(() => "Saving the timer.");
             await this._cTimeService.SaveTimer(
-                this._sessionStateService.GetCurrentUser(),
+                this._applicationStateService.GetCurrentUser(),
                 timeState);
 
             _logger.Debug(() => "Finished voice command.");

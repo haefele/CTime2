@@ -257,10 +257,9 @@ namespace CTime2.Core.Services.Band
                     {
                         await this._backgroundTileClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
 
-                        var currentTime = this._applicationStateService.GetCurrentUser() != null 
-                            ? await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id)
-                            : null;
-                        bool checkedIn = currentTime != null && currentTime.State.IsEntered();
+                        bool checkedIn = this._applicationStateService.GetCurrentUser() != null
+                            ? await this._cTimeService.IsCurrentlyCheckedIn(this._applicationStateService.GetCurrentUser().Id)
+                            : false;
 
                         var stampHelper = new CTimeStampHelper(this._applicationStateService, this._cTimeService);
                         await stampHelper.Stamp(this, checkedIn ? TimeState.Left : TimeState.Entered);
@@ -332,11 +331,9 @@ namespace CTime2.Core.Services.Band
         private async Task ChangeTileDataToReadyAsync(IBandClient client)
         {
             var loggedIn = this._applicationStateService.GetCurrentUser() != null;
-            var currentState = loggedIn 
-                ? await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id)
-                : null;
-
-            bool checkedIn = currentState != null && currentState.State.IsEntered();
+            bool checkedIn = loggedIn
+                ? await this._cTimeService.IsCurrentlyCheckedIn(this._applicationStateService.GetCurrentUser().Id)
+                : false;
             
             var startPageLayout = new StartPageLayout
             {

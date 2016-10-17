@@ -173,14 +173,6 @@
       <DependentUpon>CheckedOutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Overview\CheckedOut\CheckedOutViewModel.cs" />
-    <Compile Include="Views\Overview\HomeOfficeCheckedIn\HomeOfficeCheckedInView.xaml.cs">
-      <DependentUpon>HomeOfficeCheckedInView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Overview\HomeOfficeCheckedIn\HomeOfficeCheckedInViewModel.cs" />
-    <Compile Include="Views\Overview\TripCheckedIn\TripCheckedInView.xaml.cs">
-      <DependentUpon>TripCheckedInView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Overview\TripCheckedIn\TripCheckedInViewModel.cs" />
     <Compile Include="Views\Statistics\DetailedStatisticView.xaml.cs">
       <DependentUpon>DetailedStatisticView.xaml</DependentUpon>
     </Compile>
@@ -292,14 +284,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Overview\CheckedOut\CheckedOutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Overview\HomeOfficeCheckedIn\HomeOfficeCheckedInView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Overview\TripCheckedIn\TripCheckedInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
