@@ -403,20 +403,11 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="GeoLocationAvailableTextSetter.Value" xml:space="preserve">
     <value>Position wird übertragen</value>
   </data>
-  <data name="GeoLocationNotAvailableTextSetter.Value" xml:space="preserve">
-    <value>Position wird nicht übertragen</value>
-  </data>
   <data name="GeoLocationAdvantagesRun.Text" xml:space="preserve">
     <value>Das gibt deiner Firma die Möglichkeit zu sehen, wo du dich befunden hast, als du dich ein- bzw. ausgestempelt hast.</value>
   </data>
   <data name="GeoLocationCanBeActivatedRun.Text" xml:space="preserve">
     <value>c-time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</value>
-  </data>
-  <data name="GeoLocationHowToDeactivateRun.Text" xml:space="preserve">
-    <value>Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</value>
-  </data>
-  <data name="GeoLocationInfoTitleTextBlock.Text" xml:space="preserve">
-    <value>Position übertragen</value>
   </data>
   <data name="IncludeTodayAppBarToggleButton.Label" xml:space="preserve">
     <value>Mit Heute</value>
@@ -456,45 +447,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="Loading.CurrentTime" xml:space="preserve">
     <value>Lade Zeit...</value>
-  </data>
-  <data name="GeoLocationContent1Run.Text" xml:space="preserve">
-    <value>c-time hat diese Funktion schon länger unterstützt, jetzt unterstützt auch diese App die Geolokalisierung beim Stempeln.</value>
-  </data>
-  <data name="GeoLocationContent2Run.Text" xml:space="preserve">
-    <value>Dabei wird, wenn man ein- oder ausstempelt, die eigene Position an c-time übertragen.</value>
-  </data>
-  <data name="GeoLocationContent3Run.Text" xml:space="preserve">
-    <value>In der Übersicht wird dafür nun ein eigenes Icon angezeigt.</value>
-  </data>
-  <data name="GeoLocationHeaderRun.Text" xml:space="preserve">
-    <value>Geolokalisierung beim Stempeln!</value>
-  </data>
-  <data name="OtherChangesContent1Run.Text" xml:space="preserve">
-    <value>In den Statistiken kann man jetzt selbst bestimmen, ob der heutige Tag mit in die Statistiken einbezogen werden soll oder nicht.</value>
-  </data>
-  <data name="OtherChangesHeaderRun.Text" xml:space="preserve">
-    <value>Andere Verbesserungen!</value>
-  </data>
-  <data name="OverviewUpdatesContent1Run.Text" xml:space="preserve">
-    <value>Wenn man seine heutige Arbeitszeit voll hat, werden die Überstunden separat hochgezählt.</value>
-  </data>
-  <data name="OverviewUpdatesContent2Run.Text" xml:space="preserve">
-    <value>Beim Klick auf seine Zeit, wechselt man automatisch zu "Meine Zeiten" für den heutigen Tag.</value>
-  </data>
-  <data name="OverviewUpdatesHeaderRun.Text" xml:space="preserve">
-    <value>Verbesserungen in der Übersicht</value>
-  </data>
-  <data name="SettingsRemakeContent1Run.Text" xml:space="preserve">
-    <value>In den neuen Einstellungen kann man hinterlegen wie lange ein Arbeitstag und die Pause dauert.</value>
-  </data>
-  <data name="SettingsRemakeContent2Run.Text" xml:space="preserve">
-    <value>Diese Werte werden dann in den Statistiken und in der Übersicht für die Überstunden verwendet.</value>
-  </data>
-  <data name="SettingsRemakeContent3Run.Text" xml:space="preserve">
-    <value>Außerdem kann man das Theme dieser App einstellen.</value>
-  </data>
-  <data name="SettingsRemakeHeaderRun.Text" xml:space="preserve">
-    <value>Einstellungen überarbeitet!</value>
   </data>
   <data name="UpdateToNewCTimeApiContent1Run.Text" xml:space="preserve">
     <value>Diese App verwendet nun die neue c-time API.</value>
@@ -540,5 +492,47 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="SendMailButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>E-Mail senden</value>
+  </data>
+  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
+    <value>In der Anwesenheitsliste kann man nun einen Mitarbeiter anklicken um mehr Infos von diesem zu sehen.</value>
+  </data>
+  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
+    <value>Dort kann man ihm zum Beispiel direkt eine E-Mail senden, direkt anrufen, oder den eigenen Kontakten hinzufügen.</value>
+  </data>
+  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
+    <value>Erweiterte Anwesenheitsliste!</value>
+  </data>
+  <data name="GeneralUpdatesContent1Run.Text" xml:space="preserve">
+    <value>Direkt nach dem ersten Einstempeln konnte es vorkommen, dass die Stoppuhr rückwärts lief - jetzt nicht mehr.</value>
+  </data>
+  <data name="GeneralUpdatesContent2Run.Text" xml:space="preserve">
+    <value>Unter "Meine Zeiten" sieht man jetzt, ähnlich wie in den Statistiken, im Titel den ausgewählten Zeitraum.</value>
+  </data>
+  <data name="GeneralUpdatesContent3Run.Text" xml:space="preserve">
+    <value>Überall in der ganzen App wurde die Akzentfarbe eingebaut.</value>
+  </data>
+  <data name="GeneralUpdatesHeaderRun.Text" xml:space="preserve">
+    <value>Allgemeine Verbesserungen!</value>
+  </data>
+  <data name="GeoLocationHowToDeactivateRun.Text" xml:space="preserve">
+    <value>Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</value>
+  </data>
+  <data name="GeoLocationInfoTitleTextBlock.Text" xml:space="preserve">
+    <value>Position übertragen</value>
+  </data>
+  <data name="GeoLocationNotAvailableTextSetter.Value" xml:space="preserve">
+    <value>Position wird nicht übertragen</value>
+  </data>
+  <data name="ImprovedStatisticsContent1Run.Text" xml:space="preserve">
+    <value>Es gibt eine neue Statistik für das heutige Arbeitsende ohne Überstunden.</value>
+  </data>
+  <data name="ImprovedStatisticsContent2Run.Text" xml:space="preserve">
+    <value>Außerdem wurde die Positionierung gerade bei langen Statistiknamen angepasst.</value>
+  </data>
+  <data name="ImprovedStatisticsContent3Run.Text" xml:space="preserve">
+    <value>In der letzten Version hat sich ein kleiner Fehler eingeschlichten, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</value>
+  </data>
+  <data name="ImprovedStatisticsHeaderRun.Text" xml:space="preserve">
+    <value>Verbesserungen bei den Statistiken!</value>
   </data>
 </root>

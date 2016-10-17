@@ -462,58 +462,6 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Lade Zeit...</source>
           <target state="translated">Loading time...</target>
         </trans-unit>
-        <trans-unit id="GeoLocationContent1Run.Text" translate="yes" xml:space="preserve">
-          <source>c-time hat diese Funktion schon länger unterstützt, jetzt unterstützt auch diese App die Geolokalisierung beim Stempeln.</source>
-          <target state="translated">c-time has had this feature for a while now, but finally this app supports geolocation as well.</target>
-        </trans-unit>
-        <trans-unit id="GeoLocationContent2Run.Text" translate="yes" xml:space="preserve">
-          <source>Dabei wird, wenn man ein- oder ausstempelt, die eigene Position an c-time übertragen.</source>
-          <target state="translated">That means, if you check-in or -out, your position will be send to c-time.</target>
-        </trans-unit>
-        <trans-unit id="GeoLocationContent3Run.Text" translate="yes" xml:space="preserve">
-          <source>In der Übersicht wird dafür nun ein eigenes Icon angezeigt.</source>
-          <target state="translated">In the overview you will see a icon for that.</target>
-        </trans-unit>
-        <trans-unit id="GeoLocationHeaderRun.Text" translate="yes" xml:space="preserve">
-          <source>Geolokalisierung beim Stempeln!</source>
-          <target state="translated">Stamp with geolocation!</target>
-        </trans-unit>
-        <trans-unit id="OtherChangesContent1Run.Text" translate="yes" xml:space="preserve">
-          <source>In den Statistiken kann man jetzt selbst bestimmen, ob der heutige Tag mit in die Statistiken einbezogen werden soll oder nicht.</source>
-          <target state="translated">In the statistics, you can now decide whether today is included in the statistics.</target>
-        </trans-unit>
-        <trans-unit id="OtherChangesHeaderRun.Text" translate="yes" xml:space="preserve">
-          <source>Andere Verbesserungen!</source>
-          <target state="translated">Other improvements!</target>
-        </trans-unit>
-        <trans-unit id="OverviewUpdatesContent1Run.Text" translate="yes" xml:space="preserve">
-          <source>Wenn man seine heutige Arbeitszeit voll hat, werden die Überstunden separat hochgezählt.</source>
-          <target state="translated">If you have worked long enough today, your overtime will be in a separate counter.</target>
-        </trans-unit>
-        <trans-unit id="OverviewUpdatesContent2Run.Text" translate="yes" xml:space="preserve">
-          <source>Beim Klick auf seine Zeit, wechselt man automatisch zu "Meine Zeiten" für den heutigen Tag.</source>
-          <target state="translated">If you click on your time, you will switch automatically to "My times" for today.</target>
-        </trans-unit>
-        <trans-unit id="OverviewUpdatesHeaderRun.Text" translate="yes" xml:space="preserve">
-          <source>Verbesserungen in der Übersicht</source>
-          <target state="translated">Improvements in the overview</target>
-        </trans-unit>
-        <trans-unit id="SettingsRemakeContent1Run.Text" translate="yes" xml:space="preserve">
-          <source>In den neuen Einstellungen kann man hinterlegen wie lange ein Arbeitstag und die Pause dauert.</source>
-          <target state="translated">In the new settings you can define how long a work day and the break is.</target>
-        </trans-unit>
-        <trans-unit id="SettingsRemakeContent2Run.Text" translate="yes" xml:space="preserve">
-          <source>Diese Werte werden dann in den Statistiken und in der Übersicht für die Überstunden verwendet.</source>
-          <target state="translated">These values are used in the statistics and overview for the overtime.</target>
-        </trans-unit>
-        <trans-unit id="SettingsRemakeContent3Run.Text" translate="yes" xml:space="preserve">
-          <source>Außerdem kann man das Theme dieser App einstellen.</source>
-          <target state="translated">Also, you can set the theme of this app.</target>
-        </trans-unit>
-        <trans-unit id="SettingsRemakeHeaderRun.Text" translate="yes" xml:space="preserve">
-          <source>Einstellungen überarbeitet!</source>
-          <target state="translated">Reworked settings!</target>
-        </trans-unit>
         <trans-unit id="UpdateToNewCTimeApiContent1Run.Text" translate="yes" xml:space="preserve">
           <source>Diese App verwendet nun die neue c-time API.</source>
           <target state="translated">This app now uses the new c-time API.</target>
@@ -573,6 +521,50 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         <trans-unit id="AddAsContactTextBlock.Text" translate="yes" xml:space="preserve">
           <source>Als Kontakt anlegen</source>
           <target state="translated">Add as contact</target>
+        </trans-unit>
+        <trans-unit id="GeneralUpdatesContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>Direkt nach dem ersten Einstempeln konnte es vorkommen, dass die Stoppuhr rückwärts lief - jetzt nicht mehr.</source>
+          <target state="translated">Right after you have checked-in it was possible for the timer to run backwards - not anymore.</target>
+        </trans-unit>
+        <trans-unit id="GeneralUpdatesContent2Run.Text" translate="yes" xml:space="preserve">
+          <source>Unter "Meine Zeiten" sieht man jetzt, ähnlich wie in den Statistiken, im Titel den ausgewählten Zeitraum.</source>
+          <target state="translated">In "Your times" you can now see the selected date range in the header, just like you can in the statistics area.</target>
+        </trans-unit>
+        <trans-unit id="GeneralUpdatesContent3Run.Text" translate="yes" xml:space="preserve">
+          <source>Überall in der ganzen App wurde die Akzentfarbe eingebaut.</source>
+          <target state="translated">The system accent color is now used all over the app.</target>
+        </trans-unit>
+        <trans-unit id="GeneralUpdatesHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Allgemeine Verbesserungen!</source>
+          <target state="translated">General improvements!</target>
+        </trans-unit>
+        <trans-unit id="ExtendedAttendanceListContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>In der Anwesenheitsliste kann man nun einen Mitarbeiter anklicken um mehr Infos von diesem zu sehen.</source>
+          <target state="translated">In the attendance list you can now click on an employee to see more infos about him.</target>
+        </trans-unit>
+        <trans-unit id="ExtendedAttendanceListContent2Run.Text" translate="yes" xml:space="preserve">
+          <source>Dort kann man ihm zum Beispiel direkt eine E-Mail senden, direkt anrufen, oder den eigenen Kontakten hinzufügen.</source>
+          <target state="translated">For example, you can send him an email, call him, or add him to your contacts.</target>
+        </trans-unit>
+        <trans-unit id="ExtendedAttendanceListHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Erweiterte Anwesenheitsliste!</source>
+          <target state="translated">Improved attendance list!</target>
+        </trans-unit>
+        <trans-unit id="ImprovedStatisticsContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>Es gibt eine neue Statistik für das heutige Arbeitsende ohne Überstunden.</source>
+          <target state="translated">There is a new statistic for todays workende without overtime.</target>
+        </trans-unit>
+        <trans-unit id="ImprovedStatisticsContent2Run.Text" translate="yes" xml:space="preserve">
+          <source>Außerdem wurde die Positionierung gerade bei langen Statistiknamen angepasst.</source>
+          <target state="translated">Also, the positioning especially with large names has been improved.</target>
+        </trans-unit>
+        <trans-unit id="ImprovedStatisticsContent3Run.Text" translate="yes" xml:space="preserve">
+          <source>In der letzten Version hat sich ein kleiner Fehler eingeschlichten, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</source>
+          <target state="translated">In the last version has been a little bug, which is why the buttons for "This month", "Last month", and "Last 7 days" did not work. That is fixed.</target>
+        </trans-unit>
+        <trans-unit id="ImprovedStatisticsHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Verbesserungen bei den Statistiken!</source>
+          <target state="translated">Improved statistics!</target>
         </trans-unit>
       </group>
     </body>
