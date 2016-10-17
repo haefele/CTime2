@@ -530,7 +530,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
     <value>Außerdem wurde die Positionierung gerade bei langen Statistiknamen angepasst.</value>
   </data>
   <data name="ImprovedStatisticsContent3Run.Text" xml:space="preserve">
-    <value>In der letzten Version hat sich ein kleiner Fehler eingeschlichten, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</value>
+    <value>In der letzten Version hat sich ein kleiner Fehler eingeschlichen, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</value>
   </data>
   <data name="ImprovedStatisticsHeaderRun.Text" xml:space="preserve">
     <value>Verbesserungen bei den Statistiken!</value>

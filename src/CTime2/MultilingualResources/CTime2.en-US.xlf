@@ -559,7 +559,7 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <target state="translated">Also, the positioning especially with large names has been improved.</target>
         </trans-unit>
         <trans-unit id="ImprovedStatisticsContent3Run.Text" translate="yes" xml:space="preserve">
-          <source>In der letzten Version hat sich ein kleiner Fehler eingeschlichten, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</source>
+          <source>In der letzten Version hat sich ein kleiner Fehler eingeschlichen, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</source>
           <target state="translated">In the last version has been a little bug, which is why the buttons for "This month", "Last month", and "Last 7 days" did not work. That is fixed.</target>
         </trans-unit>
         <trans-unit id="ImprovedStatisticsHeaderRun.Text" translate="yes" xml:space="preserve">
