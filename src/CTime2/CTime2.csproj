@@ -102,6 +102,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationModes\TerminalApplicationMode.cs" />
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Common\VisualTreeHelperEx.cs" />
     <Compile Include="Controls\SettingsItem.cs" />
@@ -200,6 +201,10 @@
       <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistics\StatisticsViewModel.cs" />
+    <Compile Include="Views\Terminal\TerminalView.xaml.cs">
+      <DependentUpon>TerminalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Terminal\TerminalViewModel.cs" />
     <Compile Include="Views\UpdateNotes\UpdateNotesView.xaml.cs">
       <DependentUpon>UpdateNotesView.xaml</DependentUpon>
     </Compile>
@@ -312,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Statistics\StatisticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Terminal\TerminalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
