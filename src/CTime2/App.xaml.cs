@@ -28,6 +28,7 @@ using CTime2.Views.Overview.CheckedIn;
 using CTime2.Views.Overview.CheckedOut;
 using CTime2.Views.Settings;
 using CTime2.Views.Statistics;
+using CTime2.Views.Terminal;
 using CTime2.Views.UpdateNotes;
 using CTime2.Views.YourTimes;
 using UwCore.Application;
@@ -74,7 +75,8 @@ namespace CTime2
 
             container
                 .PerRequest<LoggedOutApplicationMode>()
-                .PerRequest<LoggedInApplicationMode>();
+                .PerRequest<LoggedInApplicationMode>()
+                .PerRequest<TerminalApplicationMode>();
 
             container
                 .Singleton<ICTimeService, CTimeService>()
@@ -124,6 +126,7 @@ namespace CTime2
             yield return typeof(GeoLocationInfoViewModel);
             yield return typeof(MyTimeViewModel);
             yield return typeof(AttendingUserDetailsViewModel);
+            yield return typeof(TerminalViewModel);
         }
 
         public override string GetHockeyAppId()
