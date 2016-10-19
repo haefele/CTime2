@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reactive;
+using System.Threading;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
@@ -18,7 +20,16 @@ namespace CTime2.Views.Terminal
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
 
+        private readonly Timer _timer;
+
+        private TimeSpan _currentTime;
         private string _rfidKey;
+
+        public TimeSpan CurrentTime
+        {
+            get { return this._currentTime; }
+            set { this.RaiseAndSetIfChanged(ref this._currentTime, value); }
+        }
 
         public string RfidKey
         {
@@ -40,12 +51,22 @@ namespace CTime2.Views.Terminal
             this.Stamp = UwCoreCommand.Create(canStamp, this.StampImpl)
                 .HandleExceptions()
                 .ShowLoadingOverlay("Stempeln...");
+
+            this._timer = new Timer(this.Tick, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+
+            this.DisplayName = "Terminal";
+        }
+
+        private void Tick(object state)
+        {
+            Execute.OnUIThread(() =>
+            {
+                this.CurrentTime = DateTimeOffset.Now.TimeOfDay;
+            });
         }
 
         private async Task StampImpl()
         {
-            Debug.WriteLine(this.RfidKey);
-            
             await this._cTimeService.SaveTimer(
                 string.Empty, 
                 this.RfidKey, 
