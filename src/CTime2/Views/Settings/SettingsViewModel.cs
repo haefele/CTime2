@@ -34,6 +34,7 @@ namespace CTime2.Views.Settings
         private TimeSpan _selectedBreakTime;
         private BandState _state;
         private ElementTheme _theme;
+        private string _companyId;
 
         public ReactiveObservableCollection<TimeSpan> WorkTimes
         {
@@ -69,6 +70,12 @@ namespace CTime2.Views.Settings
         {
             get { return this._theme; }
             set { this.RaiseAndSetIfChanged(ref this._theme, value); }
+        }
+
+        public string CompanyId
+        {
+            get { return this._companyId; }
+            set { this.RaiseAndSetIfChanged(ref this._companyId, value); }
         }
 
         public UwCoreCommand<Unit> Reload { get; }
@@ -109,6 +116,7 @@ namespace CTime2.Views.Settings
             this.Theme = this._applicationStateService.GetApplicationTheme();
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
+            this.CompanyId = this._applicationStateService.GetCompanyId();
 
             this.WhenAnyValue(f => f.Theme)
                 .Subscribe(theme =>
@@ -127,6 +135,12 @@ namespace CTime2.Views.Settings
                 .Subscribe(breakTime =>
                 {
                     this._applicationStateService.SetWorkDayBreak(breakTime);
+                });
+
+            this.WhenAnyValue(f => f.CompanyId)
+                .Subscribe(companyId =>
+                {
+                    this._applicationStateService.SetCompanyId(companyId);
                 });
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
