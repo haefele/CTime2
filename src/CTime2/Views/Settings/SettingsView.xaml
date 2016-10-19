@@ -133,6 +133,13 @@
                     </StackPanel>
                 </controls:SettingsItem>
             </controls:SettingsGroup>
+            <controls:SettingsGroup Header="Terminal"
+                                    Description="Um diese App an einem Terminal zum Stempeln mit RFID-Chips zu verwenden, musst du deine Firmen-ID von c-time hier eintragen.">
+                <controls:SettingsItem Description="Firmen-ID">
+                    <TextBox Text="{Binding CompanyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Width="300" />    
+                </controls:SettingsItem>
+            </controls:SettingsGroup>
         </StackPanel>
     </ScrollViewer>
 </Page>

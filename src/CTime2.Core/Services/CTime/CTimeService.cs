@@ -135,7 +135,7 @@ namespace CTime2.Core.Services.CTime
             }
         }
 
-        public async Task SaveTimer(string employeeGuid, DateTime time, string companyId, TimeState state, bool withGeolocation)
+        public async Task SaveTimer(string employeeGuid, string rfidKey, DateTime time, string companyId, TimeState state, bool withGeolocation)
         {
             try
             {
@@ -150,6 +150,7 @@ namespace CTime2.Core.Services.CTime
                     {"TimerTime", time.ToString("yyyy-MM-dd HH:mm:ss")},
                     {"EmployeeGUID", employeeGuid},
                     {"GUID", companyId},
+                    {"RFID", rfidKey},
                     {"lat", location?.Position.Latitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
                     {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
                 });
