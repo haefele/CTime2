@@ -430,4 +430,22 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="ImprovedStatisticsHeaderRun.Text" xml:space="preserve">
     <value>Improved statistics!</value>
   </data>
+  <data name="Loading.DeleteEmployeeGroup" xml:space="preserve">
+    <value>Deleting group...</value>
+  </data>
+  <data name="Loading.SaveEmployeeGroup" xml:space="preserve">
+    <value>Saving group...</value>
+  </data>
+  <data name="SaveGroupAppBarButton.Label" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="CancelCreateGroupAppBarButton.Label" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteGroupAppBarButton.Label" xml:space="preserve">
+    <value>Delete group</value>
+  </data>
+  <data name="CreateGroupAppBarButton.Label" xml:space="preserve">
+    <value>New group</value>
+  </data>
 </root>

@@ -535,4 +535,22 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="ImprovedStatisticsHeaderRun.Text" xml:space="preserve">
     <value>Verbesserungen bei den Statistiken!</value>
   </data>
+  <data name="CancelCreateGroupAppBarButton.Label" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="CreateGroupAppBarButton.Label" xml:space="preserve">
+    <value>Neue Gruppe</value>
+  </data>
+  <data name="DeleteGroupAppBarButton.Label" xml:space="preserve">
+    <value>Gruppe löschen</value>
+  </data>
+  <data name="Loading.DeleteEmployeeGroup" xml:space="preserve">
+    <value>Lösche Gruppe...</value>
+  </data>
+  <data name="Loading.SaveEmployeeGroup" xml:space="preserve">
+    <value>Speichere Gruppe...</value>
+  </data>
+  <data name="SaveGroupAppBarButton.Label" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
 </root>

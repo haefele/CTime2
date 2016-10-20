@@ -124,6 +124,7 @@
     <Compile Include="Styles.xaml.cs">
       <DependentUpon>Styles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AttendanceList\AttendanceListState.cs" />
     <Compile Include="Views\AttendanceList\AttendingUserDetailsView.xaml.cs">
       <DependentUpon>AttendingUserDetailsView.xaml</DependentUpon>
     </Compile>

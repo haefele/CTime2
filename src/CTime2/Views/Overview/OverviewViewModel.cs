@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Common;
-using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;

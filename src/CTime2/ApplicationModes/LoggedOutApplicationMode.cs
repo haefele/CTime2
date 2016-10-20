@@ -1,4 +1,5 @@
-﻿using Windows.UI.ViewManagement;
+﻿using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using CTime2.Common;
@@ -20,20 +21,29 @@ namespace CTime2.ApplicationModes
             this._switchToTerminalHamburgerItem = new ClickableHamburgerItem("Zum Terminal", Symbol.AllApps, this.SwitchToTerminal);
         }
 
-        public override void Enter()
+        protected override async Task OnEnter()
         {
-            this.Application.Actions.Add(this._loginHamburgerItem);
-            this.Application.SecondaryActions.Insert(0, this._switchToTerminalHamburgerItem);
+            await base.OnEnter();
 
             this._loginHamburgerItem.Execute();
         }
 
-        public override void Leave()
+        protected override async Task AddActions()
         {
+            await base.AddActions();
+
+            this.Application.Actions.Add(this._loginHamburgerItem);
+            this.Application.SecondaryActions.Insert(0, this._switchToTerminalHamburgerItem);
+        }
+
+        protected override async Task RemoveActions()
+        {
+            await base.RemoveActions();
+
             this.Application.Actions.Remove(this._loginHamburgerItem);
             this.Application.SecondaryActions.Remove(this._switchToTerminalHamburgerItem);
         }
-
+        
         private void SwitchToTerminal()
         {
             this.Application.CurrentMode = IoC.Get<TerminalApplicationMode>();

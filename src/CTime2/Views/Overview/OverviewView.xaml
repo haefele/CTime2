@@ -5,7 +5,6 @@
       xmlns:converter="using:CTime2.Converter"
       xmlns:controls="using:CTime2.Controls"
       xmlns:micro="using:Caliburn.Micro"
-      xmlns:data="using:CTime2.Core.Data"
       xmlns:uwp="using:FontAwesome.UWP"
       xmlns:windowsStateTriggers="using:WindowsStateTriggers"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
