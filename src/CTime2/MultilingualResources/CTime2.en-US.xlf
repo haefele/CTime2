@@ -566,6 +566,30 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Verbesserungen bei den Statistiken!</source>
           <target state="translated">Improved statistics!</target>
         </trans-unit>
+        <trans-unit id="Loading.DeleteEmployeeGroup" translate="yes" xml:space="preserve">
+          <source>Lösche Gruppe...</source>
+          <target state="translated">Deleting group...</target>
+        </trans-unit>
+        <trans-unit id="Loading.SaveEmployeeGroup" translate="yes" xml:space="preserve">
+          <source>Speichere Gruppe...</source>
+          <target state="translated">Saving group...</target>
+        </trans-unit>
+        <trans-unit id="SaveGroupAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Speichern</source>
+          <target state="translated">Save</target>
+        </trans-unit>
+        <trans-unit id="CancelCreateGroupAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Abbrechen</source>
+          <target state="translated">Cancel</target>
+        </trans-unit>
+        <trans-unit id="DeleteGroupAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Gruppe löschen</source>
+          <target state="translated">Delete group</target>
+        </trans-unit>
+        <trans-unit id="CreateGroupAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Neue Gruppe</source>
+          <target state="translated">New group</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Linq;
+using Windows.UI.Xaml.Controls;
 using CTime2.Core.Data;
 
 namespace CTime2.Views.AttendanceList
@@ -15,9 +16,17 @@ namespace CTime2.Views.AttendanceList
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var user = (AttendingUser) e.ClickedItem;
-            this.ViewModel.SelectedUser = user;
+
+            this.ViewModel.SelectedUsers.Clear();
+            this.ViewModel.SelectedUsers.Add(user);
 
             await this.ViewModel.ShowDetails.ExecuteAsync();
+        }
+
+        private void GridView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.ViewModel.SelectedUsers.Clear();
+            this.ViewModel.SelectedUsers.AddRange(this.AttendanceListGridView.SelectedItems.OfType<AttendingUser>());
         }
     }
 }

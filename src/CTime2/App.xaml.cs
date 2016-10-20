@@ -15,6 +15,7 @@ using CTime2.Core.Services.Band;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Core.Services.Contacts;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.EmployeeGroups;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
 using CTime2.Strings;
@@ -68,25 +69,7 @@ namespace CTime2
             application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
             application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }
-
-        public override void ConfigureContainer(WinRTContainer container)
-        {
-            base.ConfigureContainer(container);
-
-            container
-                .PerRequest<LoggedOutApplicationMode>()
-                .PerRequest<LoggedInApplicationMode>()
-                .PerRequest<TerminalApplicationMode>();
-
-            container
-                .Singleton<ICTimeService, CTimeService>()
-                .Singleton<ILicensesService, LicensesService>()
-                .Singleton<IBandService, Core.Services.Band.BandService>()
-                .Singleton<IBiometricsService, BiometricsService>()
-                .Singleton<IGeoLocationService, GeoLocationService>()
-                .Singleton<IContactsService, ContactsService>();
-        }
-
+        
         public override ApplicationMode GetCurrentMode()
         {
             return IoC.Get<IApplicationStateService>().GetCurrentUser() != null
@@ -127,6 +110,37 @@ namespace CTime2
             yield return typeof(MyTimeViewModel);
             yield return typeof(AttendingUserDetailsViewModel);
             yield return typeof(TerminalViewModel);
+        }
+
+        public override IEnumerable<Type> GetApplicationModeTypes()
+        {
+            yield return typeof(LoggedOutApplicationMode);
+            yield return typeof(LoggedInApplicationMode);
+            yield return typeof(TerminalApplicationMode);
+        }
+
+        public override IEnumerable<Type> GetServiceTypes()
+        {
+            yield return typeof(ICTimeService);
+            yield return typeof(CTimeService);
+
+            yield return typeof(ILicensesService);
+            yield return typeof(LicensesService);
+
+            yield return typeof(IBandService);
+            yield return typeof(Core.Services.Band.BandService);
+
+            yield return typeof(IBiometricsService);
+            yield return typeof(BiometricsService);
+
+            yield return typeof(IGeoLocationService);
+            yield return typeof(GeoLocationService);
+
+            yield return typeof(IContactsService);
+            yield return typeof(ContactsService);
+
+            yield return typeof(IEmployeeGroupService);
+            yield return typeof(EmployeeGroupService);
         }
 
         public override string GetHockeyAppId()

@@ -1,12 +1,20 @@
 ﻿<Page
-    x:Class="CTime2.Views.AttendanceList.AttendanceListView"
+    x:Class="CTime2.Views.AttendanceList.AttendanceListView"  
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.AttendanceList"
     xmlns:converter="using:CTime2.Converter"
+    xmlns:controls="using:CTime2.Controls" 
+    xmlns:windowsStateTriggers="using:WindowsStateTriggers" 
+    
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:UwCore.Behaviors"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:data="using:CTime2.Core.Data"
-    xmlns:controls="using:CTime2.Controls">
+    mc:Ignorable="d">
     
     <Page.Resources>
         <CollectionViewSource x:Key="GroupedAttendingUsers"
@@ -23,8 +31,62 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView ItemsSource="{Binding Source={StaticResource GroupedAttendingUsers}}"
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AttendanceListStates">
+                <VisualState x:Name="Loading">
+                    <VisualState.Setters>
+                        <Setter Target="SaveGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="CancelCreateGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="DeleteGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="CreateGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="Loading" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="View">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="View" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SaveGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="CancelCreateGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="DeleteGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="ViewGroup">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="ViewGroup" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SaveGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="CancelCreateGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="CreateGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="CreateGroup">
+                    <VisualState.StateTriggers>
+                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="CreateGroup" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="CreateGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="DeleteGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="AttendanceListGridView.(ListViewBase.SelectionMode)" Value="Multiple"/>
+                        <Setter Target="AttendanceListGridView.(ListViewBase.IsItemClickEnabled)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GridView x:Name="AttendanceListGridView" 
+                  ItemsSource="{Binding Source={StaticResource GroupedAttendingUsers}}"
                   SelectionMode="None"
+                  SelectionChanged="GridView_OnSelectionChanged"
                   IsItemClickEnabled="True"
                   ItemClick="GridView_ItemClick">
             <GridView.GroupStyle>
@@ -63,7 +125,40 @@
                         </Viewbox>
                     </StackPanel>
                 </DataTemplate>
-            </GridView.ItemTemplate>            
+            </GridView.ItemTemplate>
         </GridView>
+
+        <CommandBar Grid.Row="1">
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton x:Name="SaveGroupAppBarButton" x:Uid="SaveGroupAppBarButton" Icon="Save" Label="~Speichern">
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox TextWrapping="Wrap" Width="160" Text="{Binding GroupName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <interactivity:Interaction.Behaviors>
+                                    <behaviors:KeyTriggerBehavior Key="Enter">
+                                        <core:InvokeCommandAction Command="{x:Bind ViewModel.SaveGroup}" />
+                                    </behaviors:KeyTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </TextBox>
+                            
+                            <Button Grid.Column="1" Margin="5,0,0,0" Command="{x:Bind ViewModel.SaveGroup}">
+                                <SymbolIcon Symbol="Save" />
+                            </Button>
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton x:Name="CancelCreateGroupAppBarButton" x:Uid="CancelCreateGroupAppBarButton" Icon="Cancel" Label="~Abbrechen" Command="{x:Bind ViewModel.CancelCreateGroup}" />
+            <AppBarButton x:Name="DeleteGroupAppBarButton" x:Uid="DeleteGroupAppBarButton" Icon="Delete" Label="~Gruppe löschen" Command="{x:Bind ViewModel.DeleteGroup}" />
+            <AppBarButton x:Name="CreateGroupAppBarButton" x:Uid="CreateGroupAppBarButton" Icon="Add" Label="~Neue Gruppe" Command="{x:Bind ViewModel.CreateGroup}" />
+        </CommandBar>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
@@ -18,11 +19,10 @@ namespace CTime2.ApplicationModes
             this._terminalHamburgerItem = new NavigatingHamburgerItem("Terminal", Symbol.AllApps, typeof(TerminalViewModel));
             this._goBackHamburgerItem = new ClickableHamburgerItem("Zur normalen Anmeldung", Symbol.Back, this.GoBack);
         }
-        
-        public override void Enter()
+
+        protected override async Task OnEnter()
         {
-            this.Application.Actions.Add(this._terminalHamburgerItem);
-            this.Application.SecondaryActions.Insert(0, this._goBackHamburgerItem);
+            await base.OnEnter();
 
             this._terminalHamburgerItem.Execute();
 
@@ -30,13 +30,28 @@ namespace CTime2.ApplicationModes
             appView.TryEnterFullScreenMode();
         }
 
-        public override void Leave()
+        protected override async Task OnLeave()
         {
-            this.Application.Actions.Remove(this._terminalHamburgerItem);
-            this.Application.SecondaryActions.Remove(this._goBackHamburgerItem);
+            await base.OnLeave();
 
             var appView = ApplicationView.GetForCurrentView();
             appView.ExitFullScreenMode();
+        }
+
+        protected override async Task AddActions()
+        {
+            await base.AddActions();
+
+            this.Application.Actions.Add(this._terminalHamburgerItem);
+            this.Application.SecondaryActions.Insert(0, this._goBackHamburgerItem);
+        }
+
+        protected override async Task RemoveActions()
+        {
+            await base.RemoveActions();
+
+            this.Application.Actions.Remove(this._terminalHamburgerItem);
+            this.Application.SecondaryActions.Remove(this._goBackHamburgerItem);
         }
 
         private void GoBack()
