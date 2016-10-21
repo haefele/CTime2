@@ -448,4 +448,16 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="CreateGroupAppBarButton.Label" xml:space="preserve">
     <value>New group</value>
   </data>
+  <data name="DeleteGroup.Message" xml:space="preserve">
+    <value>Do you really want to delete this group?</value>
+  </data>
+  <data name="DeleteGroup.NoCommand" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeleteGroup.Title" xml:space="preserve">
+    <value>Delete group?</value>
+  </data>
+  <data name="DeleteGroup.YesCommand" xml:space="preserve">
+    <value>Yes, delete this group</value>
+  </data>
 </root>

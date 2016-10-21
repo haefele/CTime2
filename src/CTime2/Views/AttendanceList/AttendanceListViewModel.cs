@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
@@ -13,6 +15,7 @@ using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Dialog;
 using UwCore.Services.Navigation;
 
 namespace CTime2.Views.AttendanceList
@@ -23,6 +26,7 @@ namespace CTime2.Views.AttendanceList
         private readonly IApplicationStateService _applicationStateService;
         private readonly INavigationService _navigationService;
         private readonly IEmployeeGroupService _employeeGroupService;
+        private readonly IDialogService _dialogService;
 
         private ReactiveObservableCollection<AttendingUser> _selectedUsers;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<AttendingUserByIsAttending>> _usersHelper;
@@ -57,17 +61,19 @@ namespace CTime2.Views.AttendanceList
         public string EmployeeGroupId { get; set; }
         #endregion
 
-        public AttendanceListViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, INavigationService navigationService, IEmployeeGroupService employeeGroupService)
+        public AttendanceListViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, INavigationService navigationService, IEmployeeGroupService employeeGroupService, IDialogService dialogService)
         {
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(navigationService, nameof(navigationService));
             Guard.NotNull(employeeGroupService, nameof(employeeGroupService));
+            Guard.NotNull(dialogService, nameof(dialogService));
 
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
             this._navigationService = navigationService;
             this._employeeGroupService = employeeGroupService;
+            this._dialogService = dialogService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.AttendanceList");
             this.SelectedUsers = new ReactiveObservableCollection<AttendingUser>();
@@ -181,6 +187,17 @@ namespace CTime2.Views.AttendanceList
 
         private async Task DeleteGroupImpl()
         {
+            var deleteGroupCommand = new UICommand(CTime2Resources.Get("DeleteGroup.YesCommand"));
+            var noCommand = new UICommand(CTime2Resources.Get("DeleteGroup.NoCommand"));
+
+            var message = CTime2Resources.Get("DeleteGroup.Message");
+            var title = CTime2Resources.Get("DeleteGroup.Title");
+
+            var selectedCommand = await this._dialogService.ShowAsync(message, title, new[] {deleteGroupCommand, noCommand});
+
+            if (selectedCommand == noCommand)
+                return;
+
             var currentUser = this._applicationStateService.GetCurrentUser();
 
             await this._employeeGroupService.DeleteGroupAsync(currentUser.Id, this.EmployeeGroupId);

@@ -167,17 +167,15 @@ namespace CTime2.ApplicationModes
 
         private async Task<bool> OnAlreadyCheckedInWannaCheckOut()
         {
-            bool checkOut = false;
-
-            var checkOutCommand = new UICommand(CTime2Resources.Get("StampHelper.CheckOut"), _ => checkOut = true);
+            var checkOutCommand = new UICommand(CTime2Resources.Get("StampHelper.CheckOut"));
             var noCommand = new UICommand(CTime2Resources.Get("StampHelper.No"));
 
             string message = CTime2Resources.Get("StampHelper.AlreadyCheckedInWannaCheckOutMessage");
             string title = CTime2Resources.Get("StampHelper.AlreadyCheckedInWannaCheckOutTitle");
 
-            await this._dialogService.ShowAsync(message, title, new List<UICommand> { checkOutCommand, noCommand });
+            var selectedCommand = await this._dialogService.ShowAsync(message, title, new List<UICommand> { checkOutCommand, noCommand });
 
-            return checkOut;
+            return selectedCommand == checkOutCommand;
         }
 
         private Task OnAlreadyCheckedIn()
@@ -187,17 +185,15 @@ namespace CTime2.ApplicationModes
 
         private async Task<bool> OnAlreadyCheckedOutWannaCheckIn()
         {
-            bool checkIn = false;
-
-            var checkOutCommand = new UICommand(CTime2Resources.Get("StampHelper.CheckIn"), _ => checkIn = true);
+            var checkInCommand = new UICommand(CTime2Resources.Get("StampHelper.CheckIn"));
             var noCommand = new UICommand(CTime2Resources.Get("StampHelper.No"));
 
             string message = CTime2Resources.Get("StampHelper.AlreadyCheckedOutWannaCheckInMessage");
             string title = CTime2Resources.Get("StampHelper.AlreadyCheckedOutWannaCheckInTitle");
 
-            await this._dialogService.ShowAsync(message, title, new List<UICommand> { checkOutCommand, noCommand });
+            var selectedCommand = await this._dialogService.ShowAsync(message, title, new List<UICommand> { checkInCommand, noCommand });
 
-            return checkIn;
+            return selectedCommand == checkInCommand;
         }
 
         private Task OnAlreadyCheckedOut()
