@@ -590,6 +590,22 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Neue Gruppe</source>
           <target state="translated">New group</target>
         </trans-unit>
+        <trans-unit id="DeleteGroup.Message" translate="yes" xml:space="preserve">
+          <source>Möchtest du diese Gruppe wirklich löschen?</source>
+          <target state="translated">Do you really want to delete this group?</target>
+        </trans-unit>
+        <trans-unit id="DeleteGroup.NoCommand" translate="yes" xml:space="preserve">
+          <source>Nein</source>
+          <target state="translated">No</target>
+        </trans-unit>
+        <trans-unit id="DeleteGroup.Title" translate="yes" xml:space="preserve">
+          <source>Gruppe löschen?</source>
+          <target state="translated">Delete group?</target>
+        </trans-unit>
+        <trans-unit id="DeleteGroup.YesCommand" translate="yes" xml:space="preserve">
+          <source>Ja, Gruppe löschen</source>
+          <target state="translated">Yes, delete this group</target>
+        </trans-unit>
       </group>
     </body>
   </file>
