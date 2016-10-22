@@ -12,6 +12,8 @@ using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Contacts;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.Email;
+using CTime2.Core.Services.Phone;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
@@ -28,6 +30,8 @@ namespace CTime2.Views.AttendanceList
         private readonly IApplicationStateService _applicationStateService;
         private readonly IContactsService _contactsService;
         private readonly IDialogService _dialogService;
+        private readonly IPhoneService _phoneService;
+        private readonly IEmailService _emailService;
 
         private readonly ObservableAsPropertyHelper<AttendingUser> _attendingUserHelper;
         
@@ -40,17 +44,21 @@ namespace CTime2.Views.AttendanceList
         public UwCoreCommand<Unit> SendMail { get; }
         public UwCoreCommand<Unit> AddAsContact { get; }
 
-        public AttendingUserDetailsViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IContactsService contactsService, IDialogService dialogService)
+        public AttendingUserDetailsViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IContactsService contactsService, IDialogService dialogService, IPhoneService phoneService, IEmailService emailService)
         {
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(contactsService, nameof(contactsService));
             Guard.NotNull(dialogService, nameof(dialogService));
+            Guard.NotNull(phoneService, nameof(phoneService));
+            Guard.NotNull(emailService, nameof(emailService));
 
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
             this._contactsService = contactsService;
             this._dialogService = dialogService;
+            this._phoneService = phoneService;
+            this._emailService = emailService;
 
             this.LoadAttendingUser = UwCoreCommand.Create(this.LoadAttendingUserImpl)
                 .HandleExceptions()
@@ -58,9 +66,9 @@ namespace CTime2.Views.AttendanceList
             this.LoadAttendingUser.ToProperty(this, f => f.AttendingUser, out this._attendingUserHelper);
             
             var canCall = Observable
-                .Return(ApiInformation.IsApiContractPresent("Windows.ApplicationModel.Calls.CallsPhoneContract", 1))
-                .CombineLatest(this.WhenAnyValue(f => f.AttendingUser), (apiAvailable, user) => 
-                    apiAvailable && string.IsNullOrWhiteSpace(user?.PhoneNumber) == false);
+                .Return(this._phoneService.CanCall)
+                .CombineLatest(this.WhenAnyValue(f => f.AttendingUser), (serviceCanCall, user) => 
+                    serviceCanCall && string.IsNullOrWhiteSpace(user?.PhoneNumber) == false);
             this.Call = UwCoreCommand.Create(canCall, this.CallImpl)
                 .HandleExceptions();
 
@@ -85,15 +93,15 @@ namespace CTime2.Views.AttendanceList
             var email = new EmailMessage();
             email.To.Add(new EmailRecipient(this.AttendingUser.EmailAddress, $"{this.AttendingUser.FirstName} {this.AttendingUser.Name}"));
 
-            await EmailManager.ShowComposeNewEmailAsync(email);
+            await this._emailService.SendEmailAsync(email);
         }
 
         private Task CallImpl()
         {
-            if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.Calls.CallsPhoneContract", 1) == false)
-                return Task.CompletedTask;
+            string phoneNumber = this.AttendingUser.PhoneNumber;
+            string displayName = $"{this.AttendingUser.FirstName} {this.AttendingUser.Name}";
 
-            PhoneCallManager.ShowPhoneCallUI(this.AttendingUser.PhoneNumber, $"{this.AttendingUser.FirstName} {this.AttendingUser.Name}");
+            this._phoneService.Call(phoneNumber, displayName);
 
             return Task.CompletedTask;
         }
