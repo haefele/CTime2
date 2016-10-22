@@ -172,6 +172,8 @@
     <Compile Include="Data\User.cs" />
     <Compile Include="Services\CTime\ICTimeStampHelperCallback.cs" />
     <Compile Include="Data\EmployeeGroup.cs" />
+    <Compile Include="Services\Email\EmailService.cs" />
+    <Compile Include="Services\Email\IEmailService.cs" />
     <Compile Include="Services\EmployeeGroups\EmployeeGroupService.cs" />
     <Compile Include="Services\EmployeeGroups\IEmployeeGroupService.cs" />
     <Compile Include="Services\GeoLocation\GeoLocationService.cs" />
@@ -180,6 +182,8 @@
     <Compile Include="Services\Licenses\ILicensesService.cs" />
     <Compile Include="Data\License.cs" />
     <Compile Include="Services\Licenses\LicensesService.cs" />
+    <Compile Include="Services\Phone\IPhoneService.cs" />
+    <Compile Include="Services\Phone\PhoneService.cs" />
     <Compile Include="Strings\CTime2CoreResources.cs" />
     <Content Include="Properties\CTime2.Core.rd.xml" />
     <EmbeddedResource Include="Services\Band\Icons\TileIcon24px.png" />
@@ -190,6 +194,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
