@@ -15,9 +15,11 @@ using CTime2.Core.Services.Band;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Core.Services.Contacts;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.Email;
 using CTime2.Core.Services.EmployeeGroups;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
+using CTime2.Core.Services.Phone;
 using CTime2.Strings;
 using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
@@ -37,6 +39,8 @@ using UwCore.Extensions;
 using UwCore.Hamburger;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
+using ISharingService = CTime2.Core.Services.Sharing.ISharingService;
+using SharingService = CTime2.Core.Services.Sharing.SharingService;
 
 namespace CTime2
 {
@@ -141,6 +145,15 @@ namespace CTime2
 
             yield return typeof(IEmployeeGroupService);
             yield return typeof(EmployeeGroupService);
+
+            yield return typeof(IPhoneService);
+            yield return typeof(PhoneService);
+
+            yield return typeof(IEmailService);
+            yield return typeof(EmailService);
+
+            yield return typeof(ISharingService);
+            yield return typeof(SharingService);
         }
 
         public override string GetHockeyAppId()

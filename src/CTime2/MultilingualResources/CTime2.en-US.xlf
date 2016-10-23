@@ -606,6 +606,10 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Ja, Gruppe löschen</source>
           <target state="translated">Yes, delete this group</target>
         </trans-unit>
+        <trans-unit id="ShareAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Teilen</source>
+          <target state="new">Teilen</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.Sharing;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
@@ -17,6 +20,7 @@ namespace CTime2.Views.YourTimes
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
+        private readonly ISharingService _sharingService;
 
         private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<TimesByDay>> _timesHelper;
@@ -45,15 +49,18 @@ namespace CTime2.Views.YourTimes
         }
 
         public UwCoreCommand<ReactiveObservableCollection<TimesByDay>> LoadTimes { get; }
+        public UwCoreCommand<Unit> Share { get; }
 
-        public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService)
+        public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, ISharingService sharingService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
+            Guard.NotNull(sharingService, nameof(sharingService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
-            
+            this._sharingService = sharingService;
+
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("MyTimes.TitleFormat", this.StartDate, this.EndDate))
                 .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
@@ -63,6 +70,10 @@ namespace CTime2.Views.YourTimes
                 .HandleExceptions()
                 .TrackEvent("LoadTimes");
             this.LoadTimes.ToProperty(this, f => f.Times, out this._timesHelper);
+
+            this.Share = UwCoreCommand.Create(this.ShareImpl)
+                .HandleExceptions()
+                .TrackEvent("ShareMyTimes");
 
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
@@ -79,6 +90,19 @@ namespace CTime2.Views.YourTimes
         {
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
             return new ReactiveObservableCollection<TimesByDay>(TimesByDay.Create(times));
+        }
+        
+        private Task ShareImpl()
+        {
+            StringBuilder message = new StringBuilder();
+            foreach (TimesByDay timeByDay in this.Times)
+            {
+                message.AppendLine(timeByDay.ToString());
+            }
+            
+            this._sharingService.Share(this.DisplayName, package => package.SetText(message.ToString()));
+
+            return Task.CompletedTask;
         }
     }
 }
