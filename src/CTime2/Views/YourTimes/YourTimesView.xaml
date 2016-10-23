@@ -92,6 +92,13 @@
         </ListView>
 
         <CommandBar Grid.Row="1">
+            <AppBarButton x:Uid="ShareAppBarButton" 
+                          Label="~Teilen"
+                          Command="{x:Bind ViewModel.Share}" >
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE72D;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
             <AppBarButton Icon="Filter"
                           x:Uid="StartDateAppBarButton"
                           Label="~Startdatum">

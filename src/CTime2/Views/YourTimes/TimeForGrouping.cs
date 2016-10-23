@@ -23,5 +23,20 @@ namespace CTime2.Views.YourTimes
                 this.Duration = this.ClockOutTime.Value - this.ClockInTime.Value;
             }
         }
+
+        public override string ToString()
+        {
+            string clockInTime = this.ClockInTime != null
+                ? $"{this.ClockInTime.Value:t}"
+                : "?";
+            string clockOutTime = this.ClockOutTime != null
+                ? $"{this.ClockOutTime.Value:t}"
+                : "?";
+            string duration = this.Duration != null
+                ? $" ({this.Duration.Value:g})"
+                : string.Empty;
+
+            return $"{clockInTime} - {clockOutTime}{duration}";
+        }
     }
 }

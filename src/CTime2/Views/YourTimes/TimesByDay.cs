@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Caliburn.Micro;
 using CTime2.Core.Data;
 
@@ -37,6 +38,19 @@ namespace CTime2.Views.YourTimes
                 select new TimesByDay(g.Key, new BindableCollection<TimeForGrouping>(g.OrderByDescending(f => f.ClockInTime).Select(f => new TimeForGrouping(f))));
 
             return result;
+        }
+
+        public override string ToString()
+        {
+            var result = new StringBuilder();
+            result.AppendLine($"{this.Day:D} ({this.Hours:g}):");
+
+            foreach (var time in this.Times)
+            {
+                result.AppendLine(time.ToString());
+            }
+
+            return result.ToString();
         }
     }
 }

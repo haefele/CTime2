@@ -184,6 +184,9 @@
     <Compile Include="Services\Licenses\LicensesService.cs" />
     <Compile Include="Services\Phone\IPhoneService.cs" />
     <Compile Include="Services\Phone\PhoneService.cs" />
+    <Compile Include="Services\Sharing\ISharingService.cs" />
+    <Compile Include="Services\Sharing\SharingService.cs" />
+    <Compile Include="Services\Sharing\SharingServiceExtensions.cs" />
     <Compile Include="Strings\CTime2CoreResources.cs" />
     <Content Include="Properties\CTime2.Core.rd.xml" />
     <EmbeddedResource Include="Services\Band\Icons\TileIcon24px.png" />

@@ -565,4 +565,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="DeleteGroup.YesCommand" xml:space="preserve">
     <value>Ja, Gruppe löschen</value>
   </data>
+  <data name="ShareAppBarButton.Label" xml:space="preserve">
+    <value>Teilen</value>
+  </data>
 </root>
