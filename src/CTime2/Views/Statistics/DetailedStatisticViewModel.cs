@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.Sharing;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore;
 using UwCore.Common;
-using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Navigation;
 
@@ -23,6 +23,7 @@ namespace CTime2.Views.Statistics
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
         private readonly INavigationService _navigationService;
+        private readonly ISharingService _sharingService;
 
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticChartItem>[]> _chartItemsHelper;
         #endregion
@@ -33,7 +34,8 @@ namespace CTime2.Views.Statistics
 
         #region Commands
         public UwCoreCommand<ReactiveObservableCollection<StatisticChartItem>[]> LoadChart { get; }
-        public UwCoreCommand<Unit> GoToMyTimesCommand { get; set; }
+        public UwCoreCommand<Unit> GoToMyTimesCommand { get; }
+        public UwCoreCommand<Unit> Share { get; }
         #endregion
 
         #region Parameters
@@ -43,15 +45,17 @@ namespace CTime2.Views.Statistics
         public bool IncludeToday { get; set; }
         #endregion
 
-        public DetailedStatisticViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, INavigationService navigationService)
+        public DetailedStatisticViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, INavigationService navigationService, ISharingService sharingService)
         {
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(navigationService, nameof(navigationService));
+            Guard.NotNull(sharingService, nameof(sharingService));
 
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
             this._navigationService = navigationService;
+            this._sharingService = sharingService;
 
             this.LoadChart = UwCoreCommand.Create(this.LoadChartImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.LoadCharts"))
@@ -60,6 +64,10 @@ namespace CTime2.Views.Statistics
 
             this.GoToMyTimesCommand = UwCoreCommand.Create(this.GoToMyTimes)
                 .HandleExceptions();
+
+            this.Share = UwCoreCommand.Create(this.ShareImpl)
+                .HandleExceptions()
+                .TrackEvent("ShareDetailedStatistic");
         }
 
         public void GoToMyTimesForStatisticChartItem(StatisticChartItem chartItem)
@@ -100,6 +108,21 @@ namespace CTime2.Views.Statistics
                 .WithParam(f => f.StartDate, this.StartDate)
                 .WithParam(f => f.EndDate, this.EndDate)
                 .Navigate();
+
+            return Task.CompletedTask;
+        }
+
+        private Task ShareImpl()
+        {
+            this._sharingService.Share("Statistik", async dataPackage =>
+            {
+                var view = this.GetView() as IDetailedStatisticView;
+
+                if (view == null)
+                    throw new InvalidOperationException();
+
+                dataPackage.SetBitmap(await view.GetDiagramAsync());
+            });
 
             return Task.CompletedTask;
         }

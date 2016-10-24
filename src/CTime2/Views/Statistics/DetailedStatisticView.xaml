@@ -15,14 +15,21 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <ContentControl Grid.Row="0"
+        <ContentControl x:Name="Content"
+                        Grid.Row="0"
                         VerticalContentAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         micro:View.Context="{x:Bind ViewModel.StatisticChart}" 
-                        micro:View.Model="{x:Bind ViewModel}"
-                        />
-        
+                        micro:View.Model="{x:Bind ViewModel}" />
+
         <CommandBar Grid.Row="1">
+            <AppBarButton x:Uid="ShareAppBarButton" 
+                          Label="~Teilen"
+                          Command="{x:Bind ViewModel.Share}" >
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE72D;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
             <AppBarButton x:Uid="GoToMyTimesAppBarButton"
                           Label="~Zu Meine Zeiten wechseln"
                           Icon="Go"
