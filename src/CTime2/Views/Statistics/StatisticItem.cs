@@ -19,5 +19,15 @@ namespace CTime2.Views.Statistics
             this.Value = value;
             this.ShowDetails = showDetails;
         }
+
+        public override string ToString()
+        {
+            string subTitle = string.IsNullOrWhiteSpace(this.SubTitle)
+                ? string.Empty
+                : $" ({this.SubTitle})";
+            
+            return $"{this.Name}{subTitle}:{Environment.NewLine}" +
+                   $"{this.Value}";
+        }
     }
 }

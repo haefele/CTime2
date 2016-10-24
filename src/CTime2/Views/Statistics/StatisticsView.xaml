@@ -74,6 +74,13 @@
         </ListView>
 
         <CommandBar Grid.Row="1">
+            <AppBarButton x:Uid="ShareAppBarButton" 
+                          Label="~Teilen"
+                          Command="{x:Bind ViewModel.Share}" >
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE72D;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
             <AppBarToggleButton Label="~Mit Heute"
                                 x:Name="IncludeTodayAppBarToggleButton"
                                 x:Uid="IncludeTodayAppBarToggleButton"

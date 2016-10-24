@@ -20,6 +20,10 @@ using UwCore.Services.ExceptionHandler;
 using UwCore.Services.Loading;
 using Action = System.Action;
 using INavigationService = UwCore.Services.Navigation.INavigationService;
+using System.Reactive;
+using System.Text;
+using CTime2.Core.Services.Sharing;
+using ISharingService = CTime2.Core.Services.Sharing.ISharingService;
 
 namespace CTime2.Views.Statistics
 {
@@ -30,7 +34,8 @@ namespace CTime2.Views.Statistics
         private readonly ICTimeService _cTimeService;
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
-        
+        private readonly ISharingService _sharingService;
+
         private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
@@ -66,26 +71,33 @@ namespace CTime2.Views.Statistics
 
         #region Commands
         public UwCoreCommand<ReactiveObservableCollection<StatisticItem>> LoadStatistics { get; }
+        public UwCoreCommand<Unit> Share { get; }
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService)
+        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(dialogService, nameof(dialogService));
             Guard.NotNull(navigationService, nameof(navigationService));
+            Guard.NotNull(sharingService, nameof(sharingService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._dialogService = dialogService;
             this._navigationService = navigationService;
-            
+            this._sharingService = sharingService;
+
             this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
                 .HandleExceptions()
                 .TrackEvent("LoadStatistics");
             this.LoadStatistics.ToProperty(this, f => f.Statistics, out this._statisticsHelper);
+
+            this.Share = UwCoreCommand.Create(this.ShareImpl)
+                .HandleExceptions()
+                .TrackEvent("ShareStatistics");
 
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
@@ -94,6 +106,7 @@ namespace CTime2.Views.Statistics
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.EndOfMonth();
         }
+
         #endregion
 
         protected override async void OnActivate()
@@ -231,6 +244,23 @@ namespace CTime2.Views.Statistics
             };
 
             return new ReactiveObservableCollection<StatisticItem>(statisticItems.Where(f => f != null));
+        }
+        
+        private Task ShareImpl()
+        {
+            this._sharingService.Share(this.DisplayName, package =>
+            {
+                var message = new StringBuilder();
+                foreach (var statisticItem in this.Statistics)
+                {
+                    message.AppendLine(statisticItem.ToString());
+                    message.AppendLine();
+                }
+
+                package.SetText(message.ToString());
+            });
+
+            return Task.CompletedTask;
         }
 
         private void ShowDetails(StatisticChartKind chartKind)
