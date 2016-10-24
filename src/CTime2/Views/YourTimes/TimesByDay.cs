@@ -50,7 +50,7 @@ namespace CTime2.Views.YourTimes
                 result.AppendLine(time.ToString());
             }
 
-            return result.ToString();
+            return result.ToString().TrimEnd(Environment.NewLine.ToCharArray());
         }
     }
 }
