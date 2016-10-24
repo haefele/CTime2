@@ -94,13 +94,17 @@ namespace CTime2.Views.YourTimes
         
         private Task ShareImpl()
         {
-            StringBuilder message = new StringBuilder();
-            foreach (TimesByDay timeByDay in this.Times)
+            this._sharingService.Share(this.DisplayName, package =>
             {
-                message.AppendLine(timeByDay.ToString());
-            }
-            
-            this._sharingService.Share(this.DisplayName, package => package.SetText(message.ToString()));
+                var message = new StringBuilder();
+                foreach (TimesByDay timeByDay in this.Times)
+                {
+                    message.AppendLine(timeByDay.ToString());
+                    message.AppendLine();
+                }
+
+                package.SetText(message.ToString());
+            });
 
             return Task.CompletedTask;
         }
