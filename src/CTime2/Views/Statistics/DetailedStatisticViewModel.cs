@@ -114,7 +114,7 @@ namespace CTime2.Views.Statistics
 
         private Task ShareImpl()
         {
-            this._sharingService.Share("Statistik", async dataPackage =>
+            this._sharingService.Share(this.GetStatisticName(), async dataPackage =>
             {
                 var view = this.GetView() as IDetailedStatisticView;
 
@@ -215,6 +215,27 @@ namespace CTime2.Views.Statistics
                     {
                         result
                     };
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private string GetStatisticName()
+        {
+            switch (this.StatisticChart)
+            {
+                case StatisticChartKind.WorkTime:
+                    return CTime2Resources.Get("WorkTimeChart.Title");
+
+                case StatisticChartKind.BreakTime:
+                    return CTime2Resources.Get("BreakTimeChart.Title");
+
+                case StatisticChartKind.EnterAndLeaveTime:
+                    return CTime2Resources.Get("EnterAndLeaveTimeChart.Title");
+
+                case StatisticChartKind.OverTime:
+                    return CTime2Resources.Get("OverTimeChart.Title");
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
