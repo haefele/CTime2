@@ -12,7 +12,7 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <charting:Chart x:Uid="WorkTimeChart" 
-                        Title="Arbeitszeit"
+                        Title="~Arbeitszeit"
                         Style="{StaticResource NoLegendChartStyle}">
             <charting:Chart.Axes>
                 <charting:DateTimeAxis Style="{StaticResource BottomDateTimeAxisStyle}" />
