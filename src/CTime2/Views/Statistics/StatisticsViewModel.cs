@@ -104,7 +104,7 @@ namespace CTime2.Views.Statistics
                 .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
             
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
-            this.EndDate = DateTimeOffset.Now.EndOfMonth();
+            this.EndDate = DateTimeOffset.Now.WithoutTime();
         }
 
         #endregion

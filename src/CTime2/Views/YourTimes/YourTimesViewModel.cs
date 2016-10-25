@@ -76,7 +76,7 @@ namespace CTime2.Views.YourTimes
                 .TrackEvent("ShareMyTimes");
 
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
-            this.EndDate = DateTimeOffset.Now.EndOfMonth();
+            this.EndDate = DateTimeOffset.Now.WithoutTime();
         }
 
         protected override async void OnActivate()
