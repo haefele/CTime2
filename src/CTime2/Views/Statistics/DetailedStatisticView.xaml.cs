@@ -24,25 +24,23 @@ namespace CTime2.Views.Statistics
             var bitmap = new RenderTargetBitmap();
             await bitmap.RenderAsync(this.Content);
             
-            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("StatisticDiagram.png", CreationCollisionOption.ReplaceExisting);
-            using (var randomAccessStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-            {
-                var pixels = await bitmap.GetPixelsAsync();
-                var displayInfo = DisplayInformation.GetForCurrentView();
+            var randomAccessStream = new InMemoryRandomAccessStream();
 
-                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, randomAccessStream);
-                encoder.SetPixelData(
-                    BitmapPixelFormat.Bgra8, 
-                    BitmapAlphaMode.Premultiplied, 
-                    (uint)bitmap.PixelWidth, 
-                    (uint)bitmap.PixelHeight, 
-                    displayInfo.RawDpiX, 
-                    displayInfo.RawDpiX,
-                    pixels.ToArray());
-                await encoder.FlushAsync();
-            }
-            
-            return RandomAccessStreamReference.CreateFromFile(file);
+            var pixels = await bitmap.GetPixelsAsync();
+            var displayInfo = DisplayInformation.GetForCurrentView();
+
+            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, randomAccessStream);
+            encoder.SetPixelData(
+                BitmapPixelFormat.Bgra8, 
+                BitmapAlphaMode.Premultiplied, 
+                (uint)bitmap.PixelWidth, 
+                (uint)bitmap.PixelHeight, 
+                displayInfo.RawDpiX, 
+                displayInfo.RawDpiX,
+                pixels.ToArray());
+            await encoder.FlushAsync();
+
+            return RandomAccessStreamReference.CreateFromStream(randomAccessStream);
         }
     }
 
