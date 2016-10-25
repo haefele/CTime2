@@ -80,6 +80,7 @@ namespace CTime2.ApplicationModes
             this.Application.Actions.Add(this._attendanceListHamburgerItem);
 
             var currentUser = this._applicationStateService.GetCurrentUser();
+            this._employeeGroupHamburgerItems.Clear();
             foreach (var group in await this._employeeGroupService.GetGroupsAsync(currentUser.Id))
             {
                 var hamburgerItem = new NavigatingHamburgerItem(@group.Name, SymbolEx.AttendanceList, typeof(AttendanceListViewModel));
