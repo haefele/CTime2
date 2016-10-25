@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
@@ -27,15 +28,16 @@ namespace CTime2.Views.Statistics
             using (var randomAccessStream = await file.OpenAsync(FileAccessMode.ReadWrite))
             {
                 var pixels = await bitmap.GetPixelsAsync();
+                var displayInfo = DisplayInformation.GetForCurrentView();
 
                 var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, randomAccessStream);
                 encoder.SetPixelData(
                     BitmapPixelFormat.Bgra8, 
-                    BitmapAlphaMode.Ignore, 
-                    (uint)this.Content.ActualWidth, 
-                    (uint)this.Content.ActualHeight, 
-                    96, 
-                    96,
+                    BitmapAlphaMode.Premultiplied, 
+                    (uint)bitmap.PixelWidth, 
+                    (uint)bitmap.PixelHeight, 
+                    displayInfo.RawDpiX, 
+                    displayInfo.RawDpiX,
                     pixels.ToArray());
                 await encoder.FlushAsync();
             }
