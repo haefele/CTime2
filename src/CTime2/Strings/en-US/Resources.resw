@@ -460,4 +460,7 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="DeleteGroup.YesCommand" xml:space="preserve">
     <value>Yes, delete this group</value>
   </data>
+  <data name="ShareAppBarButton.Label" xml:space="preserve">
+    <value>Share</value>
+  </data>
 </root>

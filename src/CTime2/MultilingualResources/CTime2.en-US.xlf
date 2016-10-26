@@ -608,7 +608,7 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
         </trans-unit>
         <trans-unit id="ShareAppBarButton.Label" translate="yes" xml:space="preserve">
           <source>Teilen</source>
-          <target state="new">Teilen</target>
+          <target state="translated">Share</target>
         </trans-unit>
       </group>
     </body>
