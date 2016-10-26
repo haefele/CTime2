@@ -97,7 +97,7 @@ namespace CTime2.Views.YourTimes
             this._sharingService.Share(this.DisplayName, package =>
             {
                 var message = new StringBuilder();
-                foreach (TimesByDay timeByDay in this.Times)
+                foreach (TimesByDay timeByDay in this.Times.EmptyIfNull()) //If an error occured while loading the times, they might be NULL
                 {
                     message.AppendLine(timeByDay.ToString());
                     message.AppendLine();

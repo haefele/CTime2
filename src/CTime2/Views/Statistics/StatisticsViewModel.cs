@@ -251,7 +251,7 @@ namespace CTime2.Views.Statistics
             this._sharingService.Share(this.DisplayName, package =>
             {
                 var message = new StringBuilder();
-                foreach (var statisticItem in this.Statistics)
+                foreach (var statisticItem in this.Statistics.EmptyIfNull()) //If an error occured while loading the statistics, they might be NULL
                 {
                     message.AppendLine(statisticItem.ToString());
                     message.AppendLine();
