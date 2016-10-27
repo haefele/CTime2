@@ -610,6 +610,20 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</target>
           <source>Teilen</source>
           <target state="translated">Share</target>
         </trans-unit>
+        <trans-unit id="TerminalSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Terminal</source>
+          <target state="translated">Terminal</target>
+        </trans-unit>
+        <trans-unit id="TerminalSettingsGroup.Description" translate="yes" xml:space="preserve">
+          <source>Um diese App an einem Terminal zum Stempeln mit RFID-Chips zu verwenden, musst du deine Firmen-ID von c-time hier eintragen.
+Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</source>
+          <target state="translated">If you want to use this app on a terminal to stamp with RFID-chips, you have to enter your c-time Company-ID here.
+Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</target>
+        </trans-unit>
+        <trans-unit id="CompanyIdSettingsItem.Description" translate="yes" xml:space="preserve">
+          <source>Firmen-ID</source>
+          <target state="translated">Company-ID</target>
+        </trans-unit>
       </group>
     </body>
   </file>

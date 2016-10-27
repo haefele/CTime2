@@ -463,4 +463,14 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="ShareAppBarButton.Label" xml:space="preserve">
     <value>Share</value>
   </data>
+  <data name="TerminalSettingsGroup.Header" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
+  <data name="TerminalSettingsGroup.Description" xml:space="preserve">
+    <value>If you want to use this app on a terminal to stamp with RFID-chips, you have to enter your c-time Company-ID here.
+Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
+  </data>
+  <data name="CompanyIdSettingsItem.Description" xml:space="preserve">
+    <value>Company-ID</value>
+  </data>
 </root>
