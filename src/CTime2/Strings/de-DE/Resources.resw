@@ -568,4 +568,14 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="ShareAppBarButton.Label" xml:space="preserve">
     <value>Teilen</value>
   </data>
+  <data name="CompanyIdSettingsItem.Description" xml:space="preserve">
+    <value>Firmen-ID</value>
+  </data>
+  <data name="TerminalSettingsGroup.Description" xml:space="preserve">
+    <value>Um diese App an einem Terminal zum Stempeln mit RFID-Chips zu verwenden, musst du deine Firmen-ID von c-time hier eintragen.
+Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
+  </data>
+  <data name="TerminalSettingsGroup.Header" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
 </root>

@@ -181,7 +181,7 @@ namespace CTime2
 
         private void ConfigureWindowMinSize()
         {
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(360, 500));
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(380, 500));
         }
         
         private async void ConfigureJumpList()
