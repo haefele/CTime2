@@ -7,7 +7,6 @@ namespace CTime2.Core.Services.GeoLocation
     public interface IGeoLocationService
     {
         Task<GeoLocationState> GetGeoLocationStateAsync(User user);
-        Task<bool> HasAccessAsync();
         Task<Geopoint> TryGetGeoLocationAsync();
     }
 }
