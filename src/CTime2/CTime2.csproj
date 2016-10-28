@@ -103,6 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationModes\TerminalApplicationMode.cs" />
+    <Compile Include="Behaviors\CloseFlyoutAction.cs" />
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Common\VisualTreeHelperEx.cs" />
     <Compile Include="Controls\SettingsItem.cs" />

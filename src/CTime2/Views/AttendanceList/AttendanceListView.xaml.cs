@@ -2,6 +2,7 @@
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml.Controls;
 using CTime2.Core.Data;
+using Microsoft.Toolkit.Uwp.UI;
 
 namespace CTime2.Views.AttendanceList
 {

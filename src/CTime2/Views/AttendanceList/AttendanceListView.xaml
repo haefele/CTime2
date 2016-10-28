@@ -7,13 +7,14 @@
     xmlns:converter="using:CTime2.Converter"
     xmlns:controls="using:CTime2.Controls" 
     xmlns:windowsStateTriggers="using:WindowsStateTriggers" 
-    
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:UwCore.Behaviors"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:data="using:CTime2.Core.Data"
+    xmlns:ctimeBehaviors="using:CTime2.Behaviors"
+    
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d">
     
     <Page.Resources>
@@ -146,11 +147,18 @@
                                 <interactivity:Interaction.Behaviors>
                                     <behaviors:KeyTriggerBehavior Key="Enter">
                                         <core:InvokeCommandAction Command="{x:Bind ViewModel.SaveGroup}" />
+                                        <ctimeBehaviors:CloseFlyoutAction />
                                     </behaviors:KeyTriggerBehavior>
                                 </interactivity:Interaction.Behaviors>
                             </TextBox>
                             
                             <Button Grid.Column="1" Margin="5,0,0,0" Command="{x:Bind ViewModel.SaveGroup}">
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="Click">
+                                        <ctimeBehaviors:CloseFlyoutAction />
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                                
                                 <SymbolIcon Symbol="Save" />
                             </Button>
                         </Grid>
