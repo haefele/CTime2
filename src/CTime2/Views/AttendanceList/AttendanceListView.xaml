@@ -115,9 +115,10 @@
                                             Width="64"
                                             Height="64" />
                         <Viewbox HorizontalAlignment="Stretch"
-                                 StretchDirection="DownOnly">
-                            <TextBlock HorizontalAlignment="Center"
-                                       Margin="0, 2, 0, 0">
+                                 StretchDirection="DownOnly"
+                                 Margin="0, 2, 0, 0"
+                                 Height="19">
+                            <TextBlock HorizontalAlignment="Center">
                                 <Run Text="{x:Bind FirstName, Mode=OneWay}" />
                                 <Run />
                                 <Run Text="{x:Bind Name, Mode=OneWay}" />
