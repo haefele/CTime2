@@ -186,7 +186,7 @@ namespace CTime2
         
         private async void ConfigureJumpList()
         {
-            if (ApiInformation.IsTypePresent("Windows.UI.StartScreen.JumpList") && JumpList.IsSupported())
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 2, 0) && JumpList.IsSupported())
             {
                 JumpList jumpList = await JumpList.LoadCurrentAsync();
                 jumpList.Items.Clear();

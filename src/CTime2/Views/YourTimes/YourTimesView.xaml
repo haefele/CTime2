@@ -43,6 +43,7 @@
         </Grid.RowDefinitions>
         
         <ListView ItemsSource="{Binding Source={StaticResource GroupedTimes}}"
+                  IsItemClickEnabled="True"
                   SelectionMode="None"
                   Grid.Row="0">
             <ListView.GroupStyle>
