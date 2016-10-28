@@ -36,13 +36,15 @@
                             Height="130"
                             BorderBrush="{x:Bind ViewModel.AttendingUser.IsAttending, Mode=OneWay, Converter={StaticResource BooleanToAttendingBrushConverter}}" />
 
-        <TextBlock Grid.Row="1"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   HorizontalAlignment="Center">
-            <Run Text="{x:Bind ViewModel.AttendingUser.FirstName, Mode=OneWay}" />
-            <Run />
-            <Run Text="{x:Bind ViewModel.AttendingUser.Name, Mode=OneWay}" />
-        </TextBlock>
+        <Viewbox Grid.Row="1"
+                 StretchDirection="DownOnly" >
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                       HorizontalAlignment="Center">
+                <Run Text="{x:Bind ViewModel.AttendingUser.FirstName, Mode=OneWay}" />
+                <Run />
+                <Run Text="{x:Bind ViewModel.AttendingUser.Name, Mode=OneWay}" />
+            </TextBlock>
+        </Viewbox>
 
         <TextBlock Grid.Row="2"
                    x:Uid="EmailAddressTextBlock"
