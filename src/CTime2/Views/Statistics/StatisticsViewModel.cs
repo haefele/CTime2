@@ -123,12 +123,18 @@ namespace CTime2.Views.Statistics
 
             var allTimes = TimesByDay.Create(times).ToList();
 
+            var timeToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today);
+
             //If "IncludeToday" is NULL, we have to set it to either true or false
             //NULL is the default value when the first time the LoadStatistics command is executed
             if (this.IncludeToday.HasValue == false)
             {
-                var timesToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today)?.Times.Count(f => f.ClockInTime != null && f.ClockOutTime != null);
-                this.IncludeToday = timesToday.HasValue && timesToday.Value >= 2;
+                var completedTimesToday = timeToday?.Times.Count(f => f.ClockInTime != null && f.ClockOutTime != null);
+
+                var hasAtLeastTwoCompletedTimesToday = completedTimesToday.HasValue && completedTimesToday.Value >= 2;
+                var lastTimeIsCompleted = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault()?.ClockOutTime != null;
+
+                this.IncludeToday = hasAtLeastTwoCompletedTimesToday && lastTimeIsCompleted;
             }
 
             var timesByDay = allTimes
@@ -163,7 +169,6 @@ namespace CTime2.Views.Statistics
             var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * workDayHours.TotalMinutes;
             var workTimePoolInMinutes = (int)Math.Round(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
 
-            var timeToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today);
             var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();
             var workTimeTodayToUseUpOverTimePool = workDayHours
                 - TimeSpan.FromMinutes(workTimePoolInMinutes)
