@@ -172,19 +172,10 @@ namespace CTime2.Core.Services.CTime
             try
             {
                 IList<Time> timesForToday = await this.GetTimes(employeeGuid, DateTime.Today, DateTime.Today.AddDays(1));
-            
-                var itemsToIgnore = timesForToday
-                    .Where(f =>
-                        (f.ClockInTime != null && f.ClockOutTime != null) ||
-                        (f.ClockInTime == null && f.ClockOutTime == null))
-                    .ToList();
 
-                Time latestFinishedTimeToday = itemsToIgnore
-                    .Where(f => f.ClockInTime != null && f.ClockOutTime != null)
-                    .OrderByDescending(f => f.ClockOutTime)
+                return timesForToday
+                    .OrderByDescending(f => f.ClockInTime)
                     .FirstOrDefault();
-
-                return timesForToday.FirstOrDefault(f => itemsToIgnore.Contains(f) == false) ?? latestFinishedTimeToday;
             }
             catch (Exception exception)
             {
