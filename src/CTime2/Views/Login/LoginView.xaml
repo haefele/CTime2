@@ -6,52 +6,61 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:uwCoreBehaviors="using:UwCore.Behaviors">
-    
+
     <Grid Margin="5"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="5" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="5" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="5" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid MaxWidth="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <TextBox Header="~E-Mail-Adresse" 
-                 Grid.Row="0"
-                 x:Uid="EmailAddressTextBox"
-                 Text="{x:Bind ViewModel.EmailAddress, Mode=TwoWay}" 
-                 InputScope="EmailNameOrAddress">
-            <interactivity:Interaction.Behaviors>
-                <uwCoreBehaviors:KeyTriggerBehavior Key="Enter">
-                    <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
-                </uwCoreBehaviors:KeyTriggerBehavior>
-            </interactivity:Interaction.Behaviors>    
-        </TextBox>
+            <Image Source="ms-appx:///Assets/Square150x150Logo.png" 
+                   Stretch="UniformToFill" 
+                   Height="150" 
+                   Width="150"
+                   Margin="0" />
 
-        <PasswordBox Header="~Passwort" 
-                     Grid.Row="2"
-                     x:Uid="PasswordPasswordBox"
-                     Password="{x:Bind ViewModel.Password, Mode=TwoWay}">
-            <interactivity:Interaction.Behaviors>
-                <uwCoreBehaviors:KeyTriggerBehavior Key="Enter">
-                    <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
-                </uwCoreBehaviors:KeyTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
-        </PasswordBox>
-        
-        <Button Content="~Anmelden" 
-                Grid.Row="4"
-                x:Uid="LoginButton"
-                Command="{x:Bind ViewModel.Login}"
-                HorizontalAlignment="Stretch"/>
-        
-        <Button Content="~Gemerkte Anmeldung"
-                x:Uid="RememberedLoginButton"
-                Grid.Row="6"
-                Command="{x:Bind ViewModel.RememberedLogin}"
-                HorizontalAlignment="Stretch"/>
+            <TextBox Header="~E-Mail-Adresse" 
+                     Grid.Row="1"
+                     x:Uid="EmailAddressTextBox"
+                     Text="{x:Bind ViewModel.EmailAddress, Mode=TwoWay}" 
+                     InputScope="EmailNameOrAddress">
+                <interactivity:Interaction.Behaviors>
+                    <uwCoreBehaviors:KeyTriggerBehavior Key="Enter">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
+                    </uwCoreBehaviors:KeyTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </TextBox>
+
+            <PasswordBox Header="~Passwort" 
+                         Grid.Row="3"
+                         x:Uid="PasswordPasswordBox"
+                         Password="{x:Bind ViewModel.Password, Mode=TwoWay}">
+                <interactivity:Interaction.Behaviors>
+                    <uwCoreBehaviors:KeyTriggerBehavior Key="Enter">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
+                    </uwCoreBehaviors:KeyTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </PasswordBox>
+
+            <Button Content="~Anmelden" 
+                    Grid.Row="5"
+                    x:Uid="LoginButton"
+                    Command="{x:Bind ViewModel.Login}"
+                    HorizontalAlignment="Stretch"/>
+
+            <Button Content="~Gemerkte Anmeldung"
+                    x:Uid="RememberedLoginButton"
+                    Grid.Row="7"
+                    Command="{x:Bind ViewModel.RememberedLogin}"
+                    HorizontalAlignment="Stretch"/>
+        </Grid>
     </Grid>
 </Page>
