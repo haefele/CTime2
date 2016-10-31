@@ -171,7 +171,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                IList<Time> timesForToday = await this.GetTimes(employeeGuid, DateTime.Today, DateTime.Today.AddDays(1));
+                IList<Time> timesForToday = await this.GetTimes(employeeGuid, DateTime.Today, DateTime.Today);
 
                 return timesForToday
                     .OrderByDescending(f => f.ClockInTime)
