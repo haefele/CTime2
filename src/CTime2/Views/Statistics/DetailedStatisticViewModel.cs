@@ -137,7 +137,7 @@ namespace CTime2.Views.Statistics
 
             for (var date = this.StartDate; date <= endDate; date = date.AddDays(1))
             {
-                var dateIsMissing = result.Any(f => f.Date == date) == false;
+                var dateIsMissing = result.Any(f => f.Date.Date == date.Date) == false; //Ignore time-zone when checking if a date is missing
                 if (dateIsMissing)
                 {
                     result.Add(new StatisticChartItem
