@@ -21,6 +21,17 @@ namespace CTime2.Core.Services.Biometrics
             this._applicationStateService = applicationStateService;
         }
 
+
+        public Task<bool> HasUserForBiometricAuthAsync()
+        {
+            return Task.FromResult(this._applicationStateService.GetBiometricAuthUser() != null);
+        }
+        public async Task<bool> BiometricAuthDeviceIsAvailableAsync()
+        {
+            var deviceStatus = await UserConsentVerifier.CheckAvailabilityAsync();
+            return deviceStatus == UserConsentVerifierAvailability.Available;
+        }
+
         public async Task RememberUserForBiometricAuthAsync(User user)
         {
             Guard.NotNull(user, nameof(user));
@@ -36,15 +47,12 @@ namespace CTime2.Core.Services.Biometrics
                 throw new CTimeException(CTime2CoreResources.Get("BiometricsService.NoBiometricDevicePresent"));
             }
         }
-
-        public bool HasRememberedUser()
-        {
-            return this._applicationStateService.GetBiometricAuthUser() != null;
-        }
-
         public async Task<User> BiometricAuthAsync()
         {
-            if (this.HasRememberedUser() == false)
+            if (await this.HasUserForBiometricAuthAsync() == false)
+                return null;
+
+            if (await this.BiometricAuthDeviceIsAvailableAsync() == false)
                 return null;
 
             var result = await UserConsentVerifier.RequestVerificationAsync(CTime2CoreResources.Get("BiometricsService.Login"));
