@@ -2,6 +2,7 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
@@ -60,16 +61,17 @@ namespace CTime2.Views.Login
             this._application = application;
             this._dialogService = dialogService;
             this._biometricsService = biometricsService;
-
+            
             var canLogin = this.WhenAnyValue(f => f.EmailAddress, f => f.Password, (email, password) =>
                 string.IsNullOrWhiteSpace(email) == false && string.IsNullOrWhiteSpace(password) == false);
             this.Login = UwCoreCommand.Create(canLogin, this.LoginImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.LoggingIn"))
                 .HandleExceptions()
                 .TrackEvent("Login");
-
-            var canRememberedLogin = new ReplaySubject<bool>(1);
-            canRememberedLogin.OnNext(this._biometricsService.HasRememberedUser());
+            
+            var deviceAvailable = this._biometricsService.BiometricAuthDeviceIsAvailableAsync().ToObservable();
+            var userAvailable = this._biometricsService.HasUserForBiometricAuthAsync().ToObservable();
+            var canRememberedLogin = deviceAvailable.CombineLatest(userAvailable, (deviceAvail, userAvail) => deviceAvail && userAvail);
             this.RememberedLogin = UwCoreCommand.Create(canRememberedLogin, this.RememberedLoginImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.LoggingIn"))
                 .HandleExceptions()

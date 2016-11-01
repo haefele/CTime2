@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
@@ -93,8 +94,10 @@ namespace CTime2.Views.Settings
             this._bandService = bandService;
             this._application = application;
 
-            var canRememberLogin = new ReplaySubject<bool>(1);
-            canRememberLogin.OnNext(this._applicationStateService.GetCurrentUser() != null);
+            var hasUser = new ReplaySubject<bool>(1);
+            hasUser.OnNext(this._applicationStateService.GetCurrentUser() != null);
+            var deviceAvailable = this._biometricsService.BiometricAuthDeviceIsAvailableAsync().ToObservable();
+            var canRememberLogin = hasUser.CombineLatest(deviceAvailable, (hasUsr, deviceAvail) => hasUsr && deviceAvail);
             this.RememberLogin = UwCoreCommand.Create(canRememberLogin, this.RememberLoginImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.RememberedLogin"))
                 .HandleExceptions()

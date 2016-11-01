@@ -5,9 +5,10 @@ namespace CTime2.Core.Services.Biometrics
 {
     public interface IBiometricsService
     {
-        Task RememberUserForBiometricAuthAsync(User user);
+        Task<bool> BiometricAuthDeviceIsAvailableAsync();
+        Task<bool> HasUserForBiometricAuthAsync();
 
-        bool HasRememberedUser();
+        Task RememberUserForBiometricAuthAsync(User user);
         Task<User> BiometricAuthAsync();
     }
 }
