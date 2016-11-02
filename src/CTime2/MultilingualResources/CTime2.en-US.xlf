@@ -248,7 +248,7 @@
         </trans-unit>
         <trans-unit id="Statistics.OverTimePool" translate="yes" xml:space="preserve">
           <source>Überstunden Pool</source>
-          <target state="translated">Overtime</target>
+          <target state="translated">overtime</target>
         </trans-unit>
         <trans-unit id="StampHelper.AlreadyCheckedInWannaCheckOutMessage" translate="yes" xml:space="preserve">
           <source>Sie sind bereits eingestempelt. Möchten Sie sich ausstempeln?</source>
@@ -298,7 +298,7 @@ This app may not work completely.</target>
         </trans-unit>
         <trans-unit id="Statistics.CalculatedLeaveTimeToday" translate="yes" xml:space="preserve">
           <source>Heutiges Arbeitsende</source>
-          <target state="translated">Today's working end</target>
+          <target state="translated">today's working end</target>
         </trans-unit>
         <trans-unit id="Loading.LoadCharts" translate="yes" xml:space="preserve">
           <source>Lade Diagram...</source>

@@ -193,7 +193,7 @@
     <value>Remember login</value>
   </data>
   <data name="Statistics.OverTimePool" xml:space="preserve">
-    <value>Overtime</value>
+    <value>overtime</value>
   </data>
   <data name="StampHelper.AlreadyCheckedInWannaCheckOutMessage" xml:space="preserve">
     <value>You are already checked in. Do you want to check out?</value>
@@ -230,7 +230,7 @@ This app may not work completely.</value>
     <value>No internet connection</value>
   </data>
   <data name="Statistics.CalculatedLeaveTimeToday" xml:space="preserve">
-    <value>Today's working end</value>
+    <value>today's working end</value>
   </data>
   <data name="Loading.LoadCharts" xml:space="preserve">
     <value>Loading diagram...</value>
