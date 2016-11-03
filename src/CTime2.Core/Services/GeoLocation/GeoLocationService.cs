@@ -2,11 +2,15 @@
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using CTime2.Core.Data;
+using UwCore.Extensions;
+using UwCore.Logging;
 
 namespace CTime2.Core.Services.GeoLocation
 {
     public class GeoLocationService : IGeoLocationService
     {
+        private static readonly Logger Logger = LoggerFactory.GetLogger<GeoLocationService>();
+
         public async Task<GeoLocationState> GetGeoLocationStateAsync(User user)
         {
             if (user.SupportsGeoLocation == false)
@@ -22,13 +26,20 @@ namespace CTime2.Core.Services.GeoLocation
         {
             if (await this.HasAccessAsync())
             {
-                var geoLocator = new Geolocator {DesiredAccuracyInMeters = 10};
-                var location = await geoLocator.GetGeopositionAsync();
+                try
+                {
+                    var geoLocator = new Geolocator {DesiredAccuracyInMeters = 10};
+                    var location = await geoLocator.GetGeopositionAsync(TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(10));
 
-                if (location.Coordinate.Accuracy > 100) //If it's not at least accurate to 100 meters, we don't use the value
-                    return null;
+                    if (location.Coordinate.Accuracy > 100) //If it's not at least accurate to 100 meters, we don't use the value
+                        return null;
 
-                return location.Coordinate.Point;
+                    return location.Coordinate.Point;
+                }
+                catch (Exception exception)
+                {
+                    Logger.Error(exception, $"An error occured while getting the current geo-location. {exception.GetFullMessage()}");
+                }
             }
 
             return null;
