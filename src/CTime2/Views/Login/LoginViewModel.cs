@@ -71,7 +71,9 @@ namespace CTime2.Views.Login
             
             var deviceAvailable = this._biometricsService.BiometricAuthDeviceIsAvailableAsync().ToObservable();
             var userAvailable = this._biometricsService.HasUserForBiometricAuthAsync().ToObservable();
-            var canRememberedLogin = deviceAvailable.CombineLatest(userAvailable, (deviceAvail, userAvail) => deviceAvail && userAvail);
+            var canRememberedLogin = deviceAvailable
+                .CombineLatest(userAvailable, (deviceAvail, userAvail) => deviceAvail && userAvail)
+                .ObserveOnDispatcher();
             this.RememberedLogin = UwCoreCommand.Create(canRememberedLogin, this.RememberedLoginImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.LoggingIn"))
                 .HandleExceptions()
