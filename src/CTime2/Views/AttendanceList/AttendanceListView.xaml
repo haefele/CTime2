@@ -4,7 +4,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.AttendanceList"
-    xmlns:converter="using:CTime2.Converter"
     xmlns:controls="using:CTime2.Controls" 
     xmlns:windowsStateTriggers="using:WindowsStateTriggers" 
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
@@ -12,6 +11,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:data="using:CTime2.Core.Data"
     xmlns:ctimeBehaviors="using:CTime2.Behaviors"
+    xmlns:uwCoreConverter="using:UwCore.Converter"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,11 +22,11 @@
                               Source="{x:Bind ViewModel.Users, Mode=OneWay}"
                               IsSourceGrouped="True"
                               ItemsPath="Users" />
-        <converter:BooleanToObjectConverter x:Key="BooleanToAttendingStringConverter"
+        <uwCoreConverter:BooleanToObjectConverter x:Key="BooleanToAttendingStringConverter"
                                             x:Uid="BooleanToAttendingStringConverter"
                                             TrueValue="~Anwesend"
                                             FalseValue="~Abwesend" />
-        <converter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter" 
+        <uwCoreConverter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter" 
                                             TrueValue="{StaticResource CTimeGreen}" 
                                             FalseValue="{StaticResource CTimeRed}" />
     </Page.Resources>
