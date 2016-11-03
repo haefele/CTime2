@@ -71,7 +71,7 @@
                 <Button Grid.Column="1"
                         Width="40"
                         Margin="1, 0, 0, 0"
-                        Visibility="{x:Bind ViewModel.RememberedLogin.CanExecute, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Visibility="{x:Bind ViewModel.RememberedLogin.CanExecute, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
                         Command="{x:Bind ViewModel.RememberedLogin}"
                         HorizontalAlignment="Stretch">
                     <SymbolIcon Symbol="Permissions"/>
