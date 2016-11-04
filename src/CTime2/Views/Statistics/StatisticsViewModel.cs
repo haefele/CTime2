@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
@@ -13,17 +12,12 @@ using ReactiveUI;
 using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
-using UwCore.Logging;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
-using UwCore.Services.ExceptionHandler;
-using UwCore.Services.Loading;
-using Action = System.Action;
-using INavigationService = UwCore.Services.Navigation.INavigationService;
 using System.Reactive;
 using System.Text;
 using CTime2.Core.Services.Sharing;
-using ISharingService = CTime2.Core.Services.Sharing.ISharingService;
+using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Statistics
 {

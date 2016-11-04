@@ -6,9 +6,10 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:uwCoreBehaviors="using:UwCore.Behaviors"
-    xmlns:micro="using:Caliburn.Micro">
+    xmlns:micro="using:Caliburn.Micro"
+    xmlns:converters="using:WinRTXamlToolkit.Converters">
     <Page.Resources>
-        <micro:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
 
     <Grid Margin="5"
