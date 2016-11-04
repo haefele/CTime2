@@ -20,6 +20,7 @@ using CTime2.Core.Services.EmployeeGroups;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
 using CTime2.Core.Services.Phone;
+using CTime2.Core.Services.Sharing;
 using CTime2.Strings;
 using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
@@ -39,8 +40,6 @@ using UwCore.Extensions;
 using UwCore.Hamburger;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
-using ISharingService = CTime2.Core.Services.Sharing.ISharingService;
-using SharingService = CTime2.Core.Services.Sharing.SharingService;
 
 namespace CTime2
 {
@@ -53,9 +52,9 @@ namespace CTime2
             this.InitializeComponent();
         }
         
-        public override void CustomConfiguration()
+        public override void Configure()
         {
-            base.CustomConfiguration();
+            base.Configure();
 
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();

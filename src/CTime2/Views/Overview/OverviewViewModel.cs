@@ -17,7 +17,7 @@ using UwCore.Application.Events;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
-using INavigationService = UwCore.Services.Navigation.INavigationService;
+using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Overview
 {

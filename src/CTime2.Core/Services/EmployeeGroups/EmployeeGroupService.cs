@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using CTime2.Core.Events;
 using CTime2.Core.Services.EmployeeGroups.Data;
 using UwCore.Common;
+using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.EmployeeGroups

@@ -5,7 +5,7 @@
     xmlns:micro="using:Caliburn.Micro"
     xmlns:cTime2="using:CTime2"
     xmlns:application="using:UwCore.Application">
-    <micro:CaliburnApplication.Resources>
+    <application:UwCoreApp.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 
@@ -13,6 +13,6 @@
                 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </micro:CaliburnApplication.Resources>
+    </application:UwCoreApp.Resources>
 </application:UwCoreApp>
 

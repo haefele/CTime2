@@ -6,18 +6,15 @@ using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Strings;
-using CTime2.Views.About;
 using ReactiveUI;
 using UwCore;
 using UwCore.Application;
 using UwCore.Common;
-using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Settings
