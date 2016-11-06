@@ -92,8 +92,30 @@ namespace CTime2.Views.Statistics
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.WithoutTime();
         }
-
         #endregion
+
+        protected override void SaveState(IApplicationStateService applicationStateService)
+        {
+            base.SaveState(applicationStateService);
+
+            applicationStateService.Set(nameof(this.StartDate), this.StartDate, ApplicationState.Temp);
+            applicationStateService.Set(nameof(this.EndDate), this.EndDate, ApplicationState.Temp);
+        }
+
+        protected override void RestoreState(IApplicationStateService applicationStateService)
+        {
+            base.RestoreState(applicationStateService);
+
+            var startDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.StartDate), ApplicationState.Temp);
+            if (startDate != null)
+                this.StartDate = startDate.Value;
+
+            var endDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.EndDate), ApplicationState.Temp);
+            if (endDate != null)
+            {
+                this.EndDate = endDate.Value;
+            }
+        }
 
         protected override async void OnActivate()
         {
