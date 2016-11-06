@@ -6,7 +6,6 @@ using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Band;
 using CTime2.Core.Services.Biometrics;
@@ -19,22 +18,22 @@ using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Settings
 {
-    public class SettingsViewModel : ReactiveScreen
+    public class SettingsViewModel : UwCoreScreen
     {
         private readonly IBiometricsService _biometricsService;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IBandService _bandService;
         private readonly IApplication _application;
 
-        private ReactiveObservableCollection<TimeSpan> _workTimes;
+        private ReactiveList<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
-        private ReactiveObservableCollection<TimeSpan> _breakTimes;
+        private ReactiveList<TimeSpan> _breakTimes;
         private TimeSpan _selectedBreakTime;
         private BandState _state;
         private ElementTheme _theme;
         private string _companyId;
 
-        public ReactiveObservableCollection<TimeSpan> WorkTimes
+        public ReactiveList<TimeSpan> WorkTimes
         {
             get { return this._workTimes; }
             set { this.RaiseAndSetIfChanged(ref this._workTimes, value); }
@@ -46,7 +45,7 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._selectedWorkTime, value); }
         }
 
-        public ReactiveObservableCollection<TimeSpan> BreakTimes
+        public ReactiveList<TimeSpan> BreakTimes
         {
             get { return this._breakTimes; }
             set { this.RaiseAndSetIfChanged(ref this._breakTimes, value); }
@@ -145,11 +144,11 @@ namespace CTime2.Views.Settings
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
 
-            this.WorkTimes = new ReactiveObservableCollection<TimeSpan>(Enumerable
+            this.WorkTimes = new ReactiveList<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
 
-            this.BreakTimes = new ReactiveObservableCollection<TimeSpan>(Enumerable
+            this.BreakTimes = new ReactiveList<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
         }

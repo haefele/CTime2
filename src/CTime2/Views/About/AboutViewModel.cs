@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;
 using Windows.Storage.Streams;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
@@ -13,7 +12,7 @@ using UwCore.Logging;
 
 namespace CTime2.Views.About
 {
-    public class AboutViewModel : ReactiveScreen
+    public class AboutViewModel : UwCoreScreen
     {
         private Version _currentVersion;
 

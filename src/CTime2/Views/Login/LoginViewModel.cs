@@ -5,7 +5,6 @@ using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.ApplicationModes;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
@@ -22,7 +21,7 @@ using UwCore.Extensions;
 
 namespace CTime2.Views.Login
 {
-    public class LoginViewModel : ReactiveScreen
+    public class LoginViewModel : UwCoreScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;

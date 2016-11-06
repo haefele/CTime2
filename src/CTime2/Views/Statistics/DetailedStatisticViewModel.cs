@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Sharing;
@@ -17,7 +16,7 @@ using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Statistics
 {
-    public class DetailedStatisticViewModel : ReactiveScreen
+    public class DetailedStatisticViewModel : UwCoreScreen
     {
         #region Fields
         private readonly ICTimeService _cTimeService;
@@ -25,15 +24,15 @@ namespace CTime2.Views.Statistics
         private readonly INavigationService _navigationService;
         private readonly ISharingService _sharingService;
 
-        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticChartItem>[]> _chartItemsHelper;
+        private readonly ObservableAsPropertyHelper<ReactiveList<StatisticChartItem>[]> _chartItemsHelper;
         #endregion
 
         #region Properties
-        public ReactiveObservableCollection<StatisticChartItem>[] ChartItems => this._chartItemsHelper.Value;
+        public ReactiveList<StatisticChartItem>[] ChartItems => this._chartItemsHelper.Value;
         #endregion
 
         #region Commands
-        public UwCoreCommand<ReactiveObservableCollection<StatisticChartItem>[]> LoadChart { get; }
+        public UwCoreCommand<ReactiveList<StatisticChartItem>[]> LoadChart { get; }
         public UwCoreCommand<Unit> GoToMyTimesCommand { get; }
         public UwCoreCommand<Unit> Share { get; }
         #endregion
@@ -86,7 +85,7 @@ namespace CTime2.Views.Statistics
             await this.LoadChart.ExecuteAsync();
         }
 
-        private async Task<ReactiveObservableCollection<StatisticChartItem>[]> LoadChartImpl()
+        private async Task<ReactiveList<StatisticChartItem>[]> LoadChartImpl()
         {
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
@@ -96,7 +95,7 @@ namespace CTime2.Views.Statistics
                 .ToList();
 
             return this.GetChartItems(timesByDay)
-                .Select(f => new ReactiveObservableCollection<StatisticChartItem>(f))
+                .Select(f => new ReactiveList<StatisticChartItem>(f))
                 .Select(f => { this.EnsureAllDatesAreThere(f, valueForFilledDates:0); return f; })
                 .ToArray();
         }

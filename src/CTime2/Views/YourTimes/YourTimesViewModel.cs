@@ -3,7 +3,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Sharing;
@@ -16,25 +15,18 @@ using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.YourTimes
 {
-    public class YourTimesViewModel : ReactiveScreen
+    public class YourTimesViewModel : UwCoreScreen
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly ISharingService _sharingService;
-
-        private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
-        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<TimesByDay>> _timesHelper;
+        
+        private readonly ObservableAsPropertyHelper<ReactiveList<TimesByDay>> _timesHelper;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
-
-        public override string DisplayName
-        {
-            get { return this._displayNameHelper.Value; }
-            set { }
-        }
-
-        public ReactiveObservableCollection<TimesByDay> Times => this._timesHelper.Value;
+        
+        public ReactiveList<TimesByDay> Times => this._timesHelper.Value;
 
         public DateTimeOffset StartDate
         {
@@ -48,7 +40,7 @@ namespace CTime2.Views.YourTimes
             set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
         }
 
-        public UwCoreCommand<ReactiveObservableCollection<TimesByDay>> LoadTimes { get; }
+        public UwCoreCommand<ReactiveList<TimesByDay>> LoadTimes { get; }
         public UwCoreCommand<Unit> Share { get; }
 
         public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, ISharingService sharingService)
@@ -63,7 +55,7 @@ namespace CTime2.Views.YourTimes
 
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("MyTimes.TitleFormat", this.StartDate, this.EndDate))
-                .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
+                .Subscribe(name => this.DisplayName = name);
 
             this.LoadTimes = UwCoreCommand.Create(this.LoadTimesImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Times"))
@@ -86,10 +78,10 @@ namespace CTime2.Views.YourTimes
             await this.LoadTimes.ExecuteAsync();
         }
         
-        private async Task<ReactiveObservableCollection<TimesByDay>> LoadTimesImpl()
+        private async Task<ReactiveList<TimesByDay>> LoadTimesImpl()
         {
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
-            return new ReactiveObservableCollection<TimesByDay>(TimesByDay.Create(times));
+            return new ReactiveList<TimesByDay>(TimesByDay.Create(times));
         }
         
         private Task ShareImpl()

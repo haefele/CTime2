@@ -1,15 +1,15 @@
 ﻿using System.Reactive;
 using System.Threading.Tasks;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.Dialog;
 
 namespace CTime2.Views.HeaderDetails
 {
-    public class HeaderDetailsViewModel : ReactiveScreen
+    public class HeaderDetailsViewModel : UwCoreScreen
     {
         private readonly IDialogService _dialogService;
 
