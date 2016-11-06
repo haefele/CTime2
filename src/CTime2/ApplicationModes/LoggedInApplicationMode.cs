@@ -101,7 +101,7 @@ namespace CTime2.ApplicationModes
             this.Application.Actions.Remove(this._overviewHamburgerItem);
             this.Application.Actions.Remove(this._myTimesHamburgerItem);
             this.Application.Actions.Remove(this._attendanceListHamburgerItem);
-            this.Application.Actions.RemoveRange(this._employeeGroupHamburgerItems);
+            this.Application.Actions.RemoveAll(this._employeeGroupHamburgerItems);
             this.Application.Actions.Remove(this._statisticsItem);
             this.Application.SecondaryActions.Remove(this._logoutHamburgerItem);
         }

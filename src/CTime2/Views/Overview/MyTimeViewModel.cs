@@ -3,7 +3,6 @@ using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
@@ -20,7 +19,7 @@ using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Overview
 {
-    public class MyTimeViewModel : ReactiveScreen, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>
+    public class MyTimeViewModel : UwCoreScreen, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;

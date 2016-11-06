@@ -5,7 +5,6 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
@@ -25,7 +24,7 @@ namespace CTime2.Views.Terminal
         Pause,
     }
 
-    public class TerminalViewModel : ReactiveScreen
+    public class TerminalViewModel : UwCoreScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;

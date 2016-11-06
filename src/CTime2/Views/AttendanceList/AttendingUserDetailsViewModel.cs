@@ -7,7 +7,6 @@ using Windows.ApplicationModel.Calls;
 using Windows.ApplicationModel.Contacts;
 using Windows.ApplicationModel.Email;
 using Windows.Foundation.Metadata;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Contacts;
@@ -24,7 +23,7 @@ using UwCore.Services.Dialog;
 
 namespace CTime2.Views.AttendanceList
 {
-    public class AttendingUserDetailsViewModel : ReactiveScreen
+    public class AttendingUserDetailsViewModel : UwCoreScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;

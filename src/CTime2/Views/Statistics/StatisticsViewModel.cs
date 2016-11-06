@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
@@ -21,7 +20,7 @@ using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Statistics
 {
-    public class StatisticsViewModel : ReactiveScreen
+    public class StatisticsViewModel : UwCoreScreen
     {
         #region Fields
         private readonly IApplicationStateService _applicationStateService;
@@ -29,21 +28,14 @@ namespace CTime2.Views.Statistics
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         private readonly ISharingService _sharingService;
-
-        private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
+        
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
         private bool? _includeToday;
-        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<StatisticItem>> _statisticsHelper;
+        private readonly ObservableAsPropertyHelper<ReactiveList<StatisticItem>> _statisticsHelper;
         #endregion
 
         #region Properties
-        public override string DisplayName
-        {
-            get { return this._displayNameHelper.Value; }
-            set { }
-        }
-
         public DateTimeOffset StartDate
         {
             get { return this._startDate; }
@@ -60,11 +52,11 @@ namespace CTime2.Views.Statistics
             set { this.RaiseAndSetIfChanged(ref this._includeToday, value); }
         }
 
-        public ReactiveObservableCollection<StatisticItem> Statistics => this._statisticsHelper.Value;
+        public ReactiveList<StatisticItem> Statistics => this._statisticsHelper.Value;
         #endregion
 
         #region Commands
-        public UwCoreCommand<ReactiveObservableCollection<StatisticItem>> LoadStatistics { get; }
+        public UwCoreCommand<ReactiveList<StatisticItem>> LoadStatistics { get; }
         public UwCoreCommand<Unit> Share { get; }
         #endregion
 
@@ -95,7 +87,7 @@ namespace CTime2.Views.Statistics
 
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
-                .ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
+                .Subscribe(name => this.DisplayName = name);
             
             this.StartDate = DateTimeOffset.Now.StartOfMonth();
             this.EndDate = DateTimeOffset.Now.WithoutTime();
@@ -111,7 +103,7 @@ namespace CTime2.Views.Statistics
         }
 
         #region Methods
-        private async Task<ReactiveObservableCollection<StatisticItem>> LoadStatisticsImpl()
+        private async Task<ReactiveList<StatisticItem>> LoadStatisticsImpl()
         {
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
@@ -138,7 +130,7 @@ namespace CTime2.Views.Statistics
             if (times.Count == 0 || timesByDay.Count == 0 || timesByDay.Count(f => f.Hours != TimeSpan.Zero) == 0)
             {
                 await this._dialogService.ShowAsync(CTime2Resources.Get("Statistics.NoTimesBetweenStartAndEndDate"));
-                return new ReactiveObservableCollection<StatisticItem>();
+                return new ReactiveList<StatisticItem>();
             }
 
             var workDayHours = this._applicationStateService.GetWorkDayHours();
@@ -242,7 +234,7 @@ namespace CTime2.Views.Statistics
                     : null,
             };
 
-            return new ReactiveObservableCollection<StatisticItem>(statisticItems.Where(f => f != null));
+            return new ReactiveList<StatisticItem>(statisticItems.Where(f => f != null));
         }
         
         private Task ShareImpl()

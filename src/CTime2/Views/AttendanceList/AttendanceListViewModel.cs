@@ -4,7 +4,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
@@ -20,7 +19,7 @@ using UwCore.Services.Navigation;
 
 namespace CTime2.Views.AttendanceList
 {
-    public class AttendanceListViewModel : ReactiveScreen
+    public class AttendanceListViewModel : UwCoreScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
@@ -28,17 +27,17 @@ namespace CTime2.Views.AttendanceList
         private readonly IEmployeeGroupService _employeeGroupService;
         private readonly IDialogService _dialogService;
 
-        private ReactiveObservableCollection<AttendingUser> _selectedUsers;
-        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<AttendingUserByIsAttending>> _usersHelper;
+        private ReactiveList<AttendingUser> _selectedUsers;
+        private readonly ObservableAsPropertyHelper<ReactiveList<AttendingUserByIsAttending>> _usersHelper;
         private AttendanceListState _state;
         private string _groupName;
 
-        public ReactiveObservableCollection<AttendingUser> SelectedUsers
+        public ReactiveList<AttendingUser> SelectedUsers
         {
             get { return this._selectedUsers; }
             set { this.RaiseAndSetIfChanged(ref this._selectedUsers, value); }
         }
-        public ReactiveObservableCollection<AttendingUserByIsAttending> Users => this._usersHelper.Value;
+        public ReactiveList<AttendingUserByIsAttending> Users => this._usersHelper.Value;
         public AttendanceListState State
         {
             get { return this._state; }
@@ -50,7 +49,7 @@ namespace CTime2.Views.AttendanceList
             set { this.RaiseAndSetIfChanged(ref this._groupName, value); }
         }
 
-        public UwCoreCommand<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsers { get; }
+        public UwCoreCommand<ReactiveList<AttendingUserByIsAttending>> LoadUsers { get; }
         public UwCoreCommand<Unit> ShowDetails { get; }
         public UwCoreCommand<Unit> CreateGroup { get; }
         public UwCoreCommand<Unit> SaveGroup { get; }
@@ -76,7 +75,7 @@ namespace CTime2.Views.AttendanceList
             this._dialogService = dialogService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.AttendanceList");
-            this.SelectedUsers = new ReactiveObservableCollection<AttendingUser>();
+            this.SelectedUsers = new ReactiveList<AttendingUser>();
             this.State = AttendanceListState.Loading;
 
             this.LoadUsers = UwCoreCommand.Create(this.LoadUsersImpl)
@@ -122,7 +121,7 @@ namespace CTime2.Views.AttendanceList
             await this.LoadUsers.ExecuteAsync();
         }
 
-        private async Task<ReactiveObservableCollection<AttendingUserByIsAttending>> LoadUsersImpl()
+        private async Task<ReactiveList<AttendingUserByIsAttending>> LoadUsersImpl()
         {
             var currentUser = this._applicationStateService.GetCurrentUser();
 
@@ -146,7 +145,7 @@ namespace CTime2.Views.AttendanceList
                 this.State = AttendanceListState.View;
             }
 
-            return new ReactiveObservableCollection<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(attendingUsers));
+            return new ReactiveList<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(attendingUsers));
         }
 
         private Task ShowDetailsImpl()

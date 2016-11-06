@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using UwCore;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Overview
 {
-    public abstract class StampTimeStateViewModelBase : ReactiveScreen
+    public abstract class StampTimeStateViewModelBase : UwCoreScreen
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;

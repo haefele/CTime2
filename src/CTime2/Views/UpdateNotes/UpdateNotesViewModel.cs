@@ -1,12 +1,12 @@
 ﻿using Windows.ApplicationModel;
-using Caliburn.Micro.ReactiveUI;
 using CTime2.Strings;
 using ReactiveUI;
+using UwCore;
 using UwCore.Extensions;
 
 namespace CTime2.Views.UpdateNotes
 {
-    public class UpdateNotesViewModel : ReactiveScreen
+    public class UpdateNotesViewModel : UwCoreScreen
     {
         private string _newVersionInstalled;
 
