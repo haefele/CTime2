@@ -26,7 +26,7 @@ using UwCore.Services.Dialog;
 namespace CTime2.ApplicationModes
 {
     [AutoSubscribeEvents]
-    public class LoggedInApplicationMode : ApplicationMode, ICustomStartupApplicationMode, IHandleWithTask<EmployeeGroupCreated>, IHandleWithTask<EmployeeGroupDeleted>
+    public class LoggedInApplicationMode : ShellMode, ICustomStartupShellMode, IHandleWithTask<EmployeeGroupCreated>, IHandleWithTask<EmployeeGroupDeleted>
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly IDialogService _dialogService;
@@ -75,9 +75,9 @@ namespace CTime2.ApplicationModes
         {
             await base.AddActions();
 
-            this.Application.Actions.Add(this._overviewHamburgerItem);
-            this.Application.Actions.Add(this._myTimesHamburgerItem);
-            this.Application.Actions.Add(this._attendanceListHamburgerItem);
+            this.Shell.Actions.Add(this._overviewHamburgerItem);
+            this.Shell.Actions.Add(this._myTimesHamburgerItem);
+            this.Shell.Actions.Add(this._attendanceListHamburgerItem);
 
             var currentUser = this._applicationStateService.GetCurrentUser();
             this._employeeGroupHamburgerItems.Clear();
@@ -87,23 +87,23 @@ namespace CTime2.ApplicationModes
                 hamburgerItem.AddParameter<AttendanceListViewModel>(f => f.EmployeeGroupId, @group.Id);
 
                 this._employeeGroupHamburgerItems.Add(hamburgerItem);
-                this.Application.Actions.Add(hamburgerItem);
+                this.Shell.Actions.Add(hamburgerItem);
             }
 
-            this.Application.Actions.Add(this._statisticsItem);
-            this.Application.SecondaryActions.Add(this._logoutHamburgerItem);
+            this.Shell.Actions.Add(this._statisticsItem);
+            this.Shell.SecondaryActions.Add(this._logoutHamburgerItem);
         }
 
         protected override async Task RemoveActions()
         {
             await base.RemoveActions();
 
-            this.Application.Actions.Remove(this._overviewHamburgerItem);
-            this.Application.Actions.Remove(this._myTimesHamburgerItem);
-            this.Application.Actions.Remove(this._attendanceListHamburgerItem);
-            this.Application.Actions.RemoveAll(this._employeeGroupHamburgerItems);
-            this.Application.Actions.Remove(this._statisticsItem);
-            this.Application.SecondaryActions.Remove(this._logoutHamburgerItem);
+            this.Shell.Actions.Remove(this._overviewHamburgerItem);
+            this.Shell.Actions.Remove(this._myTimesHamburgerItem);
+            this.Shell.Actions.Remove(this._attendanceListHamburgerItem);
+            this.Shell.Actions.RemoveAll(this._employeeGroupHamburgerItems);
+            this.Shell.Actions.Remove(this._statisticsItem);
+            this.Shell.SecondaryActions.Remove(this._logoutHamburgerItem);
         }
         
         private async void Logout()
@@ -111,7 +111,7 @@ namespace CTime2.ApplicationModes
             this._applicationStateService.SetCurrentUser(null);
             await this._applicationStateService.SaveStateAsync();
 
-            this.Application.CurrentMode = IoC.Get<LoggedOutApplicationMode>();
+            this.Shell.CurrentMode = IoC.Get<LoggedOutApplicationMode>();
         }
 
         public async void HandleCustomStartup(string tileId, string arguments)

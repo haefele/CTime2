@@ -41,14 +41,7 @@ namespace CTime2.Views.About
             var message = new EmailMessage();
             message.To.Add(new EmailRecipient(CTime2Resources.Get("Feedback.EmailAddress")));
             message.Subject = CTime2Resources.Get("Feedback.Subject");
-
-            var logs = await LoggerFactory.GetCompressedLogs();
-            if (logs != null)
-            {
-                var reference = RandomAccessStreamReference.CreateFromStream(await logs.ToRandomAccessStreamAsync());
-                message.Attachments.Add(new EmailAttachment(CTime2Resources.Get("Feedback.LogsFileName"), reference));
-            }
-
+            
             await EmailManager.ShowComposeNewEmailAsync(message);
         }
     }

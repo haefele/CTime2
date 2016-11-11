@@ -25,7 +25,7 @@ namespace CTime2.Views.Login
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
-        private readonly IApplication _application;
+        private readonly IShell _shell;
         private readonly IDialogService _dialogService;
         private readonly IBiometricsService _biometricsService;
 
@@ -47,17 +47,17 @@ namespace CTime2.Views.Login
         public UwCoreCommand<Unit> Login { get; }
         public UwCoreCommand<Unit> RememberedLogin { get; }
 
-        public LoginViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IApplication application, IDialogService dialogService, IBiometricsService biometricsService)
+        public LoginViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IShell shell, IDialogService dialogService, IBiometricsService biometricsService)
         {
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
-            Guard.NotNull(application, nameof(application));
+            Guard.NotNull(shell, nameof(shell));
             Guard.NotNull(dialogService, nameof(dialogService));
             Guard.NotNull(biometricsService, nameof(biometricsService));
 
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
-            this._application = application;
+            this._shell = shell;
             this._dialogService = dialogService;
             this._biometricsService = biometricsService;
             
@@ -110,7 +110,7 @@ namespace CTime2.Views.Login
 
             await this._applicationStateService.SaveStateAsync();
 
-            this._application.CurrentMode = IoC.Get<LoggedInApplicationMode>();
+            this._shell.CurrentMode = IoC.Get<LoggedInApplicationMode>();
         }
     }
 }

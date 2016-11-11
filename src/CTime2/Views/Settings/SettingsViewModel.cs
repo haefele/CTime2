@@ -23,7 +23,7 @@ namespace CTime2.Views.Settings
         private readonly IBiometricsService _biometricsService;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IBandService _bandService;
-        private readonly IApplication _application;
+        private readonly IShell _shell;
 
         private ReactiveList<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
@@ -79,7 +79,7 @@ namespace CTime2.Views.Settings
         public UwCoreCommand<Unit> RememberLogin { get; }
         public UwCoreCommand<Unit> ToggleBandTile { get; }
 
-        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IBandService bandService, IApplication application)
+        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IBandService bandService, IShell shell)
         {
             Guard.NotNull(biometricsService, nameof(biometricsService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
@@ -88,7 +88,7 @@ namespace CTime2.Views.Settings
             this._biometricsService = biometricsService;
             this._applicationStateService = applicationStateService;
             this._bandService = bandService;
-            this._application = application;
+            this._shell = shell;
 
             var hasUser = new ReplaySubject<bool>(1);
             hasUser.OnNext(this._applicationStateService.GetCurrentUser() != null);
@@ -120,7 +120,7 @@ namespace CTime2.Views.Settings
             this.WhenAnyValue(f => f.Theme)
                 .Subscribe(theme =>
                 {
-                    this._application.Theme = theme;
+                    this._shell.Theme = theme;
                     this._applicationStateService.SetApplicationTheme(theme);
                 });
 

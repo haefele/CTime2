@@ -16,7 +16,7 @@ namespace CTime2.BandService
     public sealed class CTime2BandService : IBackgroundTask
     {
         #region Logger
-        private static readonly Logger Logger = LoggerFactory.GetLogger<CTime2BandService>();
+        private static readonly ILog Logger = LogManager.GetLog(typeof(CTime2BandService));
 
         private BackgroundTaskDeferral _deferral;
         #endregion
@@ -56,7 +56,7 @@ namespace CTime2.BandService
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, "An error occurred.");
+                Logger.Error(exception);
 
                 this.Close();
             }

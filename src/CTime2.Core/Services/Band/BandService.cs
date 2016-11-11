@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Media.Imaging;
+using Caliburn.Micro;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
@@ -23,7 +24,7 @@ namespace CTime2.Core.Services.Band
     public class BandService : IBandService, ICTimeStampHelperCallback
     {
         #region Logging
-        private static readonly Logger Logger = LoggerFactory.GetLogger<CTimeService>();
+        private static readonly ILog Logger = LogManager.GetLog(typeof(CTimeService));
         #endregion
 
         #region Fields
@@ -179,7 +180,7 @@ namespace CTime2.Core.Services.Band
         {
             try
             {
-                Logger.Debug("Handling TileOpened event.");
+                Logger.Info("Handling TileOpened event.");
 
                 this._backgroundTileClient = await this.GetClientAsync(true);
                 await this.ChangeTileDataToReadyAsync(this._backgroundTileClient);
@@ -188,7 +189,7 @@ namespace CTime2.Core.Services.Band
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, "Error while handling TileOpened event.");
+                Logger.Error(exception);
                 
                 if (this._backgroundTileClient != null)
                 {
@@ -200,7 +201,7 @@ namespace CTime2.Core.Services.Band
             }
             finally
             {
-                Logger.Debug("Handled TileOpened event.");
+                Logger.Info("Handled TileOpened event.");
 
                 this._backgroundTileEventTaskSource.SetResult(null);
             }
@@ -210,7 +211,7 @@ namespace CTime2.Core.Services.Band
         {
             try
             {
-                Logger.Debug("Handling TileClosed event.");
+                Logger.Info("Handling TileClosed event.");
 
                 //Make sure the client is created
                 //The background task might be stopped after the OnTileOpened event
@@ -222,7 +223,7 @@ namespace CTime2.Core.Services.Band
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, "Error while handling TileClosed event.");
+                Logger.Error(exception);
 
                 if (this._backgroundTileClient != null)
                 {
@@ -234,7 +235,7 @@ namespace CTime2.Core.Services.Band
             }
             finally
             {
-                Logger.Debug("Handled TileClosed event.");
+                Logger.Info("Handled TileClosed event.");
 
                 this._backgroundTileEventTaskSource.SetResult(null);
             }
@@ -244,7 +245,7 @@ namespace CTime2.Core.Services.Band
         {
             try
             {
-                Logger.Debug("Handling TileButtonPressed event.");
+                Logger.Info("Handling TileButtonPressed event.");
 
                 //Make sure the client is created
                 //The background task might be stopped after the OnTileOpened event
@@ -274,7 +275,7 @@ namespace CTime2.Core.Services.Band
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, "Error while handling TileButtonPressed event.");
+                Logger.Error(exception);
 
                 if (this._backgroundTileClient != null)
                 {
@@ -286,7 +287,7 @@ namespace CTime2.Core.Services.Band
             }
             finally
             {
-                Logger.Debug("Handled TileButtonPressed event.");
+                Logger.Info("Handled TileButtonPressed event.");
 
                 this._backgroundTileEventTaskSource.SetResult(null);
             }
