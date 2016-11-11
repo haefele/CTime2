@@ -29,7 +29,7 @@ namespace CTime2.Core.Services.CTime
 {
     public class CTimeService : ICTimeService
     {
-        private static readonly Logger Logger = LoggerFactory.GetLogger<CTimeService>();
+        private static readonly ILog Logger = LogManager.GetLog(typeof(CTimeService));
 
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplicationStateService _applicationStateService;
@@ -79,7 +79,9 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, $"Exception in method {nameof(this.Login)}. Email address: {emailAddress}");
+                Logger.Warn($"Exception in method {nameof(this.Login)}. Email address: {emailAddress}");
+                Logger.Error(exception);
+
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLogin") , exception);
             }
         }
@@ -130,7 +132,9 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, $"Exception in method {nameof(this.GetTimes)}. Employee: {employeeGuid}, Start: {start}, End: {end}");
+                Logger.Warn($"Exception in method {nameof(this.GetTimes)}. Employee: {employeeGuid}, Start: {start}, End: {end}");
+                Logger.Error(exception);
+
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingTimes"), exception);
             }
         }
@@ -162,7 +166,9 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, $"Exception in method {nameof(this.SaveTimer)}. Employee: {employeeGuid}, Time: {time}, Company Id: {companyId}, State: {(int)state}");
+                Logger.Warn($"Exception in method {nameof(this.SaveTimer)}. Employee: {employeeGuid}, Time: {time}, Company Id: {companyId}, State: {(int)state}");
+                Logger.Error(exception);
+
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"), exception);
             }
         }
@@ -179,7 +185,9 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, $"Exception in method {nameof(this.GetCurrentTime)}. Employee: {employeeGuid}");
+                Logger.Warn($"Exception in method {nameof(this.GetCurrentTime)}. Employee: {employeeGuid}");
+                Logger.Error(exception);
+
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingCurrentTime"), exception);
             }
         }
@@ -244,7 +252,9 @@ namespace CTime2.Core.Services.CTime
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, $"Exception in method {nameof(this.GetAttendingUsers)}. Company Id: {companyId}");
+                Logger.Warn($"Exception in method {nameof(this.GetAttendingUsers)}. Company Id: {companyId}");
+                Logger.Error(exception);
+
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }
         }

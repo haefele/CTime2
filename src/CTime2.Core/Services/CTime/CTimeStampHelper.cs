@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using UwCore.Logging;
@@ -10,7 +11,7 @@ namespace CTime2.Core.Services.CTime
     public class CTimeStampHelper
     {
         #region Logger
-        private static readonly Logger _logger = LoggerFactory.GetLogger<CTimeStampHelper>();
+        private static readonly ILog Logger = LogManager.GetLog(typeof(CTimeStampHelper));
         #endregion
 
         #region Fields
@@ -32,7 +33,7 @@ namespace CTime2.Core.Services.CTime
 
             if (this._applicationStateService.GetCurrentUser() == null)
             {
-                _logger.Debug(() => "User is not logged in.");
+                Logger.Info("User is not logged in.");
                 await callback.OnNotLoggedIn();
 
                 return;
@@ -44,12 +45,12 @@ namespace CTime2.Core.Services.CTime
             {
                 if (callback.SupportsQuestions())
                 {
-                    _logger.Debug(() => "User wants to check-in. But he is already. Asking him if he wants to check-out instead.");
+                    Logger.Info("User wants to check-in. But he is already. Asking him if he wants to check-out instead.");
                     var checkOutResult = await callback.OnAlreadyCheckedInWannaCheckOut();
 
                     if (checkOutResult == false)
                     {
-                        _logger.Debug(() => "User does not want to check-out. Doing nothing.");
+                        Logger.Info("User does not want to check-out. Doing nothing.");
                         await callback.OnDidNothing();
 
                         return;
@@ -59,7 +60,7 @@ namespace CTime2.Core.Services.CTime
                 }
                 else
                 {
-                    _logger.Debug(() => "User wants to check-in. But he is already. Doing nothing.");
+                    Logger.Info("User wants to check-in. But he is already. Doing nothing.");
                     await callback.OnAlreadyCheckedIn();
 
                     return;
@@ -70,12 +71,12 @@ namespace CTime2.Core.Services.CTime
             {
                 if (callback.SupportsQuestions())
                 {
-                    _logger.Debug(() => "User wants to check-out. But he is already. Asking him if he wants to check-in instead.");
+                    Logger.Info("User wants to check-out. But he is already. Asking him if he wants to check-in instead.");
                     var checkInResult = await callback.OnAlreadyCheckedOutWannaCheckIn();
 
                     if (checkInResult == false)
                     {
-                        _logger.Debug(() => "User does not want to check-in. Doing nothing.");
+                        Logger.Info("User does not want to check-in. Doing nothing.");
                         await callback.OnDidNothing();
 
                         return;
@@ -85,19 +86,19 @@ namespace CTime2.Core.Services.CTime
                 }
                 else
                 {
-                    _logger.Debug(() => "User wants to check-out. But he is already. Doing nothing.");
+                    Logger.Info("User wants to check-out. But he is already. Doing nothing.");
                     await callback.OnAlreadyCheckedOut();
 
                     return;
                 }
             }
 
-            _logger.Debug(() => "Saving the timer.");
+            Logger.Info("Saving the timer.");
             await this._cTimeService.SaveTimer(
                 this._applicationStateService.GetCurrentUser(),
                 timeState);
 
-            _logger.Debug(() => "Finished voice command.");
+            Logger.Info("Finished voice command.");
             await callback.OnSuccess(timeState);
         } 
     }

@@ -16,7 +16,7 @@ namespace CTime2.VoiceCommandService
     public sealed class CTime2VoiceCommandService : IBackgroundTask
     {
         #region Logger
-        private static readonly Logger _logger = LoggerFactory.GetLogger<CTime2VoiceCommandService>();
+        private static readonly ILog Logger = LogManager.GetLog(typeof(CTime2VoiceCommandService));
         #endregion
 
         #region Fields
@@ -43,7 +43,7 @@ namespace CTime2.VoiceCommandService
 
                     var voiceCommand = await this._connection.GetVoiceCommandAsync();
 
-                    _logger.Debug(() => $"Executing voice command '{voiceCommand.CommandName}'.");
+                    Logger.Info($"Executing voice command '{voiceCommand.CommandName}'.");
 
                     var applicationStateService = new ApplicationStateService();
                     await applicationStateService.RestoreStateAsync();
@@ -73,7 +73,8 @@ namespace CTime2.VoiceCommandService
             }
             catch (Exception exception)
             {
-                _logger.Error(exception, () => "Exception occured in the voice command service.");
+                Logger.Warn("Exception occured in the voice command service.");
+                Logger.Error(exception);
             }
             finally
             {

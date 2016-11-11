@@ -9,7 +9,7 @@ using UwCore.Hamburger;
 
 namespace CTime2.ApplicationModes
 {
-    public class TerminalApplicationMode : ApplicationMode
+    public class TerminalApplicationMode : ShellMode
     {
         private readonly NavigatingHamburgerItem _terminalHamburgerItem;
         private readonly ClickableHamburgerItem _goBackHamburgerItem;
@@ -42,21 +42,21 @@ namespace CTime2.ApplicationModes
         {
             await base.AddActions();
 
-            this.Application.Actions.Add(this._terminalHamburgerItem);
-            this.Application.SecondaryActions.Insert(0, this._goBackHamburgerItem);
+            this.Shell.Actions.Add(this._terminalHamburgerItem);
+            this.Shell.SecondaryActions.Insert(0, this._goBackHamburgerItem);
         }
 
         protected override async Task RemoveActions()
         {
             await base.RemoveActions();
 
-            this.Application.Actions.Remove(this._terminalHamburgerItem);
-            this.Application.SecondaryActions.Remove(this._goBackHamburgerItem);
+            this.Shell.Actions.Remove(this._terminalHamburgerItem);
+            this.Shell.SecondaryActions.Remove(this._goBackHamburgerItem);
         }
 
         private void GoBack()
         {
-            this.Application.CurrentMode = IoC.Get<LoggedOutApplicationMode>();
+            this.Shell.CurrentMode = IoC.Get<LoggedOutApplicationMode>();
         }
     }
 }

@@ -10,7 +10,7 @@ using UwCore.Hamburger;
 
 namespace CTime2.ApplicationModes
 {
-    public class LoggedOutApplicationMode : ApplicationMode
+    public class LoggedOutApplicationMode : ShellMode
     {
         private readonly HamburgerItem _loginHamburgerItem;
         private readonly HamburgerItem _switchToTerminalHamburgerItem;
@@ -32,21 +32,21 @@ namespace CTime2.ApplicationModes
         {
             await base.AddActions();
 
-            this.Application.Actions.Add(this._loginHamburgerItem);
-            this.Application.SecondaryActions.Insert(0, this._switchToTerminalHamburgerItem);
+            this.Shell.Actions.Add(this._loginHamburgerItem);
+            this.Shell.SecondaryActions.Insert(0, this._switchToTerminalHamburgerItem);
         }
 
         protected override async Task RemoveActions()
         {
             await base.RemoveActions();
 
-            this.Application.Actions.Remove(this._loginHamburgerItem);
-            this.Application.SecondaryActions.Remove(this._switchToTerminalHamburgerItem);
+            this.Shell.Actions.Remove(this._loginHamburgerItem);
+            this.Shell.SecondaryActions.Remove(this._switchToTerminalHamburgerItem);
         }
         
         private void SwitchToTerminal()
         {
-            this.Application.CurrentMode = IoC.Get<TerminalApplicationMode>();
+            this.Shell.CurrentMode = IoC.Get<TerminalApplicationMode>();
         }
     }
 }

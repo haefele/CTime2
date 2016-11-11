@@ -45,8 +45,6 @@ namespace CTime2
 {
     sealed partial class App
     {
-        private static readonly Logger Logger = LoggerFactory.GetLogger<App>();
-        
         public App()
         {
             this.InitializeComponent();
@@ -61,22 +59,22 @@ namespace CTime2
             this.ConfigureJumpList();
         }
 
-        public override void CustomizeApplication(IApplication application)
+        public override void CustomizeShell(IShell shell)
         {
-            base.CustomizeApplication(application);
+            base.CustomizeShell(shell);
 
-            application.Theme = IoC.Get<IApplicationStateService>().GetApplicationTheme();
+            shell.Theme = IoC.Get<IApplicationStateService>().GetApplicationTheme();
 
-            application.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
+            shell.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
 
-            application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
-            application.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
+            shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
+            shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }
         
-        public override ApplicationMode GetCurrentMode()
+        public override ShellMode GetCurrentMode()
         {
             return IoC.Get<IApplicationStateService>().GetCurrentUser() != null
-                ? (ApplicationMode)IoC.Get<LoggedInApplicationMode>()
+                ? (ShellMode)IoC.Get<LoggedInApplicationMode>()
                 : IoC.Get<LoggedOutApplicationMode>();
         }
 
@@ -115,7 +113,7 @@ namespace CTime2
             yield return typeof(TerminalViewModel);
         }
 
-        public override IEnumerable<Type> GetApplicationModeTypes()
+        public override IEnumerable<Type> GetShellModeTypes()
         {
             yield return typeof(LoggedOutApplicationMode);
             yield return typeof(LoggedInApplicationMode);
@@ -174,7 +172,10 @@ namespace CTime2
             }
             catch (Exception exception)
             {
-                Logger.Error(exception, $"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
+                var log = LogManager.GetLog(typeof(App));
+
+                log.Warn($"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
+                log.Error(exception);
             }
         }
 

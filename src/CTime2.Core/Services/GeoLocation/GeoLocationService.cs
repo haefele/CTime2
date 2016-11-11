@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Caliburn.Micro;
 using CTime2.Core.Data;
 using UwCore.Extensions;
 using UwCore.Logging;
@@ -9,7 +10,7 @@ namespace CTime2.Core.Services.GeoLocation
 {
     public class GeoLocationService : IGeoLocationService
     {
-        private static readonly Logger Logger = LoggerFactory.GetLogger<GeoLocationService>();
+        private static readonly ILog Logger = LogManager.GetLog(typeof(GeoLocationService));
 
         public async Task<GeoLocationState> GetGeoLocationStateAsync(User user)
         {
@@ -38,7 +39,8 @@ namespace CTime2.Core.Services.GeoLocation
                 }
                 catch (Exception exception)
                 {
-                    Logger.Error(exception, $"An error occured while getting the current geo-location. {exception.GetFullMessage()}");
+                    Logger.Warn($"An error occured while getting the current geo-location. {exception.GetFullMessage()}");
+                    Logger.Error(exception);
                 }
             }
 
