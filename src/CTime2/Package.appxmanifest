@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="2784a954-b9c1-4045-b74d-b2f57348533d" Publisher="CN=haefe" Version="9999.9999.9999" />
+  <Identity Name="16761DanielHaefele.c-timeUniversal" Publisher="CN=3400925E-5738-4A72-80AF-310AF3876A38" Version="9999.9999.9999" />
   <mp:PhoneIdentity PhoneProductId="2784a954-b9c1-4045-b74d-b2f57348533d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>CTime2</DisplayName>
-    <PublisherDisplayName>haefe</PublisherDisplayName>
+    <DisplayName>c-time Universal</DisplayName>
+    <PublisherDisplayName>Daniel Häfele</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -25,11 +25,11 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.appService" EntryPoint="CTime2.VoiceCommandService.CTime2VoiceCommandService">
-          <uap:AppService Name="CTime2VoiceCommandService" />
-        </uap:Extension>
         <uap:Extension Category="windows.appService" EntryPoint="CTime2.BandService.CTime2BandService">
           <uap:AppService Name="com.microsoft.band.observer" />
+        </uap:Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="CTime2.VoiceCommandService.CTime2VoiceCommandService">
+          <uap:AppService Name="CTime2VoiceCommandService" />
         </uap:Extension>
       </Extensions>
     </Application>
