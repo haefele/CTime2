@@ -38,10 +38,7 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Parameters
-        public DateTimeOffset StartDate { get; set; }
-        public DateTimeOffset EndDate { get; set; }
-        public StatisticChartKind StatisticChart { get; set; }
-        public bool IncludeToday { get; set; }
+        public Parameters Parameter { get; set; }
         #endregion
 
         public DetailedStatisticViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, INavigationService navigationService, ISharingService sharingService)
@@ -73,8 +70,8 @@ namespace CTime2.Views.Statistics
         {
             this._navigationService
                 .For<YourTimesViewModel>()
-                .WithParam(f => f.StartDate, new DateTimeOffset(chartItem.Date))
-                .WithParam(f => f.EndDate, new DateTimeOffset(chartItem.Date))
+                .WithParam(f => f.Parameter.StartDate, new DateTimeOffset(chartItem.Date))
+                .WithParam(f => f.Parameter.EndDate, new DateTimeOffset(chartItem.Date))
                 .Navigate();
         }
 
@@ -87,10 +84,10 @@ namespace CTime2.Views.Statistics
 
         private async Task<ReactiveList<StatisticChartItem>[]> LoadChartImpl()
         {
-            var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
+            var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.Parameter.StartDate.LocalDateTime, this.Parameter.EndDate.LocalDateTime);
 
             var timesByDay = TimesByDay.Create(times)
-                .Where(f => f.Day.Date != DateTime.Today || this.IncludeToday)
+                .Where(f => f.Day.Date != DateTime.Today || this.Parameter.IncludeToday)
                 .OrderBy(f => f.Day)
                 .ToList();
 
@@ -104,8 +101,8 @@ namespace CTime2.Views.Statistics
         {
             this._navigationService
                 .For<YourTimesViewModel>()
-                .WithParam(f => f.StartDate, this.StartDate)
-                .WithParam(f => f.EndDate, this.EndDate)
+                .WithParam(f => f.Parameter.StartDate, this.Parameter.StartDate)
+                .WithParam(f => f.Parameter.EndDate, this.Parameter.EndDate)
                 .Navigate();
 
             return Task.CompletedTask;
@@ -129,12 +126,12 @@ namespace CTime2.Views.Statistics
         private void EnsureAllDatesAreThere(ICollection<StatisticChartItem> result, double valueForFilledDates)
         {
             var endDate = new DateTimeOffset(result.Max(f => f.Date));
-            if (this.EndDate >= DateTimeOffset.Now)
+            if (this.Parameter.EndDate >= DateTimeOffset.Now)
             {
                 endDate = DateTimeOffset.Now;
             }
 
-            for (var date = this.StartDate; date <= endDate; date = date.AddDays(1))
+            for (var date = this.Parameter.StartDate; date <= endDate; date = date.AddDays(1))
             {
                 var dateIsMissing = result.Any(f => f.Date.Date == date.Date) == false; //Ignore time-zone when checking if a date is missing
                 if (dateIsMissing)
@@ -150,7 +147,7 @@ namespace CTime2.Views.Statistics
 
         private IEnumerable<StatisticChartItem>[] GetChartItems(IList<TimesByDay> times)
         {
-            switch (this.StatisticChart)
+            switch (this.Parameter.StatisticChart)
             {
                 case StatisticChartKind.WorkTime:
                     return new[]
@@ -221,7 +218,7 @@ namespace CTime2.Views.Statistics
 
         private string GetStatisticName()
         {
-            switch (this.StatisticChart)
+            switch (this.Parameter.StatisticChart)
             {
                 case StatisticChartKind.WorkTime:
                     return CTime2Resources.Get("WorkTimeChart.Title");
@@ -239,5 +236,15 @@ namespace CTime2.Views.Statistics
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        #region Internal
+        public class Parameters
+        {
+            public DateTimeOffset StartDate { get; set; }
+            public DateTimeOffset EndDate { get; set; }
+            public StatisticChartKind StatisticChart { get; set; }
+            public bool IncludeToday { get; set; }
+        }
+        #endregion
     }
 }

@@ -19,7 +19,7 @@
                         Grid.Row="0"
                         VerticalContentAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
-                        micro:View.Context="{x:Bind ViewModel.StatisticChart}" 
+                        micro:View.Context="{x:Bind ViewModel.Parameter.StatisticChart}" 
                         micro:View.Model="{x:Bind ViewModel}" />
 
         <CommandBar Grid.Row="1">

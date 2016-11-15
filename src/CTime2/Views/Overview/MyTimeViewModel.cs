@@ -112,8 +112,8 @@ namespace CTime2.Views.Overview
         private Task GoToMyTimesImpl()
         {
             this._navigationService.For<YourTimesViewModel>()
-                .WithParam(f => f.StartDate, DateTimeOffset.Now.WithoutTime())
-                .WithParam(f => f.EndDate, DateTimeOffset.Now.WithoutTime())
+                .WithParam(f => f.Parameter.StartDate, DateTimeOffset.Now.WithoutTime())
+                .WithParam(f => f.Parameter.EndDate, DateTimeOffset.Now.WithoutTime())
                 .Navigate();
 
             return Task.CompletedTask;

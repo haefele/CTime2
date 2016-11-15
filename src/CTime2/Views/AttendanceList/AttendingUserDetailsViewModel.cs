@@ -36,7 +36,7 @@ namespace CTime2.Views.AttendanceList
         
         public AttendingUser AttendingUser => this._attendingUserHelper.Value;
 
-        public string AttendingUserId { get; set; }
+        public Parameters Parameter { get; set; }
 
         public UwCoreCommand<AttendingUser> LoadAttendingUser { get; }
         public UwCoreCommand<Unit> Call { get; }
@@ -84,7 +84,7 @@ namespace CTime2.Views.AttendanceList
             var currentUser = this._applicationStateService.GetCurrentUser();
             var allAttendingUsers = await this._cTimeService.GetAttendingUsers(currentUser.CompanyId, currentUser.CompanyImageAsPng);
 
-            return allAttendingUsers.FirstOrDefault(f => f.Id == this.AttendingUserId);
+            return allAttendingUsers.FirstOrDefault(f => f.Id == this.Parameter.AttendingUserId);
         }
 
         private async Task SendMailImpl()
@@ -121,5 +121,12 @@ namespace CTime2.Views.AttendanceList
 
             await this.LoadAttendingUser.ExecuteAsync();
         }
+
+        #region Internal
+        public class Parameters
+        {
+            public string AttendingUserId { get; set; }
+        }
+        #endregion
     }
 }
