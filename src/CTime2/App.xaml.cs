@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
@@ -151,6 +152,12 @@ namespace CTime2
 
             yield return typeof(ISharingService);
             yield return typeof(SharingService);
+        }
+
+        public override bool IsHockeyAppEnabled()
+        {
+            return base.IsHockeyAppEnabled() &&
+                   Package.Current.Id.Version.ToVersion() != new Version("9999.9999.9999.0");
         }
 
         public override string GetHockeyAppId()

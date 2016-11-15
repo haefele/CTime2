@@ -19,6 +19,7 @@
             </Grid>
         </DataTemplate>
         <converter1:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <converter1:FeatureToVisibilityConverter x:Key="TerminalEnabledToVisibilityConverter" FeatureName="Terminal" />
     </Page.Resources>
 
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalScrollBarVisibility="Auto">
@@ -135,7 +136,8 @@
             </controls:SettingsGroup>
             <controls:SettingsGroup x:Uid="TerminalSettingsGroup" 
                                     Header="~Terminal"
-                                    Description="~Um diese App an einem Terminal zum Stempeln mit RFID-Chips zu verwenden, musst du deine Firmen-ID von c-time hier eintragen.&#10;Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6">
+                                    Description="~Um diese App an einem Terminal zum Stempeln mit RFID-Chips zu verwenden, musst du deine Firmen-ID von c-time hier eintragen.&#10;Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6"
+                                    Visibility="{Binding Converter={StaticResource TerminalEnabledToVisibilityConverter}}">
                 <controls:SettingsItem x:Uid="CompanyIdSettingsItem"
                                        Description="~Firmen-ID">
                     <!-- Through trial and error, I found that this combination of font-size padding and width looks about right. -->
@@ -150,3 +152,4 @@
         </StackPanel>
     </ScrollViewer>
 </Page>
+

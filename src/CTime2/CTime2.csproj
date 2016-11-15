@@ -115,6 +115,7 @@
     <Compile Include="CTimeStartupAction.cs" />
     <Compile Include="CTimeStartupArguments.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
+    <Compile Include="Features.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\CTime2Resources.cs" />
     <Compile Include="Styles.xaml.cs">
