@@ -42,28 +42,24 @@
             <RichTextBlock IsTextSelectionEnabled="False">
 
                 <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="GeneralUpdatesHeaderRun">~Allgemeine Verbesserungen!</Run>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="DatesHeaderRun">~Start- und Enddatum</Run>
                 </Paragraph>
-                <Paragraph><Run x:Uid="GeneralUpdatesContent1Run">~Direkt nach dem ersten Einstempeln konnte es vorkommen, dass die Stoppuhr rückwärts lief - jetzt nicht mehr.</Run></Paragraph>
-                <Paragraph><Run x:Uid="GeneralUpdatesContent2Run">~Unter "Meine Zeiten" sieht man jetzt, ähnlich wie in den Statistiken, im Titel den ausgewählten Zeitraum.</Run></Paragraph>
-                <Paragraph><Run x:Uid="GeneralUpdatesContent3Run">~Überall in der ganzen App wurde die Akzentfarbe eingebaut.</Run></Paragraph>
+                <Paragraph><Run x:Uid="DatesContent1Run">~Im Bereich der Zeiten und in den Statistiken wird sich das Start- und Enddatum jetzt gemerkt.</Run></Paragraph>
                 
                 <Paragraph />
 
                 <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="ImprovedStatisticsHeaderRun">~Verbesserungen bei den Statistiken!</Run>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="ShareHeaderRun">~Teilen!</Run>
                 </Paragraph>
-                <Paragraph><Run x:Uid="ImprovedStatisticsContent1Run">~Es gibt eine neue Statistik für das heutige Arbeitsende ohne Überstunden.</Run></Paragraph>
-                <Paragraph><Run x:Uid="ImprovedStatisticsContent2Run">~Außerdem wurde die Positionierung gerade bei langen Statistiknamen angepasst.</Run></Paragraph>
-                <Paragraph><Run x:Uid="ImprovedStatisticsContent3Run">~In der letzten Version hat sich ein kleiner Fehler eingeschlichten, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</Run></Paragraph>
+                <Paragraph><Run x:Uid="ShareContent1Run">~Einige Infos aus dieser App kann man jetzt mit anderen Apps teilen.</Run></Paragraph>
+                <Paragraph><Run x:Uid="ShareContent2Run">~Dadurch kann man zum Beispiel seine Zeiten per E-Mail versenden.</Run></Paragraph>
 
                 <Paragraph />
 
                 <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="ExtendedAttendanceListHeaderRun">~Erweiterte Anwesenheitsliste!</Run>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="AttendanceListGroupsHeaderRun">~Eigene Mitarbeitergruppen!</Run>
                 </Paragraph>
-                <Paragraph><Run x:Uid="ExtendedAttendanceListContent1Run">~In der Anwesenheitsliste kann man nun einen Mitarbeiter anklicken um mehr Infos von diesem zu sehen.</Run></Paragraph>
-                <Paragraph><Run x:Uid="ExtendedAttendanceListContent2Run">~Dort kann man ihm zum Beispiel direkt eine E-Mail senden, direkt anrufen, oder den eigenen Kontakten hinzufügen.</Run></Paragraph>
+                <Paragraph><Run x:Uid="AttendanceListGroupsContent1Run">~Um die Übersicht zu verbessern, kann man in der Anwesenheitsliste nun eigene Gruppen von Mitarbeitern erstellen.</Run></Paragraph>
 
             </RichTextBlock>
         </ScrollViewer>

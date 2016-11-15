@@ -397,39 +397,6 @@ Add the tile to your Microsoft Band 2 and use it to check-in!</value>
   <data name="AddAsContactTextBlock.Text" xml:space="preserve">
     <value>Add as contact</value>
   </data>
-  <data name="GeneralUpdatesContent1Run.Text" xml:space="preserve">
-    <value>Right after you have checked-in it was possible for the timer to run backwards - not anymore.</value>
-  </data>
-  <data name="GeneralUpdatesContent2Run.Text" xml:space="preserve">
-    <value>In "Your times" you can now see the selected date range in the header, just like you can in the statistics area.</value>
-  </data>
-  <data name="GeneralUpdatesContent3Run.Text" xml:space="preserve">
-    <value>The system accent color is now used all over the app.</value>
-  </data>
-  <data name="GeneralUpdatesHeaderRun.Text" xml:space="preserve">
-    <value>General improvements!</value>
-  </data>
-  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
-    <value>In the attendance list you can now click on an employee to see more infos about him.</value>
-  </data>
-  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
-    <value>For example, you can send him an email, call him, or add him to your contacts.</value>
-  </data>
-  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
-    <value>Improved attendance list!</value>
-  </data>
-  <data name="ImprovedStatisticsContent1Run.Text" xml:space="preserve">
-    <value>There is a new statistic for todays workende without overtime.</value>
-  </data>
-  <data name="ImprovedStatisticsContent2Run.Text" xml:space="preserve">
-    <value>Also, the positioning especially with large names has been improved.</value>
-  </data>
-  <data name="ImprovedStatisticsContent3Run.Text" xml:space="preserve">
-    <value>In the last version has been a little bug, which is why the buttons for "This month", "Last month", and "Last 7 days" did not work. That is fixed.</value>
-  </data>
-  <data name="ImprovedStatisticsHeaderRun.Text" xml:space="preserve">
-    <value>Improved statistics!</value>
-  </data>
   <data name="Loading.DeleteEmployeeGroup" xml:space="preserve">
     <value>Deleting group...</value>
   </data>
@@ -472,5 +439,26 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
   </data>
   <data name="CompanyIdSettingsItem.Description" xml:space="preserve">
     <value>Company-ID</value>
+  </data>
+  <data name="DatesContent1Run.Text" xml:space="preserve">
+    <value>In your times and the statistics the start- and enddate will now be remembered.</value>
+  </data>
+  <data name="DatesHeaderRun.Text" xml:space="preserve">
+    <value>Start- and enddate</value>
+  </data>
+  <data name="AttendanceListGroupsContent1Run.Text" xml:space="preserve">
+    <value>To get a better overview in the attendance list, you can now create your own groups of employees.</value>
+  </data>
+  <data name="AttendanceListGroupsHeaderRun.Text" xml:space="preserve">
+    <value>Custom employee groups!</value>
+  </data>
+  <data name="ShareContent1Run.Text" xml:space="preserve">
+    <value>Some information from this app can now be shared with other apps.</value>
+  </data>
+  <data name="ShareContent2Run.Text" xml:space="preserve">
+    <value>You can use this to send your times per email for example.</value>
+  </data>
+  <data name="ShareHeaderRun.Text" xml:space="preserve">
+    <value>Share!</value>
   </data>
 </root>
