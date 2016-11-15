@@ -40,6 +40,8 @@ namespace CTime2.Views.YourTimes
             set { this.RaiseAndSetIfChanged(ref this._endDate, value); }
         }
 
+        public Parameters Parameter { get; set; }
+
         public UwCoreCommand<ReactiveList<TimesByDay>> LoadTimes { get; }
         public UwCoreCommand<Unit> Share { get; }
 
@@ -83,21 +85,23 @@ namespace CTime2.Views.YourTimes
         {
             base.RestoreState(applicationStateService);
 
-            var startDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.StartDate), ApplicationState.Temp);
-            if (startDate != null)
-                this.StartDate = startDate.Value;
+            if (applicationStateService.HasValueFor(nameof(this.StartDate), ApplicationState.Temp))
+                this.StartDate = applicationStateService.Get<DateTimeOffset>(nameof(this.StartDate), ApplicationState.Temp);
 
-            var endDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.EndDate), ApplicationState.Temp);
-            if (endDate != null)
-            {
-                this.EndDate = endDate.Value;
-            }
+            if (applicationStateService.HasValueFor(nameof(this.EndDate), ApplicationState.Temp))
+                this.EndDate = applicationStateService.Get<DateTimeOffset>(nameof(this.EndDate), ApplicationState.Temp);
         }
 
         protected override async void OnActivate()
         {
             base.OnActivate();
 
+            if (this.Parameter != null)
+            {
+                this.StartDate = this.Parameter.StartDate;
+                this.EndDate = this.Parameter.EndDate;
+            }
+            
             await this.LoadTimes.ExecuteAsync();
         }
         
@@ -123,5 +127,13 @@ namespace CTime2.Views.YourTimes
 
             return Task.CompletedTask;
         }
+
+        #region Internal
+        public class Parameters
+        {
+            public DateTimeOffset StartDate { get; set; }
+            public DateTimeOffset EndDate { get; set; }
+        }
+        #endregion
     }
 }

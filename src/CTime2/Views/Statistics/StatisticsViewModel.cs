@@ -280,10 +280,10 @@ namespace CTime2.Views.Statistics
         {
             this._navigationService.Popup
                 .For<DetailedStatisticViewModel>()
-                .WithParam(f => f.StartDate, this.StartDate)
-                .WithParam(f => f.EndDate, this.EndDate)
-                .WithParam(f => f.StatisticChart, chartKind)
-                .WithParam(f => f.IncludeToday, this.IncludeToday.GetValueOrDefault())
+                .WithParam(f => f.Parameter.StartDate, this.StartDate)
+                .WithParam(f => f.Parameter.EndDate, this.EndDate)
+                .WithParam(f => f.Parameter.StatisticChart, chartKind)
+                .WithParam(f => f.Parameter.IncludeToday, this.IncludeToday.GetValueOrDefault())
                 .Navigate();
         }
         #endregion

@@ -152,7 +152,7 @@ namespace CTime2.Views.AttendanceList
         {
             this._navigationService.Popup
                 .For<AttendingUserDetailsViewModel>()
-                .WithParam(f => f.AttendingUserId, this.SelectedUsers.First().Id)
+                .WithParam(f => f.Parameter.AttendingUserId, this.SelectedUsers.First().Id)
                 .Navigate();
 
             return Task.CompletedTask;
