@@ -493,27 +493,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="SendMailButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>E-Mail senden</value>
   </data>
-  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
-    <value>In der Anwesenheitsliste kann man nun einen Mitarbeiter anklicken um mehr Infos von diesem zu sehen.</value>
-  </data>
-  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
-    <value>Dort kann man ihm zum Beispiel direkt eine E-Mail senden, direkt anrufen, oder den eigenen Kontakten hinzufügen.</value>
-  </data>
-  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
-    <value>Erweiterte Anwesenheitsliste!</value>
-  </data>
-  <data name="GeneralUpdatesContent1Run.Text" xml:space="preserve">
-    <value>Direkt nach dem ersten Einstempeln konnte es vorkommen, dass die Stoppuhr rückwärts lief - jetzt nicht mehr.</value>
-  </data>
-  <data name="GeneralUpdatesContent2Run.Text" xml:space="preserve">
-    <value>Unter "Meine Zeiten" sieht man jetzt, ähnlich wie in den Statistiken, im Titel den ausgewählten Zeitraum.</value>
-  </data>
-  <data name="GeneralUpdatesContent3Run.Text" xml:space="preserve">
-    <value>Überall in der ganzen App wurde die Akzentfarbe eingebaut.</value>
-  </data>
-  <data name="GeneralUpdatesHeaderRun.Text" xml:space="preserve">
-    <value>Allgemeine Verbesserungen!</value>
-  </data>
   <data name="GeoLocationHowToDeactivateRun.Text" xml:space="preserve">
     <value>Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</value>
   </data>
@@ -522,18 +501,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="GeoLocationNotAvailableTextSetter.Value" xml:space="preserve">
     <value>Position wird nicht übertragen</value>
-  </data>
-  <data name="ImprovedStatisticsContent1Run.Text" xml:space="preserve">
-    <value>Es gibt eine neue Statistik für das heutige Arbeitsende ohne Überstunden.</value>
-  </data>
-  <data name="ImprovedStatisticsContent2Run.Text" xml:space="preserve">
-    <value>Außerdem wurde die Positionierung gerade bei langen Statistiknamen angepasst.</value>
-  </data>
-  <data name="ImprovedStatisticsContent3Run.Text" xml:space="preserve">
-    <value>In der letzten Version hat sich ein kleiner Fehler eingeschlichen, weshalb die Buttons für "Diesen Monat", "Letzten Monat" und "Letzte 7 Tage" nicht funktioniert haben. Das ist auch behoben.</value>
-  </data>
-  <data name="ImprovedStatisticsHeaderRun.Text" xml:space="preserve">
-    <value>Verbesserungen bei den Statistiken!</value>
   </data>
   <data name="CancelCreateGroupAppBarButton.Label" xml:space="preserve">
     <value>Abbrechen</value>
@@ -577,5 +544,26 @@ Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   </data>
   <data name="TerminalSettingsGroup.Header" xml:space="preserve">
     <value>Terminal</value>
+  </data>
+  <data name="AttendanceListGroupsContent1Run.Text" xml:space="preserve">
+    <value>Um die Übersicht zu verbessern, kann man in der Anwesenheitsliste nun eigene Gruppen von Mitarbeitern erstellen.</value>
+  </data>
+  <data name="AttendanceListGroupsHeaderRun.Text" xml:space="preserve">
+    <value>Eigene Mitarbeitergruppen!</value>
+  </data>
+  <data name="DatesContent1Run.Text" xml:space="preserve">
+    <value>Im Bereich der Zeiten und in den Statistiken wird sich das Start- und Enddatum jetzt gemerkt.</value>
+  </data>
+  <data name="DatesHeaderRun.Text" xml:space="preserve">
+    <value>Start- und Enddatum</value>
+  </data>
+  <data name="ShareContent1Run.Text" xml:space="preserve">
+    <value>Einige Infos aus dieser App kann man jetzt mit anderen Apps teilen.</value>
+  </data>
+  <data name="ShareContent2Run.Text" xml:space="preserve">
+    <value>Dadurch kann man zum Beispiel seine Zeiten per E-Mail versenden.</value>
+  </data>
+  <data name="ShareHeaderRun.Text" xml:space="preserve">
+    <value>Teilen!</value>
   </data>
 </root>
