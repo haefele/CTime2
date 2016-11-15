@@ -33,7 +33,11 @@ namespace CTime2.ApplicationModes
             await base.AddActions();
 
             this.Shell.Actions.Add(this._loginHamburgerItem);
-            this.Shell.SecondaryActions.Insert(0, this._switchToTerminalHamburgerItem);
+
+            if (Features.Terminal)
+            {
+                this.Shell.SecondaryActions.Insert(0, this._switchToTerminalHamburgerItem);
+            }
         }
 
         protected override async Task RemoveActions()
