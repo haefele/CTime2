@@ -467,4 +467,13 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
   <data name="CrashHeaderRun.Text" xml:space="preserve">
     <value>Crash at startup</value>
   </data>
+  <data name="PatchNotesButton.Content" xml:space="preserve">
+    <value>Patchnotes</value>
+  </data>
+  <data name="PatchNotesAgainContent1Run.Text" xml:space="preserve">
+    <value>In the area "About" you can see these patchnotes again.</value>
+  </data>
+  <data name="PatchNotesAgainHeaderRun.Text" xml:space="preserve">
+    <value>See patchnotes again</value>
+  </data>
 </root>

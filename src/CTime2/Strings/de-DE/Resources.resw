@@ -572,4 +572,13 @@ Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   <data name="CrashHeaderRun.Text" xml:space="preserve">
     <value>Absturz beim Starten</value>
   </data>
+  <data name="PatchNotesAgainContent1Run.Text" xml:space="preserve">
+    <value>Im Bereich "Über" kann man sich diese Updatehinweise erneut anzeigen lassen.</value>
+  </data>
+  <data name="PatchNotesAgainHeaderRun.Text" xml:space="preserve">
+    <value>Updatehinweis erneut ansehen</value>
+  </data>
+  <data name="PatchNotesButton.Content" xml:space="preserve">
+    <value>Versionshinweis</value>
+  </data>
 </root>

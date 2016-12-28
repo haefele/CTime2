@@ -616,6 +616,18 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
           <source>Absturz beim Starten</source>
           <target state="translated">Crash at startup</target>
         </trans-unit>
+        <trans-unit id="PatchNotesButton.Content" translate="yes" xml:space="preserve">
+          <source>Versionshinweis</source>
+          <target state="translated">Patchnotes</target>
+        </trans-unit>
+        <trans-unit id="PatchNotesAgainContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>Im Bereich "Über" kann man sich diese Updatehinweise erneut anzeigen lassen.</source>
+          <target state="translated">In the area "About" you can see these patchnotes again.</target>
+        </trans-unit>
+        <trans-unit id="PatchNotesAgainHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Updatehinweis erneut ansehen</source>
+          <target state="translated">See patchnotes again</target>
+        </trans-unit>
       </group>
     </body>
   </file>

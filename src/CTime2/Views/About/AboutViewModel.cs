@@ -5,15 +5,20 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Email;
 using Windows.Storage.Streams;
 using CTime2.Strings;
+using CTime2.Views.UpdateNotes;
 using ReactiveUI;
 using UwCore;
+using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Logging;
+using UwCore.Services.Navigation;
 
 namespace CTime2.Views.About
 {
     public class AboutViewModel : UwCoreScreen
     {
+        private readonly INavigationService _navigationService;
+
         private Version _currentVersion;
 
         public Version CurrentVersion
@@ -23,9 +28,14 @@ namespace CTime2.Views.About
         }
 
         public UwCoreCommand<Unit> SendFeedback { get; }
+        public UwCoreCommand<Unit> PatchNotes { get; }
 
-        public AboutViewModel()
+        public AboutViewModel(INavigationService navigationService)
         {
+            Guard.NotNull(navigationService, nameof(navigationService));
+
+            this._navigationService = navigationService;
+
             this.DisplayName = CTime2Resources.Get("Navigation.About");
 
             this.CurrentVersion = Package.Current.Id.Version.ToVersion();
@@ -34,6 +44,10 @@ namespace CTime2.Views.About
                 .HandleExceptions()
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.SendFeedback"))
                 .TrackEvent("SendFeedback");
+
+            this.PatchNotes = UwCoreCommand.Create(this.PatchNotesImpl)
+                .HandleExceptions()
+                .TrackEvent("PatchNotes");
         }
 
         private async Task SendFeedbackImpl()
@@ -43,6 +57,13 @@ namespace CTime2.Views.About
             message.Subject = CTime2Resources.Get("Feedback.Subject");
             
             await EmailManager.ShowComposeNewEmailAsync(message);
+        }
+
+        private Task PatchNotesImpl()
+        {
+            this._navigationService.Popup.For<UpdateNotesViewModel>().Navigate();
+
+            return Task.CompletedTask;
         }
     }
 }
