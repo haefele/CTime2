@@ -461,4 +461,10 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
   <data name="ShareHeaderRun.Text" xml:space="preserve">
     <value>Share!</value>
   </data>
+  <data name="CrashContent1Run.Text" xml:space="preserve">
+    <value>This app was crashing on some systems. It should be fixed now.</value>
+  </data>
+  <data name="CrashHeaderRun.Text" xml:space="preserve">
+    <value>Crash at startup</value>
+  </data>
 </root>
