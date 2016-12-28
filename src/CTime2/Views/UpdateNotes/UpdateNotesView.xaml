@@ -57,14 +57,19 @@
                 </Paragraph>
 
                 <Paragraph>
-                    <Run FontWeight="Bold"
-                         FontSize="18"
-                         x:Uid="CrashHeaderRun">~Absturz beim Starten</Run>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="CrashHeaderRun">~Absturz beim Starten</Run>
+                </Paragraph>
+                <Paragraph><Run x:Uid="CrashContent1Run">~Auf einigen Computern ist diese App beim Start direkt abgestürzt. Das sollte jetzt behoben sein.</Run></Paragraph>
+
+                <Paragraph />
+                
+                <Paragraph>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="PatchNotesAgainHeaderRun">~Updatehinweis erneut ansehen</Run>
                 </Paragraph>
                 <Paragraph>
-                    <Run x:Uid="CrashContent1Run">~Auf einigen Computern ist diese App beim Start direkt abgestürzt. Das sollte jetzt behoben sein.</Run>
+                    <Run x:Uid="PatchNotesAgainContent1Run">~Im Bereich "Über" kann man sich diese Updatehinweise erneut anzeigen lassen.</Run>
                 </Paragraph>
-                
+
                 <Paragraph />
 
                 <!-- Version 1.7.0.0 -->
