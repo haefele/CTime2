@@ -85,7 +85,8 @@
         </Grid.RowDefinitions>
 
         <GridView x:Name="AttendanceListGridView" 
-                  ItemsSource="{Binding Source={StaticResource GroupedAttendingUsers}}"
+                  IsSynchronizedWithCurrentItem="False"
+                  ItemsSource="{Binding Source={StaticResource GroupedAttendingUsers}}" 
                   SelectionMode="None"
                   SelectionChanged="GridView_OnSelectionChanged"
                   IsItemClickEnabled="True"
