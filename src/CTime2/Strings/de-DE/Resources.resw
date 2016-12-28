@@ -566,4 +566,10 @@ Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   <data name="ShareHeaderRun.Text" xml:space="preserve">
     <value>Teilen!</value>
   </data>
+  <data name="CrashContent1Run.Text" xml:space="preserve">
+    <value>Auf einigen Computern ist diese App beim Start direkt abgestürzt. Das sollte jetzt behoben sein.</value>
+  </data>
+  <data name="CrashHeaderRun.Text" xml:space="preserve">
+    <value>Absturz beim Starten</value>
+  </data>
 </root>

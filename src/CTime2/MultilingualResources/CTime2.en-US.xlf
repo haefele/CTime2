@@ -608,6 +608,14 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
           <source>Teilen!</source>
           <target state="translated">Share!</target>
         </trans-unit>
+        <trans-unit id="CrashContent1Run.Text" translate="yes" xml:space="preserve">
+          <source>Auf einigen Computern ist diese App beim Start direkt abgestürzt. Das sollte jetzt behoben sein.</source>
+          <target state="translated">This app was crashing on some systems. It should be fixed now.</target>
+        </trans-unit>
+        <trans-unit id="CrashHeaderRun.Text" translate="yes" xml:space="preserve">
+          <source>Absturz beim Starten</source>
+          <target state="translated">Crash at startup</target>
+        </trans-unit>
       </group>
     </body>
   </file>
