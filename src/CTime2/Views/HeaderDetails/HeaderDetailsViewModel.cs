@@ -13,7 +13,7 @@ namespace CTime2.Views.HeaderDetails
     {
         private readonly IDialogService _dialogService;
 
-        public ReactiveCommand<Unit> ShowNoInternetConnection { get; }
+        public UwCoreCommand<Unit> ShowNoInternetConnection { get; }
 
         public HeaderDetailsViewModel(IDialogService dialogService)
         {
@@ -21,7 +21,9 @@ namespace CTime2.Views.HeaderDetails
             
             this._dialogService = dialogService;
 
-            this.ShowNoInternetConnection = ReactiveCommand.CreateAsyncTask(_ => this.ShowNoInternetConnectionImpl());
+            this.ShowNoInternetConnection = UwCoreCommand
+                .Create(this.ShowNoInternetConnectionImpl)
+                .HandleExceptions();
         }
 
         private Task ShowNoInternetConnectionImpl()
