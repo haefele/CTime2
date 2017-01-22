@@ -106,7 +106,6 @@
     <Compile Include="Behaviors\CloseFlyoutAction.cs" />
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Common\VisualTreeHelperEx.cs" />
-    <Compile Include="Controls\SettingsItem.cs" />
     <Compile Include="Controls\StampButton.cs" />
     <Compile Include="Controls\UserImage.cs" />
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
@@ -156,7 +155,6 @@
       <DependentUpon>OverviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Overview\OverviewViewModel.cs" />
-    <Compile Include="Controls\SettingsGroup.cs" />
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
