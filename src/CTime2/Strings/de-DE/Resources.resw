@@ -123,26 +123,6 @@
   <data name="AppNameTextBlock.Text" xml:space="preserve">
     <value>c-time Universal</value>
   </data>
-  <data name="BandSettingsGroup.Description" xml:space="preserve">
-    <value>Diese App kann sich in dein Microsoft Band 2 integrieren.
-Probiere es einfach aus!
-Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</value>
-  </data>
-  <data name="BandNotConnectedTextSetter.Value" xml:space="preserve">
-    <value>Es ist kein Microsoft Band 2 verbunden.</value>
-  </data>
-  <data name="BandTileInstalledButtonSetter.Value" xml:space="preserve">
-    <value>Tile entfernen</value>
-  </data>
-  <data name="BandTileInstalledTextSetter.Value" xml:space="preserve">
-    <value>Tile ist installiert!</value>
-  </data>
-  <data name="BandTileNotInstalledButtonSetter.Value" xml:space="preserve">
-    <value>Tile installieren</value>
-  </data>
-  <data name="BandTileNotInstalledTextSetter.Value" xml:space="preserve">
-    <value>Tile ist nicht installiert!</value>
-  </data>
   <data name="BooleanToAttendingStringConverter.FalseValue" xml:space="preserve">
     <value>Abwesend</value>
   </data>
@@ -194,9 +174,6 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   <data name="LastSevenDaysAppBarButton.Label" xml:space="preserve">
     <value>Letzte 7 Tage</value>
   </data>
-  <data name="Loading.AddTileToBand" xml:space="preserve">
-    <value>Installiere Tile...</value>
-  </data>
   <data name="Loading.AttendanceList" xml:space="preserve">
     <value>Lade Anwesenheitsliste...</value>
   </data>
@@ -217,9 +194,6 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
   </data>
   <data name="Loading.Pause" xml:space="preserve">
     <value>Stemple Pause...</value>
-  </data>
-  <data name="Loading.RemoveTileFromBand" xml:space="preserve">
-    <value>Entferne Tile...</value>
   </data>
   <data name="Loading.Statistics" xml:space="preserve">
     <value>Lade Statistiken...</value>
@@ -426,9 +400,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="WorkTimeSettingsItem.Description" xml:space="preserve">
     <value>Arbeitsdauer</value>
-  </data>
-  <data name="BandSettingsGroup.Header" xml:space="preserve">
-    <value>Band</value>
   </data>
   <data name="DarkThemeRadioButton.Content" xml:space="preserve">
     <value>Dunkel</value>

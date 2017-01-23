@@ -109,6 +109,7 @@
     <Compile Include="Controls\StampButton.cs" />
     <Compile Include="Controls\UserImage.cs" />
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
+    <Compile Include="Converter\FeatureToVisibilityConverter.cs" />
     <Compile Include="Converter\ThicknessToDoubleConverter.cs" />
     <Compile Include="Converter\TimeStateToBrushConverter.cs" />
     <Compile Include="CTimeStartupAction.cs" />
@@ -146,7 +147,6 @@
       <DependentUpon>MyTimeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Overview\MyTimeViewModel.cs" />
-    <Compile Include="Views\Settings\BandState.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -330,10 +330,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CTime2.BandService\CTime2.BandService.csproj">
-      <Project>{d2021be3-667c-4f29-834c-0160a39b027f}</Project>
-      <Name>CTime2.BandService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CTime2.Core\CTime2.Core.csproj">
       <Project>{76ad71f3-cee3-4714-b88f-fea50a787887}</Project>
       <Name>CTime2.Core</Name>

@@ -174,34 +174,6 @@
           <source>Einstellungen</source>
           <target state="translated">Settings</target>
         </trans-unit>
-        <trans-unit id="BandNotConnectedTextSetter.Value" translate="yes" xml:space="preserve">
-          <source>Es ist kein Microsoft Band 2 verbunden.</source>
-          <target state="translated">There is no Microsoft Band 2 connected.</target>
-        </trans-unit>
-        <trans-unit id="BandTileInstalledButtonSetter.Value" translate="yes" xml:space="preserve">
-          <source>Tile entfernen</source>
-          <target state="translated">Remove tile</target>
-        </trans-unit>
-        <trans-unit id="BandTileInstalledTextSetter.Value" translate="yes" xml:space="preserve">
-          <source>Tile ist installiert!</source>
-          <target state="translated">Tile is already installed!</target>
-        </trans-unit>
-        <trans-unit id="BandTileNotInstalledButtonSetter.Value" translate="yes" xml:space="preserve">
-          <source>Tile installieren</source>
-          <target state="translated">Install tile</target>
-        </trans-unit>
-        <trans-unit id="BandTileNotInstalledTextSetter.Value" translate="yes" xml:space="preserve">
-          <source>Tile ist nicht installiert!</source>
-          <target state="translated">Tile is not installed!</target>
-        </trans-unit>
-        <trans-unit id="Loading.AddTileToBand" translate="yes" xml:space="preserve">
-          <source>Installiere Tile...</source>
-          <target state="translated">Installing tile...</target>
-        </trans-unit>
-        <trans-unit id="Loading.RemoveTileFromBand" translate="yes" xml:space="preserve">
-          <source>Entferne Tile...</source>
-          <target state="translated">Removing tile...</target>
-        </trans-unit>
         <trans-unit id="GiveFeedbackButton.Content" translate="yes" xml:space="preserve">
           <source>Feedback geben</source>
           <target state="translated">Give feedback</target>
@@ -425,18 +397,6 @@ You just have to authenticate yourself.</target>
         <trans-unit id="Loading.Settings" translate="yes" xml:space="preserve">
           <source>Lade Einstellungen...</source>
           <target state="translated">Loading settings...</target>
-        </trans-unit>
-        <trans-unit id="BandSettingsGroup.Description" translate="yes" xml:space="preserve">
-          <source>Diese App kann sich in dein Microsoft Band 2 integrieren.
-Probiere es einfach aus!
-Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</source>
-          <target state="translated">This app can integrate with your Microsoft Band 2. 
-Just give it a try!
-Add the tile to your Microsoft Band 2 and use it to check-in!</target>
-        </trans-unit>
-        <trans-unit id="BandSettingsGroup.Header" translate="yes" xml:space="preserve">
-          <source>Band</source>
-          <target state="translated">Band</target>
         </trans-unit>
         <trans-unit id="DarkThemeRadioButton.Content" translate="yes" xml:space="preserve">
           <source>Dunkel</source>
