@@ -174,7 +174,7 @@ Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!</val
     <value>Fehler</value>
   </data>
   <data name="Feedback.EmailAddress" xml:space="preserve">
-    <value>feedback@xemio.net</value>
+    <value>c-time@xemio.net</value>
   </data>
   <data name="Feedback.LogsFileName" xml:space="preserve">
     <value>Logs.zip</value>

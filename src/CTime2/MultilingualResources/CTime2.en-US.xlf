@@ -207,8 +207,8 @@
           <target state="translated">Give feedback</target>
         </trans-unit>
         <trans-unit id="Feedback.EmailAddress" translate="yes" xml:space="preserve">
-          <source>feedback@xemio.net</source>
-          <target state="translated">feedback@xemio.net</target>
+          <source>c-time@xemio.net</source>
+          <target state="translated">c-time@xemio.net</target>
         </trans-unit>
         <trans-unit id="Feedback.LogsFileName" translate="yes" xml:space="preserve">
           <source>Logs.zip</source>
