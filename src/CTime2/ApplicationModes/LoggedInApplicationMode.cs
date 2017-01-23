@@ -22,6 +22,7 @@ using UwCore.Events;
 using UwCore.Hamburger;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
+using CTime2.Extensions;
 
 namespace CTime2.ApplicationModes
 {
@@ -32,6 +33,7 @@ namespace CTime2.ApplicationModes
         private readonly IDialogService _dialogService;
         private readonly ICTimeService _cTimeService;
         private readonly IEmployeeGroupService _employeeGroupService;
+        private readonly IHockeyClient _hockeyClient;
 
         private readonly HamburgerItem _overviewHamburgerItem;
         private readonly HamburgerItem _myTimesHamburgerItem;
@@ -40,17 +42,19 @@ namespace CTime2.ApplicationModes
         private readonly HamburgerItem _statisticsItem;
         private readonly HamburgerItem _logoutHamburgerItem;
 
-        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService, ICTimeService cTimeService, IEmployeeGroupService employeeGroupService)
+        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService, ICTimeService cTimeService, IEmployeeGroupService employeeGroupService, IHockeyClient hockeyClient)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(dialogService, nameof(dialogService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(employeeGroupService, nameof(employeeGroupService));
+            Guard.NotNull(hockeyClient, nameof(hockeyClient));
 
             this._applicationStateService = applicationStateService;
             this._dialogService = dialogService;
             this._cTimeService = cTimeService;
             this._employeeGroupService = employeeGroupService;
+            this._hockeyClient = hockeyClient;
 
             this._overviewHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Overview"), Symbol.Globe, typeof(OverviewViewModel));
             this._myTimesHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar, typeof(YourTimesViewModel));
@@ -66,7 +70,7 @@ namespace CTime2.ApplicationModes
             await base.OnEnter();
 
             var currentUser = this._applicationStateService.GetCurrentUser();
-            HockeyClient.Current.UpdateContactInfo($"{currentUser.FirstName} {currentUser.Name}", currentUser.Email);
+            this._hockeyClient.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
 
             this._overviewHamburgerItem.Execute();
         }

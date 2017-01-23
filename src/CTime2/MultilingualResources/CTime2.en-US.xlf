@@ -588,6 +588,20 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
           <source>Updatehinweis erneut ansehen</source>
           <target state="translated">See patchnotes again</target>
         </trans-unit>
+        <trans-unit id="AnalyticsSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Analytik</source>
+          <target state="translated">Analytics</target>
+        </trans-unit>
+        <trans-unit id="IncludeContactInfoInErrorReportsSettingsItem.Description" translate="yes" xml:space="preserve">
+          <source>Fehlermeldungen und Abstürze werden an die Entwicklung von c-time Universal übertragen.
+Du hast hier die Möglichkeit einzustellen, ob dein Name und deine E-Mail Adresse auch übertragen werden sollen.
+
+Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten weitergegeben.</source>
+          <target state="translated">Errors and crashes will be transferred to the development of c-time Universal.
+You have the option whether your name and your email address will be transferred as well.
+
+This data will only be used to contact you, it will not be given to a third party.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

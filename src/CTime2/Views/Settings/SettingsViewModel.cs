@@ -9,11 +9,13 @@ using Windows.UI.Xaml;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Strings;
+using Microsoft.HockeyApp;
 using ReactiveUI;
 using UwCore;
 using UwCore.Application;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
+using CTime2.Extensions;
 
 namespace CTime2.Views.Settings
 {
@@ -22,12 +24,14 @@ namespace CTime2.Views.Settings
         private readonly IBiometricsService _biometricsService;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IShell _shell;
+        private readonly IHockeyClient _hockeyClient;
 
         private ReactiveList<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
         private ReactiveList<TimeSpan> _breakTimes;
         private TimeSpan _selectedBreakTime;
         private ElementTheme _theme;
+        private bool _includeContactInfoInErrorReports;
         private string _companyId;
 
         public ReactiveList<TimeSpan> WorkTimes
@@ -60,6 +64,12 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._theme, value); }
         }
 
+        public bool IncludeContactInfoInErrorReports
+        {
+            get { return this._includeContactInfoInErrorReports; }
+            set { this.RaiseAndSetIfChanged(ref this._includeContactInfoInErrorReports, value); }
+        }
+
         public string CompanyId
         {
             get { return this._companyId; }
@@ -68,15 +78,17 @@ namespace CTime2.Views.Settings
         
         public UwCoreCommand<Unit> RememberLogin { get; }
 
-        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell)
+        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell, IHockeyClient hockeyClient)
         {
             Guard.NotNull(biometricsService, nameof(biometricsService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(shell, nameof(shell));
+            Guard.NotNull(hockeyClient, nameof(hockeyClient));
 
             this._biometricsService = biometricsService;
             this._applicationStateService = applicationStateService;
             this._shell = shell;
+            this._hockeyClient = hockeyClient;
 
             var hasUser = new ReplaySubject<bool>(1);
             hasUser.OnNext(this._applicationStateService.GetCurrentUser() != null);
@@ -91,6 +103,7 @@ namespace CTime2.Views.Settings
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
             this.CompanyId = this._applicationStateService.GetCompanyId();
+            this.IncludeContactInfoInErrorReports = this._applicationStateService.GetIncludeContactInfoInErrorReports();
 
             this.WhenAnyValue(f => f.Theme)
                 .Subscribe(theme =>
@@ -115,6 +128,15 @@ namespace CTime2.Views.Settings
                 .Subscribe(companyId =>
                 {
                     this._applicationStateService.SetCompanyId(companyId);
+                });
+
+            this.WhenAnyValue(f => f.IncludeContactInfoInErrorReports)
+                .Subscribe(include =>
+                {
+                    this._applicationStateService.SetIncludeContactInfoInErrorReports(include);
+
+                    var currentUser = this._applicationStateService.GetCurrentUser();
+                    this._hockeyClient.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
                 });
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
