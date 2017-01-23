@@ -447,4 +447,13 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
   <data name="PatchNotesAgainHeaderRun.Text" xml:space="preserve">
     <value>See patchnotes again</value>
   </data>
+  <data name="AnalyticsSettingsGroup.Header" xml:space="preserve">
+    <value>Analytics</value>
+  </data>
+  <data name="IncludeContactInfoInErrorReportsSettingsItem.Description" xml:space="preserve">
+    <value>Errors and crashes will be transferred to the development of c-time Universal.
+You have the option whether your name and your email address will be transferred as well.
+
+This data will only be used to contact you, it will not be given to a third party.</value>
+  </data>
 </root>

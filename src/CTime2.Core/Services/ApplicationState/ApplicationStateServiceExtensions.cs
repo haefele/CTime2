@@ -76,5 +76,15 @@ namespace CTime2.Core.Services.ApplicationState
         {
             self.Set("CompanyId", companyId, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
+
+        public static bool GetIncludeContactInfoInErrorReports(this IApplicationStateService self)
+        {
+            return self.Get<bool?>("IncludeContactInfoInErrorReports", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? true;
+        }
+
+        public static void SetIncludeContactInfoInErrorReports(this IApplicationStateService self, bool includeContactInfoInErrorReports)
+        {
+            self.Set("IncludeContactInfoInErrorReports", includeContactInfoInErrorReports, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
     }
 }

@@ -552,4 +552,13 @@ Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   <data name="PatchNotesButton.Content" xml:space="preserve">
     <value>Versionshinweis</value>
   </data>
+  <data name="AnalyticsSettingsGroup.Header" xml:space="preserve">
+    <value>Analytik</value>
+  </data>
+  <data name="IncludeContactInfoInErrorReportsSettingsItem.Description" xml:space="preserve">
+    <value>Fehlermeldungen und Abstürze werden an die Entwicklung von c-time Universal übertragen.
+Du hast hier die Möglichkeit einzustellen, ob dein Name und deine E-Mail Adresse auch übertragen werden sollen.
+
+Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten weitergegeben.</value>
+  </data>
 </root>
