@@ -7,7 +7,6 @@ using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using CTime2.Core.Services.ApplicationState;
-using CTime2.Core.Services.Band;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Strings;
 using ReactiveUI;
@@ -22,14 +21,12 @@ namespace CTime2.Views.Settings
     {
         private readonly IBiometricsService _biometricsService;
         private readonly IApplicationStateService _applicationStateService;
-        private readonly IBandService _bandService;
         private readonly IShell _shell;
 
         private ReactiveList<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
         private ReactiveList<TimeSpan> _breakTimes;
         private TimeSpan _selectedBreakTime;
-        private BandState _state;
         private ElementTheme _theme;
         private string _companyId;
 
@@ -57,12 +54,6 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._selectedBreakTime, value); }
         }
 
-        public BandState State
-        {
-            get { return this._state; }
-            set { this.RaiseAndSetIfChanged(ref this._state, value); }
-        }
-
         public ElementTheme Theme
         {
             get { return this._theme; }
@@ -74,20 +65,17 @@ namespace CTime2.Views.Settings
             get { return this._companyId; }
             set { this.RaiseAndSetIfChanged(ref this._companyId, value); }
         }
-
-        public UwCoreCommand<Unit> Reload { get; }
+        
         public UwCoreCommand<Unit> RememberLogin { get; }
-        public UwCoreCommand<Unit> ToggleBandTile { get; }
 
-        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IBandService bandService, IShell shell)
+        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell)
         {
             Guard.NotNull(biometricsService, nameof(biometricsService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
-            Guard.NotNull(bandService, nameof(bandService));
+            Guard.NotNull(shell, nameof(shell));
 
             this._biometricsService = biometricsService;
             this._applicationStateService = applicationStateService;
-            this._bandService = bandService;
             this._shell = shell;
 
             var hasUser = new ReplaySubject<bool>(1);
@@ -98,20 +86,7 @@ namespace CTime2.Views.Settings
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.RememberedLogin"))
                 .HandleExceptions()
                 .TrackEvent("SetupRememberLogin");
-
-            var canToggleTile = this.WhenAnyValue(f => f.State, state => state != BandState.NotConnected);
-            this.ToggleBandTile = UwCoreCommand.Create(canToggleTile, this.ToggleTileImpl)
-                .ShowLoadingOverlay(() => this.State == BandState.Installed
-                    ? CTime2Resources.Get("Loading.RemoveTileFromBand")
-                    : CTime2Resources.Get("Loading.AddTileToBand"))
-                .HandleExceptions()
-                .TrackEvent("ToggleBandTile");
-
-            this.Reload = UwCoreCommand.Create(this.ReloadImpl)
-                .ShowLoadingOverlay(CTime2Resources.Get("Loading.Settings"))
-                .HandleExceptions()
-                .TrackEvent("ReloadSettings");
-
+            
             this.Theme = this._applicationStateService.GetApplicationTheme();
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
@@ -152,55 +127,11 @@ namespace CTime2.Views.Settings
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
         }
-
-        protected override async void OnActivate()
-        {
-            base.OnActivate();
-
-            await this.Reload.ExecuteAsync();
-        }
-
+        
         private async Task RememberLoginImpl()
         {
             var user = this._applicationStateService.GetCurrentUser();
             await this._biometricsService.RememberUserForBiometricAuthAsync(user);
-        }
-
-        private async Task ToggleTileImpl()
-        {
-            if (this.State == BandState.NotConnected)
-                return;
-
-            if (this.State == BandState.Installed)
-            {
-                await this._bandService.UnRegisterBandTileAsync();
-            }
-            else
-            {
-                await this._bandService.RegisterBandTileAsync();
-            }
-
-            await this.ReloadImpl();
-        }
-
-        private async Task ReloadImpl()
-        {
-            var bandInfo = await this._bandService.GetBand();
-
-            if (bandInfo == null)
-            {
-                this.State = BandState.NotConnected;
-                return;
-            }
-
-            if (await this._bandService.IsBandTileRegisteredAsync())
-            {
-                this.State = BandState.Installed;
-            }
-            else
-            {
-                this.State = BandState.NotInstalled;
-            }
         }
     }
 }

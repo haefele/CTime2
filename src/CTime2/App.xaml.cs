@@ -12,7 +12,6 @@ using Caliburn.Micro;
 using CTime2.ApplicationModes;
 using CTime2.Core.Common;
 using CTime2.Core.Services.ApplicationState;
-using CTime2.Core.Services.Band;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Core.Services.Contacts;
 using CTime2.Core.Services.CTime;
@@ -128,10 +127,7 @@ namespace CTime2
 
             yield return typeof(ILicensesService);
             yield return typeof(LicensesService);
-
-            yield return typeof(IBandService);
-            yield return typeof(Core.Services.Band.BandService);
-
+            
             yield return typeof(IBiometricsService);
             yield return typeof(BiometricsService);
 

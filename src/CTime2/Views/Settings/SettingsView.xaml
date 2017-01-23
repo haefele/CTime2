@@ -23,46 +23,6 @@
     </Page.Resources>
 
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalScrollBarVisibility="Auto">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="BandStates">
-                <VisualState x:Name="Installed">
-                    <VisualState.StateTriggers>
-                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="Installed" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter x:Uid="BandTileInstalledTextSetter" Target="BandSettingsItem.(SettingsItem.Description)" Value="~Tile ist installiert"/>
-                        <Setter x:Uid="BandTileInstalledButtonSetter" Target="BandButton.(ContentControl.Content)" Value="~Tile entfernen"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="NotInstalled">
-                    <VisualState.StateTriggers>
-                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="NotInstalled"  />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter x:Uid="BandTileNotInstalledTextSetter" Target="BandSettingsItem.(SettingsItem.Description)" Value="~Tile ist nicht installiert"/>
-                        <Setter x:Uid="BandTileNotInstalledButtonSetter" Target="BandButton.(ContentControl.Content)" Value="~Tile installieren"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="NotConnected">
-                    <VisualState.StateTriggers>
-                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="NotConnected"  />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="BandButton.(UIElement.Visibility)" Value="Collapsed"/>
-                        <Setter x:Uid="BandNotConnectedTextSetter" Target="BandSettingsItem.(SettingsItem.Description)" Value="~Es ist kein Microsoft Band 2 verbunden."/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Loading">
-                    <VisualState.StateTriggers>
-                        <windowsStateTriggers:EqualsStateTrigger Value="{x:Bind ViewModel.State, Mode=OneWay}" EqualTo="Loading"  />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="BandSettingsItem.(UIElement.Visibility)" Value="Collapsed"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <uwCoreControls:SettingsControl>
             <uwCoreControls:SettingsGroup x:Uid="LoginSettingsGroup" 
                                           Header="~Anmeldung">
@@ -88,16 +48,6 @@
                               ItemsSource="{x:Bind ViewModel.BreakTimes, Mode=OneWay}"
                               SelectedItem="{Binding SelectedBreakTime, Mode=TwoWay}"
                               ItemTemplate="{StaticResource TimeSpanDataTemplate}" />
-                </uwCoreControls:SettingsItem>
-            </uwCoreControls:SettingsGroup>
-            <uwCoreControls:SettingsGroup Header="~Band" 
-                                          x:Uid="BandSettingsGroup"
-                                          Description="~Diese App kann sich in ein Microsoft Band 2 integrieren.&#xD;&#xA;Probiere es einfach aus!&#xD;&#xA;Füge das Tile deinem Microsoft Band 2 hinzu und stempel dich darüber ein!">
-                <uwCoreControls:SettingsItem x:Name="BandSettingsItem"
-                                             Description="~Test!">
-                    <Button x:Name="BandButton" 
-                            Content="~Test" 
-                            Command="{x:Bind ViewModel.ToggleBandTile}" />
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
             <uwCoreControls:SettingsGroup Header="~Theme"

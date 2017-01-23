@@ -117,18 +117,6 @@
     <None Include="project.json" />
     <EmbeddedResource Include="Services\Licenses\Caliburn.Micro.lic" />
     <EmbeddedResource Include="Services\Licenses\Newtonsoft.Json.lic" />
-    <None Include="Services\Band\Pages\TestConnectionPageLayout.msbtl">
-      <Generator>MSBandLayoutCodeGenerator</Generator>
-      <LastGenOutput>TestConnectionPageLayout.cs</LastGenOutput>
-    </None>
-    <None Include="Services\Band\Pages\StampPageLayout.msbtl">
-      <Generator>MSBandLayoutCodeGenerator</Generator>
-      <LastGenOutput>StampPageLayout.cs</LastGenOutput>
-    </None>
-    <None Include="Services\Band\Pages\StartPageLayout.msbtl">
-      <Generator>MSBandLayoutCodeGenerator</Generator>
-      <LastGenOutput>StartPageLayout.cs</LastGenOutput>
-    </None>
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
@@ -141,25 +129,6 @@
     <Compile Include="Events\UserStamped.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApplicationState\ApplicationStateServiceExtensions.cs" />
-    <Compile Include="Services\Band\BandConstants.cs" />
-    <Compile Include="Services\Band\BandInfo.cs" />
-    <Compile Include="Services\Band\BandService.cs" />
-    <Compile Include="Services\Band\IBandService.cs" />
-    <Compile Include="Services\Band\Pages\TestConnectionPageLayout.cs">
-      <DependentUpon>TestConnectionPageLayout.msbtl</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Services\Band\Pages\StampPageLayout.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StampPageLayout.msbtl</DependentUpon>
-    </Compile>
-    <Compile Include="Services\Band\Pages\StartPageLayout.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StartPageLayout.msbtl</DependentUpon>
-    </Compile>
     <Compile Include="Services\Biometrics\BiometricsService.cs" />
     <Compile Include="Services\Biometrics\IBiometricsService.cs" />
     <Compile Include="Services\Contacts\ContactsService.cs" />
@@ -189,15 +158,11 @@
     <Compile Include="Services\Sharing\SharingServiceExtensions.cs" />
     <Compile Include="Strings\CTime2CoreResources.cs" />
     <Content Include="Properties\CTime2.Core.rd.xml" />
-    <EmbeddedResource Include="Services\Band\Icons\TileIcon24px.png" />
-    <EmbeddedResource Include="Services\Band\Icons\TileIcon48px.png" />
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\CTime2.Core.en-US.xlf" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
