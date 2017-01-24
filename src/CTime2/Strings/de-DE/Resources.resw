@@ -561,4 +561,7 @@ Du hast hier die Möglichkeit einzustellen, ob dein Name und deine E-Mail Adress
 
 Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten weitergegeben.</value>
   </data>
+  <data name="Loading.Stamp" xml:space="preserve">
+    <value>Stemple...</value>
+  </data>
 </root>

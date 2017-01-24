@@ -52,7 +52,7 @@
         </trans-unit>
         <trans-unit id="Loading.CurrentState" translate="yes" xml:space="preserve">
           <source>Lade Status...</source>
-          <target state="translated" state-qualifier="mt-suggestion">Loading status...</target>
+          <target state="translated">Loading status...</target>
         </trans-unit>
         <trans-unit id="Loading.LoggingIn" translate="yes" xml:space="preserve">
           <source>Melde an...</source>
@@ -601,6 +601,10 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
 You have the option whether your name and your email address will be transferred as well.
 
 This data will only be used to contact you, it will not be given to a third party.</target>
+        </trans-unit>
+        <trans-unit id="Loading.Stamp" translate="yes" xml:space="preserve">
+          <source>Stemple...</source>
+          <target state="translated">Stamping...</target>
         </trans-unit>
       </group>
     </body>
