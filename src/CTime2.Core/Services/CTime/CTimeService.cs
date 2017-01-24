@@ -27,13 +27,15 @@ using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.CTime
 {
-    public class CTimeService : ICTimeService
+    public class CTimeService : ICTimeService, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLog(typeof(CTimeService));
 
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IGeoLocationService _geoLocationService;
+
+        private readonly HttpClient _client;
 
         public CTimeService(IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService)
         {
@@ -44,6 +46,8 @@ namespace CTime2.Core.Services.CTime
             this._eventAggregator = eventAggregator;
             this._applicationStateService = applicationStateService;
             this._geoLocationService = geoLocationService;
+
+            this._client = new HttpClient();
         }
 
         public async Task<User> Login(string emailAddress, string password)
@@ -107,7 +111,7 @@ namespace CTime2.Core.Services.CTime
                     .Select(f => new Time
                     {
                         Day = f.Value<DateTime>("DayDate"),
-                        Hours = TimeSpan.Parse(f.Value<string>("TimeHour_IST_HR")),
+                        Hours = this.ParseTimeSpan(f.Value<string>("TimeHour_IST_HR")),
                         State = f["TimeTrackTypePure"].ToObject<int?>() != 0 
                             ? (TimeState?)f["TimeTrackTypePure"].ToObject<int?>()
                             : null,
@@ -258,7 +262,22 @@ namespace CTime2.Core.Services.CTime
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }
         }
-        
+
+        public void Dispose()
+        {
+            this._client.Dispose();
+        }
+
+        private TimeSpan ParseTimeSpan(string time)
+        {
+            string[] parts = time.Split(':');
+
+            int hours = int.Parse(parts[0]);
+            int minutes = int.Parse(parts[1]);
+
+            return new TimeSpan(hours, minutes, 0);
+        }
+
         private string GetHashedPassword(string password)
         {
             var passwordBytes = Encoding.UTF8.GetBytes(password);
@@ -275,7 +294,7 @@ namespace CTime2.Core.Services.CTime
                 Content = new HttpFormUrlEncodedContent(data)
             };
 
-            var response = await this.GetClient().SendRequestAsync(request);
+            var response = await this._client.SendRequestAsync(request);
 
             if (response.StatusCode != HttpStatusCode.Ok)
                 return null;
@@ -296,11 +315,6 @@ namespace CTime2.Core.Services.CTime
             return new Uri($"https://app.c-time.net/php/{path}");
         }
 
-        private HttpClient GetClient()
-        {
-            return new HttpClient();
-        }
-        
         #region Internal
         private class EmployeeImageCache
         {
