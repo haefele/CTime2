@@ -23,6 +23,8 @@ using UwCore.Hamburger;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using CTime2.Extensions;
+using UwCore.Extensions;
+using UwCore.Services.Loading;
 
 namespace CTime2.ApplicationModes
 {
@@ -34,6 +36,7 @@ namespace CTime2.ApplicationModes
         private readonly ICTimeService _cTimeService;
         private readonly IEmployeeGroupService _employeeGroupService;
         private readonly IHockeyClient _hockeyClient;
+        private readonly ILoadingService _loadingService;
 
         private readonly HamburgerItem _overviewHamburgerItem;
         private readonly HamburgerItem _myTimesHamburgerItem;
@@ -42,19 +45,21 @@ namespace CTime2.ApplicationModes
         private readonly HamburgerItem _statisticsItem;
         private readonly HamburgerItem _logoutHamburgerItem;
 
-        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService, ICTimeService cTimeService, IEmployeeGroupService employeeGroupService, IHockeyClient hockeyClient)
+        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService, ICTimeService cTimeService, IEmployeeGroupService employeeGroupService, IHockeyClient hockeyClient, ILoadingService loadingService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(dialogService, nameof(dialogService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(employeeGroupService, nameof(employeeGroupService));
             Guard.NotNull(hockeyClient, nameof(hockeyClient));
+            Guard.NotNull(loadingService, nameof(loadingService));
 
             this._applicationStateService = applicationStateService;
             this._dialogService = dialogService;
             this._cTimeService = cTimeService;
             this._employeeGroupService = employeeGroupService;
             this._hockeyClient = hockeyClient;
+            this._loadingService = loadingService;
 
             this._overviewHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Overview"), Symbol.Globe, typeof(OverviewViewModel));
             this._myTimesHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar, typeof(YourTimesViewModel));
@@ -151,7 +156,10 @@ namespace CTime2.ApplicationModes
                 this.OnAlreadyCheckedOut,
                 this.OnSuccess);
 
-            await stampHelper.Stamp(callbackHandler, timeState);
+            using (this._loadingService.Show(CTime2Resources.Get("Loading.Stamp")))
+            {
+                await stampHelper.Stamp(callbackHandler, timeState);
+            }
         }
 
         #region StampHelper Callbacks

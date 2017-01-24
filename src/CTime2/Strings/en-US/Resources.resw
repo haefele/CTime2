@@ -456,4 +456,7 @@ You have the option whether your name and your email address will be transferred
 
 This data will only be used to contact you, it will not be given to a third party.</value>
   </data>
+  <data name="Loading.Stamp" xml:space="preserve">
+    <value>Stamping...</value>
+  </data>
 </root>
