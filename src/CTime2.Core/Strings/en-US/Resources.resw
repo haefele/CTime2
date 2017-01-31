@@ -36,4 +36,19 @@
   <data name="BiometricsService.NoBiometricDevicePresent" xml:space="preserve">
     <value>Unfortunately, there is no device available.</value>
   </data>
+  <data name="Entered" xml:space="preserve">
+    <value>Present</value>
+  </data>
+  <data name="HomeOffice" xml:space="preserve">
+    <value>Home-Office</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Away</value>
+  </data>
+  <data name="ShortBreak" xml:space="preserve">
+    <value>Break</value>
+  </data>
+  <data name="Trip" xml:space="preserve">
+    <value>Trip</value>
+  </data>
 </root>

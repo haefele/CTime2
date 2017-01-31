@@ -123,12 +123,6 @@
   <data name="AppNameTextBlock.Text" xml:space="preserve">
     <value>c-time Universal</value>
   </data>
-  <data name="BooleanToAttendingStringConverter.FalseValue" xml:space="preserve">
-    <value>Abwesend</value>
-  </data>
-  <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
-    <value>Anwesend</value>
-  </data>
   <data name="CheckInStampButton.Content" xml:space="preserve">
     <value>Einstempeln</value>
   </data>

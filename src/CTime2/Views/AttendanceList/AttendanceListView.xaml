@@ -22,13 +22,6 @@
                               Source="{x:Bind ViewModel.Users, Mode=OneWay}"
                               IsSourceGrouped="True"
                               ItemsPath="Users" />
-        <uwCoreConverter:BooleanToObjectConverter x:Key="BooleanToAttendingStringConverter"
-                                            x:Uid="BooleanToAttendingStringConverter"
-                                            TrueValue="~Anwesend"
-                                            FalseValue="~Abwesend" />
-        <uwCoreConverter:BooleanToObjectConverter x:Key="BooleanToAttendingBrushConverter" 
-                                            TrueValue="{StaticResource CTimeGreen}" 
-                                            FalseValue="{StaticResource CTimeRed}" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -95,7 +88,7 @@
                 <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate x:DataType="local:AttendingUserByIsAttending">
-                            <TextBlock Text="{x:Bind IsAttending, Converter={StaticResource BooleanToAttendingStringConverter}}" />
+                            <TextBlock Text="{x:Bind AttendanceState.Name}" />
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                     <GroupStyle.Panel>
@@ -112,10 +105,13 @@
                                 Width="140" 
                                 Height="90">
                         <controls:UserImage Image="{x:Bind ImageAsPng, Mode=OneWay}"
-                                            BorderBrush="{x:Bind IsAttending, Converter={StaticResource BooleanToAttendingBrushConverter}}"
                                             Margin="0, 3, 0, 0"
                                             Width="64"
-                                            Height="64" />
+                                            Height="64">
+                            <controls:UserImage.BorderBrush>
+                                <SolidColorBrush Color="{x:Bind AttendanceState.Color}" />
+                            </controls:UserImage.BorderBrush>
+                        </controls:UserImage>
                         <Viewbox HorizontalAlignment="Stretch"
                                  StretchDirection="DownOnly"
                                  Margin="0, 2, 0, 0"

@@ -7,12 +7,12 @@ namespace CTime2.Views.AttendanceList
 {
     public class AttendingUserByIsAttending
     {
-        public bool IsAttending { get; }
+        public AttendanceState AttendanceState { get; }
         public BindableCollection<AttendingUser> Users { get; }
 
         private AttendingUserByIsAttending(BindableCollection<AttendingUser> users)
         {
-            this.IsAttending = users.Select(f => f.IsAttending).FirstOrDefault();
+            this.AttendanceState = users.Select(f => f.AttendanceState).FirstOrDefault();
             this.Users = users;
         }
 
@@ -20,8 +20,8 @@ namespace CTime2.Views.AttendanceList
         {
             var result =
                 from user in users
-                orderby user.IsAttending descending, user.FirstName ascending
-                group user by user.IsAttending into g
+                orderby user.AttendanceState.IsAttending descending, user.AttendanceState.Name ascending, user.FirstName ascending
+                group user by new { user.AttendanceState.IsAttending, user.AttendanceState.Name } into g
                 select new AttendingUserByIsAttending(new BindableCollection<AttendingUser>(g));
 
             return result;

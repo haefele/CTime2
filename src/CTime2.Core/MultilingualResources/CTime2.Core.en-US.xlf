@@ -38,6 +38,26 @@
           <source>Leider ist kein passendes Gerät vorhanden.</source>
           <target state="translated">Unfortunately, there is no device available.</target>
         </trans-unit>
+        <trans-unit id="Entered" translate="yes" xml:space="preserve">
+          <source>Anwesend</source>
+          <target state="translated">Present</target>
+        </trans-unit>
+        <trans-unit id="HomeOffice" translate="yes" xml:space="preserve">
+          <source>Home-Office</source>
+          <target state="translated">Home-Office</target>
+        </trans-unit>
+        <trans-unit id="Left" translate="yes" xml:space="preserve">
+          <source>Abwesend</source>
+          <target state="translated">Away</target>
+        </trans-unit>
+        <trans-unit id="ShortBreak" translate="yes" xml:space="preserve">
+          <source>Pause</source>
+          <target state="translated">Break</target>
+        </trans-unit>
+        <trans-unit id="Trip" translate="yes" xml:space="preserve">
+          <source>Reise</source>
+          <target state="translated">Trip</target>
+        </trans-unit>
       </group>
     </body>
   </file>

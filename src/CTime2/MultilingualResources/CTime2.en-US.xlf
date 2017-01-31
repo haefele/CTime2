@@ -14,14 +14,6 @@
           <source>c-time Universal</source>
           <target state="translated">c-time Universal</target>
         </trans-unit>
-        <trans-unit id="BooleanToAttendingStringConverter.FalseValue" translate="yes" xml:space="preserve">
-          <source>Abwesend</source>
-          <target state="translated">Away</target>
-        </trans-unit>
-        <trans-unit id="BooleanToAttendingStringConverter.TrueValue" translate="yes" xml:space="preserve">
-          <source>Anwesend</source>
-          <target state="translated" state-qualifier="tm-suggestion">Present</target>
-        </trans-unit>
         <trans-unit id="CurrentMonthAppBarButton.Label" translate="yes" xml:space="preserve">
           <source>Aktueller Monat</source>
           <target state="translated" state-qualifier="tm-suggestion">Current month</target>
