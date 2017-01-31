@@ -7,9 +7,11 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:uwCoreBehaviors="using:UwCore.Behaviors"
     xmlns:micro="using:Caliburn.Micro"
+    xmlns:uwCoreConverters="using:UwCore.Converter"
     xmlns:converters="using:WinRTXamlToolkit.Converters">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <uwCoreConverters:BooleanNegationConverter x:Key="BooleanNegationConverter" />
     </Page.Resources>
 
     <Grid Margin="5"
@@ -36,6 +38,7 @@
 
             <TextBox Header="~E-Mail-Adresse" 
                      Grid.Row="2"
+                     IsEnabled="{x:Bind ViewModel.Login.IsExecuting, Converter={StaticResource BooleanNegationConverter}, Mode=OneWay}"
                      x:Uid="EmailAddressTextBox"
                      Text="{x:Bind ViewModel.EmailAddress, Mode=TwoWay}" 
                      InputScope="EmailNameOrAddress">
@@ -48,6 +51,7 @@
 
             <PasswordBox Header="~Passwort" 
                          Grid.Row="4"
+                         IsEnabled="{x:Bind ViewModel.Login.IsExecuting, Converter={StaticResource BooleanNegationConverter}, Mode=OneWay}"
                          x:Uid="PasswordPasswordBox"
                          Password="{x:Bind ViewModel.Password, Mode=TwoWay}">
                 <interactivity:Interaction.Behaviors>
