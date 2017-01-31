@@ -141,4 +141,19 @@
   <data name="CTimeService.ErrorWhileStamp" xml:space="preserve">
     <value>Beim Stempeln ist ein Fehler aufgetreten.</value>
   </data>
+  <data name="Entered" xml:space="preserve">
+    <value>Anwesend</value>
+  </data>
+  <data name="HomeOffice" xml:space="preserve">
+    <value>Home-Office</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Abwesend</value>
+  </data>
+  <data name="ShortBreak" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Trip" xml:space="preserve">
+    <value>Reise</value>
+  </data>
 </root>

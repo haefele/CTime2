@@ -11,17 +11,21 @@ using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Security.Cryptography.Certificates;
 using Windows.Storage;
+using Windows.UI;
+using Windows.UI.Input.Preview.Injection;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Caliburn.Micro;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Strings;
 using Newtonsoft.Json.Linq;
 using UwCore.Common;
+using UwCore.Extensions;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
 
@@ -232,7 +236,12 @@ namespace CTime2.Core.Services.CTime
                             Id = f.Value<string>("EmployeeI3D"),
                             Name = f.Value<string>("EmployeeName"),
                             FirstName = f.Value<string>("EmployeeFirstName"),
-                            IsAttending = f.Value<int>("PresenceStatus") == 1,
+                            AttendanceState = new AttendanceState
+                            {
+                                IsAttending = f.Value<int>("PresenceStatus") == 1,
+                                Name = this.ParseAttendanceStateName(f.Value<string>("TimerTypeDescription"), f.Value<int?>("TimeTrackTypePure")),
+                                Color = this.ParseColor(f.Value<string>("EnumColor"), f.Value<int?>("TimeTrackTypePure")),
+                            },
                             ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? defaultImageAsBase64),
                             EmailAddress = f.Value<string>("EmployeeEmail"),
                             PhoneNumber = f.Value<string>("EmployeePhone"),
@@ -266,6 +275,49 @@ namespace CTime2.Core.Services.CTime
         public void Dispose()
         {
             this._client.Dispose();
+        }
+
+        private string ParseAttendanceStateName(string potentialName, int? state)
+        {
+            if (state == (int)TimeState.Entered)
+                return CTime2CoreResources.Get("Entered");
+
+            if (state == (int)TimeState.Left || state == null)
+                return CTime2CoreResources.Get("Left");
+
+            if (state == (int)TimeState.HomeOffice)
+                return CTime2CoreResources.Get("HomeOffice");
+
+            if (state == (int)TimeState.ShortBreak)
+                return CTime2CoreResources.Get("ShortBreak");
+
+            if (state == (int)TimeState.Trip)
+                return CTime2CoreResources.Get("Trip");
+
+            return potentialName.MakeFirstCharacterUpperCase();
+        }
+
+        private Color ParseColor(string color, int? state)
+        {
+            //For default Entered and Left we use our own red and green colors "CTimeGreen" and "CTimeRed"
+            if (state == (int) TimeState.Entered)
+                return Color.FromArgb(255, 63, 195, 128);
+
+            if (state == (int) TimeState.Left || state == null)
+                return Color.FromArgb(255, 231, 76, 60);
+
+            if (string.IsNullOrWhiteSpace(color))
+                return Colors.Transparent;
+
+            string r = color.Substring(1, 2);
+            string g = color.Substring(3, 2);
+            string b = color.Substring(5, 2);
+
+            return Color.FromArgb(
+                255, 
+                byte.Parse(r, NumberStyles.HexNumber), 
+                byte.Parse(g, NumberStyles.HexNumber), 
+                byte.Parse(b, NumberStyles.HexNumber));
         }
 
         private TimeSpan ParseTimeSpan(string time)

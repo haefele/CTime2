@@ -122,11 +122,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CTimeException.cs" />
+    <Compile Include="Data\AttendanceState.cs" />
     <Compile Include="Data\AttendingUser.cs" />
     <Compile Include="Data\TimeState.cs" />
     <Compile Include="Events\EmployeeGroupCreated.cs" />
     <Compile Include="Events\EmployeeGroupDeleted.cs" />
     <Compile Include="Events\UserStamped.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApplicationState\ApplicationStateServiceExtensions.cs" />
     <Compile Include="Services\Biometrics\BiometricsService.cs" />

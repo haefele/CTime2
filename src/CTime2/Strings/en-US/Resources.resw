@@ -18,12 +18,6 @@
   <data name="AppNameTextBlock.Text" xml:space="preserve">
     <value>c-time Universal</value>
   </data>
-  <data name="BooleanToAttendingStringConverter.FalseValue" xml:space="preserve">
-    <value>Away</value>
-  </data>
-  <data name="BooleanToAttendingStringConverter.TrueValue" xml:space="preserve">
-    <value>Present</value>
-  </data>
   <data name="CurrentMonthAppBarButton.Label" xml:space="preserve">
     <value>Current month</value>
   </data>
