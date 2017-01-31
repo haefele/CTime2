@@ -142,10 +142,6 @@
           <source>Gesamt Arbeitszeit</source>
           <target state="translated">total work time</target>
         </trans-unit>
-        <trans-unit id="VersionTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>Version:</source>
-          <target state="translated">Version:</target>
-        </trans-unit>
         <trans-unit id="Statistics.TotalWorkTimeFormat" translate="yes" xml:space="preserve">
           <source>d\ \T\a\g\e\ hh\:mm\:ss</source>
           <target state="translated">d\ \d\a\y\s\ hh\:mm\:ss</target>
@@ -173,10 +169,6 @@
         <trans-unit id="Navigation.Settings" translate="yes" xml:space="preserve">
           <source>Einstellungen</source>
           <target state="translated">Settings</target>
-        </trans-unit>
-        <trans-unit id="GiveFeedbackButton.Content" translate="yes" xml:space="preserve">
-          <source>Feedback geben</source>
-          <target state="translated">Give feedback</target>
         </trans-unit>
         <trans-unit id="Feedback.EmailAddress" translate="yes" xml:space="preserve">
           <source>c-time@xemio.net</source>
@@ -576,10 +568,6 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
           <source>Absturz beim Starten</source>
           <target state="translated">Crash at startup</target>
         </trans-unit>
-        <trans-unit id="PatchNotesButton.Content" translate="yes" xml:space="preserve">
-          <source>Versionshinweis</source>
-          <target state="translated">Patchnotes</target>
-        </trans-unit>
         <trans-unit id="PatchNotesAgainContent1Run.Text" translate="yes" xml:space="preserve">
           <source>Im Bereich "Über" kann man sich diese Updatehinweise erneut anzeigen lassen.</source>
           <target state="translated">In the area "About" you can see these patchnotes again.</target>
@@ -605,6 +593,114 @@ This data will only be used to contact you, it will not be given to a third part
         <trans-unit id="Loading.Stamp" translate="yes" xml:space="preserve">
           <source>Stemple...</source>
           <target state="translated">Stamping...</target>
+        </trans-unit>
+        <trans-unit id="ThisAppIsOpenSource" translate="yes" xml:space="preserve">
+          <source><bpt id="1">&lt;Run Text="Diese App wird Open-Source auf"&gt;</bpt><ept id="1">&lt;/Run&gt;</ept>
+<bpt id="2">&lt;Hyperlink Name="GitHubHyperlink"&gt;</bpt>
+    <bpt id="3">&lt;Run Text="GitHub"&gt;</bpt><ept id="3">&lt;/Run&gt;</ept>
+<ept id="2">&lt;/Hyperlink&gt;</ept>
+<bpt id="4">&lt;Run Text="entwickelt."&gt;</bpt><ept id="4">&lt;/Run&gt;</ept></source>
+          <target state="translated"><bpt id="1">&lt;Run Text="This app is developed open-source on"&gt;</bpt><ept id="1">&lt;/Run&gt;</ept>
+<bpt id="2">&lt;Hyperlink Name="GitHubHyperlink"&gt;</bpt>
+    <bpt id="3">&lt;Run Text="GitHub"&gt;</bpt><ept id="3">&lt;/Run&gt;</ept>
+<ept id="2">&lt;/Hyperlink&gt;</ept>
+<bpt id="4">&lt;Run Text="."&gt;</bpt><ept id="4">&lt;/Run&gt;</ept></target>
+        </trans-unit>
+        <trans-unit id="MoreInfo" translate="yes" xml:space="preserve">
+          <source><bpt id="1">&lt;Run Text="Weitere Informationen zu c-time gibts auf"&gt;</bpt><ept id="1">&lt;/Run&gt;</ept>
+<bpt id="2">&lt;Hyperlink Name="CTimeWebsiteHyperlink"&gt;</bpt>
+    <bpt id="3">&lt;Run Text="c-time.net"&gt;</bpt><ept id="3">&lt;/Run&gt;</ept>
+<ept id="2">&lt;/Hyperlink&gt;</ept>
+<bpt id="4">&lt;Run Text="oder per E-Mail an"&gt;</bpt><ept id="4">&lt;/Run&gt;</ept>
+<bpt id="5">&lt;Hyperlink Name="CTimeMailAddressHyperlink"&gt;</bpt>
+    <bpt id="6">&lt;Run Text="vertrieb@c-entron.de"&gt;</bpt><ept id="6">&lt;/Run&gt;</ept>
+<ept id="5">&lt;/Hyperlink&gt;</ept>
+<bpt id="7">&lt;Run Text="."&gt;</bpt><ept id="7">&lt;/Run&gt;</ept></source>
+          <target state="translated"><bpt id="1">&lt;Run Text="More information on c-time at"&gt;</bpt><ept id="1">&lt;/Run&gt;</ept>
+<bpt id="2">&lt;Hyperlink Name="CTimeWebsiteHyperlink"&gt;</bpt>
+    <bpt id="3">&lt;Run Text="c-time.net"&gt;</bpt><ept id="3">&lt;/Run&gt;</ept>
+<ept id="2">&lt;/Hyperlink&gt;</ept>
+<bpt id="4">&lt;Run Text="or per email at"&gt;</bpt><ept id="4">&lt;/Run&gt;</ept>
+<bpt id="5">&lt;Hyperlink Name="CTimeMailAddressHyperlink"&gt;</bpt>
+    <bpt id="6">&lt;Run Text="vertrieb@c-entron.de"&gt;</bpt><ept id="6">&lt;/Run&gt;</ept>
+<ept id="5">&lt;/Hyperlink&gt;</ept>
+<bpt id="7">&lt;Run Text="."&gt;</bpt><ept id="7">&lt;/Run&gt;</ept></target>
+        </trans-unit>
+        <trans-unit id="CopyrightTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>© 2017 - Daniel Häfele</source>
+          <target state="translated">© 2017 - Daniel Häfele</target>
+        </trans-unit>
+        <trans-unit id="PatchNotesHyperlinkButton.Content" translate="yes" xml:space="preserve">
+          <source>Versionshinweis</source>
+          <target state="translated">Patch notes</target>
+        </trans-unit>
+        <trans-unit id="VersionRun.Text" translate="yes" xml:space="preserve">
+          <source>c-time Universal Version</source>
+          <target state="translated">c-time Universal Version</target>
+        </trans-unit>
+        <trans-unit id="FeedbackHyperlinkButton.Content" translate="yes" xml:space="preserve">
+          <source>Feedback</source>
+          <target state="translated">Feedback</target>
+        </trans-unit>
+        <trans-unit id="FeedbackPerMailMenuFlyoutItem.Text" translate="yes" xml:space="preserve">
+          <source>Per E-Mail</source>
+          <target state="translated">By email</target>
+        </trans-unit>
+        <trans-unit id="FeedbackPerFeedbackHubMenuFlyoutItem.Text" translate="yes" xml:space="preserve">
+          <source>Übers Feedback-Hub</source>
+          <target state="translated">Via Feedback-Hub</target>
+        </trans-unit>
+        <trans-unit id="PrivacyPolicyHyperlinkButton.Content" translate="yes" xml:space="preserve">
+          <source>Datenschutzerklärung</source>
+          <target state="translated">Privacy policy</target>
+        </trans-unit>
+        <trans-unit id="GeneralSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Allgemeines</source>
+          <target state="translated">General</target>
+        </trans-unit>
+        <trans-unit id="ContactSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Kontakt</source>
+          <target state="translated">Contact</target>
+        </trans-unit>
+        <trans-unit id="ContactEmailHyperlinkButton.Content" translate="yes" xml:space="preserve">
+          <source>c-time@xemio.net</source>
+          <target state="translated">c-time@xemio.net</target>
+        </trans-unit>
+        <trans-unit id="TwitterHyperlinkButton.Content" translate="yes" xml:space="preserve">
+          <source>@haefeledev</source>
+          <target state="translated">@haefeledev</target>
+        </trans-unit>
+        <trans-unit id="GitHubHyperlinkButton.Content" translate="yes" xml:space="preserve">
+          <source>github.com/haefele</source>
+          <target state="translated">github.com/haefele</target>
+        </trans-unit>
+        <trans-unit id="SocialMediaSettingsGroup.Header" translate="yes" xml:space="preserve">
+          <source>Soziale Medien</source>
+          <target state="translated">Social media</target>
+        </trans-unit>
+        <trans-unit id="CTimeMailAddress" translate="yes" xml:space="preserve">
+          <source>vertrieb@c-entron.de</source>
+          <target state="translated">vertrieb@c-entron.de</target>
+        </trans-unit>
+        <trans-unit id="CTimeUniversalGitHubUrl" translate="yes" xml:space="preserve">
+          <source>https://github.com/haefele/CTime2</source>
+          <target state="translated">https://github.com/haefele/CTime2</target>
+        </trans-unit>
+        <trans-unit id="CTimeWebsite" translate="yes" xml:space="preserve">
+          <source>https://www.c-time.net</source>
+          <target state="translated">https://www.c-time.net</target>
+        </trans-unit>
+        <trans-unit id="GitHubUrl" translate="yes" xml:space="preserve">
+          <source>https://github.com/haefele</source>
+          <target state="translated">https://github.com/haefele</target>
+        </trans-unit>
+        <trans-unit id="PrivacyPolicyUrl" translate="yes" xml:space="preserve">
+          <source>https://xemio.net/c-time/privacy%20policy/de-DE.html</source>
+          <target state="translated">https://xemio.net/c-time/privacy%20policy/en-US.html</target>
+        </trans-unit>
+        <trans-unit id="TwitterUrl" translate="yes" xml:space="preserve">
+          <source>https://twitter.com/haefeledev</source>
+          <target state="translated">https://twitter.com/haefeledev</target>
         </trans-unit>
       </group>
     </body>

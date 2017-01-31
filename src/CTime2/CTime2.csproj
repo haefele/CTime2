@@ -104,6 +104,11 @@
     </Compile>
     <Compile Include="ApplicationModes\TerminalApplicationMode.cs" />
     <Compile Include="Behaviors\CloseFlyoutAction.cs" />
+    <Compile Include="Behaviors\FeedbackHubAvailableVisibility.cs" />
+    <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
+    <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
+    <Compile Include="Views\About\MoreInfoTextFromResources.cs" />
+    <Compile Include="Views\About\ThisAppIsOpenSourceTextFromResourceses.cs" />
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Common\VisualTreeHelperEx.cs" />
     <Compile Include="Controls\StampButton.cs" />
@@ -384,6 +389,12 @@
     <XliffResource Include="MultilingualResources\CTime2.en-US.xlf" />
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
+      <Name>Microsoft Engagement Framework</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>

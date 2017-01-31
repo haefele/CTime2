@@ -7,6 +7,6 @@
         public AboutView()
         {
             this.InitializeComponent();
-        }
+        } 
     }
 }
