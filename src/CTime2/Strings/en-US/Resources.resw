@@ -114,9 +114,6 @@
   <data name="Statistics.TotalWorkTime" xml:space="preserve">
     <value>total work time</value>
   </data>
-  <data name="VersionTextBlock.Text" xml:space="preserve">
-    <value>Version:</value>
-  </data>
   <data name="Statistics.TotalWorkTimeFormat" xml:space="preserve">
     <value>d\ \d\a\y\s\ hh\:mm\:ss</value>
   </data>
@@ -137,9 +134,6 @@
   </data>
   <data name="Navigation.Settings" xml:space="preserve">
     <value>Settings</value>
-  </data>
-  <data name="GiveFeedbackButton.Content" xml:space="preserve">
-    <value>Give feedback</value>
   </data>
   <data name="Feedback.EmailAddress" xml:space="preserve">
     <value>c-time@xemio.net</value>
@@ -438,9 +432,6 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
   <data name="CrashHeaderRun.Text" xml:space="preserve">
     <value>Crash at startup</value>
   </data>
-  <data name="PatchNotesButton.Content" xml:space="preserve">
-    <value>Patchnotes</value>
-  </data>
   <data name="PatchNotesAgainContent1Run.Text" xml:space="preserve">
     <value>In the area "About" you can see these patchnotes again.</value>
   </data>
@@ -458,5 +449,80 @@ This data will only be used to contact you, it will not be given to a third part
   </data>
   <data name="Loading.Stamp" xml:space="preserve">
     <value>Stamping...</value>
+  </data>
+  <data name="ThisAppIsOpenSource" xml:space="preserve">
+    <value>&lt;Run Text="This app is developed open-source on"&gt;&lt;/Run&gt;
+&lt;Hyperlink Name="GitHubHyperlink"&gt;
+    &lt;Run Text="GitHub"&gt;&lt;/Run&gt;
+&lt;/Hyperlink&gt;
+&lt;Run Text="."&gt;&lt;/Run&gt;</value>
+  </data>
+  <data name="MoreInfo" xml:space="preserve">
+    <value>&lt;Run Text="More information on c-time at"&gt;&lt;/Run&gt;
+&lt;Hyperlink Name="CTimeWebsiteHyperlink"&gt;
+    &lt;Run Text="c-time.net"&gt;&lt;/Run&gt;
+&lt;/Hyperlink&gt;
+&lt;Run Text="or per email at"&gt;&lt;/Run&gt;
+&lt;Hyperlink Name="CTimeMailAddressHyperlink"&gt;
+    &lt;Run Text="vertrieb@c-entron.de"&gt;&lt;/Run&gt;
+&lt;/Hyperlink&gt;
+&lt;Run Text="."&gt;&lt;/Run&gt;</value>
+  </data>
+  <data name="CopyrightTextBlock.Text" xml:space="preserve">
+    <value>© 2017 - Daniel Häfele</value>
+  </data>
+  <data name="PatchNotesHyperlinkButton.Content" xml:space="preserve">
+    <value>Patch notes</value>
+  </data>
+  <data name="VersionRun.Text" xml:space="preserve">
+    <value>c-time Universal Version</value>
+  </data>
+  <data name="FeedbackHyperlinkButton.Content" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="FeedbackPerMailMenuFlyoutItem.Text" xml:space="preserve">
+    <value>By email</value>
+  </data>
+  <data name="FeedbackPerFeedbackHubMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Via Feedback-Hub</value>
+  </data>
+  <data name="PrivacyPolicyHyperlinkButton.Content" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="GeneralSettingsGroup.Header" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ContactSettingsGroup.Header" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="ContactEmailHyperlinkButton.Content" xml:space="preserve">
+    <value>c-time@xemio.net</value>
+  </data>
+  <data name="TwitterHyperlinkButton.Content" xml:space="preserve">
+    <value>@haefeledev</value>
+  </data>
+  <data name="GitHubHyperlinkButton.Content" xml:space="preserve">
+    <value>github.com/haefele</value>
+  </data>
+  <data name="SocialMediaSettingsGroup.Header" xml:space="preserve">
+    <value>Social media</value>
+  </data>
+  <data name="CTimeMailAddress" xml:space="preserve">
+    <value>vertrieb@c-entron.de</value>
+  </data>
+  <data name="CTimeUniversalGitHubUrl" xml:space="preserve">
+    <value>https://github.com/haefele/CTime2</value>
+  </data>
+  <data name="CTimeWebsite" xml:space="preserve">
+    <value>https://www.c-time.net</value>
+  </data>
+  <data name="GitHubUrl" xml:space="preserve">
+    <value>https://github.com/haefele</value>
+  </data>
+  <data name="PrivacyPolicyUrl" xml:space="preserve">
+    <value>https://xemio.net/c-time/privacy%20policy/en-US.html</value>
+  </data>
+  <data name="TwitterUrl" xml:space="preserve">
+    <value>https://twitter.com/haefeledev</value>
   </data>
 </root>

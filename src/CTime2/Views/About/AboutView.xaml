@@ -2,57 +2,91 @@
     x:Class="CTime2.Views.About.AboutView"
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-   
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Padding="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <BitmapIcon Grid.Row="0"
-                    UriSource="ms-appx:///Assets/Square150x150Logo.png"
-                    Width="200"
-                    Height="200"
-                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}" />
-        
-        <TextBlock Grid.Row="1"
-                   x:Uid="AboutMessageTextBlock"
-                   TextWrapping="Wrap"
-                   HorizontalAlignment="Center"
-                   TextAlignment="Center"
-                   Text="~c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
-        
-        <TextBlock Grid.Row="2"
-                   x:Uid="VersionTextBlock"
-                   Text="~Version:"
-                   HorizontalAlignment="Center"
-                   Margin="0, 10, 0, 0"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   />
-        
-        <TextBlock Grid.Row="3"
-                   HorizontalAlignment="Center"
-                   Text="{x:Bind ViewModel.CurrentVersion}" />
-        
-        <Button Grid.Row="4" 
-                x:Uid="PatchNotesButton"
-                Content="~Versionshinweis"
-                HorizontalAlignment="Center"
-                Margin="0, 5, 0, 0"
-                Command="{x:Bind ViewModel.PatchNotes}" />
-        
-        <Button Grid.Row="5"
-                x:Uid="GiveFeedbackButton"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Content="~Feedback geben"
-                Command="{x:Bind ViewModel.SendFeedback}" />
-    </Grid>
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:UwCore.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:CTime2.Behaviors"
+    xmlns:about="using:CTime2.Views.About">
+    <Page.Resources>
+        <Style TargetType="HyperlinkButton">
+            <Setter Property="Margin" Value="0, -5" />
+        </Style>
+    </Page.Resources>
+
+    <controls:SettingsControl>
+        <controls:SettingsGroup Header="~Allgemeines" x:Uid="GeneralSettingsGroup">
+            
+            <controls:SettingsItem>
+                <StackPanel>
+                    <TextBlock x:Uid="AboutMessageTextBlock"
+                               TextWrapping="Wrap" 
+                               Text="~c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
+                    
+                    <TextBlock TextWrapping="Wrap" Text="~Weitere Informationen zu c-time gibts auf c-time.net oder per E-Mail an vertrieb@c-entron.de.">
+                        <interactivity:Interaction.Behaviors>
+                            <about:MoreInfoTextFromResources />
+                        </interactivity:Interaction.Behaviors>
+                    </TextBlock>
+                </StackPanel>
+            </controls:SettingsItem>
+            
+            <controls:SettingsItem>
+                <TextBlock TextWrapping="Wrap" Text="~Diese App wird Open-Source auf GitHub entwickelt.">
+                    <interactivity:Interaction.Behaviors>
+                        <about:ThisAppIsOpenSourceTextFromResourceses />
+                    </interactivity:Interaction.Behaviors>
+                </TextBlock>
+            </controls:SettingsItem>
+
+            <controls:SettingsItem>
+                <TextBlock>
+                    <Run Text="~c-time Universal Version" x:Uid="VersionRun" />
+                    <Run Text="{x:Bind ViewModel.CurrentVersion}" />
+                </TextBlock>
+            </controls:SettingsItem>
+
+            <controls:SettingsItem>
+                <TextBlock Text="~© 2017 - Daniel Häfele" x:Uid="CopyrightTextBlock" />
+            </controls:SettingsItem>
+            
+            <controls:SettingsItem>
+                <StackPanel>
+                    <HyperlinkButton Command="{x:Bind ViewModel.ShowPatchNotes}" Content="~Versionshinweis" x:Uid="PatchNotesHyperlinkButton" />
+                    <HyperlinkButton Content="~Feedback" x:Uid="FeedbackHyperlinkButton">
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="~Per E-Mail" Command="{x:Bind ViewModel.SendFeedbackPerMail}" x:Uid="FeedbackPerMailMenuFlyoutItem" />
+                                <MenuFlyoutItem Text="~Über Feedback-Hub" Command="{x:Bind ViewModel.SendFeedbackPerFeedbackHub}" x:Uid="FeedbackPerFeedbackHubMenuFlyoutItem">
+                                    <interactivity:Interaction.Behaviors>
+                                        <behaviors:FeedbackHubAvailableVisibility />
+                                    </interactivity:Interaction.Behaviors>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:ShowAttachedFlyout />
+                        </interactivity:Interaction.Behaviors>
+                    </HyperlinkButton>
+                    <HyperlinkButton Command="{x:Bind ViewModel.ShowPrivacyPolicy}" Content="~Datenschutzerklärung" x:Uid="PrivacyPolicyHyperlinkButton" />
+                </StackPanel>
+            </controls:SettingsItem>
+            
+        </controls:SettingsGroup>
+
+        <controls:SettingsGroup Header="~Kontakt" x:Uid="ContactSettingsGroup">
+            <controls:SettingsItem>
+                <HyperlinkButton Content="~c-time@xemio.net" Command="{x:Bind ViewModel.SendMail}" x:Uid="ContactEmailHyperlinkButton" />
+            </controls:SettingsItem>
+        </controls:SettingsGroup>
+
+        <controls:SettingsGroup Header="~Soziale Medien" x:Uid="SocialMediaSettingsGroup">
+            <controls:SettingsItem>
+                <StackPanel>
+                    <HyperlinkButton Content="~@haefeledev" Command="{x:Bind ViewModel.OpenTwitter}" x:Uid="TwitterHyperlinkButton" />
+                    <HyperlinkButton Content="~github.com/haefele" Command="{x:Bind ViewModel.OpenGitHub}" x:Uid="GitHubHyperlinkButton" />
+                </StackPanel>
+            </controls:SettingsItem>
+        </controls:SettingsGroup>
+    </controls:SettingsControl>
 </Page>
+
