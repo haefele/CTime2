@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Windows.Security.Credentials.UI;
 using Windows.UI.Popups;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.EmployeeGroups;
+using CTime2.Extensions;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
@@ -29,8 +32,10 @@ namespace CTime2.Views.AttendanceList
 
         private ReactiveList<AttendingUser> _selectedUsers;
         private readonly ObservableAsPropertyHelper<ReactiveList<AttendingUserByIsAttending>> _usersHelper;
+        private readonly ObservableAsPropertyHelper<ReactiveList<AttendingUserByIsAttending>> _filteredUsersHelper;
         private AttendanceListState _state;
         private string _groupName;
+        private string _searchText;
 
         public ReactiveList<AttendingUser> SelectedUsers
         {
@@ -38,6 +43,7 @@ namespace CTime2.Views.AttendanceList
             set { this.RaiseAndSetIfChanged(ref this._selectedUsers, value); }
         }
         public ReactiveList<AttendingUserByIsAttending> Users => this._usersHelper.Value;
+        public ReactiveList<AttendingUserByIsAttending> FilteredUsers => this._filteredUsersHelper.Value;
         public AttendanceListState State
         {
             get { return this._state; }
@@ -48,8 +54,14 @@ namespace CTime2.Views.AttendanceList
             get { return this._groupName; }
             set { this.RaiseAndSetIfChanged(ref this._groupName, value); }
         }
+        public string SearchText
+        {
+            get { return this._searchText; }
+            set { this.RaiseAndSetIfChanged(ref this._searchText, value); }
+        }
 
         public UwCoreCommand<ReactiveList<AttendingUserByIsAttending>> LoadUsers { get; }
+        public UwCoreCommand<ReactiveList<AttendingUserByIsAttending>> FilterUsers { get; }
         public UwCoreCommand<Unit> ShowDetails { get; }
         public UwCoreCommand<Unit> CreateGroup { get; }
         public UwCoreCommand<Unit> SaveGroup { get; }
@@ -84,6 +96,14 @@ namespace CTime2.Views.AttendanceList
                 .TrackEvent("LoadAttendanceList");
             this.LoadUsers.ToProperty(this, f => f.Users, out this._usersHelper);
 
+            this.FilterUsers = UwCoreCommand.Create(this.FilterUsersImpl)
+                .HandleExceptions();
+            this.FilterUsers.ToProperty(this, f => f.FilteredUsers, out this._filteredUsersHelper);
+
+            this.WhenAnyValue(f => f.Users, f => f.SearchText)
+                .Throttle(TimeSpan.FromMilliseconds(250))
+                .InvokeCommand(this.FilterUsers);
+
             var canShowDetails = this.WhenAnyValue(f => f.SelectedUsers).Select(f => f.Any());
             this.ShowDetails = UwCoreCommand.Create(canShowDetails, this.ShowDetailsImpl)
                 .HandleExceptions()
@@ -114,11 +134,31 @@ namespace CTime2.Views.AttendanceList
                 .TrackEvent("DeleteEmployeeGroup");
         }
 
+        private Task<ReactiveList<AttendingUserByIsAttending>> FilterUsersImpl()
+        {
+            return Task.Run(() =>
+            {
+                if (this.Users == null)
+                    return null;
+
+                var searchText = (this.SearchText ?? string.Empty).Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries);
+
+                var filteredUsers = this.Users
+                    .SelectMany(f => f.Users)
+                    .Where(f => searchText.All(s => f.FirstName.Contains(s, StringComparison.OrdinalIgnoreCase) ||
+                                                    f.Name.Contains(s, StringComparison.OrdinalIgnoreCase) ||
+                                                    f.EmailAddress.Contains(s, StringComparison.OrdinalIgnoreCase)));
+
+                return new ReactiveList<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(filteredUsers));
+            });
+        }
+
         protected override async void OnActivate()
         {
             base.OnActivate();
 
             await this.LoadUsers.ExecuteAsync();
+            await this.FilterUsers.ExecuteAsync();
         }
 
         private async Task<ReactiveList<AttendingUserByIsAttending>> LoadUsersImpl()
@@ -158,11 +198,12 @@ namespace CTime2.Views.AttendanceList
             return Task.CompletedTask;
         }
 
-        private Task CreateGroupImpl()
+        private async Task CreateGroupImpl()
         {
-            this.State = AttendanceListState.CreateGroup;
+            this.SearchText = string.Empty;
+            await this.FilterUsers.ExecuteAsync();
 
-            return Task.CompletedTask;
+            this.State = AttendanceListState.CreateGroup;
         }
 
         private async Task SaveGroupImpl()
