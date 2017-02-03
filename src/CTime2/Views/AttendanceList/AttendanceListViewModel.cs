@@ -149,7 +149,12 @@ namespace CTime2.Views.AttendanceList
                                                     f.Name.Contains(s, StringComparison.OrdinalIgnoreCase) ||
                                                     f.EmailAddress.Contains(s, StringComparison.OrdinalIgnoreCase)));
 
-                return new ReactiveList<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(filteredUsers));
+                var result = new ReactiveList<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(filteredUsers));
+                
+                //If the lists didn't change, just return the same value as before
+                return new ReactiveListOfAttendingUserByIsAttendingEqualityComparer().Equals(result, this.FilteredUsers)
+                    ? this.FilteredUsers 
+                    : result;
             });
         }
 

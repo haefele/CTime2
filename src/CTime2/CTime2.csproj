@@ -133,6 +133,7 @@
       <DependentUpon>AttendingUserDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AttendanceList\AttendingUserDetailsViewModel.cs" />
+    <Compile Include="Views\AttendanceList\ReactiveListOfAttendingUserByIsAttendingEqualityComparer.cs" />
     <Compile Include="Views\GeoLocationInfo\GeoLocationInfoView.xaml.cs">
       <DependentUpon>GeoLocationInfoView.xaml</DependentUpon>
     </Compile>
