@@ -239,7 +239,7 @@ namespace CTime2.Core.Services.CTime
                             AttendanceState = new AttendanceState
                             {
                                 IsAttending = f.Value<int>("PresenceStatus") == 1,
-                                Name = this.ParseAttendanceStateName(f.Value<string>("TimerTypeDescription"), f.Value<int?>("TimeTrackTypePure")),
+                                Name = this.ParseAttendanceStateName(f.Value<string>("TimerTypeDescription"), f.Value<int?>("TimeTrackTypePure"), f.Value<int>("PresenceStatus") == 1),
                                 Color = this.ParseColor(f.Value<string>("EnumColor"), f.Value<int?>("TimeTrackTypePure")),
                             },
                             ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? defaultImageAsBase64),
@@ -277,7 +277,7 @@ namespace CTime2.Core.Services.CTime
             this._client.Dispose();
         }
 
-        private string ParseAttendanceStateName(string potentialName, int? state)
+        private string ParseAttendanceStateName(string potentialName, int? state, bool attending)
         {
             if (state == (int)TimeState.Entered)
                 return CTime2CoreResources.Get("Entered");
@@ -286,15 +286,19 @@ namespace CTime2.Core.Services.CTime
                 return CTime2CoreResources.Get("Left");
 
             if (state == (int)TimeState.HomeOffice)
-                return CTime2CoreResources.Get("HomeOffice");
+                potentialName = CTime2CoreResources.Get("HomeOffice");
 
             if (state == (int)TimeState.ShortBreak)
-                return CTime2CoreResources.Get("ShortBreak");
+                potentialName = CTime2CoreResources.Get("ShortBreak");
 
             if (state == (int)TimeState.Trip)
-                return CTime2CoreResources.Get("Trip");
+                potentialName = CTime2CoreResources.Get("Trip");
 
-            return potentialName.MakeFirstCharacterUpperCase();
+            string suffix = attending 
+                ? CTime2CoreResources.Get("Entered") 
+                : CTime2CoreResources.Get("Left");
+
+            return $"{potentialName.MakeFirstCharacterUpperCase()} ({suffix})";
         }
 
         private Color ParseColor(string color, int? state)
