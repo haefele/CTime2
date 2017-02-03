@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using CTime2.Core.Data;
 using Microsoft.Toolkit.Uwp.UI;
 
@@ -14,7 +15,10 @@ namespace CTime2.Views.AttendanceList
             
             //Fix flyout not working on anniversary update
             if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 3))
+            {
                 this.SaveGroupAppBarButton.AllowFocusOnInteraction = true;
+                this.SearchAppBarButton.AllowFocusOnInteraction = true;
+            }
         }
 
         public AttendanceListViewModel ViewModel => this.DataContext as AttendanceListViewModel;

@@ -19,7 +19,7 @@
     
     <Page.Resources>
         <CollectionViewSource x:Key="GroupedAttendingUsers"
-                              Source="{x:Bind ViewModel.Users, Mode=OneWay}"
+                              Source="{x:Bind ViewModel.FilteredUsers, Mode=OneWay}"
                               IsSourceGrouped="True"
                               ItemsPath="Users" />
     </Page.Resources>
@@ -67,6 +67,7 @@
                         <Setter Target="DeleteGroupAppBarButton.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="AttendanceListGridView.(ListViewBase.SelectionMode)" Value="Multiple"/>
                         <Setter Target="AttendanceListGridView.(ListViewBase.IsItemClickEnabled)" Value="False"/>
+                        <Setter Target="SearchAppBarButton.(UIElement.Visibility)" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -131,6 +132,15 @@
             <CommandBar.Content>
                 <Grid/>
             </CommandBar.Content>
+            <AppBarButton x:Name="SearchAppBarButton" x:Uid="SearchAppBarButton" Icon="Find" Label="~Suchen">
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <TextBox TextWrapping="Wrap"
+                                 Width="160"
+                                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
             <AppBarButton x:Name="SaveGroupAppBarButton" x:Uid="SaveGroupAppBarButton" Icon="Save" Label="~Speichern">
                 <AppBarButton.Flyout>
                     <Flyout>

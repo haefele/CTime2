@@ -107,6 +107,7 @@
     <Compile Include="Behaviors\FeedbackHubAvailableVisibility.cs" />
     <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Views\About\MoreInfoTextFromResources.cs" />
     <Compile Include="Views\About\ThisAppIsOpenSourceTextFromResourceses.cs" />
     <Compile Include="Common\SymbolEx.cs" />

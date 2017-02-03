@@ -519,4 +519,7 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="TwitterUrl" xml:space="preserve">
     <value>https://twitter.com/haefeledev</value>
   </data>
+  <data name="SearchAppBarButton.Label" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

@@ -624,4 +624,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="VersionRun.Text" xml:space="preserve">
     <value>c-time Universal Version</value>
   </data>
+  <data name="SearchAppBarButton.Label" xml:space="preserve">
+    <value>Suchen</value>
+  </data>
 </root>

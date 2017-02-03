@@ -694,6 +694,10 @@ This data will only be used to contact you, it will not be given to a third part
           <source>https://twitter.com/haefeledev</source>
           <target state="translated">https://twitter.com/haefeledev</target>
         </trans-unit>
+        <trans-unit id="SearchAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Suchen</source>
+          <target state="translated">Search</target>
+        </trans-unit>
       </group>
     </body>
   </file>
