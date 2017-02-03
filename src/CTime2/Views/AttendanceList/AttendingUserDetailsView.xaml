@@ -10,13 +10,14 @@
     mc:Ignorable="d"
     
     MaxWidth="320"
-    MaxHeight="346">
+    MaxHeight="373">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           Padding="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -45,15 +46,24 @@
         </Viewbox>
 
         <TextBlock Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   FontSize="14"
+                   Text="{x:Bind ViewModel.AttendingUser.AttendanceState.Name, Mode=OneWay}">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{x:Bind ViewModel.AttendingUser.AttendanceState.Color, Mode=OneWay}" />
+            </TextBlock.Foreground>
+        </TextBlock>
+        
+        <TextBlock Grid.Row="3"
                    x:Uid="EmailAddressTextBlock"
                    Margin="0, 10, 0, 0"
                    Text="~E-Mail Adresse" 
                    Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
 
-        <TextBlock Grid.Row="3" 
+        <TextBlock Grid.Row="4" 
                    Text="{x:Bind ViewModel.AttendingUser.EmailAddress, Mode=OneWay}" />
         
-        <Button Grid.Row="2"
+        <Button Grid.Row="3"
                 Grid.RowSpan="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
@@ -65,16 +75,16 @@
             <SymbolIcon Symbol="Mail" />
         </Button>
 
-        <TextBlock Grid.Row="4" 
+        <TextBlock Grid.Row="5" 
                    x:Uid="PhoneNumberTextBlock"
                    Text="~Telefonnummer" 
                    Margin="0, 10, 0, 0"
                    Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
 
-        <TextBlock Grid.Row="5" 
+        <TextBlock Grid.Row="6" 
                    Text="{x:Bind ViewModel.AttendingUser.PhoneNumber, Mode=OneWay}" />
 
-        <Button Grid.Row="4"
+        <Button Grid.Row="5"
                 Grid.RowSpan="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
@@ -86,7 +96,7 @@
             <SymbolIcon Symbol="Phone" />
         </Button>
         
-        <Button Grid.Row="6" 
+        <Button Grid.Row="7" 
                 Margin="0, 10, 0, 0"
                 HorizontalAlignment="Stretch"
                 Command="{x:Bind ViewModel.AddAsContact, Mode=OneWay}">
