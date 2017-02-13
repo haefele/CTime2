@@ -1,6 +1,5 @@
 ﻿{
   "dependencies": {
-    "AdaptiveTriggerLibrary": "1.2.1",
     "FontAwesome.UWP": "4.7.0.9",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Microsoft.Services.Store.SDK": "10.1610.31001",
