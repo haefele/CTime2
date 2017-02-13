@@ -7,10 +7,16 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:uwCoreBehaviors="using:UwCore.Behaviors"
     xmlns:micro="using:Caliburn.Micro"
-    xmlns:uwCoreConverters="using:UwCore.Converter"
-    xmlns:converters="using:WinRTXamlToolkit.Converters">
+    xmlns:uwCoreConverters="using:UwCore.Converter">
     <Page.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <uwCoreConverters:BooleanToObjectConverter x:Key="BooleanToVisibilityConverter">
+            <uwCoreConverters:BooleanToObjectConverter.TrueValue>
+                <Visibility>Visible</Visibility>
+            </uwCoreConverters:BooleanToObjectConverter.TrueValue>
+            <uwCoreConverters:BooleanToObjectConverter.FalseValue>
+                <Visibility>Collapsed</Visibility>
+            </uwCoreConverters:BooleanToObjectConverter.FalseValue>
+        </uwCoreConverters:BooleanToObjectConverter>
         <uwCoreConverters:BooleanNegationConverter x:Key="BooleanNegationConverter" />
     </Page.Resources>
 

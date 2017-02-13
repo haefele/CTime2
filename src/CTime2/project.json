@@ -4,8 +4,7 @@
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Microsoft.Services.Store.SDK": "10.1610.31001",
     "UwCore": "0.1.83",
-    "WindowsStateTriggers": "1.1.0",
-    "WinRTXamlToolkit.Controls.DataVisualization.UWP": "2.2.0"
+    "WindowsStateTriggers": "1.1.0"
   },
   "frameworks": {
     "uap10.0": {}
