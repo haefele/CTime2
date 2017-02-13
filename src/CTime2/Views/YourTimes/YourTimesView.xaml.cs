@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using CTime2.Common;
-using WinRTXamlToolkit.Controls.Extensions;
+using Microsoft.Toolkit.Uwp.UI;
 
 namespace CTime2.Views.YourTimes
 {
@@ -29,7 +29,7 @@ namespace CTime2.Views.YourTimes
 
         private void UpdateBackground(FrameworkElement frameworkElement)
         {
-            var headerItem = frameworkElement.GetFirstAncestorOfType<ListViewHeaderItem>();
+            var headerItem = frameworkElement.FindVisualAscendant<ListViewHeaderItem>();
 
             if (headerItem == null)
                 return;
