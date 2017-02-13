@@ -4,12 +4,24 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CTime2.Views.Statistics.DetailedStatistic"
+    xmlns:liveCharts="using:LiveCharts.Uwp"
+    xmlns:statistics="using:CTime2.Views.Statistics"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d">
+    
+    <Page.Resources>
+        <statistics:StatisticChartItemsToSeriesConverter x:Key="StatisticChartItemsToSeriesConverter" />
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="OverTime" />
+
+        <liveCharts:CartesianChart Series="{x:Bind ViewModel.ChartItems, Converter={StaticResource StatisticChartItemsToSeriesConverter}, Mode=OneWay}">
+            <liveCharts:CartesianChart.AxisX>
+                <liveCharts:Axis x:Name="HorizontalAxis" />
+            </liveCharts:CartesianChart.AxisX>
+        </liveCharts:CartesianChart>
     </Grid>
 </Page>
+
