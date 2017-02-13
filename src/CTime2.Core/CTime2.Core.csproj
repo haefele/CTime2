@@ -108,10 +108,6 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Label="MultilingualAppToolkit">
-    <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
-    <MultilingualFallbackLanguage>de-DE</MultilingualFallbackLanguage>
-  </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
@@ -161,9 +157,6 @@
     <Compile Include="Strings\CTime2CoreResources.cs" />
     <Content Include="Properties\CTime2.Core.rd.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <XliffResource Include="MultilingualResources\CTime2.Core.en-US.xlf" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
@@ -174,10 +167,6 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets')" />
-  <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets')" Label="MultilingualAppToolkit">
-    <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
