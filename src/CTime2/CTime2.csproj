@@ -99,6 +99,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationModes\TerminalApplicationMode.cs" />
+    <Compile Include="Behaviors\ClipToBounds.cs" />
     <Compile Include="Behaviors\CloseFlyoutAction.cs" />
     <Compile Include="Behaviors\FeedbackHubAvailableVisibility.cs" />
     <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
