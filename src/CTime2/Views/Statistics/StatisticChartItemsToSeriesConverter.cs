@@ -1,6 +1,8 @@
 ﻿using System;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Uwp;
@@ -27,7 +29,9 @@ namespace CTime2.Views.Statistics
             {
                 seriesCollection.Add(new LineSeries
                 {
-                    Values = new ChartValues<StatisticChartItem>(line)
+                    Values = new ChartValues<StatisticChartItem>(line),
+                    LineSmoothness = 0,
+                    DataLabels = true
                 });   
             }
 
