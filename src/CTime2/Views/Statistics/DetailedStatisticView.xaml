@@ -15,12 +15,17 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
+        <TextBlock Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+                   HorizontalAlignment="Center"
+                   Style="{StaticResource TitleTextBlockStyle}" />
 
         <ContentControl x:Name="Content"
-                        Grid.Row="0"
+                        Grid.Row="1"
                         VerticalContentAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         micro:View.Context="{x:Bind ViewModel.Parameter.StatisticChart}"
@@ -30,7 +35,7 @@
             </interactivity:Interaction.Behaviors>
         </ContentControl>
 
-        <CommandBar Grid.Row="1">
+        <CommandBar Grid.Row="2">
             <AppBarButton x:Uid="ShareAppBarButton" 
                           Label="~Teilen"
                           Command="{x:Bind ViewModel.Share}" >

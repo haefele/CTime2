@@ -84,6 +84,8 @@ namespace CTime2.Views.Statistics
 
         private async Task<ReactiveList<StatisticChartItem>[]> LoadChartImpl()
         {
+            this.DisplayName = this.GetStatisticName();
+
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.Parameter.StartDate.LocalDateTime, this.Parameter.EndDate.LocalDateTime);
 
             var timesByDay = TimesByDay.Create(times)
@@ -110,7 +112,7 @@ namespace CTime2.Views.Statistics
 
         private Task ShareImpl()
         {
-            this._sharingService.Share(this.GetStatisticName(), async dataPackage =>
+            this._sharingService.Share(this.DisplayName, async dataPackage =>
             {
                 var view = this.GetView() as IDetailedStatisticView;
 

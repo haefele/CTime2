@@ -10,4 +10,13 @@
     <SolidColorBrush x:Key="CTimeLightGray" Color="#95a5a6" />
     <SolidColorBrush x:Key="CTimeDarkGray" Color="#7f8c8d" />
 
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="ChartLineBrush" Color="LightGray"/>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="ChartLineBrush" Color="#595959"/>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
 </ResourceDictionary>
