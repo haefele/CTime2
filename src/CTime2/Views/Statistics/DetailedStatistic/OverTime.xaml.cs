@@ -12,10 +12,6 @@ namespace CTime2.Views.Statistics.DetailedStatistic
         public OverTime()
         {
             this.InitializeComponent();
-
-            this.HorizontalAxis.LabelFormatter = value => value <= 0 
-                ? string.Empty 
-                : new DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("d");
         }
     }
 }
