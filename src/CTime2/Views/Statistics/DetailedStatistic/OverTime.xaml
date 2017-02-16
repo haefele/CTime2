@@ -18,23 +18,52 @@
             </telerikChart:RadCartesianChart.VerticalAxis>
             
             <telerikChart:RadCartesianChart.HorizontalAxis>
-                <telerikChart:DateTimeContinuousAxis LabelFormat="{}{0:dd.MM.}" />
+                <telerikChart:DateTimeContinuousAxis LabelFormat="{}{0:dd.MM.}" 
+                                                     PlotMode="OnTicksPadded" />
             </telerikChart:RadCartesianChart.HorizontalAxis>
 
             <telerikChart:RadCartesianChart.Grid>
-                <telerikChart:CartesianChartGrid MajorLinesVisibility="XY" />
+                <telerikChart:CartesianChartGrid MajorLinesVisibility="XY" 
+                                                 MajorXLinesRenderMode="All"  />
             </telerikChart:RadCartesianChart.Grid>
             
             <telerikChart:RadCartesianChart.Annotations>
-                <telerikChart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path= VerticalAxis}" 
-                                                          Value="0" 
-                                                          Stroke="{ThemeResource ChartLineBrush}" 
-                                                          StrokeThickness="1" />
+                
+                <telerikChart:CartesianPlotBandAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}" 
+                                                          From="0"
+                                                          To="-1000"
+                                                          Fill="#3FFF0000" />
+
+                <telerikChart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
+                                                          Value="50"
+                                                          Stroke="Green"
+                                                          StrokeThickness="1"
+                                                          Foreground="Green"
+                                                          Label="50 min">
+                    <telerikChart:CartesianGridLineAnnotation.LabelDefinition>
+                        <telerikChart:ChartAnnotationLabelDefinition Location="Top" 
+                                                                     VerticalAlignment="Center" 
+                                                                     HorizontalOffset="4" />
+                    </telerikChart:CartesianGridLineAnnotation.LabelDefinition>
+                </telerikChart:CartesianGridLineAnnotation>
+
+                <telerikChart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
+                                                          Value="-15"
+                                                          Stroke="Red"
+                                                          StrokeThickness="1"
+                                                          Foreground="Red"
+                                                          Label="-15 min">
+                    <telerikChart:CartesianGridLineAnnotation.LabelDefinition>
+                        <telerikChart:ChartAnnotationLabelDefinition Location="Bottom"
+                                                                     VerticalAlignment="Center"
+                                                                     HorizontalOffset="4" />
+                    </telerikChart:CartesianGridLineAnnotation.LabelDefinition>
+                </telerikChart:CartesianGridLineAnnotation>
             </telerikChart:RadCartesianChart.Annotations>
             
             <telerikChart:RadCartesianChart.Behaviors>
-                <telerikChart:ChartPanAndZoomBehavior ZoomMode="Horizontal" PanMode="Horizontal"/>
-                <telerikChart:ChartTrackBallBehavior />
+                <telerikChart:ChartPanAndZoomBehavior ZoomMode="Horizontal" 
+                                                      PanMode="Horizontal"/>
             </telerikChart:RadCartesianChart.Behaviors>
             
             <telerikChart:RadCartesianChart.EmptyContent>
@@ -50,7 +79,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding DataItem.Value}" />
-                                    <TextBlock Text=" Min" />
+                                    <TextBlock Text=" min" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerikChart:ChartSeriesLabelDefinition.Template>
@@ -63,6 +92,7 @@
                     <telerikChart:PropertyNameDataPointBinding PropertyName="Value" />
                 </telerikChart:LineSeries.ValueBinding>
             </telerikChart:LineSeries>
+            
         </telerikChart:RadCartesianChart>
     </Grid>
 </Page>
