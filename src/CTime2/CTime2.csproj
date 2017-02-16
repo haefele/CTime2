@@ -104,6 +104,7 @@
     <Compile Include="Behaviors\FeedbackHubAvailableVisibility.cs" />
     <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
+    <Compile Include="Converter\NumberAboveZeroConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Views\About\MoreInfoTextFromResources.cs" />
     <Compile Include="Views\About\ThisAppIsOpenSourceTextFromResourceses.cs" />
@@ -175,29 +176,34 @@
       <DependentUpon>CheckedOutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Overview\CheckedOut\CheckedOutViewModel.cs" />
-    <Compile Include="Views\Statistics\DetailedStatisticView.xaml.cs">
+    <Compile Include="Views\Statistics\Details\BreakTime\BreakTimeViewModel.cs" />
+    <Compile Include="Views\Statistics\Details\DetailedStatisticDiagramViewModelBase.cs" />
+    <Compile Include="Views\Statistics\Details\DetailedStatisticView.xaml.cs">
       <DependentUpon>DetailedStatisticView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Statistics\DetailedStatisticViewModel.cs" />
-    <Compile Include="Views\Statistics\DetailedStatistic\BreakTime.xaml.cs">
-      <DependentUpon>BreakTime.xaml</DependentUpon>
+    <Compile Include="Views\Statistics\Details\DetailedStatisticViewModel.cs" />
+    <Compile Include="Views\Statistics\Details\BreakTime\BreakTimeView.xaml.cs">
+      <DependentUpon>BreakTimeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Statistics\DetailedStatistic\EnterAndLeaveTime.xaml.cs">
-      <DependentUpon>EnterAndLeaveTime.xaml</DependentUpon>
+    <Compile Include="Views\Statistics\Details\EnterAndLeaveTime\EnterAndLeaveTimeView.xaml.cs">
+      <DependentUpon>EnterAndLeaveTimeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Statistics\DetailedStatistic\OverTime.xaml.cs">
-      <DependentUpon>OverTime.xaml</DependentUpon>
+    <Compile Include="Views\Statistics\Details\OverTime\OverTimeView.xaml.cs">
+      <DependentUpon>OverTimeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Statistics\DetailedStatistic\WorkTime.xaml.cs">
-      <DependentUpon>WorkTime.xaml</DependentUpon>
+    <Compile Include="Views\Statistics\Details\WorkTime\WorkTimeView.xaml.cs">
+      <DependentUpon>WorkTimeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Statistics\StatisticChartItem.cs" />
-    <Compile Include="Views\Statistics\StatisticChartKind.cs" />
+    <Compile Include="Views\Statistics\Details\EnterAndLeaveTime\EnterAndLeaveTimeViewModel.cs" />
+    <Compile Include="Views\Statistics\Details\OverTime\OverTimeViewModel.cs" />
+    <Compile Include="Views\Statistics\Details\StatisticChartItem.cs" />
+    <Compile Include="Views\Statistics\Details\StatisticChartKind.cs" />
     <Compile Include="Views\Statistics\StatisticItem.cs" />
     <Compile Include="Views\Statistics\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistics\StatisticsViewModel.cs" />
+    <Compile Include="Views\Statistics\Details\WorkTime\WorkTimeViewModel.cs" />
     <Compile Include="Views\Terminal\TerminalView.xaml.cs">
       <DependentUpon>TerminalView.xaml</DependentUpon>
     </Compile>
@@ -329,23 +335,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Statistics\DetailedStatisticView.xaml">
+    <Page Include="Views\Statistics\Details\DetailedStatisticView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Statistics\DetailedStatistic\BreakTime.xaml">
+    <Page Include="Views\Statistics\Details\BreakTime\BreakTimeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Statistics\DetailedStatistic\EnterAndLeaveTime.xaml">
+    <Page Include="Views\Statistics\Details\EnterAndLeaveTime\EnterAndLeaveTimeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Statistics\DetailedStatistic\OverTime.xaml">
+    <Page Include="Views\Statistics\Details\OverTime\OverTimeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Statistics\DetailedStatistic\WorkTime.xaml">
+    <Page Include="Views\Statistics\Details\WorkTime\WorkTimeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

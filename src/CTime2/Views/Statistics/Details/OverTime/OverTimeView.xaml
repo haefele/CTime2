@@ -1,15 +1,20 @@
 ﻿<Page
-    x:Class="CTime2.Views.Statistics.DetailedStatistic.OverTime"
+    x:Class="CTime2.Views.Statistics.Details.OverTime.OverTimeView"
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CTime2.Views.Statistics.DetailedStatistic"
     xmlns:statistics="using:CTime2.Views.Statistics"
     xmlns:telerikChart="using:Telerik.UI.Xaml.Controls.Chart"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:uwCoreConverter="using:UwCore.Converter"
+    xmlns:ctimeConverter="using:CTime2.Converter"
     mc:Ignorable="d">
+    <Page.Resources>
+        <uwCoreConverter:FormatStringConverter x:Key="NumberToMinStringConverter" FormatString="{}{0:#} min" />
+        <ctimeConverter:NumberAboveZeroConverter x:Key="AboveZeroToBrushConverter" ZeroOrAbove="{StaticResource CTimeGreen}"  LessThanZero="{StaticResource CTimeRed}" />
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <telerikChart:RadCartesianChart x:Name="Chart">
@@ -28,34 +33,20 @@
             </telerikChart:RadCartesianChart.Grid>
             
             <telerikChart:RadCartesianChart.Annotations>
-                
                 <telerikChart:CartesianPlotBandAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}" 
                                                           From="0"
                                                           To="-1000"
                                                           Fill="#3FFF0000" />
 
                 <telerikChart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
-                                                          Value="50"
-                                                          Stroke="Green"
+                                                          Value="{x:Bind ViewModel.AverageOverTimePerDay, Mode=OneWay}"
+                                                          Stroke="{x:Bind ViewModel.AverageOverTimePerDay, Mode=OneWay, Converter={StaticResource AboveZeroToBrushConverter}}"
                                                           StrokeThickness="1"
-                                                          Foreground="Green"
-                                                          Label="50 min">
+                                                          Foreground="{x:Bind ViewModel.AverageOverTimePerDay, Mode=OneWay, Converter={StaticResource AboveZeroToBrushConverter}}"
+                                                          Label="{x:Bind ViewModel.AverageOverTimePerDay, Mode=OneWay, Converter={StaticResource NumberToMinStringConverter}}">
                     <telerikChart:CartesianGridLineAnnotation.LabelDefinition>
                         <telerikChart:ChartAnnotationLabelDefinition Location="Top" 
                                                                      VerticalAlignment="Center" 
-                                                                     HorizontalOffset="4" />
-                    </telerikChart:CartesianGridLineAnnotation.LabelDefinition>
-                </telerikChart:CartesianGridLineAnnotation>
-
-                <telerikChart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
-                                                          Value="-15"
-                                                          Stroke="Red"
-                                                          StrokeThickness="1"
-                                                          Foreground="Red"
-                                                          Label="-15 min">
-                    <telerikChart:CartesianGridLineAnnotation.LabelDefinition>
-                        <telerikChart:ChartAnnotationLabelDefinition Location="Bottom"
-                                                                     VerticalAlignment="Center"
                                                                      HorizontalOffset="4" />
                     </telerikChart:CartesianGridLineAnnotation.LabelDefinition>
                 </telerikChart:CartesianGridLineAnnotation>
@@ -70,9 +61,9 @@
                 <Grid />
             </telerikChart:RadCartesianChart.EmptyContent>
 
-            <telerikChart:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems[0], Mode=OneWay}"
+            <telerikChart:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
                                      Stroke="{ThemeResource SystemControlForegroundAccentBrush}"
-                                     ShowLabels="True">
+                                     ShowLabels="{x:Bind ViewModel.ShowLabels, Mode=OneWay}">
                 <telerikChart:LineSeries.LabelDefinitions>
                     <telerikChart:ChartSeriesLabelDefinition HorizontalAlignment="Center" VerticalAlignment="Top">
                         <telerikChart:ChartSeriesLabelDefinition.Template>

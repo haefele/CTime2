@@ -16,6 +16,7 @@ using UwCore.Services.Dialog;
 using System.Reactive;
 using System.Text;
 using CTime2.Core.Services.Sharing;
+using CTime2.Views.Statistics.Details;
 using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Statistics

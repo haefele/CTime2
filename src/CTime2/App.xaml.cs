@@ -32,6 +32,11 @@ using CTime2.Views.Overview.CheckedIn;
 using CTime2.Views.Overview.CheckedOut;
 using CTime2.Views.Settings;
 using CTime2.Views.Statistics;
+using CTime2.Views.Statistics.Details;
+using CTime2.Views.Statistics.Details.BreakTime;
+using CTime2.Views.Statistics.Details.EnterAndLeaveTime;
+using CTime2.Views.Statistics.Details.OverTime;
+using CTime2.Views.Statistics.Details.WorkTime;
 using CTime2.Views.Terminal;
 using CTime2.Views.UpdateNotes;
 using CTime2.Views.YourTimes;
@@ -111,6 +116,10 @@ namespace CTime2
             yield return typeof(MyTimeViewModel);
             yield return typeof(AttendingUserDetailsViewModel);
             yield return typeof(TerminalViewModel);
+            yield return typeof(BreakTimeViewModel);
+            yield return typeof(EnterAndLeaveTimeViewModel);
+            yield return typeof(OverTimeViewModel);
+            yield return typeof(WorkTimeViewModel);
         }
 
         public override IEnumerable<Type> GetShellModeTypes()
