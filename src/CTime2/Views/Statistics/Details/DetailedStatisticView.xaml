@@ -50,7 +50,7 @@
                             </Grid.ColumnDefinitions>
 
                             <SymbolIcon Grid.Column="0" 
-                                        Symbol="Remove"
+                                        Symbol="ZoomOut"
                                         VerticalAlignment="Center"
                                         Margin="0, 0, 0, 6" />
 
@@ -65,7 +65,7 @@
 
 
                             <SymbolIcon Grid.Column="2" 
-                                        Symbol="Add"
+                                        Symbol="ZoomIn"
                                         VerticalAlignment="Center"
                                         Margin="0, 0, 0, 6" />
                         </Grid>
@@ -73,8 +73,7 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarToggleButton Label="Text anzeigen"
-                                IsChecked="{Binding ActiveItem.ShowLabels, Mode=TwoWay}"
-                                Icon="Font" />
+                                IsChecked="{Binding ActiveItem.ShowLabels, Mode=TwoWay}" Icon="Font" />
             <AppBarButton x:Uid="ShareAppBarButton"
                           Label="~Teilen"
                           Command="{x:Bind ViewModel.Share}">
