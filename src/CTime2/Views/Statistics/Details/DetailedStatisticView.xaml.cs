@@ -6,9 +6,8 @@ using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.Storage;
 
-namespace CTime2.Views.Statistics
+namespace CTime2.Views.Statistics.Details
 {
     public sealed partial class DetailedStatisticView : Page, IDetailedStatisticView
     {

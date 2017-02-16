@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CTime2.Views.Statistics
+namespace CTime2.Views.Statistics.Details
 {
     public class StatisticChartItem
     {

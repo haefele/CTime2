@@ -1,0 +1,49 @@
+﻿<Page x:Class="CTime2.Views.Statistics.Details.DetailedStatisticView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:CTime2.Views.Statistics"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:uwp="using:FontAwesome.UWP"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:behaviors="using:CTime2.Behaviors"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{x:Bind ViewModel.ActiveItem.DisplayName, Mode=OneWay}"
+                   HorizontalAlignment="Center"
+                   Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                   Margin="0, 10, 0, 2"
+                   Style="{StaticResource TitleTextBlockStyle}" />
+
+        <ContentControl x:Name="Content"
+                        Grid.Row="1"
+                        VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        micro:View.Model="{x:Bind ViewModel.ActiveItem, Mode=OneWay}" />
+
+        <CommandBar Grid.Row="2">
+            <AppBarToggleButton Label="Text anzeigen"
+                                IsChecked="{Binding ActiveItem.ShowLabels, Mode=TwoWay}"
+                                Icon="Font" />
+            <AppBarButton x:Uid="ShareAppBarButton"
+                          Label="~Teilen"
+                          Command="{x:Bind ViewModel.Share}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE72D;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton x:Uid="GoToMyTimesAppBarButton"
+                          Label="~Zu Meine Zeiten wechseln"
+                          Icon="Go"
+                          Command="{x:Bind ViewModel.GoToMyTimesCommand}" />
+        </CommandBar>
+    </Grid>
+</Page>
