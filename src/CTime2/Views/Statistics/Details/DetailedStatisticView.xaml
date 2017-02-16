@@ -14,24 +14,31 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="{x:Bind ViewModel.ActiveItem.DisplayName, Mode=OneWay}"
-                   HorizontalAlignment="Center"
-                   Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-                   Margin="0, 10, 0, 2"
-                   Style="{StaticResource TitleTextBlockStyle}" />
+        <Grid x:Name="Container" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <ContentControl x:Name="Content"
-                        Grid.Row="1"
-                        VerticalContentAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch"
-                        micro:View.Model="{x:Bind ViewModel.ActiveItem, Mode=OneWay}" />
+            <TextBlock Grid.Row="0"
+                       Text="{x:Bind ViewModel.ActiveItem.DisplayName, Mode=OneWay}"
+                       HorizontalAlignment="Center"
+                       Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                       Margin="0, 10, 0, 2"
+                       Style="{StaticResource TitleTextBlockStyle}" />
 
-        <CommandBar Grid.Row="2">
+            <ContentControl x:Name="Content"
+                            Grid.Row="1"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            micro:View.Model="{x:Bind ViewModel.ActiveItem, Mode=OneWay}" />
+        </Grid>
+
+        <CommandBar Grid.Row="1">
             <AppBarButton Icon="Zoom" Label="Zoomen">
                 <AppBarButton.Flyout>
                     <Flyout>
