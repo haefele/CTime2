@@ -14,10 +14,11 @@
     <Page.Resources>
         <uwCoreConverter:FormatStringConverter x:Key="NumberToMinStringConverter" FormatString="{}{0:#} min" />
         <ctimeConverter:NumberAboveZeroConverter x:Key="AboveZeroToBrushConverter" ZeroOrAbove="{StaticResource CTimeGreen}"  LessThanZero="{StaticResource CTimeRed}" />
+        <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <telerikChart:RadCartesianChart x:Name="Chart">
+        <telerikChart:RadCartesianChart x:Name="Chart" Zoom="{x:Bind ViewModel.ZoomFactor, Mode=TwoWay, Converter={StaticResource DecimalToHorizontalSizeConverter}}">
             <telerikChart:RadCartesianChart.VerticalAxis>
                 <telerikChart:LinearAxis />
             </telerikChart:RadCartesianChart.VerticalAxis>

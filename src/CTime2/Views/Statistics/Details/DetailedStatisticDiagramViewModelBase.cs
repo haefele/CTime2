@@ -10,7 +10,14 @@ namespace CTime2.Views.Statistics.Details
 {
     public abstract class DetailedStatisticDiagramViewModelBase : UwCoreScreen
     {
+        private double _zoomFactor;
         private bool _showLabels;
+
+        public double ZoomFactor
+        {
+            get { return this._zoomFactor; }
+            set { this.RaiseAndSetIfChanged(ref this._zoomFactor, value); }
+        }
 
         public bool ShowLabels
         {
@@ -20,6 +27,7 @@ namespace CTime2.Views.Statistics.Details
 
         public DetailedStatisticDiagramViewModelBase()
         {
+            this.ZoomFactor = 1;
             this.ShowLabels = true;
         }
 
