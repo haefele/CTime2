@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <uwCoreConverter:FormatStringConverter x:Key="NumberToMinStringConverter" FormatString="{}{0:#} min" />
-        <ctimeConverter:NumberAboveZeroConverter x:Key="AboveZeroToBrushConverter" ZeroOrAbove="{StaticResource CTimeGreen}"  LessThanZero="{StaticResource CTimeRed}" />
+        <ctimeConverter:NumberAboveConverter x:Key="AboveZeroToBrushConverter" EqualOrBigger="{StaticResource CTimeGreen}"  Less="{StaticResource CTimeRed}" />
         <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
         <uwCoreConverter:BooleanNegationConverter x:Key="BooleanNegationConverter" />
     </Page.Resources>

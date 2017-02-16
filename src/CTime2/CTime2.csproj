@@ -106,7 +106,8 @@
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
     <Compile Include="Converter\DoubleToHorizontalSizeConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
-    <Compile Include="Converter\NumberAboveZeroConverter.cs" />
+    <Compile Include="Converter\HoursToTimeStringConverter.cs" />
+    <Compile Include="Converter\NumberAboveConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Views\About\MoreInfoTextFromResources.cs" />
     <Compile Include="Views\About\ThisAppIsOpenSourceTextFromResourceses.cs" />

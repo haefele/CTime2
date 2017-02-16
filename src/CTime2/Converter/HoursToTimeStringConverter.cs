@@ -1,22 +1,18 @@
-﻿using System;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace CTime2.Converter
 {
-    public class NumberAboveZeroConverter : IValueConverter
+    public class HoursToTimeStringConverter : IValueConverter
     {
-        public object ZeroOrAbove { get; set; }
-        public object LessThanZero { get; set; }
-
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            decimal number;
-            if (decimal.TryParse(value?.ToString(), out number) == false)
+            if (value is double == false)
                 return value;
 
-            return number >= 0m
-                ? this.ZeroOrAbove
-                : this.LessThanZero;
+            double d = (double) value;
+
+            return TimeSpan.FromHours(d).ToString(@"h\ \h\ m\ \m\i\n");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
