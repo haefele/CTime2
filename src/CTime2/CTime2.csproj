@@ -104,6 +104,8 @@
     <Compile Include="Behaviors\FeedbackHubAvailableVisibility.cs" />
     <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
+    <Compile Include="Converter\DoubleToHorizontalSizeConverter.cs" />
+    <Compile Include="Converter\EnumToBooleanConverter.cs" />
     <Compile Include="Converter\NumberAboveZeroConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Views\About\MoreInfoTextFromResources.cs" />
