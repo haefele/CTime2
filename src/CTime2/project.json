@@ -4,7 +4,7 @@
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Microsoft.Services.Store.SDK": "10.1610.31001",
     "Telerik.UI.for.UniversalWindowsPlatform": "1.0.0.1",
-    "UwCore": "0.1.83",
+    "UwCore": "0.1.85",
     "WindowsStateTriggers": "1.1.0"
   },
   "frameworks": {
