@@ -11,7 +11,7 @@ namespace CTime2.Views.Statistics.Details
     public abstract class DetailedStatisticDiagramViewModelBase : UwCoreScreen
     {
         private double _zoomFactor;
-        private bool _showLabels;
+        private bool _hideLabels;
 
         public double ZoomFactor
         {
@@ -19,16 +19,16 @@ namespace CTime2.Views.Statistics.Details
             set { this.RaiseAndSetIfChanged(ref this._zoomFactor, value); }
         }
 
-        public bool ShowLabels
+        public bool HideLabels
         {
-            get { return this._showLabels; }
-            set { this.RaiseAndSetIfChanged(ref this._showLabels, value); }
+            get { return this._hideLabels; }
+            set { this.RaiseAndSetIfChanged(ref this._hideLabels, value); }
         }
 
         public DetailedStatisticDiagramViewModelBase()
         {
             this.ZoomFactor = 1;
-            this.ShowLabels = true;
+            this.HideLabels = false;
         }
 
         public abstract Task LoadAsync(List<TimesByDay> timesByDay);

@@ -15,6 +15,7 @@
         <uwCoreConverter:FormatStringConverter x:Key="NumberToMinStringConverter" FormatString="{}{0:#} min" />
         <ctimeConverter:NumberAboveZeroConverter x:Key="AboveZeroToBrushConverter" ZeroOrAbove="{StaticResource CTimeGreen}"  LessThanZero="{StaticResource CTimeRed}" />
         <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
+        <uwCoreConverter:BooleanNegationConverter x:Key="BooleanNegationConverter" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -64,7 +65,7 @@
 
             <telerikChart:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
                                      Stroke="{ThemeResource SystemControlForegroundAccentBrush}"
-                                     ShowLabels="{x:Bind ViewModel.ShowLabels, Mode=OneWay}">
+                                     ShowLabels="{x:Bind ViewModel.HideLabels, Mode=OneWay, Converter={StaticResource BooleanNegationConverter}}">
                 <telerikChart:LineSeries.LabelDefinitions>
                     <telerikChart:ChartSeriesLabelDefinition HorizontalAlignment="Center" VerticalAlignment="Top">
                         <telerikChart:ChartSeriesLabelDefinition.Template>
