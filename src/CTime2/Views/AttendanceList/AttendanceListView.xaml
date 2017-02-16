@@ -129,9 +129,6 @@
         </GridView>
 
         <CommandBar Grid.Row="1">
-            <CommandBar.Content>
-                <Grid/>
-            </CommandBar.Content>
             <AppBarButton x:Name="SearchAppBarButton" x:Uid="SearchAppBarButton" Icon="Find" Label="~Suchen">
                 <AppBarButton.Flyout>
                     <Flyout>
