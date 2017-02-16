@@ -22,7 +22,7 @@ namespace CTime2.Views.Statistics.Details
         public async Task<RandomAccessStreamReference> GetDiagramAsync()
         {
             var bitmap = new RenderTargetBitmap();
-            await bitmap.RenderAsync(this.Content);
+            await bitmap.RenderAsync(this.Container);
             
             var randomAccessStream = new InMemoryRandomAccessStream();
 
