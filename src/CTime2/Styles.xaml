@@ -13,9 +13,11 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush x:Key="ChartLineBrush" Color="LightGray"/>
+            <SolidColorBrush x:Key="BorderBrush" Color="#7A7A7A" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
             <SolidColorBrush x:Key="ChartLineBrush" Color="#595959"/>
+            <SolidColorBrush x:Key="BorderBrush" Color="#797979" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
