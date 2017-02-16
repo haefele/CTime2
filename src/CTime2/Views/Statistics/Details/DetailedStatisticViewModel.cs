@@ -86,6 +86,8 @@ namespace CTime2.Views.Statistics.Details
 
         private Task GoToMyTimes()
         {
+            this.TryClose();
+
             this._navigationService
                 .For<YourTimesViewModel>()
                 .WithParam(f => f.Parameter.StartDate, this.Parameter.StartDate)
