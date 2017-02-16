@@ -42,9 +42,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
         public override Task LoadAsync(List<TimesByDay> timesByDay)
         {
             var result = new List<StatisticChartItem>();
-
-            double sum = 0;
-
+            
             foreach (var time in timesByDay)
             {
                 var previousDay = result.LastOrDefault();
@@ -52,9 +50,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
                 var change = time.Hours == TimeSpan.Zero //Use 0 and not -480 if we have no times at one day (Weekend)
                     ? 0
                     : (time.Hours - this._applicationStateService.GetWorkDayHours()).TotalMinutes;
-
-                sum += change;
-
+                
                 result.Add(new StatisticChartItem
                 {
                     Date = time.Day,
@@ -63,7 +59,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
             }
             this.EnsureAllDatesAreThere(result, valueForFilledDates: result.Last().Value);
 
-            this.AverageOverTimePerDay = sum / timesByDay.Count(f => f.Hours > TimeSpan.Zero);
+            this.AverageOverTimePerDay = (result.LastOrDefault()?.Value ?? 0) / timesByDay.Count(f => f.Hours > TimeSpan.Zero);
             this.ChartItems = new ReactiveList<StatisticChartItem>(result);
 
             return Task.CompletedTask;
