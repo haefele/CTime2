@@ -34,10 +34,10 @@
             </chart:RadCartesianChart.Grid>
             
             <chart:RadCartesianChart.Annotations>
-                <chart:CartesianPlotBandAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}" 
+                <!--<chart:CartesianPlotBandAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}" 
                                                    From="{x:Bind ViewModel.ExpectedHoursPerDay, Mode=OneWay}"
                                                    To="-1000"
-                                                   Fill="#3FFF0000" />
+                                                   Fill="#3FFF0000" />-->
 
                 <chart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
                                                    Value="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay}"
