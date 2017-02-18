@@ -60,7 +60,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
             this.EnsureAllDatesAreThere(result, valueForFilledDates: result.Last().Value);
 
             this.AverageOverTimePerDay = (result.LastOrDefault()?.Value ?? 0) / timesByDay.Count(f => f.Hours > TimeSpan.Zero);
-            this.ChartItems = new ReactiveList<StatisticChartItem>(result);
+            this.ChartItems = new ReactiveList<StatisticChartItem>(result.OrderBy(f => f.Date));
 
             return Task.CompletedTask;
         }
