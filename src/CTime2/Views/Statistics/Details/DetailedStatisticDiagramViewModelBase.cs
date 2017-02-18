@@ -13,6 +13,8 @@ namespace CTime2.Views.Statistics.Details
         private double _zoomFactor;
         private bool _hideLabels;
 
+        public DetailedStatisticViewModel Owner => this.Parent as DetailedStatisticViewModel;
+
         public double ZoomFactor
         {
             get { return this._zoomFactor; }

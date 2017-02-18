@@ -7,12 +7,14 @@
     xmlns:telerikChart="using:Telerik.UI.Xaml.Controls.Chart"
     xmlns:uwCoreConverter="using:UwCore.Converter"
     xmlns:ctimeConverter="using:CTime2.Converter"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:CTime2.Behaviors"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d">
     <Page.Resources>
-        <uwCoreConverter:FormatStringConverter x:Key="NumberToMinStringConverter" FormatString="{}{0:#} min" />
+        <uwCoreConverter:FormatStringConverter x:Key="NumberToMinStringConverter" FormatString="{}⌀ {0:#} min" />
         <ctimeConverter:NumberAboveConverter x:Key="AboveZeroToBrushConverter" EqualOrBigger="{StaticResource CTimeGreen}"  Less="{StaticResource CTimeRed}" />
         <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
         <uwCoreConverter:BooleanNegationConverter x:Key="BooleanNegationConverter" />
@@ -36,9 +38,16 @@
             
             <telerikChart:RadCartesianChart.Annotations>
                 <telerikChart:CartesianPlotBandAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}" 
+                                                          Opacity="0.2"
                                                           From="0"
-                                                          To="-1000"
-                                                          Fill="#3FFF0000" />
+                                                          To="-1000000">
+                    <telerikChart:CartesianPlotBandAnnotation.Fill>
+                        <LinearGradientBrush StartPoint="0, 0" EndPoint="0, 1">
+                            <GradientStop Offset="0" Color="{StaticResource CTimeRedColor}" />
+                            <GradientStop Offset="1" Color="Transparent" />
+                        </LinearGradientBrush>
+                    </telerikChart:CartesianPlotBandAnnotation.Fill>
+                </telerikChart:CartesianPlotBandAnnotation>
 
                 <telerikChart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
                                                           Value="{x:Bind ViewModel.AverageOverTimePerDay, Mode=OneWay}"
@@ -58,6 +67,13 @@
                 <telerikChart:ChartPanAndZoomBehavior ZoomMode="Horizontal" 
                                                       PanMode="Horizontal"/>
             </telerikChart:RadCartesianChart.Behaviors>
+            
+            <interactivity:Interaction.Behaviors>
+                <behaviors:MarkWeeks StartDate="{x:Bind ViewModel.Owner.Parameter.StartDate, Mode=OneWay}"
+                                     EndDate="{x:Bind ViewModel.Owner.Parameter.EndDate, Mode=OneWay}" />
+                <behaviors:MarkWeekEnds StartDate="{x:Bind ViewModel.Owner.Parameter.StartDate, Mode=OneWay}"
+                                        EndDate="{x:Bind ViewModel.Owner.Parameter.EndDate, Mode=OneWay}" />
+            </interactivity:Interaction.Behaviors>
             
             <telerikChart:RadCartesianChart.EmptyContent>
                 <Grid />

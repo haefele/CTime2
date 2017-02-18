@@ -6,12 +6,15 @@
     xmlns:uwCoreConverter="using:UwCore.Converter"
     xmlns:ctimeConverter="using:CTime2.Converter"
     xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:CTime2.Behaviors"
 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d">
     <Page.Resources>
         <ctimeConverter:HoursToTimeStringConverter x:Key="HoursToTimeStringConverter" />
+        <ctimeConverter:HoursToTimeStringConverter x:Key="AverageHoursToTimeStringConverter" Prefix="⌀ " />
         <ctimeConverter:NumberAboveConverter x:Key="AboveExpectedHoursPerDay" EqualOrBigger="{StaticResource CTimeGreen}"  Less="{StaticResource CTimeRed}" CompareTo="{Binding ExpectedHoursPerDay, Mode=OneWay}" />
         <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
         <uwCoreConverter:BooleanNegationConverter x:Key="BooleanNegationConverter" />
@@ -34,17 +37,12 @@
             </chart:RadCartesianChart.Grid>
             
             <chart:RadCartesianChart.Annotations>
-                <!--<chart:CartesianPlotBandAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}" 
-                                                   From="{x:Bind ViewModel.ExpectedHoursPerDay, Mode=OneWay}"
-                                                   To="-1000"
-                                                   Fill="#3FFF0000" />-->
-
                 <chart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
                                                    Value="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay}"
                                                    Stroke="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource AboveExpectedHoursPerDay}}"
                                                    StrokeThickness="1"
                                                    Foreground="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource AboveExpectedHoursPerDay}}"
-                                                   Label="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource HoursToTimeStringConverter}}">
+                                                   Label="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource AverageHoursToTimeStringConverter}}">
                     <chart:CartesianGridLineAnnotation.LabelDefinition>
                         <chart:ChartAnnotationLabelDefinition Location="Top" 
                                                               VerticalAlignment="Center" 
@@ -57,6 +55,13 @@
                 <chart:ChartPanAndZoomBehavior ZoomMode="Horizontal" 
                                                PanMode="Horizontal"/>
             </chart:RadCartesianChart.Behaviors>
+            
+            <interactivity:Interaction.Behaviors>
+                <behaviors:MarkWeeks StartDate="{x:Bind ViewModel.Owner.Parameter.StartDate, Mode=OneWay}"
+                                     EndDate="{x:Bind ViewModel.Owner.Parameter.EndDate, Mode=OneWay}" />
+                <behaviors:MarkWeekEnds StartDate="{x:Bind ViewModel.Owner.Parameter.StartDate, Mode=OneWay}"
+                                        EndDate="{x:Bind ViewModel.Owner.Parameter.EndDate, Mode=OneWay}" />
+            </interactivity:Interaction.Behaviors>
 
             <chart:RadCartesianChart.EmptyContent>
                 <Grid />
