@@ -166,11 +166,11 @@ namespace CTime2.Views.Statistics
             var averageWorkTime = TimeSpan.FromMinutes(totalWorkTime.TotalMinutes / totalWorkDays);
 
             var averageEnterTime = TimeSpan.FromMinutes(
-                timesByDay.Where(f => f.DayStartTime != null).Sum(f => f.DayStartTime.Value.TotalMinutes) /
+                timesByDay.Where(f => f.DayStartTime != null).Sum(f => f.DayStartTime.Value.TimeOfDay.TotalMinutes) /
                 timesByDay.Count(f => f.DayStartTime != null));
 
             var averageLeaveTime = TimeSpan.FromMinutes(
-                timesByDay.Where(f => f.DayEndTime != null).Sum(f => f.DayEndTime.Value.TotalMinutes) /
+                timesByDay.Where(f => f.DayEndTime != null).Sum(f => (f.DayEndTime.Value - f.Day).TotalMinutes) /
                 timesByDay.Count(f => f.DayEndTime != null));
 
             var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
