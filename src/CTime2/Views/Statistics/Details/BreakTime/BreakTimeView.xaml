@@ -1,12 +1,94 @@
 ﻿<Page
     x:Class="CTime2.Views.Statistics.Details.BreakTime.BreakTimeView"
+    
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:CTime2.Behaviors"
+    xmlns:uwCoreConverter="using:UwCore.Converter"
+    xmlns:ctimeConverter="using:CTime2.Converter"
+    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ctimeConverter:MinutesToTimeStringConverter x:Key="AverageMinutesToTimeStringConverter" Prefix="⌀ " />
+        <ctimeConverter:NumberAboveConverter x:Key="AboveExpectedBreakTimePerDay" EqualOrBigger="{StaticResource CTimeGreen}" Less="{StaticResource CTimeRed}" CompareTo="{Binding ExpectedBreakTimePerDay, Mode=OneWay}" />
+        <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
+        <uwCoreConverter:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="BreakTime!" />
+        <chart:RadCartesianChart x:Name="Chart" Zoom="{x:Bind ViewModel.ZoomFactor, Mode=TwoWay, Converter={StaticResource DecimalToHorizontalSizeConverter}}">
+            <chart:RadCartesianChart.VerticalAxis>
+                <chart:LinearAxis />
+            </chart:RadCartesianChart.VerticalAxis>
+
+            <chart:RadCartesianChart.HorizontalAxis>
+                <chart:DateTimeContinuousAxis LabelFormat="{}{0:dd.MM.}" 
+                                              PlotMode="OnTicksPadded" />
+            </chart:RadCartesianChart.HorizontalAxis>
+
+            <chart:RadCartesianChart.Grid>
+                <chart:CartesianChartGrid MajorLinesVisibility="XY" 
+                                          MajorXLinesRenderMode="All"  />
+            </chart:RadCartesianChart.Grid>
+
+            <chart:RadCartesianChart.Annotations>
+                <chart:CartesianGridLineAnnotation Axis="{Binding ElementName=Chart, Path=VerticalAxis}"
+                                                   Value="{x:Bind ViewModel.AverageBreakTimePerDay, Mode=OneWay}"
+                                                   Stroke="{x:Bind ViewModel.AverageBreakTimePerDay, Mode=OneWay, Converter={StaticResource AboveExpectedBreakTimePerDay}}"
+                                                   StrokeThickness="1"
+                                                   Foreground="{x:Bind ViewModel.AverageBreakTimePerDay, Mode=OneWay, Converter={StaticResource AboveExpectedBreakTimePerDay}}"
+                                                   Label="{x:Bind ViewModel.AverageBreakTimePerDay, Mode=OneWay, Converter={StaticResource AverageMinutesToTimeStringConverter}}">
+                    <chart:CartesianGridLineAnnotation.LabelDefinition>
+                        <chart:ChartAnnotationLabelDefinition Location="Top" 
+                                                              VerticalAlignment="Center" 
+                                                              HorizontalOffset="4" />
+                    </chart:CartesianGridLineAnnotation.LabelDefinition>
+                </chart:CartesianGridLineAnnotation>
+            </chart:RadCartesianChart.Annotations>
+
+            <chart:RadCartesianChart.Behaviors>
+                <chart:ChartPanAndZoomBehavior ZoomMode="Horizontal" 
+                                               PanMode="Horizontal"/>
+            </chart:RadCartesianChart.Behaviors>
+
+            <interactivity:Interaction.Behaviors>
+                <behaviors:MarkWeeks StartDate="{x:Bind ViewModel.Owner.Parameter.StartDate, Mode=OneWay}"
+                                     EndDate="{x:Bind ViewModel.Owner.Parameter.EndDate, Mode=OneWay}" />
+                <behaviors:MarkWeekEnds StartDate="{x:Bind ViewModel.Owner.Parameter.StartDate, Mode=OneWay}"
+                                        EndDate="{x:Bind ViewModel.Owner.Parameter.EndDate, Mode=OneWay}" />
+            </interactivity:Interaction.Behaviors>
+
+            <chart:RadCartesianChart.EmptyContent>
+                <Grid />
+            </chart:RadCartesianChart.EmptyContent>
+
+            <chart:LineSeries ItemsSource="{x:Bind ViewModel.ChartItems, Mode=OneWay}"
+                              Stroke="{ThemeResource SystemControlForegroundAccentBrush}"
+                              ShowLabels="{x:Bind ViewModel.HideLabels, Mode=OneWay, Converter={StaticResource BooleanNegationConverter}}">
+                <chart:LineSeries.LabelDefinitions>
+                    <chart:ChartSeriesLabelDefinition HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <chart:ChartSeriesLabelDefinition.Template>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DataItem.Value}" />
+                                    <TextBlock Text=" min" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </chart:ChartSeriesLabelDefinition.Template>
+                    </chart:ChartSeriesLabelDefinition>
+                </chart:LineSeries.LabelDefinitions>
+                <chart:LineSeries.CategoryBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Date" />
+                </chart:LineSeries.CategoryBinding>
+                <chart:LineSeries.ValueBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Value" />
+                </chart:LineSeries.ValueBinding>
+            </chart:LineSeries>
+
+        </chart:RadCartesianChart>
     </Grid>
 </Page>

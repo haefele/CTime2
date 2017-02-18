@@ -109,6 +109,7 @@
     <Compile Include="Converter\DoubleToHorizontalSizeConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
     <Compile Include="Converter\HoursToTimeStringConverter.cs" />
+    <Compile Include="Converter\MinutesToTimeStringConverter.cs" />
     <Compile Include="Converter\NumberAboveConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Views\About\MoreInfoTextFromResources.cs" />

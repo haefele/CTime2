@@ -59,7 +59,7 @@ namespace CTime2.Views.Statistics.Details.WorkTime
 
             this.ExpectedHoursPerDay = this._applicationStateService.GetWorkDayHours().TotalHours;
             this.AverageHoursPerDay = timesByDay.Sum(f => f.Hours.TotalHours) / timesByDay.Count(f => f.Hours > TimeSpan.Zero);
-            this.ChartItems = new ReactiveList<StatisticChartItem>(items);
+            this.ChartItems = new ReactiveList<StatisticChartItem>(items.OrderBy(f => f.Date));
 
             return Task.CompletedTask;
         }
