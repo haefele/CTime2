@@ -102,6 +102,8 @@
     <Compile Include="Behaviors\ClipToBounds.cs" />
     <Compile Include="Behaviors\CloseFlyoutAction.cs" />
     <Compile Include="Behaviors\FeedbackHubAvailableVisibility.cs" />
+    <Compile Include="Behaviors\MarkWeekEnds.cs" />
+    <Compile Include="Behaviors\MarkWeeks.cs" />
     <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
     <Compile Include="Converter\DoubleToHorizontalSizeConverter.cs" />
