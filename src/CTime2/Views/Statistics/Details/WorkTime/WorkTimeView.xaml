@@ -27,7 +27,7 @@
             </chart:RadCartesianChart.VerticalAxis>
 
             <chart:RadCartesianChart.HorizontalAxis>
-                <chart:DateTimeContinuousAxis LabelFormat="{}{0:dd.MM.}" 
+                <chart:DateTimeContinuousAxis LabelFormat="{}{0:dd. MMM.}" 
                                               PlotMode="OnTicksPadded" />
             </chart:RadCartesianChart.HorizontalAxis>
 
