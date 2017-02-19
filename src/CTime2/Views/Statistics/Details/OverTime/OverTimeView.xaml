@@ -27,7 +27,7 @@
             </telerikChart:RadCartesianChart.VerticalAxis>
             
             <telerikChart:RadCartesianChart.HorizontalAxis>
-                <telerikChart:DateTimeContinuousAxis LabelFormat="{}{0:dd.MM.}" 
+                <telerikChart:DateTimeContinuousAxis LabelFormat="{}{0:dd. MMM.}" 
                                                      PlotMode="OnTicksPadded" />
             </telerikChart:RadCartesianChart.HorizontalAxis>
 
