@@ -621,4 +621,37 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="ZoomAppBarButton.Label" xml:space="preserve">
     <value>zoom</value>
   </data>
+  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
+    <value>The attendance list now shows how someone is checked in or checked out.</value>
+  </data>
+  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
+    <value>You can see it now, if someone is checked-in in home-office.</value>
+  </data>
+  <data name="ExtendedAttendanceListContent3Run.Text" xml:space="preserve">
+    <value>Also, theres a new search feature in the attendance list.</value>
+  </data>
+  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
+    <value>Extended attendance list</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsContent1Run.Text" xml:space="preserve">
+    <value>The about area was completely reworked as well.</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsContent2Run.Text" xml:space="preserve">
+    <value>For example, you can now give feedback using the feedback hub.</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsContent3Run.Text" xml:space="preserve">
+    <value>In the settings is a new setting for analytics.</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsHeaderRun.Text" xml:space="preserve">
+    <value>About and settings</value>
+  </data>
+  <data name="ReworkedDiagramsContent1Run.Text" xml:space="preserve">
+    <value>The diagrams in the statistics have are completely reworked.</value>
+  </data>
+  <data name="ReworkedDiagramsContent2Run.Text" xml:space="preserve">
+    <value>They look much more modern now, and have a couple of new features.</value>
+  </data>
+  <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
+    <value>New diagrams</value>
+  </data>
 </root>
