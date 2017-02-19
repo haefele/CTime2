@@ -311,35 +311,11 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="Statistics.CalculatedLeaveTimeToday" xml:space="preserve">
     <value>Heutiges Arbeitsende</value>
   </data>
-  <data name="BreakTimeChart.Title" xml:space="preserve">
-    <value>Pause</value>
-  </data>
-  <data name="BreakTimeValueAxis.Title" xml:space="preserve">
-    <value>Minuten</value>
-  </data>
-  <data name="EnterAndLeaveTimeChart.Title" xml:space="preserve">
-    <value>Arbeitsbeginn und Arbeitsende</value>
-  </data>
-  <data name="EnterAndLeaveTimeValueAxis.Title" xml:space="preserve">
-    <value>Uhrzeit</value>
-  </data>
   <data name="Loading.LoadCharts" xml:space="preserve">
     <value>Lade Diagram...</value>
   </data>
-  <data name="OverTimeChart.Title" xml:space="preserve">
-    <value>Überstunden</value>
-  </data>
-  <data name="OverTimeValueAxis.Title" xml:space="preserve">
-    <value>Minuten</value>
-  </data>
   <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
     <value>{0} h {1} m</value>
-  </data>
-  <data name="WorkTimeChart.Title" xml:space="preserve">
-    <value>Arbeitszeit</value>
-  </data>
-  <data name="WorkTimeValueAxis.Title" xml:space="preserve">
-    <value>Stunden</value>
   </data>
   <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Zu dieser Statistik gibt es ein Diagram.</value>
@@ -626,5 +602,23 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   </data>
   <data name="SearchAppBarButton.Label" xml:space="preserve">
     <value>Suchen</value>
+  </data>
+  <data name="HideTextAppBarToggleButton.Label" xml:space="preserve">
+    <value>Text verstecken</value>
+  </data>
+  <data name="Navigation.BreakTime" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Navigation.EnterAndLeaveTime" xml:space="preserve">
+    <value>Arbeitsbeginn und Arbeitsende</value>
+  </data>
+  <data name="Navigation.OverTime" xml:space="preserve">
+    <value>Überstunden</value>
+  </data>
+  <data name="Navigation.WorkTime" xml:space="preserve">
+    <value>Arbeitszeit</value>
+  </data>
+  <data name="ZoomAppBarButton.Label" xml:space="preserve">
+    <value>Zoomen</value>
   </data>
 </root>

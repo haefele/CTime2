@@ -36,7 +36,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
 
             this._applicationStateService = applicationStateService;
 
-            this.DisplayName = CTime2Resources.Get("OverTimeChart.Title");
+            this.DisplayName = CTime2Resources.Get("Navigation.OverTime");
         }
 
         public override Task LoadAsync(List<TimesByDay> timesByDay)
