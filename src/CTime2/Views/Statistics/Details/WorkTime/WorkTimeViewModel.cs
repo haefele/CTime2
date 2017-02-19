@@ -43,7 +43,7 @@ namespace CTime2.Views.Statistics.Details.WorkTime
 
             this._applicationStateService = applicationStateService;
 
-            this.DisplayName = CTime2Resources.Get("WorkTimeChart.Title");
+            this.DisplayName = CTime2Resources.Get("Navigation.WorkTime");
         }
 
         public override Task LoadAsync(List<TimesByDay> timesByDay)

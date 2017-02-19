@@ -40,7 +40,7 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
 
         public EnterAndLeaveTimeViewModel()
         {
-            this.DisplayName = CTime2Resources.Get("EnterAndLeaveTimeChart.Title");
+            this.DisplayName = CTime2Resources.Get("Navigation.EnterAndLeaveTime");
         }
 
         public override Task LoadAsync(List<TimesByDay> timesByDay)

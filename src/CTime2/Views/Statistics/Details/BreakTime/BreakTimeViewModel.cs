@@ -39,7 +39,7 @@ namespace CTime2.Views.Statistics.Details.BreakTime
         {
             this._applicationStateService = applicationStateService;
 
-            this.DisplayName = CTime2Resources.Get("BreakTimeChart.Title");
+            this.DisplayName = CTime2Resources.Get("Navigation.BreakTime");
         }
 
         public override Task LoadAsync(List<TimesByDay> timesByDay)

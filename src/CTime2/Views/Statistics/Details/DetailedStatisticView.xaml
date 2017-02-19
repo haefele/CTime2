@@ -35,7 +35,9 @@
         </Grid>
 
         <CommandBar Grid.Row="1">
-            <AppBarButton Icon="Zoom" Label="Zoomen">
+            <AppBarButton x:Uid="ZoomAppBarButton" 
+                          Icon="Zoom" 
+                          Label="~Zoomen">
                 <AppBarButton.Flyout>
                     <Flyout>
                         <Grid>
@@ -68,7 +70,8 @@
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-            <AppBarToggleButton Label="Text verstecken"
+            <AppBarToggleButton x:Uid="HideTextAppBarToggleButton"
+                                Label="~Text verstecken"
                                 IsChecked="{Binding ActiveItem.HideLabels, Mode=TwoWay}" Icon="Font" />
             <AppBarButton x:Uid="ShareAppBarButton"
                           Label="~Teilen"
