@@ -640,7 +640,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
     <value>Dort gibt es jetzt auch die Möglichkeit Feedback über den Feedback Hub zu geben.</value>
   </data>
   <data name="ReworkedAboutAndSettingsContent3Run.Text" xml:space="preserve">
-    <value>In den Einstellungen gibt es eine neue Einstellung zur Analytik</value>
+    <value>In den Einstellungen gibt es eine neue Einstellung zur Analytik.</value>
   </data>
   <data name="ReworkedAboutAndSettingsHeaderRun.Text" xml:space="preserve">
     <value>Über und Einstellungen überarbeitet</value>
