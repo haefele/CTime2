@@ -621,4 +621,37 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="ZoomAppBarButton.Label" xml:space="preserve">
     <value>Zoomen</value>
   </data>
+  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
+    <value>Die Anwesenheitsliste zeigt nun an, wie jemand ein- oder ausgestempelt ist.</value>
+  </data>
+  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
+    <value>Ist also jemand über Home-Office eingestempelt, kann man das nun auch erkennen.</value>
+  </data>
+  <data name="ExtendedAttendanceListContent3Run.Text" xml:space="preserve">
+    <value>Außerdem gibt es jetzt eine Suchfunktion in der Anwesenheitsliste.</value>
+  </data>
+  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
+    <value>Anwesenheitsliste erweitert</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsContent1Run.Text" xml:space="preserve">
+    <value>Der Über Bereich wurde auch komplett überarbeitet.</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsContent2Run.Text" xml:space="preserve">
+    <value>Dort gibt es jetzt auch die Möglichkeit Feedback über den Feedback Hub zu geben.</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsContent3Run.Text" xml:space="preserve">
+    <value>In den Einstellungen gibt es eine neue Einstellung zur Analytik</value>
+  </data>
+  <data name="ReworkedAboutAndSettingsHeaderRun.Text" xml:space="preserve">
+    <value>Über und Einstellungen überarbeitet</value>
+  </data>
+  <data name="ReworkedDiagramsContent1Run.Text" xml:space="preserve">
+    <value>Die Diagramme bei den Statistiken wurden komplett überarbeitet.</value>
+  </data>
+  <data name="ReworkedDiagramsContent2Run.Text" xml:space="preserve">
+    <value>Sie sehen jetzt wesentlich moderner aus und haben auch einige neue Funktionen.</value>
+  </data>
+  <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
+    <value>Neue Diagramme</value>
+  </data>
 </root>

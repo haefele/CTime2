@@ -40,6 +40,48 @@
         <ScrollViewer Grid.Row="4" Margin="-10" Padding="10">
             <RichTextBlock IsTextSelectionEnabled="False">
 
+                <!-- Version 1.8.0.0 -->
+                <Paragraph>
+                    <Run FontWeight="Light"
+                         FontSize="20"
+                         Foreground="{StaticResource SystemControlHighlightAccentBrush}">Version 1.8.0.0</Run>
+                </Paragraph>
+
+                <Paragraph>
+                    <InlineUIContainer>
+                        <Rectangle Fill="{ThemeResource BorderBrush}"
+                                   Width="500"
+                                   Height="1"
+                                   Margin="0, 10, 0, 10" />
+                    </InlineUIContainer>
+                </Paragraph>
+
+                <Paragraph>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="ExtendedAttendanceListHeaderRun">~Anwesenheitsliste erweitert</Run>
+                </Paragraph>
+                <Paragraph><Run x:Uid="ExtendedAttendanceListContent1Run">~Die Anwesenheitsliste zeigt nun an, wie jemand ein- oder ausgestempelt ist.</Run></Paragraph>
+                <Paragraph><Run x:Uid="ExtendedAttendanceListContent2Run">~Ist also jemand über Home-Office eingestempelt, kann man das nun auch erkennen.</Run></Paragraph>
+                <Paragraph><Run x:Uid="ExtendedAttendanceListContent3Run">~Außerdem gibt es jetzt eine Suchfunktion in der Anwesenheitsliste.</Run></Paragraph>
+
+                <Paragraph />
+                
+                <Paragraph>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="ReworkedDiagramsHeaderRun">~Neue Diagramme</Run>
+                </Paragraph>
+                <Paragraph><Run x:Uid="ReworkedDiagramsContent1Run">~Die Diagramme bei den Statistiken wurden komplett überarbeitet.</Run></Paragraph>
+                <Paragraph><Run x:Uid="ReworkedDiagramsContent2Run">~Sie sehen jetzt wesentlich moderner aus und haben auch einige neue Funktionen.</Run></Paragraph>
+
+                <Paragraph />
+
+                <Paragraph>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="ReworkedAboutAndSettingsHeaderRun">~Über und Einstellungen überarbeitet</Run>
+                </Paragraph>
+                <Paragraph><Run x:Uid="ReworkedAboutAndSettingsContent1Run">~Der Über Bereich wurde auch komplett überarbeitet.</Run></Paragraph>
+                <Paragraph><Run x:Uid="ReworkedAboutAndSettingsContent2Run">~Dort gibt es jetzt auch die Möglichkeit Feedback über den Feedback Hub zu geben.</Run></Paragraph>
+                <Paragraph><Run x:Uid="ReworkedAboutAndSettingsContent3Run">~In den Einstellungen gibt es eine neue Einstellung zur Analytik.</Run></Paragraph>
+
+                <Paragraph />
+                
                 <!-- Version 1.7.1.0 -->
                 <Paragraph>
                     <Run FontWeight="Light"
