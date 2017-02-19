@@ -6,6 +6,7 @@ This privacy policy governs the manner which personal information is collected b
 c-time Universal uses HockeyApp (https://hockeyapp.net) to collect anonymous usage information from the App.
 In detail this means: How often the App is used, how many people are using the App, and how often a specific feature from the App is used.
 HockeyApp is also used to collect information about crashes and errors. These are combined with the name and the email address from the user of the app.
+(You can disable that in the settings of the app.)
 HockeyApp's privacy policy: https://privacy.microsoft.com/en-us/privacystatement
 
 ## c-time API
@@ -15,9 +16,6 @@ If you remove the App from your device, all data is erased as well.
 c-time's privacy policy: http://www.c-time.net/?page_id=24
 
 ## c-time Universal's permissions
-
-### Bluetooth
-To integrate with your Microsoft Band, c-time Universal uses Bluetooth to create a connection.
 
 ### Contacts
 You are able to create contacts from the people in the attendance list.

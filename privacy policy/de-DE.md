@@ -6,6 +6,7 @@ Diese Datenschutzerklärung beschreibt welche Personenbezogenen Daten von c-time
 c-time Universal verwendet die Dienste von HockeyApp (https://hockeyapp.net). Zum Einen um anonymisierte Nutzungsdaten der App zu sammeln.
 Das heißt, wie häufig die App verwendet wird, wie viele Personen die App verwenden, und auch wie häufig Funktionen in der App verwendet werden.
 Zum Anderen werden Infos zu Abstürzen und Fehlern in der App gesammelt. Diese sind mit dem Namen und der E-Mail Adresse des Benutzers versehen.
+(Dies lässt sich in den Einstellungen der App deaktivieren.)
 Datenschutzbestimmung von HockeyApp: https://privacy.microsoft.com/en-us/privacystatement
 
 ## c-time API
@@ -15,9 +16,6 @@ Wenn die App vom Gerät deinstalliert wird, werden auch alle lokal gespeicherten
 Datenschutzbestimmung von c-time: http://www.c-time.net/?page_id=24
 
 ## Berechtigungen von c-time Universal
-
-### Bluetooth
-Damit sich die c-time Universal App in das Microsoft Band integrieren kann, muss über Bluetooth eine Verbindung hergestellt werden.
 
 ### Kontakte
 Es ist möglich Personen in der Anwesenheitsliste als Kontakt anzulegen.
