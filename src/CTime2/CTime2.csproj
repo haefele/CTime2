@@ -108,6 +108,7 @@
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
     <Compile Include="Converter\DoubleToHorizontalSizeConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
+    <Compile Include="Converter\HoursToDurationStringConverter.cs" />
     <Compile Include="Converter\HoursToTimeStringConverter.cs" />
     <Compile Include="Converter\MinutesToTimeStringConverter.cs" />
     <Compile Include="Converter\NumberAboveConverter.cs" />

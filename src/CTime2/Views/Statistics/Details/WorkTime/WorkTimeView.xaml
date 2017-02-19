@@ -13,8 +13,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d">
     <Page.Resources>
-        <ctimeConverter:HoursToTimeStringConverter x:Key="HoursToTimeStringConverter" />
-        <ctimeConverter:HoursToTimeStringConverter x:Key="AverageHoursToTimeStringConverter" Prefix="⌀ " />
+        <ctimeConverter:HoursToDurationStringConverter x:Key="HoursToDurationStringConverter" />
+        <ctimeConverter:HoursToDurationStringConverter x:Key="AverageHoursToDurationStringConverter" Prefix="⌀ " />
         <ctimeConverter:NumberAboveConverter x:Key="AboveExpectedHoursPerDay" EqualOrBigger="{StaticResource CTimeGreen}"  Less="{StaticResource CTimeRed}" CompareTo="{Binding ExpectedHoursPerDay, Mode=OneWay}" />
         <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
         <uwCoreConverter:BooleanNegationConverter x:Key="BooleanNegationConverter" />
@@ -42,7 +42,7 @@
                                                    Stroke="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource AboveExpectedHoursPerDay}}"
                                                    StrokeThickness="1"
                                                    Foreground="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource AboveExpectedHoursPerDay}}"
-                                                   Label="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource AverageHoursToTimeStringConverter}}">
+                                                   Label="{x:Bind ViewModel.AverageHoursPerDay, Mode=OneWay, Converter={StaticResource AverageHoursToDurationStringConverter}}">
                     <chart:CartesianGridLineAnnotation.LabelDefinition>
                         <chart:ChartAnnotationLabelDefinition Location="Top" 
                                                               VerticalAlignment="Center" 
@@ -74,7 +74,7 @@
                     <chart:ChartSeriesLabelDefinition HorizontalAlignment="Center" VerticalAlignment="Top">
                         <chart:ChartSeriesLabelDefinition.Template>
                             <DataTemplate>
-                                <TextBlock Text="{Binding DataItem.Value, Converter={StaticResource HoursToTimeStringConverter}}" />
+                                <TextBlock Text="{Binding DataItem.Value, Converter={StaticResource HoursToDurationStringConverter}}" />
                             </DataTemplate>
                         </chart:ChartSeriesLabelDefinition.Template>
                     </chart:ChartSeriesLabelDefinition>
