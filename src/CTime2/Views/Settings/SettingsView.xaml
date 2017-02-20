@@ -6,7 +6,9 @@
     xmlns:windowsStateTriggers="using:WindowsStateTriggers"
     xmlns:uwCoreControls="using:UwCore.Controls"
     xmlns:uwCoreConverter="using:UwCore.Converter"
-    xmlns:ctimeConverter="using:CTime2.Converter">
+    xmlns:ctimeConverter="using:CTime2.Converter"
+    DataContextChanged="SettingsView_OnDataContextChanged"
+    >
 
     <Page.Resources>
         <DataTemplate x:Key="TimeSpanDataTemplate">
@@ -48,6 +50,19 @@
                               ItemsSource="{x:Bind ViewModel.BreakTimes, Mode=OneWay}"
                               SelectedItem="{Binding SelectedBreakTime, Mode=TwoWay}"
                               ItemTemplate="{StaticResource TimeSpanDataTemplate}" />
+                </uwCoreControls:SettingsItem>
+            </uwCoreControls:SettingsGroup>
+            <uwCoreControls:SettingsGroup x:Uid="WorkDaysSettingsGroup" Header="~Arbeitstage">
+                <uwCoreControls:SettingsItem>
+                    <StackPanel>
+                        <CheckBox x:Name="MondayCheckBox" x:Uid="MondayCheckBox" Content="~Montag" />
+                        <CheckBox x:Name="TuesdayCheckBox" x:Uid="TuesdayCheckBox" Content="~Dienstag" />
+                        <CheckBox x:Name="WednesdayCheckBox" x:Uid="WednesdayCheckBox" Content="~Mittwoch" />
+                        <CheckBox x:Name="ThursdayCheckBox" x:Uid="ThursdayCheckBox" Content="~Donnerstag" />
+                        <CheckBox x:Name="FridayCheckBox" x:Uid="FridayCheckBox" Content="~Freitag" />
+                        <CheckBox x:Name="SaturdayCheckBox" x:Uid="SaturdayCheckBox" Content="~Samstag" />
+                        <CheckBox x:Name="SundayCheckBox" x:Uid="SundayCheckBox" Content="~Sonntag" />
+                    </StackPanel>
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
             <uwCoreControls:SettingsGroup Header="~Theme"

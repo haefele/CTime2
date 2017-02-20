@@ -654,4 +654,28 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
     <value>New diagrams</value>
   </data>
+  <data name="FridayCheckBox.Content" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="MondayCheckBox.Content" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="SaturdayCheckBox.Content" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="SundayCheckBox.Content" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="ThursdayCheckBox.Content" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="TuesdayCheckBox.Content" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="WednesdayCheckBox.Content" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="WorkDaysSettingsGroup.Header" xml:space="preserve">
+    <value>Working days</value>
+  </data>
 </root>

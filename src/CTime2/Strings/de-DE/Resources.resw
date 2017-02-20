@@ -654,4 +654,28 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
     <value>Neue Diagramme</value>
   </data>
+  <data name="FridayCheckBox.Content" xml:space="preserve">
+    <value>Freitag</value>
+  </data>
+  <data name="MondayCheckBox.Content" xml:space="preserve">
+    <value>Montag</value>
+  </data>
+  <data name="SaturdayCheckBox.Content" xml:space="preserve">
+    <value>Samstag</value>
+  </data>
+  <data name="SundayCheckBox.Content" xml:space="preserve">
+    <value>Sonntag</value>
+  </data>
+  <data name="ThursdayCheckBox.Content" xml:space="preserve">
+    <value>Donnerstag</value>
+  </data>
+  <data name="TuesdayCheckBox.Content" xml:space="preserve">
+    <value>Dienstag</value>
+  </data>
+  <data name="WednesdayCheckBox.Content" xml:space="preserve">
+    <value>Mittwoch</value>
+  </data>
+  <data name="WorkDaysSettingsGroup.Header" xml:space="preserve">
+    <value>Arbeitstage</value>
+  </data>
 </root>

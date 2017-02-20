@@ -57,6 +57,16 @@ namespace CTime2.Core.Services.ApplicationState
             self.Set("WorkDayBreak", hours, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
 
+        public static DayOfWeek[] GetWorkDays(this IApplicationStateService self)
+        {
+            return self.Get<DayOfWeek[]>("WorkDays", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? new[] {DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday};
+        }
+
+        public static void SetWorkDays(this IApplicationStateService self, DayOfWeek[] workdays)
+        {
+            self.Set("WorkDays", workdays, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
+
         public static ElementTheme GetApplicationTheme(this IApplicationStateService self)
         {
             return self.Get<ElementTheme?>("ApplicationTheme", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? ElementTheme.Default;

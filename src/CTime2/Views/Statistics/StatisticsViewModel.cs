@@ -156,6 +156,7 @@ namespace CTime2.Views.Statistics
                 return new ReactiveList<StatisticItem>();
             }
 
+            var workDays = this._applicationStateService.GetWorkDays();
             var workDayHours = this._applicationStateService.GetWorkDayHours();
             var workDayBreak = this._applicationStateService.GetWorkDayBreak();
 
@@ -175,7 +176,7 @@ namespace CTime2.Views.Statistics
 
             var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
 
-            var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero) * workDayHours.TotalMinutes;
+            var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero && workDays.Contains(f.Day.DayOfWeek)) * workDayHours.TotalMinutes;
             var workTimePoolInMinutes = (int)Math.Round(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
 
             var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();

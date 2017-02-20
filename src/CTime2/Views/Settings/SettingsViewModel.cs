@@ -30,6 +30,7 @@ namespace CTime2.Views.Settings
         private TimeSpan _selectedWorkTime;
         private ReactiveList<TimeSpan> _breakTimes;
         private TimeSpan _selectedBreakTime;
+        private ReactiveList<DayOfWeek> _workDays;
         private ElementTheme _theme;
         private bool _includeContactInfoInErrorReports;
         private string _companyId;
@@ -56,6 +57,12 @@ namespace CTime2.Views.Settings
         {
             get { return this._selectedBreakTime; }
             set { this.RaiseAndSetIfChanged(ref this._selectedBreakTime, value); }
+        }
+
+        public ReactiveList<DayOfWeek> WorkDays
+        {
+            get { return this._workDays; }
+            set { this.RaiseAndSetIfChanged(ref this._workDays, value); }
         }
 
         public ElementTheme Theme
@@ -102,6 +109,7 @@ namespace CTime2.Views.Settings
             this.Theme = this._applicationStateService.GetApplicationTheme();
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
+            this.WorkDays = new ReactiveList<DayOfWeek>(this._applicationStateService.GetWorkDays());
             this.CompanyId = this._applicationStateService.GetCompanyId();
             this.IncludeContactInfoInErrorReports = this._applicationStateService.GetIncludeContactInfoInErrorReports();
 
@@ -137,6 +145,12 @@ namespace CTime2.Views.Settings
 
                     var currentUser = this._applicationStateService.GetCurrentUser();
                     this._hockeyClient.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
+                });
+
+            this.WorkDays.Changed
+                .Subscribe(_ =>
+                {
+                    this._applicationStateService.SetWorkDays(this.WorkDays.ToArray());
                 });
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");

@@ -42,6 +42,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
         public override Task LoadAsync(List<TimesByDay> timesByDay)
         {
             var result = new List<StatisticChartItem>();
+            var workDays = this._applicationStateService.GetWorkDays();
             
             foreach (var time in timesByDay)
             {
@@ -49,7 +50,9 @@ namespace CTime2.Views.Statistics.Details.OverTime
 
                 var change = time.Hours == TimeSpan.Zero //Use 0 and not -480 if we have no times at one day (Weekend)
                     ? 0
-                    : (time.Hours - this._applicationStateService.GetWorkDayHours()).TotalMinutes;
+                    : workDays.Contains(time.Day.DayOfWeek)
+                        ? (time.Hours - this._applicationStateService.GetWorkDayHours()).TotalMinutes
+                        : time.Hours.TotalMinutes;
                 
                 result.Add(new StatisticChartItem
                 {
