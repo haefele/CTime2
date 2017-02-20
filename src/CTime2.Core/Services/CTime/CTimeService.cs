@@ -239,8 +239,8 @@ namespace CTime2.Core.Services.CTime
                             AttendanceState = new AttendanceState
                             {
                                 IsAttending = f.Value<int>("PresenceStatus") == 1,
-                                Name = this.ParseAttendanceStateName(f.Value<string>("TimerTypeDescription"), f.Value<int?>("TimeTrackTypePure"), f.Value<int>("PresenceStatus") == 1),
-                                Color = this.ParseColor(f.Value<string>("EnumColor"), f.Value<int?>("TimeTrackTypePure")),
+                                Name = this.ParseAttendanceStateName(f["TimerTypeDescription"].ToObject<string>(), f["TimeTrackTypePure"].ToObject<int?>(), f.Value<int>("PresenceStatus") == 1),
+                                Color = this.ParseColor(f["EnumColor"].ToObject<string>(), f["TimeTrackTypePure"].ToObject<int?>()),
                             },
                             ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? defaultImageAsBase64),
                             EmailAddress = f.Value<string>("EmployeeEmail"),
