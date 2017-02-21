@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
+using UwCore.Common;
 using UwCore.Services.ApplicationState;
 
 namespace CTime2.Views.Statistics.Details.BreakTime
@@ -12,6 +15,7 @@ namespace CTime2.Views.Statistics.Details.BreakTime
     public class BreakTimeViewModel : DetailedStatisticDiagramViewModelBase
     {
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IStatisticsService _statisticsService;
 
         private double _expectedBreakTimePerDay;
         private double _averageBreakTimePerDay;
@@ -35,20 +39,21 @@ namespace CTime2.Views.Statistics.Details.BreakTime
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
         }
 
-        public BreakTimeViewModel(IApplicationStateService applicationStateService)
+        public BreakTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService)
         {
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(statisticsService, nameof(statisticsService));
+
             this._applicationStateService = applicationStateService;
+            this._statisticsService = statisticsService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.BreakTime");
         }
 
         public override Task LoadAsync(List<TimesByDay> timesByDay)
         {
-            var timesForBreakTime = timesByDay
+            var items = timesByDay
                 .Where(f => f.DayStartTime != null && f.DayEndTime != null)
-                .ToList();
-
-            var items = timesForBreakTime
                 .Select(f => new StatisticChartItem
                 {
                     Date = f.Day,
@@ -57,8 +62,8 @@ namespace CTime2.Views.Statistics.Details.BreakTime
                 .ToList();
             this.EnsureAllDatesAreThere(items, 0);
 
-            this.ExpectedBreakTimePerDay = this._applicationStateService.GetWorkDayBreak().TotalHours;
-            this.AverageBreakTimePerDay = timesForBreakTime.Sum(f => (f.DayEndTime.Value - f.DayStartTime.Value - f.Hours).TotalMinutes) / timesForBreakTime.Count;
+            this.ExpectedBreakTimePerDay = this._applicationStateService.GetWorkDayBreak().TotalMinutes;
+            this.AverageBreakTimePerDay = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays:true, onlyDaysWithBreak:false).TotalMinutes;
             this.ChartItems = new ReactiveList<StatisticChartItem>(items.OrderBy(f => f.Date));
 
             return Task.CompletedTask;

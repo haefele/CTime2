@@ -4,8 +4,10 @@ using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using System.Linq;
 using System;
+using CTime2.Core.Data;
 using UwCore.Services.ApplicationState;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.Statistics;
 using ReactiveUI;
 using UwCore.Common;
 
@@ -14,6 +16,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
     public class OverTimeViewModel : DetailedStatisticDiagramViewModelBase
     {
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IStatisticsService _statisticsService;
 
         private ReactiveList<StatisticChartItem> _chartItems;
         private double _averageOverTimePerDay;
@@ -30,11 +33,13 @@ namespace CTime2.Views.Statistics.Details.OverTime
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
         }
 
-        public OverTimeViewModel(IApplicationStateService applicationStateService)
+        public OverTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(statisticsService, nameof(statisticsService));
 
             this._applicationStateService = applicationStateService;
+            this._statisticsService = statisticsService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.OverTime");
         }
@@ -62,7 +67,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
             }
             this.EnsureAllDatesAreThere(result, valueForFilledDates: result.Last().Value);
 
-            this.AverageOverTimePerDay = (result.LastOrDefault()?.Value ?? 0) / timesByDay.Count(f => f.Hours > TimeSpan.Zero);
+            this.AverageOverTimePerDay = this._statisticsService.CalculateAverageOverTime(timesByDay, onlyWorkDays: false).TotalMinutes;
             this.ChartItems = new ReactiveList<StatisticChartItem>(result.OrderBy(f => f.Date));
 
             return Task.CompletedTask;

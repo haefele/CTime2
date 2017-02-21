@@ -219,8 +219,6 @@
       <DependentUpon>UpdateNotesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UpdateNotes\UpdateNotesViewModel.cs" />
-    <Compile Include="Views\YourTimes\TimeForGrouping.cs" />
-    <Compile Include="Views\YourTimes\TimesByDay.cs" />
     <Compile Include="Views\YourTimes\YourTimesView.xaml.cs">
       <DependentUpon>YourTimesView.xaml</DependentUpon>
     </Compile>

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
-using CTime2.Core.Data;
 
-namespace CTime2.Views.YourTimes
+namespace CTime2.Core.Data
 {
     public class TimesByDay
     {

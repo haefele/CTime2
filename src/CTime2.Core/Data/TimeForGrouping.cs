@@ -1,7 +1,6 @@
 using System;
-using CTime2.Core.Data;
 
-namespace CTime2.Views.YourTimes
+namespace CTime2.Core.Data
 {
     public class TimeForGrouping
     {

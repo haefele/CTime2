@@ -10,6 +10,7 @@
 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:CTime2.Core.Data"
     mc:Ignorable="d"
     >
     <Page.Resources>
@@ -50,7 +51,7 @@
                 <GroupStyle HidesIfEmpty="True"
                             HeaderContainerStyle="{StaticResource DefaultListViewHeaderItemStyle}">
                     <GroupStyle.HeaderTemplate>
-                        <DataTemplate x:DataType="local:TimesByDay">
+                        <DataTemplate x:DataType="data:TimesByDay">
                             <Grid Loaded="FrameworkElement_OnLoaded" 
                                   DataContextChanged="FrameworkElement_OnDataContextChanged">
                                 <TextBlock Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, Mode=OneWay}" />
@@ -68,7 +69,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:TimeForGrouping">
+                <DataTemplate x:DataType="data:TimeForGrouping">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60" />
