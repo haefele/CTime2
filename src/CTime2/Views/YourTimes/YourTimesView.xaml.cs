@@ -4,6 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using CTime2.Common;
+using CTime2.Core.Data;
 using Microsoft.Toolkit.Uwp.UI;
 
 namespace CTime2.Views.YourTimes

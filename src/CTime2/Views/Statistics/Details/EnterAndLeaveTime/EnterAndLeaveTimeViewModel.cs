@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CTime2.Core.Data;
+using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
+using UwCore.Common;
 
 namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
 {
     public class EnterAndLeaveTimeViewModel : DetailedStatisticDiagramViewModelBase
     {
+        private readonly IStatisticsService _statisticsService;
         private double _averageBeginTime;
         private ReactiveList<StatisticChartItem> _beginChartItems;
         private double _averageEndTime;
@@ -38,8 +42,12 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
             set { this.RaiseAndSetIfChanged(ref this._endChartItems, value); }
         }
 
-        public EnterAndLeaveTimeViewModel()
+        public EnterAndLeaveTimeViewModel(IStatisticsService statisticsService)
         {
+            Guard.NotNull(statisticsService, nameof(statisticsService));
+
+            this._statisticsService = statisticsService;
+
             this.DisplayName = CTime2Resources.Get("Navigation.EnterAndLeaveTime");
         }
 
@@ -55,7 +63,7 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
                 .ToList();
             this.EnsureAllDatesAreThere(begin, 0);
 
-            this.AverageBeginTime = begin.Where(f => f.Value > 0).Sum(f => f.Value) / begin.Count(f => f.Value > 0);
+            this.AverageBeginTime = this._statisticsService.CalculateAverageEnterTime(timesByDay, onlyWorkDays:true).TotalHours;
             this.BeginChartItems = new ReactiveList<StatisticChartItem>(begin.OrderBy(f => f.Date));
 
             var end = timesByDay
@@ -68,7 +76,7 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
                 .ToList();
             this.EnsureAllDatesAreThere(end, 0);
 
-            this.AverageEndTime = end.Where(f => f.Value > 0).Sum(f => f.Value) / begin.Count(f => f.Value > 0);
+            this.AverageEndTime = this._statisticsService.CalculateAverageLeaveTime(timesByDay, onlyWorkDays:true).TotalHours;
             this.EndChartItems = new ReactiveList<StatisticChartItem>(end.OrderBy(f => f.Date));
 
             return Task.CompletedTask;

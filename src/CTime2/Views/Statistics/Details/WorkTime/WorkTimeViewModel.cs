@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
@@ -14,6 +16,7 @@ namespace CTime2.Views.Statistics.Details.WorkTime
     public class WorkTimeViewModel : DetailedStatisticDiagramViewModelBase
     {
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IStatisticsService _statisticsService;
 
         private double _expectedHoursPerDay;
         private double _averageHoursPerDay;
@@ -37,11 +40,13 @@ namespace CTime2.Views.Statistics.Details.WorkTime
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
         }
 
-        public WorkTimeViewModel(IApplicationStateService applicationStateService)
+        public WorkTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(statisticsService, nameof(statisticsService));
 
             this._applicationStateService = applicationStateService;
+            this._statisticsService = statisticsService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.WorkTime");
         }
@@ -58,7 +63,7 @@ namespace CTime2.Views.Statistics.Details.WorkTime
             this.EnsureAllDatesAreThere(items, 0);
 
             this.ExpectedHoursPerDay = this._applicationStateService.GetWorkDayHours().TotalHours;
-            this.AverageHoursPerDay = timesByDay.Sum(f => f.Hours.TotalHours) / timesByDay.Count(f => f.Hours > TimeSpan.Zero);
+            this.AverageHoursPerDay = this._statisticsService.CalculateAverageWorkTime(timesByDay, onlyWorkDays:true).TotalHours;
             this.ChartItems = new ReactiveList<StatisticChartItem>(items.OrderBy(f => f.Date));
 
             return Task.CompletedTask;

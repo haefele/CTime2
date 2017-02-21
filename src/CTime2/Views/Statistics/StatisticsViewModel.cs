@@ -15,7 +15,9 @@ using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using System.Reactive;
 using System.Text;
+using CTime2.Core.Data;
 using CTime2.Core.Services.Sharing;
+using CTime2.Core.Services.Statistics;
 using CTime2.Views.Statistics.Details;
 using UwCore.Services.Navigation;
 
@@ -29,7 +31,8 @@ namespace CTime2.Views.Statistics
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         private readonly ISharingService _sharingService;
-        
+        private readonly IStatisticsService _statisticsService;
+
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
         private bool? _includeToday;
@@ -62,19 +65,21 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService)
+        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService, IStatisticsService statisticsService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(dialogService, nameof(dialogService));
             Guard.NotNull(navigationService, nameof(navigationService));
             Guard.NotNull(sharingService, nameof(sharingService));
+            Guard.NotNull(statisticsService, nameof(statisticsService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._dialogService = dialogService;
             this._navigationService = navigationService;
             this._sharingService = sharingService;
+            this._statisticsService = statisticsService;
 
             this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
@@ -155,42 +160,16 @@ namespace CTime2.Views.Statistics
                 await this._dialogService.ShowAsync(CTime2Resources.Get("Statistics.NoTimesBetweenStartAndEndDate"));
                 return new ReactiveList<StatisticItem>();
             }
-
-            var workDays = this._applicationStateService.GetWorkDays();
-            var workDayHours = this._applicationStateService.GetWorkDayHours();
-            var workDayBreak = this._applicationStateService.GetWorkDayBreak();
-
-            var totalWorkTime = TimeSpan.FromMinutes(timesByDay.Where(f => f.Hours != TimeSpan.Zero).Sum(f => f.Hours.TotalMinutes));
-
-            var totalWorkDays = timesByDay.Count(f => f.Hours != TimeSpan.Zero);
-
-            var averageWorkTime = TimeSpan.FromMinutes(totalWorkTime.TotalMinutes / totalWorkDays);
-
-            var averageEnterTime = TimeSpan.FromMinutes(
-                timesByDay.Where(f => f.DayStartTime != null).Sum(f => f.DayStartTime.Value.TimeOfDay.TotalMinutes) /
-                timesByDay.Count(f => f.DayStartTime != null));
-
-            var averageLeaveTime = TimeSpan.FromMinutes(
-                timesByDay.Where(f => f.DayEndTime != null).Sum(f => (f.DayEndTime.Value - f.Day).TotalMinutes) /
-                timesByDay.Count(f => f.DayEndTime != null));
-
-            var averageBreakTime = averageLeaveTime - averageEnterTime - averageWorkTime;
-
-            var expectedWorkTimeInMinutes = timesByDay.Count(f => f.Hours != TimeSpan.Zero && workDays.Contains(f.Day.DayOfWeek)) * workDayHours.TotalMinutes;
-            var workTimePoolInMinutes = (int)Math.Round(timesByDay.Sum(f => f.Hours.TotalMinutes) - expectedWorkTimeInMinutes);
-
-            var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();
-            var workTimeTodayToUseUpOverTimePool = workDayHours
-                - TimeSpan.FromMinutes(workTimePoolInMinutes)
-                - (timeToday?.Hours ?? TimeSpan.Zero)
-                + (latestTimeToday?.Duration ?? TimeSpan.Zero);
-            var hadBreakAlready = timeToday?.Times.Count >= 2;
-            var hasExpectedWorkEnd = (latestTimeToday?.ClockInTime) != null;
-            var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now) 
-                + (hadBreakAlready ? TimeSpan.Zero : workDayBreak) 
-                + workTimeTodayToUseUpOverTimePool;
-            var expectedWorkEndWithoutOverTime = expectedWorkEnd + TimeSpan.FromMinutes(workTimePoolInMinutes);
-
+            
+            var totalWorkTime = this._statisticsService.CalculateTotalWorkTime(timesByDay, onlyWorkDays:false);    
+            var totalWorkDays = this._statisticsService.CalculateWorkDayCount(timesByDay, onlyWorkDays:false);
+            var averageWorkTime = this._statisticsService.CalculateAverageWorkTime(timesByDay, onlyWorkDays:true);
+            var averageEnterTime = this._statisticsService.CalculateAverageEnterTime(timesByDay, onlyWorkDays:true);
+            var averageLeaveTime = this._statisticsService.CalculateAverageLeaveTime(timesByDay, onlyWorkDays:true);
+            var averageBreakTime = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: false);
+            var overtime = this._statisticsService.CalculateOverTime(timesByDay, onlyWorkDays:false);
+            var workEnd = this._statisticsService.CalculateTodaysWorkEnd(timesByDay, onlyWorkDays:false);
+            
             var statisticItems = new List<StatisticItem>
             {
                 new StatisticItem(
@@ -238,23 +217,23 @@ namespace CTime2.Views.Statistics
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.OverTimePool"),
                     CTime2Resources.Get("Statistics.OverTimePoolSubTitle"),
-                    workTimePoolInMinutes.ToString(),
+                    overtime.TotalMinutes.ToString(),
                     timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.OverTime)
                         : (Action)null),
 
-                hasExpectedWorkEnd 
+                workEnd != null 
                     ? new StatisticItem(
                         CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"),
                         null,
-                        expectedWorkEnd.ToString("T"))
+                        workEnd.WithOvertime.ToString("T"))
                     : null,
 
-                hasExpectedWorkEnd
+                workEnd != null
                     ? new StatisticItem(
                         CTime2Resources.Get("Statistics.CalculatedLeaveTimeToday"),
                         CTime2Resources.Get("Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle"),
-                        expectedWorkEndWithoutOverTime.ToString("T"))
+                        workEnd.WithoutOvertime.ToString("T"))
                     : null,
             };
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CTime2.Core.Data;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore;

@@ -21,6 +21,7 @@ using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
 using CTime2.Core.Services.Phone;
 using CTime2.Core.Services.Sharing;
+using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
@@ -157,6 +158,9 @@ namespace CTime2
 
             yield return typeof(ISharingService);
             yield return typeof(SharingService);
+
+            yield return typeof(IStatisticsService);
+            yield return typeof(StatisticsService);
         }
 
         public override bool IsHockeyAppEnabled()
