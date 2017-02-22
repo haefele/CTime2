@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Data.Json;
 using Windows.Devices.Geolocation;
-using Windows.Security.Cryptography.Certificates;
 using Windows.Storage;
 using Windows.UI;
-using Windows.UI.Input.Preview.Injection;
 using Windows.Web.Http;
-using Windows.Web.Http.Filters;
 using Caliburn.Micro;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
@@ -25,8 +21,6 @@ using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Strings;
 using Newtonsoft.Json.Linq;
 using UwCore.Common;
-using UwCore.Extensions;
-using UwCore.Logging;
 using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.CTime
@@ -66,8 +60,8 @@ namespace CTime2.Core.Services.CTime
                 });
 
                 var user = responseJson?
-                    .Value<JArray>("Result")
-                    .OfType<JObject>()
+                    .GetNamedArray("Result", new JsonArray())
+                    .Select(f => f.GetObject())
                     .FirstOrDefault();
 
                 if (user == null)
@@ -75,14 +69,14 @@ namespace CTime2.Core.Services.CTime
 
                 return new User
                 {
-                    Id = user.Value<string>("EmployeeGUID"),
-                    CompanyId = user.Value<string>("CompanyGUID"),
-                    Email = user.Value<string>("LoginName"),
-                    FirstName = user.Value<string>("EmployeeFirstName"),
-                    Name = user.Value<string>("EmployeeName"),
-                    ImageAsPng = Convert.FromBase64String(user.Value<string>("EmployeePhoto") ?? string.Empty),
-                    SupportsGeoLocation = user.Value<int>("GeolocationAllowed") == 1,
-                    CompanyImageAsPng = Convert.FromBase64String(user.Value<string>("CompanyImage") ?? string.Empty),
+                    Id = user.GetString("EmployeeGUID"),
+                    CompanyId = user.GetString("CompanyGUID"),
+                    Email = user.GetString("LoginName"),
+                    FirstName = user.GetString("EmployeeFirstName"),
+                    Name = user.GetString("EmployeeName"),
+                    ImageAsPng = user.GetBase64ByteArray("EmployeePhoto"),
+                    SupportsGeoLocation = user.GetInt("GeolocationAllowed") == 1,
+                    CompanyImageAsPng = user.GetBase64ByteArray("CompanyImage"),
                 };
             }
             catch (Exception exception)
@@ -108,19 +102,17 @@ namespace CTime2.Core.Services.CTime
 
                 if (responseJson == null)
                     return new List<Time>();
-                
-                return (responseJson
-                    .Value<JArray>("Result") ?? new JArray())
-                    .OfType<JObject>()
+
+                return responseJson
+                    .GetNamedArray("Result", new JsonArray())
+                    .Select(f => f.GetObject())
                     .Select(f => new Time
                     {
-                        Day = f.Value<DateTime>("DayDate"),
-                        Hours = this.ParseTimeSpan(f.Value<string>("TimeHour_IST_HR")),
-                        State = f["TimeTrackTypePure"].ToObject<int?>() != 0 
-                            ? (TimeState?)f["TimeTrackTypePure"].ToObject<int?>()
-                            : null,
-                        ClockInTime = f["TimeTrackIn"].ToObject<DateTime?>(),
-                        ClockOutTime = f["TimeTrackOut"].ToObject<DateTime?>(),
+                        Day = f.GetDateTime("DayDate"),
+                        Hours = f.GetTimeSpan("TimeHour_IST_HR"),
+                        State = f.GetNullableEnum<TimeState>("TimeTrackTypePure"),
+                        ClockInTime = f.GetNullableDateTime("TimeTrackIn"),
+                        ClockOutTime = f.GetNullableDateTime("TimeTrackOut"),
                     })
                     .Select(f =>
                     {
@@ -166,8 +158,8 @@ namespace CTime2.Core.Services.CTime
                     {"lat", location?.Position.Latitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
                     {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
                 });
-
-                if (responseJson?.Value<int>("State") == 0)
+                
+                if (responseJson?.GetInt("State") == 0)
                 {
                     this._eventAggregator.PublishOnCurrentThread(new UserStamped());
                 }
@@ -206,14 +198,16 @@ namespace CTime2.Core.Services.CTime
             {
                 var cacheEtag = this._applicationStateService.GetAttendanceListImageCacheEtag();
 
-                var responseJson = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
+                var responseJson1 = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
                 {
                     {"GUID", companyId},
                     {"cacheDate", cacheEtag ?? string.Empty }
                 });
 
-                if (responseJson == null)
+                if (responseJson1 == null)
                     return new List<AttendingUser>();
+
+                var responseJson = JObject.Parse(responseJson1.Stringify());
 
                 var defaultImageAsBase64 = Convert.ToBase64String(defaultImage ?? new byte[0]);
 
@@ -323,17 +317,7 @@ namespace CTime2.Core.Services.CTime
                 byte.Parse(g, NumberStyles.HexNumber), 
                 byte.Parse(b, NumberStyles.HexNumber));
         }
-
-        private TimeSpan ParseTimeSpan(string time)
-        {
-            string[] parts = time.Split(':');
-
-            int hours = int.Parse(parts[0]);
-            int minutes = int.Parse(parts[1]);
-
-            return new TimeSpan(hours, minutes, 0);
-        }
-
+        
         private string GetHashedPassword(string password)
         {
             var passwordBytes = Encoding.UTF8.GetBytes(password);
@@ -343,7 +327,7 @@ namespace CTime2.Core.Services.CTime
             return hashedPasswordString.Replace("-", string.Empty).ToLower();
         }
 
-        private async Task<JObject> SendRequestAsync(string function, Dictionary<string, string> data)
+        private async Task<JsonObject> SendRequestAsync(string function, Dictionary<string, string> data)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri(function))
             {
@@ -356,9 +340,9 @@ namespace CTime2.Core.Services.CTime
                 return null;
 
             var responseContentAsString = await response.Content.ReadAsStringAsync();
-            var responseJson = JObject.Parse(responseContentAsString);
 
-            var responseState = responseJson.Value<int>("State");
+            var responseJson = JsonObject.Parse(responseContentAsString);
+            var responseState = (int) responseJson.GetNamedNumber("State", 0);
 
             if (responseState != 0)
                 return null;
