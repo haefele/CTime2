@@ -8,7 +8,11 @@ namespace CTime2.Core.Extensions
     {
         public static string GetString(this JsonObject self, string name)
         {
-            return self.GetNamedString(name, string.Empty);
+            var value = self.GetNamedValue(name, JsonValue.CreateNullValue());
+
+            return value.ValueType == JsonValueType.Null 
+                ? null 
+                : value.GetString();
         }
 
         public static byte[] GetBase64ByteArray(this JsonObject self, string name)
@@ -53,6 +57,15 @@ namespace CTime2.Core.Extensions
             }
 
             return null;
+        }
+
+        public static int? GetNullableInt(this JsonObject self, string name)
+        {
+            var value = self.GetNamedValue(name, JsonValue.CreateNullValue());
+
+            return value.ValueType == JsonValueType.Null
+                ? (int?)null
+                : self.GetInt(name);
         }
 
         public static DateTime? GetNullableDateTime(this JsonObject self, string name)

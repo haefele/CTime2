@@ -19,7 +19,6 @@ using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Strings;
-using Newtonsoft.Json.Linq;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 
@@ -198,47 +197,45 @@ namespace CTime2.Core.Services.CTime
             {
                 var cacheEtag = this._applicationStateService.GetAttendanceListImageCacheEtag();
 
-                var responseJson1 = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
                 {
                     {"GUID", companyId},
                     {"cacheDate", cacheEtag ?? string.Empty }
                 });
 
-                if (responseJson1 == null)
+                if (responseJson == null)
                     return new List<AttendingUser>();
-
-                var responseJson = JObject.Parse(responseJson1.Stringify());
-
+                
                 var defaultImageAsBase64 = Convert.ToBase64String(defaultImage ?? new byte[0]);
 
                 var newCacheEtag = responseJson
-                    .Value<JArray>("Result")
-                    .OfType<JObject>()
-                    .Select(f => f.Value<string>("cacheDate"))
+                    .GetNamedArray("Result", new JsonArray())
+                    .Select(f => f.GetObject())
+                    .Select(f => f.GetString("cacheDate"))
                     .FirstOrDefault();
-
+                
                 this._applicationStateService.SetAttendanceListImageCacheEtag(newCacheEtag);
 
                 var result = responseJson
-                    .Value<JArray>("Result")
-                    .OfType<JObject>()
+                    .GetNamedArray("Result", new JsonArray())
+                    .Select(f => f.GetObject())
                     .Select(f => new
                     {
-                        EmployeeI3D = f.Value<int>("EmployeeI3D"),
+                        EmployeeI3D = f.GetInt("EmployeeI3D"),
                         Employee = new AttendingUser
                         {
-                            Id = f.Value<string>("EmployeeI3D"),
-                            Name = f.Value<string>("EmployeeName"),
-                            FirstName = f.Value<string>("EmployeeFirstName"),
+                            Id = f.GetInt("EmployeeI3D").ToString(),
+                            Name = f.GetString("EmployeeName"),
+                            FirstName = f.GetString("EmployeeFirstName"),
                             AttendanceState = new AttendanceState
                             {
-                                IsAttending = f.Value<int>("PresenceStatus") == 1,
-                                Name = this.ParseAttendanceStateName(f["TimerTypeDescription"].ToObject<string>(), f["TimeTrackTypePure"].ToObject<int?>(), f.Value<int>("PresenceStatus") == 1),
-                                Color = this.ParseColor(f["EnumColor"].ToObject<string>(), f["TimeTrackTypePure"].ToObject<int?>()),
+                                IsAttending = f.GetInt("PresenceStatus") == 1,
+                                Name = this.ParseAttendanceStateName(f.GetString("TimerTypeDescription"), f.GetNullableInt("TimeTrackTypePure"), f.GetInt("PresenceStatus") == 1),
+                                Color = this.ParseColor(f.GetString("EnumColor"), f.GetNullableInt("TimeTrackTypePure")),
                             },
-                            ImageAsPng = Convert.FromBase64String(f.Value<string>("EmployeePhoto") ?? defaultImageAsBase64),
-                            EmailAddress = f.Value<string>("EmployeeEmail"),
-                            PhoneNumber = f.Value<string>("EmployeePhone"),
+                            ImageAsPng = Convert.FromBase64String(f.GetString("EmployeePhoto") ?? defaultImageAsBase64),
+                            EmailAddress = f.GetString("EmployeeEmail"),
+                            PhoneNumber = f.GetString("EmployeePhone"),
                         }
                     })
                     .GroupBy(f => f.EmployeeI3D)
