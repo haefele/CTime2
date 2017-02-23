@@ -95,7 +95,12 @@ namespace CTime2.Views.Overview
             if (timeToAdd < TimeSpan.Zero)
                 timeToAdd = TimeSpan.Zero;
 
-            var timeToday = currentTime?.Hours ?? TimeSpan.Zero;
+            //Only take the timeToday if the time is either
+            // - from today
+            // - or from yesterday, but still checked-in
+            var timeToday = currentTime?.Day == DateTime.Today || (currentTime?.State.IsEntered() ?? false)
+                ? currentTime.Hours 
+                : TimeSpan.Zero;
 
             this.SetTime(this._timerTimeForDay = timeToday + timeToAdd);
 
