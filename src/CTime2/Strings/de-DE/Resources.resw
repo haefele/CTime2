@@ -681,4 +681,13 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="Statistics.AverageBreakTimeSubTitle" xml:space="preserve">
     <value>Nur Tage mit Pause</value>
   </data>
+  <data name="BreakTimeEndTimePart1TextBlock.Text" xml:space="preserve">
+    <value>Bis </value>
+  </data>
+  <data name="BreakTimeEndTimePart2TextBlock.Text" xml:space="preserve">
+    <value> Uhr</value>
+  </data>
+  <data name="BreakTimeTextBlock.Text" xml:space="preserve">
+    <value>Pause:</value>
+  </data>
 </root>

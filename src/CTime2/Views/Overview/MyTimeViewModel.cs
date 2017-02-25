@@ -8,6 +8,7 @@ using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Strings;
+using CTime2.Views.About;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore;
@@ -33,6 +34,10 @@ namespace CTime2.Views.Overview
         private TimeSpan _currentTime;
         private TimeSpan? _overTime;
 
+        private TimeSpan? _lunchBreakTime;
+        private DateTime _lunchBreakStart;
+        private DateTime _preferedLunchBreakEnd;
+
         public TimeSpan CurrentTime
         {
             get { return this._currentTime; }
@@ -43,6 +48,18 @@ namespace CTime2.Views.Overview
         {
             get { return this._overTime; }
             set { this.RaiseAndSetIfChanged(ref this._overTime, value); }
+        }
+
+        public TimeSpan? LunchBreakTime
+        {
+            get { return this._lunchBreakTime; }
+            set { this.RaiseAndSetIfChanged(ref this._lunchBreakTime, value); }
+        }
+        
+        public DateTime PreferedLunchBreakEnd
+        {
+            get { return this._preferedLunchBreakEnd; }
+            set { this.RaiseAndSetIfChanged(ref this._preferedLunchBreakEnd, value); }
         }
 
         public UwCoreCommand<Unit> RefreshTimer { get; }
@@ -84,7 +101,7 @@ namespace CTime2.Views.Overview
         private async Task RefreshTimerImpl()
         {
             var currentTime = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
-            
+
             this._timerStartNow = DateTime.Now;
 
             var timeToAdd = currentTime != null && currentTime.State.IsEntered()
@@ -104,14 +121,50 @@ namespace CTime2.Views.Overview
 
             this.SetTime(this._timerTimeForDay = timeToday + timeToAdd);
 
-            if (currentTime != null && currentTime.State.IsEntered())
+            if (this.IsLunchBreak(currentTime))
             {
+                this.LunchBreakTime = TimeSpan.MinValue;
+
+                // this will result in the timer starting between 00:00 and 00:59 due to server rounding down to the full minute
+
+                this._lunchBreakStart = currentTime.ClockOutTime.Value;
+
+                var preferedBreakLenght = this._applicationStateService.GetWorkDayBreak();
+
+                this.PreferedLunchBreakEnd = this._lunchBreakStart + preferedBreakLenght;
+
+                // making sure the timer is started
+
                 this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
             }
             else
             {
-                this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
+                if (this.LunchBreakTime != null)
+                {
+                    this.LunchBreakTime = null;
+                    this._lunchBreakStart = DateTime.MinValue;
+                }
+
+                if (currentTime != null && currentTime.State.IsEntered())
+                {
+                    this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+                }
+                else
+                {
+                    this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
+                }
             }
+        }
+
+        private bool IsLunchBreak(Time currentTime)
+        {
+            if (currentTime == null || currentTime.State != TimeState.Left || currentTime.ClockOutTime.HasValue == false)
+                return false;
+
+            if (currentTime.ClockOutTime.Value < DateTime.Parse("11:00") || currentTime.ClockOutTime.Value > DateTime.Parse("14:30"))
+                return false;
+
+            return true;
         }
 
         private Task GoToMyTimesImpl()
@@ -134,17 +187,30 @@ namespace CTime2.Views.Overview
 
         private void SetTime(TimeSpan time)
         {
-            var workTime = this._applicationStateService.GetWorkDayHours();
-
-            if (time - workTime > TimeSpan.FromSeconds(1))
+            if (this.LunchBreakTime != null && DateTime.Now > DateTime.Parse("14:30"))
             {
-                this.CurrentTime = workTime;
-                this.OverTime = time - workTime;
+                this.LunchBreakTime = null;
+                this._lunchBreakStart = DateTime.MinValue;
+            }
+
+            if (this.LunchBreakTime != null)
+            {
+                this.LunchBreakTime = DateTime.Now - this._lunchBreakStart;
             }
             else
             {
-                this.CurrentTime = time;
-                this.OverTime = null;
+                var workTime = this._applicationStateService.GetWorkDayHours();
+
+                if (time - workTime > TimeSpan.FromSeconds(1))
+                {
+                    this.CurrentTime = workTime;
+                    this.OverTime = time - workTime;
+                }
+                else
+                {
+                    this.CurrentTime = time;
+                    this.OverTime = null;
+                }
             }
         }
 
