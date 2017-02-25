@@ -654,6 +654,15 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
     <value>New diagrams</value>
   </data>
+  <data name="BreakTimeEndTimePart1TextBlock.Text" xml:space="preserve">
+    <value>Until</value>
+  </data>
+  <data name="BreakTimeEndTimePart2TextBlock.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BreakTimeTextBlock.Text" xml:space="preserve">
+    <value>Break:</value>
+  </data>
   <data name="FridayCheckBox.Content" xml:space="preserve">
     <value>Friday</value>
   </data>
