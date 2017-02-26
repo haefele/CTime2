@@ -40,6 +40,47 @@
         <ScrollViewer Grid.Row="4" Margin="-10" Padding="10">
             <RichTextBlock IsTextSelectionEnabled="False">
 
+                <!-- Version 1.8.1.0 -->
+                <Paragraph>
+                    <Run FontWeight="Light"
+                         FontSize="20"
+                         Foreground="{StaticResource SystemControlHighlightAccentBrush}">Version 1.8.1.0</Run>
+                </Paragraph>
+
+                <Paragraph>
+                    <InlineUIContainer>
+                        <Rectangle Fill="{ThemeResource BorderBrush}"
+                                   Width="500"
+                                   Height="1"
+                                   Margin="0, 10, 0, 10" />
+                    </InlineUIContainer>
+                </Paragraph>
+
+                <Paragraph>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="FixedAttendanceListHeaderRun">~Anwesenheitsliste funktioniert wieder</Run>
+                </Paragraph>
+                <Paragraph><Run x:Uid="FixedAttendanceListContent1Run">~Leider kam es mit der letzten Version zu einem Fehler.</Run></Paragraph>
+                <Paragraph><Run x:Uid="FixedAttendanceListContent2Run">~Dadurch wurde in der Anwesenheitsliste jeder als Abwesend angezeigt.</Run></Paragraph>
+                <Paragraph><Run x:Uid="FixedAttendanceListContent3Run">~Das ist jetzt behoben. Die Anwesenheitsliste sollte jetzt wieder wie gewohnt funktionieren.</Run></Paragraph>
+
+                <Paragraph />
+
+                <Paragraph>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="BreakTimeOnOverviewHeaderRun">~Pausendauer in der Übersicht</Run>
+                </Paragraph>
+                <Paragraph><Run x:Uid="BreakTimeOnOverviewContent1Run">~In der Übersicht gibt es nun auch für die aktuelle Pausendauer eine Uhr.</Run></Paragraph>
+                <Paragraph><Run x:Uid="BreakTimeOnOverviewContent2Run">~Man sieht nun auf einen Blick wie lang die aktuelle Pause schon geht, und wann diese vorbei ist.</Run></Paragraph>
+
+                <Paragraph />
+                
+                <Paragraph>
+                    <Run FontWeight="Bold" FontSize="18" x:Uid="NewSettingWorkDaysHeaderRun">~Neue Einstellung für Arbeitstage</Run>
+                </Paragraph>
+                <Paragraph><Run x:Uid="NewSettingWorkDaysContent1Run">~Es gibt jetzt eine neue Einstellung mit der man angeben kann, welche Tage der Woche die Arbeitstage sind.</Run></Paragraph>
+                <Paragraph><Run x:Uid="NewSettingWorkDaysContent2Run">~Dies wird zum Beispiel bei der Überstunden-Statistik berücksichtigt.</Run></Paragraph>
+
+                <Paragraph />
+
                 <!-- Version 1.8.0.0 -->
                 <Paragraph>
                     <Run FontWeight="Light"
@@ -79,76 +120,6 @@
                 <Paragraph><Run x:Uid="ReworkedAboutAndSettingsContent1Run">~Der Über Bereich wurde auch komplett überarbeitet.</Run></Paragraph>
                 <Paragraph><Run x:Uid="ReworkedAboutAndSettingsContent2Run">~Dort gibt es jetzt auch die Möglichkeit Feedback über den Feedback Hub zu geben.</Run></Paragraph>
                 <Paragraph><Run x:Uid="ReworkedAboutAndSettingsContent3Run">~In den Einstellungen gibt es eine neue Einstellung zur Analytik.</Run></Paragraph>
-
-                <Paragraph />
-                
-                <!-- Version 1.7.1.0 -->
-                <Paragraph>
-                    <Run FontWeight="Light"
-                         FontSize="20"
-                         Foreground="{StaticResource SystemControlHighlightAccentBrush}">Version 1.7.1.0</Run>
-                </Paragraph>
-
-                <Paragraph>
-                    <InlineUIContainer>
-                        <Rectangle Fill="{ThemeResource BorderBrush}"
-                                   Width="500"
-                                   Height="1"
-                                   Margin="0, 10, 0, 10" />
-                    </InlineUIContainer>
-                </Paragraph>
-
-                <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="CrashHeaderRun">~Absturz beim Starten</Run>
-                </Paragraph>
-                <Paragraph><Run x:Uid="CrashContent1Run">~Auf einigen Computern ist diese App beim Start direkt abgestürzt. Das sollte jetzt behoben sein.</Run></Paragraph>
-
-                <Paragraph />
-                
-                <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="PatchNotesAgainHeaderRun">~Updatehinweis erneut ansehen</Run>
-                </Paragraph>
-                <Paragraph>
-                    <Run x:Uid="PatchNotesAgainContent1Run">~Im Bereich "Über" kann man sich diese Updatehinweise erneut anzeigen lassen.</Run>
-                </Paragraph>
-
-                <Paragraph />
-
-                <!-- Version 1.7.0.0 -->
-                <Paragraph>
-                    <Run FontWeight="Light"
-                         FontSize="20"
-                         Foreground="{StaticResource SystemControlHighlightAccentBrush}">Version 1.7.0.0</Run>
-                </Paragraph>
-                
-                <Paragraph>
-                    <InlineUIContainer>
-                        <Rectangle Fill="{ThemeResource BorderBrush}"
-                                   Width="500"
-                                   Height="1"
-                                   Margin="0, 10, 0, 10" />
-                    </InlineUIContainer>
-                </Paragraph>
-                
-                <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="DatesHeaderRun">~Start- und Enddatum</Run>
-                </Paragraph>
-                <Paragraph><Run x:Uid="DatesContent1Run">~Im Bereich der Zeiten und in den Statistiken wird sich das Start- und Enddatum jetzt gemerkt.</Run></Paragraph>
-                
-                <Paragraph />
-
-                <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="ShareHeaderRun">~Teilen!</Run>
-                </Paragraph>
-                <Paragraph><Run x:Uid="ShareContent1Run">~Einige Infos aus dieser App kann man jetzt mit anderen Apps teilen.</Run></Paragraph>
-                <Paragraph><Run x:Uid="ShareContent2Run">~Dadurch kann man zum Beispiel seine Zeiten per E-Mail versenden.</Run></Paragraph>
-
-                <Paragraph />
-
-                <Paragraph>
-                    <Run FontWeight="Bold" FontSize="18" x:Uid="AttendanceListGroupsHeaderRun">~Eigene Mitarbeitergruppen!</Run>
-                </Paragraph>
-                <Paragraph><Run x:Uid="AttendanceListGroupsContent1Run">~Um die Übersicht zu verbessern, kann man in der Anwesenheitsliste nun eigene Gruppen von Mitarbeitern erstellen.</Run></Paragraph>
 
             </RichTextBlock>
         </ScrollViewer>

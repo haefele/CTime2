@@ -480,39 +480,6 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
   <data name="CompanyIdSettingsItem.Description" xml:space="preserve">
     <value>Company-ID</value>
   </data>
-  <data name="DatesContent1Run.Text" xml:space="preserve">
-    <value>In your times and the statistics the start- and enddate will now be remembered.</value>
-  </data>
-  <data name="DatesHeaderRun.Text" xml:space="preserve">
-    <value>Start- and enddate</value>
-  </data>
-  <data name="AttendanceListGroupsContent1Run.Text" xml:space="preserve">
-    <value>To get a better overview in the attendance list, you can now create your own groups of employees.</value>
-  </data>
-  <data name="AttendanceListGroupsHeaderRun.Text" xml:space="preserve">
-    <value>Custom employee groups!</value>
-  </data>
-  <data name="ShareContent1Run.Text" xml:space="preserve">
-    <value>Some information from this app can now be shared with other apps.</value>
-  </data>
-  <data name="ShareContent2Run.Text" xml:space="preserve">
-    <value>You can use this to send your times per email for example.</value>
-  </data>
-  <data name="ShareHeaderRun.Text" xml:space="preserve">
-    <value>Share!</value>
-  </data>
-  <data name="CrashContent1Run.Text" xml:space="preserve">
-    <value>This app was crashing on some systems. It should be fixed now.</value>
-  </data>
-  <data name="CrashHeaderRun.Text" xml:space="preserve">
-    <value>Crash at startup</value>
-  </data>
-  <data name="PatchNotesAgainContent1Run.Text" xml:space="preserve">
-    <value>In the area "About" you can see these patchnotes again.</value>
-  </data>
-  <data name="PatchNotesAgainHeaderRun.Text" xml:space="preserve">
-    <value>See patchnotes again</value>
-  </data>
   <data name="AnalyticsSettingsGroup.Header" xml:space="preserve">
     <value>Analytics</value>
   </data>
@@ -595,7 +562,7 @@ This data will only be used to contact you, it will not be given to a third part
     <value>https://github.com/haefele</value>
   </data>
   <data name="PrivacyPolicyUrl" xml:space="preserve">
-    <value>https://xemio.net/c-time/privacy%20policy/en-US.html</value>
+    <value>https://github.com/haefele/CTime2/blob/master/privacy%20policy/en-US.md</value>
   </data>
   <data name="TwitterUrl" xml:space="preserve">
     <value>https://twitter.com/haefeledev</value>
@@ -689,5 +656,35 @@ This data will only be used to contact you, it will not be given to a third part
   </data>
   <data name="Statistics.AverageBreakTimeSubTitle" xml:space="preserve">
     <value>Only days with break</value>
+  </data>
+  <data name="BreakTimeOnOverviewContent1Run.Text" xml:space="preserve">
+    <value>The overview now has a timer for your current breaktime.</value>
+  </data>
+  <data name="BreakTimeOnOverviewContent2Run.Text" xml:space="preserve">
+    <value>You can now see how long your current break is, and when it should end.</value>
+  </data>
+  <data name="BreakTimeOnOverviewHeaderRun.Text" xml:space="preserve">
+    <value>Breaktime in the overview</value>
+  </data>
+  <data name="FixedAttendanceListContent1Run.Text" xml:space="preserve">
+    <value>There was an error in the last version.</value>
+  </data>
+  <data name="FixedAttendanceListContent2Run.Text" xml:space="preserve">
+    <value>In the attendance list everyone was shown as "Away".</value>
+  </data>
+  <data name="FixedAttendanceListContent3Run.Text" xml:space="preserve">
+    <value>This is fixed now. The attendance list should work as expected again.</value>
+  </data>
+  <data name="FixedAttendanceListHeaderRun.Text" xml:space="preserve">
+    <value>Attendance list is working again</value>
+  </data>
+  <data name="NewSettingWorkDaysContent1Run.Text" xml:space="preserve">
+    <value>There is a new setting where you can specify which weekdays are your workdays.</value>
+  </data>
+  <data name="NewSettingWorkDaysContent2Run.Text" xml:space="preserve">
+    <value>This is used in the overtime statistics.</value>
+  </data>
+  <data name="NewSettingWorkDaysHeaderRun.Text" xml:space="preserve">
+    <value>New setting for workdays</value>
   </data>
 </root>

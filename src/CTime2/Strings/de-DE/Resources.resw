@@ -480,39 +480,6 @@ Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   <data name="TerminalSettingsGroup.Header" xml:space="preserve">
     <value>Terminal</value>
   </data>
-  <data name="AttendanceListGroupsContent1Run.Text" xml:space="preserve">
-    <value>Um die Übersicht zu verbessern, kann man in der Anwesenheitsliste nun eigene Gruppen von Mitarbeitern erstellen.</value>
-  </data>
-  <data name="AttendanceListGroupsHeaderRun.Text" xml:space="preserve">
-    <value>Eigene Mitarbeitergruppen!</value>
-  </data>
-  <data name="DatesContent1Run.Text" xml:space="preserve">
-    <value>Im Bereich der Zeiten und in den Statistiken wird sich das Start- und Enddatum jetzt gemerkt.</value>
-  </data>
-  <data name="DatesHeaderRun.Text" xml:space="preserve">
-    <value>Start- und Enddatum</value>
-  </data>
-  <data name="ShareContent1Run.Text" xml:space="preserve">
-    <value>Einige Infos aus dieser App kann man jetzt mit anderen Apps teilen.</value>
-  </data>
-  <data name="ShareContent2Run.Text" xml:space="preserve">
-    <value>Dadurch kann man zum Beispiel seine Zeiten per E-Mail versenden.</value>
-  </data>
-  <data name="ShareHeaderRun.Text" xml:space="preserve">
-    <value>Teilen!</value>
-  </data>
-  <data name="CrashContent1Run.Text" xml:space="preserve">
-    <value>Auf einigen Computern ist diese App beim Start direkt abgestürzt. Das sollte jetzt behoben sein.</value>
-  </data>
-  <data name="CrashHeaderRun.Text" xml:space="preserve">
-    <value>Absturz beim Starten</value>
-  </data>
-  <data name="PatchNotesAgainContent1Run.Text" xml:space="preserve">
-    <value>Im Bereich "Über" kann man sich diese Updatehinweise erneut anzeigen lassen.</value>
-  </data>
-  <data name="PatchNotesAgainHeaderRun.Text" xml:space="preserve">
-    <value>Updatehinweis erneut ansehen</value>
-  </data>
   <data name="AnalyticsSettingsGroup.Header" xml:space="preserve">
     <value>Analytik</value>
   </data>
@@ -579,7 +546,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
     <value>Datenschutzerklärung</value>
   </data>
   <data name="PrivacyPolicyUrl" xml:space="preserve">
-    <value>https://xemio.net/c-time/privacy%20policy/de-DE.html</value>
+    <value>https://github.com/haefele/CTime2/blob/master/privacy%20policy/de-DE.md</value>
   </data>
   <data name="SocialMediaSettingsGroup.Header" xml:space="preserve">
     <value>Soziale Medien</value>
@@ -689,5 +656,35 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   </data>
   <data name="BreakTimeTextBlock.Text" xml:space="preserve">
     <value>Pause:</value>
+  </data>
+  <data name="BreakTimeOnOverviewContent1Run.Text" xml:space="preserve">
+    <value>In der Übersicht gibt es nun auch für die aktuelle Pausendauer eine Uhr.</value>
+  </data>
+  <data name="BreakTimeOnOverviewContent2Run.Text" xml:space="preserve">
+    <value>Man sieht nun auf einen Blick wie lang die aktuelle Pause schon geht, und wann diese vorbei ist.</value>
+  </data>
+  <data name="BreakTimeOnOverviewHeaderRun.Text" xml:space="preserve">
+    <value>Pausendauer in der Übersicht</value>
+  </data>
+  <data name="FixedAttendanceListContent1Run.Text" xml:space="preserve">
+    <value>Leider kam es mit der letzten Version zu einem Fehler.</value>
+  </data>
+  <data name="FixedAttendanceListContent2Run.Text" xml:space="preserve">
+    <value>Dadurch wurde in der Anwesenheitsliste jeder als Abwesend angezeigt.</value>
+  </data>
+  <data name="FixedAttendanceListContent3Run.Text" xml:space="preserve">
+    <value>Das ist jetzt behoben. Die Anwesenheitsliste sollte jetzt wieder wie gewohnt funktionieren.</value>
+  </data>
+  <data name="FixedAttendanceListHeaderRun.Text" xml:space="preserve">
+    <value>Anwesenheitsliste funktioniert wieder</value>
+  </data>
+  <data name="NewSettingWorkDaysContent1Run.Text" xml:space="preserve">
+    <value>Es gibt jetzt eine neue Einstellung mit der man angeben kann, welche Tage der Woche die Arbeitstage sind.</value>
+  </data>
+  <data name="NewSettingWorkDaysContent2Run.Text" xml:space="preserve">
+    <value>Dies wird zum Beispiel bei der Überstunden-Statistik berücksichtigt.</value>
+  </data>
+  <data name="NewSettingWorkDaysHeaderRun.Text" xml:space="preserve">
+    <value>Neue Einstellung für Arbeitstage</value>
   </data>
 </root>
