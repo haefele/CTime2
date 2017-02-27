@@ -94,12 +94,11 @@ namespace CTime2.Core.Services.Statistics
             return actualWorkTime - expectedWorkTime;
         }
 
-        public TodaysWorkEnd CalculateTodaysWorkEnd(List<TimesByDay> times, bool onlyWorkDays)
+        public TodaysWorkEnd CalculateTodaysWorkEnd(TimesByDay timeToday, List<TimesByDay> times, bool onlyWorkDays)
         {
             var workDayHours = this._applicationStateService.GetWorkDayHours();
             var workDayBreak = this._applicationStateService.GetWorkDayBreak();
-
-            var timeToday = times.FirstOrDefault(f => f.Day == DateTime.Today);
+            
             var overtime = this.CalculateOverTime(times, onlyWorkDays);
 
             var latestTimeToday = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault();
@@ -109,8 +108,8 @@ namespace CTime2.Core.Services.Statistics
 
             var workTimeTodayToUseUpOverTimePool = workDayHours
                                                    - overtime
-                                                   - (timeToday?.Hours ?? TimeSpan.Zero)
-                                                   + (latestTimeToday?.Duration ?? TimeSpan.Zero);
+                                                   - timeToday.Hours
+                                                   + (latestTimeToday.Duration ?? TimeSpan.Zero);
             var hadBreakAlready = timeToday?.Times.Count >= 2;
 
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now)

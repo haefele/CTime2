@@ -169,7 +169,7 @@ namespace CTime2.Views.Statistics
             var averageBreakTime = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: false);
             var averageBreakTimeOnDaysWithBreak = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: true);
             var overtime = this._statisticsService.CalculateOverTime(timesByDay, onlyWorkDays:false);
-            var workEnd = this._statisticsService.CalculateTodaysWorkEnd(timesByDay, onlyWorkDays:false);
+            var workEnd = this._statisticsService.CalculateTodaysWorkEnd(allTimes.FirstOrDefault(f => f.Day == DateTime.Today), timesByDay, onlyWorkDays:false);
             
             var statisticItems = new List<StatisticItem>
             {
