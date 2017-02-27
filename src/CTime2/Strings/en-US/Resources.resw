@@ -687,4 +687,13 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="NewSettingWorkDaysHeaderRun.Text" xml:space="preserve">
     <value>New setting for workdays</value>
   </data>
+  <data name="FixedTodaysWorkEndContent1Run.Text" xml:space="preserve">
+    <value>There was an error in the last version which lead to the todays workend not working correctly.</value>
+  </data>
+  <data name="FixedTodaysWorkEndContent2Run.Text" xml:space="preserve">
+    <value>That is fixed again in this version.</value>
+  </data>
+  <data name="FixedTodaysWorkEndHeaderRun.Text" xml:space="preserve">
+    <value>Bug with todays workend</value>
+  </data>
 </root>
