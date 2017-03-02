@@ -314,9 +314,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="Loading.LoadCharts" xml:space="preserve">
     <value>Lade Diagram...</value>
   </data>
-  <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
-    <value>{0} h {1} m</value>
-  </data>
   <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Zu dieser Statistik gibt es ein Diagram.</value>
   </data>

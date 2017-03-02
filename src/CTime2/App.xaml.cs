@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
@@ -22,6 +25,8 @@ using CTime2.Core.Services.Licenses;
 using CTime2.Core.Services.Phone;
 using CTime2.Core.Services.Sharing;
 using CTime2.Core.Services.Statistics;
+using CTime2.Core.Services.Tile;
+using CTime2.LiveTileService;
 using CTime2.Strings;
 using CTime2.Views.About;
 using CTime2.Views.AttendanceList;
@@ -41,6 +46,7 @@ using CTime2.Views.Statistics.Details.WorkTime;
 using CTime2.Views.Terminal;
 using CTime2.Views.UpdateNotes;
 using CTime2.Views.YourTimes;
+using Microsoft.Toolkit.Uwp;
 using UwCore.Application;
 using UwCore.Extensions;
 using UwCore.Hamburger;
@@ -55,7 +61,7 @@ namespace CTime2
         {
             this.InitializeComponent();
         }
-        
+
         public override void Configure()
         {
             base.Configure();
@@ -63,6 +69,7 @@ namespace CTime2
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
             this.ConfigureJumpList();
+            this.ConfigureLiveTileService();
         }
 
         public override void CustomizeShell(IShell shell)
@@ -76,12 +83,17 @@ namespace CTime2
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }
-        
+
         public override ShellMode GetCurrentMode()
         {
             return IoC.Get<IApplicationStateService>().GetCurrentUser() != null
                 ? (ShellMode)IoC.Get<LoggedInApplicationMode>()
                 : IoC.Get<LoggedOutApplicationMode>();
+        }
+
+        public override async void AppStartupFinished()
+        {
+            await IoC.Get<ITileService>().UpdateLiveTileAsync();
         }
 
         public override string GetErrorTitle()
@@ -161,6 +173,9 @@ namespace CTime2
 
             yield return typeof(IStatisticsService);
             yield return typeof(StatisticsService);
+
+            yield return typeof(ITileService);
+            yield return typeof(TileService);
         }
 
         public override bool IsHockeyAppEnabled()
@@ -216,6 +231,29 @@ namespace CTime2
                 jumpList.Items.Add(checkOutItem);
 
                 await jumpList.SaveAsync();
+            }
+        }
+
+        private async void ConfigureLiveTileService()
+        {
+            var access = await BackgroundExecutionManager.RequestAccessAsync();
+            
+            var validStatus = new[]
+            {
+                BackgroundAccessStatus.AlwaysAllowed, 
+                BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity, 
+                BackgroundAccessStatus.AllowedSubjectToSystemPolicy, 
+                BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity, 
+            };
+
+            if (validStatus.Contains(access))
+            {
+                BackgroundTaskHelper.Register(
+                    typeof(CTime2LiveTileService),
+                    new TimeTrigger(15, false),
+                    forceRegister: true,
+                    enforceConditions: true,
+                    conditions: new SystemCondition(SystemConditionType.InternetAvailable));
             }
         }
     }

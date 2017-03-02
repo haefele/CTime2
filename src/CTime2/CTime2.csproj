@@ -383,6 +383,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CTime2.LiveTileService\CTime2.LiveTileService.csproj">
+      <Project>{b2811e7c-362e-447e-889f-4fc4ace40abd}</Project>
+      <Name>CTime2.LiveTileService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CTime2.Core\CTime2.Core.csproj">
       <Project>{76ad71f3-cee3-4714-b88f-fea50a787887}</Project>
       <Name>CTime2.Core</Name>
