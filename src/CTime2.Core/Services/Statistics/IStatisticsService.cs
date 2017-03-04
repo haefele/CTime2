@@ -15,5 +15,6 @@ namespace CTime2.Core.Services.Statistics
         TimeSpan CalculateOverTime(List<TimesByDay> times, bool onlyWorkDays);
         TodaysWorkEnd CalculateTodaysWorkEnd(TimesByDay timeToday, List<TimesByDay> times, bool onlyWorkDays);
         TimeSpan CalculateAverageOverTime(List<TimesByDay> times, bool onlyWorkDays);
+        CurrentTime CalculateCurrentTime(Time currentTime);
     }
 }

@@ -157,6 +157,7 @@
     <Compile Include="Services\Sharing\ISharingService.cs" />
     <Compile Include="Services\Sharing\SharingService.cs" />
     <Compile Include="Services\Sharing\SharingServiceExtensions.cs" />
+    <Compile Include="Services\Statistics\CurrentTime.cs" />
     <Compile Include="Services\Statistics\IStatisticsService.cs" />
     <Compile Include="Services\Statistics\StatisticsService.cs" />
     <Compile Include="Services\Statistics\TodaysWorkEnd.cs" />

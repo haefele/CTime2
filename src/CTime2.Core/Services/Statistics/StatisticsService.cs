@@ -128,6 +128,48 @@ namespace CTime2.Core.Services.Statistics
             return TimeSpan.FromMinutes(overTime.TotalMinutes / workDays);
         }
 
+        public CurrentTime CalculateCurrentTime(Time currentTime)
+        {
+            if (currentTime == null)
+                return new CurrentTime(TimeSpan.Zero, null, null, null, false);
+
+            var now = DateTime.Now;
+
+            //Only take the timeToday if the time is either
+            // - from today
+            // - or from yesterday, but still checked-in
+            var timeToday = currentTime.Day == now.Date || currentTime.State.IsEntered()
+                ? currentTime.Hours
+                : TimeSpan.Zero;
+
+            if (currentTime.State.IsEntered())
+                timeToday += now - currentTime.ClockInTime.Value;
+
+            TimeSpan? breakTime = null;
+            DateTime? expectedBreakTimeEnd = null;
+
+            if (currentTime.State.IsLeft() && 
+                currentTime.ClockOutTime.HasValue &&
+                currentTime.ClockOutTime.Value.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin().TimeOfDay &&
+                currentTime.ClockOutTime.Value.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd().TimeOfDay &&
+                now.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin().TimeOfDay &&
+                now.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd().TimeOfDay)
+            {
+                breakTime = now - currentTime.ClockOutTime.Value;
+                expectedBreakTimeEnd = currentTime.ClockOutTime.Value.Add(this._applicationStateService.GetWorkDayBreak());
+            }
+
+            TimeSpan? overtime = null;
+
+            if (timeToday - this._applicationStateService.GetWorkDayHours() > TimeSpan.FromSeconds(1))
+            {
+                overtime = timeToday - this._applicationStateService.GetWorkDayHours();
+                timeToday = this._applicationStateService.GetWorkDayHours();
+            }
+            
+            return new CurrentTime(timeToday, overtime, breakTime, expectedBreakTimeEnd, currentTime.State.IsEntered() || breakTime != null);
+        }
+
         #region Private Methods
         private bool FilterOnlyWorkDays(TimesByDay time, bool onlyWorkDays)
         {

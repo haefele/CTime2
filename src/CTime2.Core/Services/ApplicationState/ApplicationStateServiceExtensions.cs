@@ -96,5 +96,25 @@ namespace CTime2.Core.Services.ApplicationState
         {
             self.Set("IncludeContactInfoInErrorReports", includeContactInfoInErrorReports, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
+
+        public static DateTime GetBreakTimeBegin(this IApplicationStateService self)
+        {
+            return self.Get<DateTime?>("BreakTimeBegin", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? DateTime.Today.Add(TimeSpan.FromHours(11));
+        }
+
+        public static void SetBreakTimeBegin(this IApplicationStateService self, DateTime breakTimeBegin)
+        {
+            self.Set("BreakTimeBegin", breakTimeBegin, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
+
+        public static DateTime GetBreakTimeEnd(this IApplicationStateService self)
+        {
+            return self.Get<DateTime?>("BreakTimeEnd", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? DateTime.Today.Add(TimeSpan.FromHours(14.5));
+        }
+
+        public static void SetBreakTimeEnd(this IApplicationStateService self, DateTime breakTimeBegin)
+        {
+            self.Set("BreakTimeEnd", breakTimeBegin, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
     }
 }
