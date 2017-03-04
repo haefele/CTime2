@@ -68,7 +68,7 @@ namespace CTime2
         public override void CustomizeShell(IShell shell)
         {
             base.CustomizeShell(shell);
-
+            
             shell.Theme = IoC.Get<IApplicationStateService>().GetApplicationTheme();
 
             shell.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
