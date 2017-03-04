@@ -147,8 +147,9 @@ namespace CTime2.Core.Services.Statistics
 
             TimeSpan? breakTime = null;
             DateTime? expectedBreakTimeEnd = null;
-
-            if (currentTime.State.IsLeft() && 
+         
+            if (currentTime.Day == now.Date &&
+                currentTime.State.IsLeft() && 
                 currentTime.ClockOutTime.HasValue &&
                 currentTime.ClockOutTime.Value.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin() &&
                 currentTime.ClockOutTime.Value.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd() &&
