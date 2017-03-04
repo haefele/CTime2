@@ -696,4 +696,10 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="FixedTodaysWorkEndHeaderRun.Text" xml:space="preserve">
     <value>Bug with todays workend</value>
   </data>
+  <data name="BreakTimeAreaSettingsItem.Description" xml:space="preserve">
+    <value>Break time</value>
+  </data>
+  <data name="UntilTextBlock.Text" xml:space="preserve">
+    <value>until</value>
+  </data>
 </root>

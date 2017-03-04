@@ -150,10 +150,10 @@ namespace CTime2.Core.Services.Statistics
 
             if (currentTime.State.IsLeft() && 
                 currentTime.ClockOutTime.HasValue &&
-                currentTime.ClockOutTime.Value.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin().TimeOfDay &&
-                currentTime.ClockOutTime.Value.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd().TimeOfDay &&
-                now.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin().TimeOfDay &&
-                now.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd().TimeOfDay)
+                currentTime.ClockOutTime.Value.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin() &&
+                currentTime.ClockOutTime.Value.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd() &&
+                now.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin() &&
+                now.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd())
             {
                 breakTime = now - currentTime.ClockOutTime.Value;
                 expectedBreakTimeEnd = currentTime.ClockOutTime.Value.Add(this._applicationStateService.GetWorkDayBreak());
