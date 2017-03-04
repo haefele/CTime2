@@ -696,4 +696,10 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="FixedTodaysWorkEndHeaderRun.Text" xml:space="preserve">
     <value>Fehler mit heutigem Arbeitsende</value>
   </data>
+  <data name="BreakTimeAreaSettingsItem.Description" xml:space="preserve">
+    <value>Pausenzeitraum</value>
+  </data>
+  <data name="UntilTextBlock.Text" xml:space="preserve">
+    <value>bis</value>
+  </data>
 </root>

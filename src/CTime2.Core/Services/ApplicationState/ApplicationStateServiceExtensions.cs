@@ -97,22 +97,22 @@ namespace CTime2.Core.Services.ApplicationState
             self.Set("IncludeContactInfoInErrorReports", includeContactInfoInErrorReports, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
 
-        public static DateTime GetBreakTimeBegin(this IApplicationStateService self)
+        public static TimeSpan GetBreakTimeBegin(this IApplicationStateService self)
         {
-            return self.Get<DateTime?>("BreakTimeBegin", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? DateTime.Today.Add(TimeSpan.FromHours(11));
+            return self.Get<TimeSpan?>("BreakTimeBegin", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? TimeSpan.FromHours(11);
         }
 
-        public static void SetBreakTimeBegin(this IApplicationStateService self, DateTime breakTimeBegin)
+        public static void SetBreakTimeBegin(this IApplicationStateService self, TimeSpan breakTimeBegin)
         {
             self.Set("BreakTimeBegin", breakTimeBegin, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
 
-        public static DateTime GetBreakTimeEnd(this IApplicationStateService self)
+        public static TimeSpan GetBreakTimeEnd(this IApplicationStateService self)
         {
-            return self.Get<DateTime?>("BreakTimeEnd", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? DateTime.Today.Add(TimeSpan.FromHours(14.5));
+            return self.Get<TimeSpan?>("BreakTimeEnd", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? TimeSpan.FromHours(14.5);
         }
 
-        public static void SetBreakTimeEnd(this IApplicationStateService self, DateTime breakTimeBegin)
+        public static void SetBreakTimeEnd(this IApplicationStateService self, TimeSpan breakTimeBegin)
         {
             self.Set("BreakTimeEnd", breakTimeBegin, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
