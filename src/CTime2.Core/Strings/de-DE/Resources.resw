@@ -150,6 +150,21 @@
   <data name="Left" xml:space="preserve">
     <value>Abwesend</value>
   </data>
+  <data name="LiveTile.Break" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="LiveTile.BreakEnd" xml:space="preserve">
+    <value>Pausenende</value>
+  </data>
+  <data name="LiveTile.OverTime" xml:space="preserve">
+    <value>Überstunden</value>
+  </data>
+  <data name="LiveTile.TimesToday" xml:space="preserve">
+    <value>Zeiten heute</value>
+  </data>
+  <data name="LiveTile.WorkTime" xml:space="preserve">
+    <value>Arbeitszeit</value>
+  </data>
   <data name="ShortBreak" xml:space="preserve">
     <value>Pause</value>
   </data>

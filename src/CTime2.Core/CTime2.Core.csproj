@@ -161,6 +161,8 @@
     <Compile Include="Services\Statistics\IStatisticsService.cs" />
     <Compile Include="Services\Statistics\StatisticsService.cs" />
     <Compile Include="Services\Statistics\TodaysWorkEnd.cs" />
+    <Compile Include="Services\Tile\ITileService.cs" />
+    <Compile Include="Services\Tile\TileService.cs" />
     <Compile Include="Strings\CTime2CoreResources.cs" />
     <Content Include="Properties\CTime2.Core.rd.xml" />
   </ItemGroup>

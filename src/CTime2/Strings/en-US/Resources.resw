@@ -307,9 +307,6 @@ This app may not work completely.</value>
   <data name="Loading.LoadCharts" xml:space="preserve">
     <value>Loading diagram...</value>
   </data>
-  <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
-    <value>{0} h {1} m</value>
-  </data>
   <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>There is a diagram for this statistic.</value>
   </data>

@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Biometrics;
@@ -16,6 +17,7 @@ using UwCore.Application;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 using CTime2.Extensions;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace CTime2.Views.Settings
 {
@@ -202,7 +204,7 @@ namespace CTime2.Views.Settings
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
         }
-        
+
         private async Task RememberLoginImpl()
         {
             var user = this._applicationStateService.GetCurrentUser();
