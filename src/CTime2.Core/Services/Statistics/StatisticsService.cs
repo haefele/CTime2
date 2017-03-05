@@ -24,6 +24,9 @@ namespace CTime2.Core.Services.Statistics
             var sum = times.Where(f => this.FilterOnlyWorkDays(f, onlyWorkDays)).Sum(f => f.Hours.TotalMinutes);
             var count = times.Count(f => f.Hours != TimeSpan.Zero && this.FilterOnlyWorkDays(f, true));
 
+            if (count == 0)
+                count = 1;
+            
             return TimeSpan.FromMinutes(sum / count);
         }
 
@@ -54,6 +57,9 @@ namespace CTime2.Core.Services.Statistics
                 .Where(f => this.FilterOnlyWorkDays(f, onlyWorkDays))
                 .Count(f => f.DayStartTime != null);
 
+            if (count == 0)
+                count = 1;
+
             return TimeSpan.FromMinutes(sum / count);
         }
 
@@ -67,6 +73,9 @@ namespace CTime2.Core.Services.Statistics
             var count = times
                 .Where(f => this.FilterOnlyWorkDays(f, onlyWorkDays))
                 .Count(f => f.DayStartTime != null && f.DayEndTime != null);
+
+            if (count == 0)
+                count = 1;
 
             return TimeSpan.FromMinutes(sum / count);
         }
