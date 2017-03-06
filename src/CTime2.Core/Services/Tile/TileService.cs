@@ -62,6 +62,7 @@ namespace CTime2.Core.Services.Tile
                     Branding = TileBranding.NameAndLogo,
                     TileMedium = this.GetTileMedium(currentTime, timesToday),
                     TileWide = this.GetTileWide(currentTime, timesToday),
+                    TileLarge = this.GetTileLarge(currentTime, timesToday),
                 },
             };
 
@@ -69,12 +70,40 @@ namespace CTime2.Core.Services.Tile
 
             updateManager.Update(notification);
         }
-        
+
+        private TileBinding GetTileLarge(Time currentTime, TimesByDay today)
+        {
+            var wideGroup = new AdaptiveGroup();
+            foreach (var part in this.GetMediumAndWideParts(currentTime, today).Take(2))
+            {
+                wideGroup.Children.Add(part);
+            }
+
+            var statisticsGroup = new AdaptiveGroup
+            {
+                Children = {this.CreateStatisticsGroup(currentTime, today)}
+            };
+
+            return new TileBinding
+            {
+                Branding = TileBranding.None, //We need all vertical space we can get
+                Content = new TileBindingContentAdaptive
+                {
+                    Children =
+                    {
+                        wideGroup,
+                        new AdaptiveText(), //A little bit of free space
+                        statisticsGroup,
+                    }
+                }
+            };
+        }
+
         private TileBinding GetTileWide(Time currentTime, TimesByDay today)
         {
             var group = new AdaptiveGroup();
 
-            foreach (var part in this.GetTileParts(currentTime, today).Take(2))
+            foreach (var part in this.GetMediumAndWideParts(currentTime, today).Take(2))
             {
                 group.Children.Add(part);
             }
@@ -95,7 +124,7 @@ namespace CTime2.Core.Services.Tile
         {
             var content = new TileBindingContentAdaptive();
 
-            foreach (var part in this.GetTileParts(currentTime, today))
+            foreach (var part in this.GetMediumAndWideParts(currentTime, today))
             {
                 content.Children.Add(new AdaptiveGroup { Children = { part }});
             }
@@ -104,7 +133,7 @@ namespace CTime2.Core.Services.Tile
         }
 
         #region Tile Parts
-        private IEnumerable<AdaptiveSubgroup> GetTileParts(Time currentTime, TimesByDay today)
+        private IEnumerable<AdaptiveSubgroup> GetMediumAndWideParts(Time currentTime, TimesByDay today)
         {
             var parts = new Func<Time, TimesByDay, AdaptiveSubgroup>[]
             {
@@ -134,7 +163,8 @@ namespace CTime2.Core.Services.Tile
                 {
                     new AdaptiveText
                     {
-                        Text = CTime2CoreResources.Get("LiveTile.WorkTime")
+                        Text = CTime2CoreResources.Get("LiveTile.YourTime"),
+                        HintStyle = AdaptiveTextStyle.Base
                     },
                     new AdaptiveText
                     {
@@ -157,7 +187,7 @@ namespace CTime2.Core.Services.Tile
                 });
             }
 
-            if (statistics.BreakTime != null)
+            if (statistics.CurrentBreak != null)
             {
                 group.Children.Add(new AdaptiveText
                 {
@@ -165,20 +195,12 @@ namespace CTime2.Core.Services.Tile
                 });
                 group.Children.Add(new AdaptiveText
                 {
-                    Text = $"> {statistics.BreakTime.Value.Hours} h {this.RoundDownTo5(statistics.BreakTime.Value.Minutes)} min",
+                    Text = $"> {statistics.CurrentBreak.BreakTime.Hours} h {this.RoundDownTo5(statistics.CurrentBreak.BreakTime.Minutes)} min",
                     HintStyle = AdaptiveTextStyle.CaptionSubtle
                 });
-            }
-
-            if (statistics.PreferredBreakTimeEnd != null)
-            {
                 group.Children.Add(new AdaptiveText
                 {
-                    Text = CTime2CoreResources.Get("LiveTile.BreakEnd")
-                });
-                group.Children.Add(new AdaptiveText
-                {
-                    Text = $"{statistics.PreferredBreakTimeEnd.Value:t}",
+                    Text = CTime2CoreResources.GetFormatted("LiveTile.BreakUntil", statistics.CurrentBreak.PreferredBreakTimeEnd.ToString("t")),
                     HintStyle = AdaptiveTextStyle.CaptionSubtle
                 });
             }
@@ -194,7 +216,8 @@ namespace CTime2.Core.Services.Tile
                 {
                     new AdaptiveText
                     {
-                        Text = CTime2CoreResources.Get("LiveTile.TimesToday")
+                        Text = CTime2CoreResources.Get("LiveTile.TimesToday"),
+                        HintStyle = AdaptiveTextStyle.Base
                     }
                 }
             };
@@ -209,6 +232,45 @@ namespace CTime2.Core.Services.Tile
             }
 
             return group;
+        }
+
+        private AdaptiveSubgroup CreateStatisticsGroup(Time currentTime, TimesByDay today)
+        {
+            return new AdaptiveSubgroup
+            {
+                Children =
+                {
+                    new AdaptiveText
+                    {
+                        Text = "Statistiken",
+                        HintStyle = AdaptiveTextStyle.Base
+                    },
+                    new AdaptiveText
+                    {
+                        Text = "Überstunden"
+                    },
+                    new AdaptiveText
+                    {
+                        Text = "312 min",
+                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                    },
+
+                    new AdaptiveText
+                    {
+                        Text = "Heutiges Arbeitsende"
+                    },
+                    new AdaptiveText
+                    {
+                        Text = "17:20 Uhr",
+                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                    },
+                    new AdaptiveText
+                    {
+                        Text = "18:20 Uhr ohne Überstunden",
+                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                    }
+                }
+            };
         }
         
         private int RoundDownTo5(int value)

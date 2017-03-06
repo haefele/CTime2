@@ -140,7 +140,7 @@ namespace CTime2.Core.Services.Statistics
         public CurrentTime CalculateCurrentTime(Time currentTime)
         {
             if (currentTime == null)
-                return new CurrentTime(TimeSpan.Zero, null, null, null, false);
+                return new CurrentTime(TimeSpan.Zero, null, null, false);
 
             var now = DateTime.Now;
 
@@ -154,8 +154,7 @@ namespace CTime2.Core.Services.Statistics
             if (currentTime.State.IsEntered())
                 timeToday += now - currentTime.ClockInTime.Value;
 
-            TimeSpan? breakTime = null;
-            DateTime? expectedBreakTimeEnd = null;
+            CurrentBreak breakTime = null;
          
             if (currentTime.Day == now.Date &&
                 currentTime.State.IsLeft() && 
@@ -165,8 +164,7 @@ namespace CTime2.Core.Services.Statistics
                 now.TimeOfDay >= this._applicationStateService.GetBreakTimeBegin() &&
                 now.TimeOfDay <= this._applicationStateService.GetBreakTimeEnd())
             {
-                breakTime = now - currentTime.ClockOutTime.Value;
-                expectedBreakTimeEnd = currentTime.ClockOutTime.Value.Add(this._applicationStateService.GetWorkDayBreak());
+                breakTime = new CurrentBreak(now - currentTime.ClockOutTime.Value, currentTime.ClockOutTime.Value.Add(this._applicationStateService.GetWorkDayBreak()));
             }
 
             TimeSpan? overtime = null;
@@ -177,7 +175,7 @@ namespace CTime2.Core.Services.Statistics
                 timeToday = this._applicationStateService.GetWorkDayHours();
             }
             
-            return new CurrentTime(timeToday, overtime, breakTime, expectedBreakTimeEnd, currentTime.State.IsEntered() || breakTime != null);
+            return new CurrentTime(timeToday, overtime, breakTime, currentTime.State.IsEntered() || breakTime != null);
         }
 
         #region Private Methods
