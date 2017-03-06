@@ -19,7 +19,7 @@ using UwCore.Services.ApplicationState;
 namespace CTime2.Core.Services.Tile
 {
     [AutoSubscribeEvents]
-    public class TileService : ITileService, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>
+    public class TileService : ITileService, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>, IHandleWithTask<ShellModeEntered>
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
@@ -38,7 +38,14 @@ namespace CTime2.Core.Services.Tile
         
         public async Task UpdateLiveTileAsync()
         {
+            var updateManager = TileUpdateManager.CreateTileUpdaterForApplication();
+
             var currentUser = this._applicationStateService.GetCurrentUser();
+            if (currentUser == null)
+            {
+                updateManager.Clear();
+                return;
+            }
 
             var timesTodayTask = this._cTimeService.GetTimes(currentUser.Id, DateTime.Today, DateTime.Today);
             var currentTimeTask = this._cTimeService.GetCurrentTime(currentUser.Id);
@@ -60,7 +67,6 @@ namespace CTime2.Core.Services.Tile
 
             var notification = new TileNotification(content.GetXml());
 
-            var updateManager = TileUpdateManager.CreateTileUpdaterForApplication();
             updateManager.Update(notification);
         }
         
@@ -217,6 +223,10 @@ namespace CTime2.Core.Services.Tile
             return this.UpdateLiveTileAsync();
         }
         Task IHandleWithTask<UserStamped>.Handle(UserStamped message)
+        {
+            return this.UpdateLiveTileAsync();
+        }
+        Task IHandleWithTask<ShellModeEntered>.Handle(ShellModeEntered message)
         {
             return this.UpdateLiveTileAsync();
         }
