@@ -123,10 +123,10 @@ namespace CTime2.Core.Services.Tile
 
         private AdaptiveSubgroup CreateRunningTimeGroup(Time currentTime, TimesByDay today)
         {
-            if (currentTime.State.IsEntered() == false)
-                return null;
-
             var statistics = this._statisticsService.CalculateCurrentTime(currentTime);
+
+            if (statistics.WorkTime == TimeSpan.Zero)
+                return null;
 
             var group = new AdaptiveSubgroup
             {
