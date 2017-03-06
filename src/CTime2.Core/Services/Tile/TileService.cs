@@ -138,7 +138,7 @@ namespace CTime2.Core.Services.Tile
                     },
                     new AdaptiveText
                     {
-                        Text = $"< {statistics.WorkTime.Hours} h {this.RoundDownTo5(statistics.WorkTime.Minutes)} min",
+                        Text = $"> {statistics.WorkTime.Hours} h {this.RoundDownTo5(statistics.WorkTime.Minutes)} min",
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     }
                 }
@@ -152,7 +152,7 @@ namespace CTime2.Core.Services.Tile
                 });
                 group.Children.Add(new AdaptiveText
                 {
-                    Text = $"< {statistics.OverTime.Value.Hours} h {this.RoundDownTo5(statistics.OverTime.Value.Minutes)} min",
+                    Text = $"> {statistics.OverTime.Value.Hours} h {this.RoundDownTo5(statistics.OverTime.Value.Minutes)} min",
                     HintStyle = AdaptiveTextStyle.CaptionSubtle
                 });
             }
@@ -165,7 +165,7 @@ namespace CTime2.Core.Services.Tile
                 });
                 group.Children.Add(new AdaptiveText
                 {
-                    Text = $"< {statistics.BreakTime.Value.Hours} h {this.RoundDownTo5(statistics.BreakTime.Value.Minutes)} min",
+                    Text = $"> {statistics.BreakTime.Value.Hours} h {this.RoundDownTo5(statistics.BreakTime.Value.Minutes)} min",
                     HintStyle = AdaptiveTextStyle.CaptionSubtle
                 });
             }
