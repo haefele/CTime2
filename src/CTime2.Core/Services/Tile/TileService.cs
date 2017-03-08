@@ -14,6 +14,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using UwCore.Application.Events;
 using UwCore.Common;
 using UwCore.Events;
+using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.Tile
@@ -24,6 +25,18 @@ namespace CTime2.Core.Services.Tile
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IStatisticsService _statisticsService;
+
+        public DateTime StartDateForStatistics
+        {
+            get { return this._applicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
+            set { this._applicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+        }
+
+        public DateTime EndDateForStatistics
+        {
+            get { return this._applicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.WithoutTime().LocalDateTime; }
+            set { this._applicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+        }
 
         public TileService(IApplicationStateService applicationStateService, ICTimeService cTimeService, IStatisticsService statisticsService)
         {
@@ -49,11 +62,13 @@ namespace CTime2.Core.Services.Tile
 
             var timesTodayTask = this._cTimeService.GetTimes(currentUser.Id, DateTime.Today, DateTime.Today);
             var currentTimeTask = this._cTimeService.GetCurrentTime(currentUser.Id);
+            var statisticsTask = this._cTimeService.GetTimes(currentUser.Id, this.StartDateForStatistics, this.EndDateForStatistics);
 
-            await Task.WhenAll(timesTodayTask, currentTimeTask);
+            await Task.WhenAll(timesTodayTask, currentTimeTask, statisticsTask);
 
             var timesToday = TimesByDay.Create(await timesTodayTask).FirstOrDefault();
             var currentTime = await currentTimeTask;
+            var statistics = TimesByDay.Create(await statisticsTask).ToList();
 
             TileContent content = new TileContent
             {
@@ -62,19 +77,49 @@ namespace CTime2.Core.Services.Tile
                     Branding = TileBranding.NameAndLogo,
                     TileMedium = this.GetTileMedium(currentTime, timesToday),
                     TileWide = this.GetTileWide(currentTime, timesToday),
+                    TileLarge = this.GetTileLarge(currentTime, timesToday, statistics),
                 },
             };
 
             var notification = new TileNotification(content.GetXml());
+            notification.ExpirationTime = DateTimeOffset.Now.AddMinutes(30);
 
             updateManager.Update(notification);
         }
-        
+
+        private TileBinding GetTileLarge(Time currentTime, TimesByDay today, List<TimesByDay> statistics)
+        {
+            var wideGroup = new AdaptiveGroup();
+            foreach (var part in this.GetMediumAndWideParts(currentTime, today).Take(2))
+            {
+                wideGroup.Children.Add(part);
+            }
+
+            var statisticsGroup = new AdaptiveGroup
+            {
+                Children = {this.CreateStatisticsGroup(currentTime, today, statistics) }
+            };
+
+            return new TileBinding
+            {
+                Branding = TileBranding.None, //We need all vertical space we can get
+                Content = new TileBindingContentAdaptive
+                {
+                    Children =
+                    {
+                        wideGroup,
+                        new AdaptiveText(), //A little bit of free space
+                        statisticsGroup,
+                    }
+                }
+            };
+        }
+
         private TileBinding GetTileWide(Time currentTime, TimesByDay today)
         {
             var group = new AdaptiveGroup();
 
-            foreach (var part in this.GetTileParts(currentTime, today).Take(2))
+            foreach (var part in this.GetMediumAndWideParts(currentTime, today).Take(2))
             {
                 group.Children.Add(part);
             }
@@ -95,7 +140,7 @@ namespace CTime2.Core.Services.Tile
         {
             var content = new TileBindingContentAdaptive();
 
-            foreach (var part in this.GetTileParts(currentTime, today))
+            foreach (var part in this.GetMediumAndWideParts(currentTime, today))
             {
                 content.Children.Add(new AdaptiveGroup { Children = { part }});
             }
@@ -104,7 +149,7 @@ namespace CTime2.Core.Services.Tile
         }
 
         #region Tile Parts
-        private IEnumerable<AdaptiveSubgroup> GetTileParts(Time currentTime, TimesByDay today)
+        private IEnumerable<AdaptiveSubgroup> GetMediumAndWideParts(Time currentTime, TimesByDay today)
         {
             var parts = new Func<Time, TimesByDay, AdaptiveSubgroup>[]
             {
@@ -123,10 +168,10 @@ namespace CTime2.Core.Services.Tile
 
         private AdaptiveSubgroup CreateRunningTimeGroup(Time currentTime, TimesByDay today)
         {
-            if (currentTime.State.IsEntered() == false)
-                return null;
-
             var statistics = this._statisticsService.CalculateCurrentTime(currentTime);
+
+            if (statistics.WorkTime == TimeSpan.Zero)
+                return null;
 
             var group = new AdaptiveSubgroup
             {
@@ -134,11 +179,12 @@ namespace CTime2.Core.Services.Tile
                 {
                     new AdaptiveText
                     {
-                        Text = CTime2CoreResources.Get("LiveTile.WorkTime")
+                        Text = CTime2CoreResources.Get("LiveTile.YourTime"),
+                        HintStyle = AdaptiveTextStyle.Base
                     },
                     new AdaptiveText
                     {
-                        Text = $"< {statistics.WorkTime.Hours} h {this.RoundDownTo5(statistics.WorkTime.Minutes)} min",
+                        Text = $"> {statistics.WorkTime.Hours} h {this.RoundDownTo5(statistics.WorkTime.Minutes)} min",
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     }
                 }
@@ -152,12 +198,12 @@ namespace CTime2.Core.Services.Tile
                 });
                 group.Children.Add(new AdaptiveText
                 {
-                    Text = $"< {statistics.OverTime.Value.Hours} h {this.RoundDownTo5(statistics.OverTime.Value.Minutes)} min",
+                    Text = $"> {statistics.OverTime.Value.Hours} h {this.RoundDownTo5(statistics.OverTime.Value.Minutes)} min",
                     HintStyle = AdaptiveTextStyle.CaptionSubtle
                 });
             }
 
-            if (statistics.BreakTime != null)
+            if (statistics.CurrentBreak != null)
             {
                 group.Children.Add(new AdaptiveText
                 {
@@ -165,20 +211,12 @@ namespace CTime2.Core.Services.Tile
                 });
                 group.Children.Add(new AdaptiveText
                 {
-                    Text = $"< {statistics.BreakTime.Value.Hours} h {this.RoundDownTo5(statistics.BreakTime.Value.Minutes)} min",
+                    Text = $"> {statistics.CurrentBreak.BreakTime.Hours} h {this.RoundDownTo5(statistics.CurrentBreak.BreakTime.Minutes)} min",
                     HintStyle = AdaptiveTextStyle.CaptionSubtle
                 });
-            }
-
-            if (statistics.PreferredBreakTimeEnd != null)
-            {
                 group.Children.Add(new AdaptiveText
                 {
-                    Text = CTime2CoreResources.Get("LiveTile.BreakEnd")
-                });
-                group.Children.Add(new AdaptiveText
-                {
-                    Text = $"{statistics.PreferredBreakTimeEnd.Value:t}",
+                    Text = CTime2CoreResources.GetFormatted("LiveTile.BreakUntil", statistics.CurrentBreak.PreferredBreakTimeEnd.ToString("t")),
                     HintStyle = AdaptiveTextStyle.CaptionSubtle
                 });
             }
@@ -194,7 +232,8 @@ namespace CTime2.Core.Services.Tile
                 {
                     new AdaptiveText
                     {
-                        Text = CTime2CoreResources.Get("LiveTile.TimesToday")
+                        Text = CTime2CoreResources.Get("LiveTile.TimesToday"),
+                        HintStyle = AdaptiveTextStyle.Base
                     }
                 }
             };
@@ -209,6 +248,48 @@ namespace CTime2.Core.Services.Tile
             }
 
             return group;
+        }
+
+        private AdaptiveSubgroup CreateStatisticsGroup(Time currentTime, TimesByDay today, List<TimesByDay> statistics)
+        {
+            var overTime = this._statisticsService.CalculateOverTime(statistics, onlyWorkDays:false);
+            var todaysWorkEnd = this._statisticsService.CalculateTodaysWorkEnd(today, statistics, onlyWorkDays: false);
+
+            return new AdaptiveSubgroup
+            {
+                Children =
+                {
+                    new AdaptiveText
+                    {
+                        Text = CTime2CoreResources.Get("LiveTile.Statistics"),
+                        HintStyle = AdaptiveTextStyle.Base
+                    },
+                    new AdaptiveText
+                    {
+                        Text = CTime2CoreResources.Get("LiveTile.OverTime")
+                    },
+                    new AdaptiveText
+                    {
+                        Text = $"{overTime.TotalMinutes} min",
+                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                    },
+
+                    new AdaptiveText
+                    {
+                        Text = CTime2CoreResources.Get("LiveTile.TodaysWorkEnd")
+                    },
+                    new AdaptiveText
+                    {
+                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithOvertimeFormat", todaysWorkEnd.WithOvertime.ToString("t")),
+                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                    },
+                    new AdaptiveText
+                    {
+                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithoutOvertimeFormat", todaysWorkEnd.WithoutOvertime.ToString("t")),
+                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                    }
+                }
+            };
         }
         
         private int RoundDownTo5(int value)

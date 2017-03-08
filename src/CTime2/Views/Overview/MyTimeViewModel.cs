@@ -136,9 +136,9 @@ namespace CTime2.Views.Overview
             var statistic = this._statisticsService.CalculateCurrentTime(this._time);
 
             this.CurrentTime = statistic.WorkTime;
-            this.LunchBreakTime = statistic.BreakTime;
+            this.LunchBreakTime = statistic.CurrentBreak?.BreakTime;
             this.OverTime = statistic.OverTime;
-            this.PreferedLunchBreakEnd = statistic.PreferredBreakTimeEnd;
+            this.PreferedLunchBreakEnd = statistic.CurrentBreak?.PreferredBreakTimeEnd;
         }
 
         async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
