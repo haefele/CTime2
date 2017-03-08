@@ -171,4 +171,16 @@
   <data name="LiveTile.BreakUntil" xml:space="preserve">
     <value>until {0}</value>
   </data>
+  <data name="LiveTile.Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="LiveTile.TodaysWorkEnd" xml:space="preserve">
+    <value>Todays workend</value>
+  </data>
+  <data name="LiveTile.TodaysWorkEndWithoutOvertimeFormat" xml:space="preserve">
+    <value>{0} without overtime</value>
+  </data>
+  <data name="LiveTile.TodaysWorkEndWithOvertimeFormat" xml:space="preserve">
+    <value>{0}</value>
+  </data>
 </root>

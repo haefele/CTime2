@@ -14,6 +14,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using UwCore.Application.Events;
 using UwCore.Common;
 using UwCore.Events;
+using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 
 namespace CTime2.Core.Services.Tile
@@ -24,6 +25,18 @@ namespace CTime2.Core.Services.Tile
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IStatisticsService _statisticsService;
+
+        public DateTime StartDateForStatistics
+        {
+            get { return this._applicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
+            set { this._applicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+        }
+
+        public DateTime EndDateForStatistics
+        {
+            get { return this._applicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.WithoutTime().LocalDateTime; }
+            set { this._applicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+        }
 
         public TileService(IApplicationStateService applicationStateService, ICTimeService cTimeService, IStatisticsService statisticsService)
         {
@@ -49,11 +62,13 @@ namespace CTime2.Core.Services.Tile
 
             var timesTodayTask = this._cTimeService.GetTimes(currentUser.Id, DateTime.Today, DateTime.Today);
             var currentTimeTask = this._cTimeService.GetCurrentTime(currentUser.Id);
+            var statisticsTask = this._cTimeService.GetTimes(currentUser.Id, this.StartDateForStatistics, this.EndDateForStatistics);
 
-            await Task.WhenAll(timesTodayTask, currentTimeTask);
+            await Task.WhenAll(timesTodayTask, currentTimeTask, statisticsTask);
 
             var timesToday = TimesByDay.Create(await timesTodayTask).FirstOrDefault();
             var currentTime = await currentTimeTask;
+            var statistics = TimesByDay.Create(await statisticsTask).ToList();
 
             TileContent content = new TileContent
             {
@@ -62,7 +77,7 @@ namespace CTime2.Core.Services.Tile
                     Branding = TileBranding.NameAndLogo,
                     TileMedium = this.GetTileMedium(currentTime, timesToday),
                     TileWide = this.GetTileWide(currentTime, timesToday),
-                    TileLarge = this.GetTileLarge(currentTime, timesToday),
+                    TileLarge = this.GetTileLarge(currentTime, timesToday, statistics),
                 },
             };
 
@@ -71,7 +86,7 @@ namespace CTime2.Core.Services.Tile
             updateManager.Update(notification);
         }
 
-        private TileBinding GetTileLarge(Time currentTime, TimesByDay today)
+        private TileBinding GetTileLarge(Time currentTime, TimesByDay today, List<TimesByDay> statistics)
         {
             var wideGroup = new AdaptiveGroup();
             foreach (var part in this.GetMediumAndWideParts(currentTime, today).Take(2))
@@ -81,7 +96,7 @@ namespace CTime2.Core.Services.Tile
 
             var statisticsGroup = new AdaptiveGroup
             {
-                Children = {this.CreateStatisticsGroup(currentTime, today)}
+                Children = {this.CreateStatisticsGroup(currentTime, today, statistics) }
             };
 
             return new TileBinding
@@ -234,39 +249,42 @@ namespace CTime2.Core.Services.Tile
             return group;
         }
 
-        private AdaptiveSubgroup CreateStatisticsGroup(Time currentTime, TimesByDay today)
+        private AdaptiveSubgroup CreateStatisticsGroup(Time currentTime, TimesByDay today, List<TimesByDay> statistics)
         {
+            var overTime = this._statisticsService.CalculateOverTime(statistics, onlyWorkDays:false);
+            var todaysWorkEnd = this._statisticsService.CalculateTodaysWorkEnd(today, statistics, onlyWorkDays: false);
+
             return new AdaptiveSubgroup
             {
                 Children =
                 {
                     new AdaptiveText
                     {
-                        Text = "Statistiken",
+                        Text = CTime2CoreResources.Get("LiveTile.Statistics"),
                         HintStyle = AdaptiveTextStyle.Base
                     },
                     new AdaptiveText
                     {
-                        Text = "Überstunden"
+                        Text = CTime2CoreResources.Get("LiveTile.OverTime")
                     },
                     new AdaptiveText
                     {
-                        Text = "312 min",
+                        Text = $"{overTime.TotalMinutes} min",
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     },
 
                     new AdaptiveText
                     {
-                        Text = "Heutiges Arbeitsende"
+                        Text = CTime2CoreResources.Get("LiveTile.TodaysWorkEnd")
                     },
                     new AdaptiveText
                     {
-                        Text = "17:20 Uhr",
+                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithOvertimeFormat", todaysWorkEnd.WithOvertime.ToString("t")),
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     },
                     new AdaptiveText
                     {
-                        Text = "18:20 Uhr ohne Überstunden",
+                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithoutOvertimeFormat", todaysWorkEnd.WithoutOvertime.ToString("t")),
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     }
                 }

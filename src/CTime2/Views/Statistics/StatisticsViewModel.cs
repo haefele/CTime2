@@ -18,6 +18,7 @@ using System.Text;
 using CTime2.Core.Data;
 using CTime2.Core.Services.Sharing;
 using CTime2.Core.Services.Statistics;
+using CTime2.Core.Services.Tile;
 using CTime2.Views.Statistics.Details;
 using UwCore.Services.Navigation;
 
@@ -32,6 +33,7 @@ namespace CTime2.Views.Statistics
         private readonly INavigationService _navigationService;
         private readonly ISharingService _sharingService;
         private readonly IStatisticsService _statisticsService;
+        private readonly ITileService _tileService;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
@@ -65,7 +67,7 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService, IStatisticsService statisticsService)
+        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService, IStatisticsService statisticsService, ITileService tileService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
@@ -73,6 +75,7 @@ namespace CTime2.Views.Statistics
             Guard.NotNull(navigationService, nameof(navigationService));
             Guard.NotNull(sharingService, nameof(sharingService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
+            Guard.NotNull(tileService, nameof(tileService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
@@ -80,6 +83,7 @@ namespace CTime2.Views.Statistics
             this._navigationService = navigationService;
             this._sharingService = sharingService;
             this._statisticsService = statisticsService;
+            this._tileService = tileService;
 
             this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
@@ -133,6 +137,13 @@ namespace CTime2.Views.Statistics
         #region Methods
         private async Task<ReactiveList<StatisticItem>> LoadStatisticsImpl()
         {
+            this._tileService.StartDateForStatistics = this.StartDate.LocalDateTime;
+            this._tileService.EndDateForStatistics = this.EndDate.LocalDateTime;
+
+#pragma warning disable 4014
+            this._tileService.UpdateLiveTileAsync();
+#pragma warning restore 4014
+
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var allTimes = TimesByDay.Create(times).ToList();
