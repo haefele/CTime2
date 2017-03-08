@@ -82,6 +82,7 @@ namespace CTime2.Core.Services.Tile
             };
 
             var notification = new TileNotification(content.GetXml());
+            notification.ExpirationTime = DateTimeOffset.Now.AddMinutes(30);
 
             updateManager.Update(notification);
         }
