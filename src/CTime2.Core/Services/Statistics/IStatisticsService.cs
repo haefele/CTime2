@@ -6,6 +6,7 @@ namespace CTime2.Core.Services.Statistics
 {
     public interface IStatisticsService
     {
+        bool ShouldIncludeToday(List<TimesByDay> times);
         TimeSpan CalculateAverageWorkTime(List<TimesByDay> times, bool onlyWorkDays);
         TimeSpan CalculateTotalWorkTime(List<TimesByDay> times, bool onlyWorkDays);
         int CalculateWorkDayCount(List<TimesByDay> times, bool onlyWorkDays);

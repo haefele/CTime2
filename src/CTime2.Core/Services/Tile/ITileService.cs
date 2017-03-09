@@ -7,6 +7,7 @@ namespace CTime2.Core.Services.Tile
     {
         DateTime StartDateForStatistics { get; set; }
         DateTime EndDateForStatistics { get; set; }
+        bool IncludeTodayForStatistics { get; set; }
 
         Task UpdateLiveTileAsync();
     }
