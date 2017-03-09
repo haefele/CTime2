@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2", "src\CTime2\CTime2.csproj", "{2A50419D-14AA-454F-BC31-A6546F3FC039}"
 EndProject
@@ -18,6 +18,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "privacy policy", "privacy p
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.LiveTileService", "src\CTime2.LiveTileService\CTime2.LiveTileService.csproj", "{B2811E7C-362E-447E-889F-4FC4ACE40ABD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{BD7A0E77-C5AE-4ACC-9738-BE53342977FE}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\build.cake = scripts\build.cake
+		scripts\build.ps1 = scripts\build.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{CB275C9C-1B95-4975-B9DB-0DCB2F85FA55}"
+	ProjectSection(SolutionItems) = preProject
+		changelog\de-DE.md = changelog\de-DE.md
+		changelog\en-US.md = changelog\en-US.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
