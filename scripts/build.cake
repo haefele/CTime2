@@ -3,8 +3,9 @@
 var target = Argument("target", "Default");
 var buildInAppveyor = bool.Parse(EnvironmentVariable("APPVEYOR") ?? "False");
 var manualBuild = bool.Parse(EnvironmentVariable("APPVEYOR_FORCED_BUILD") ?? "False");
+var isNotForPullRequest = string.IsNullOrWhiteSpace(EnvironmentVariable("APPVEYOR_PULL_REQUEST_NUMBER"));
 var slnPath = "./../CTime2.sln";
-var verbosity = (Verbosity)Enum.Parse(typeof(Verbosity), Argument("verbosity", "Verbose"));
+var verbosity = (Verbosity)Enum.Parse(typeof(Verbosity), Argument("verbosity", "Normal"));
 var versionNumber = (EnvironmentVariable("APPVEYOR_BUILD_VERSION") ?? "9999.9999.9999.0").Split('-')[0];
 
 Task("CleanFolders")
@@ -29,7 +30,7 @@ Task("CleanFolders")
 });
 
 Task("UpdateAppxManifestVersion")
-    .WithCriteria(() => buildInAppveyor && manualBuild)
+    .WithCriteria(() => buildInAppveyor && manualBuild && isNotForPullRequest)
     .IsDependentOn("CleanFolders")
     .Does(() => 
 {
@@ -52,7 +53,7 @@ Task("Build")
     .Does(() => 
 {
     MSBuildSettings settings;
-    if (buildInAppveyor && manualBuild)
+    if (buildInAppveyor && manualBuild && isNotForPullRequest)
     {
         settings = new MSBuildSettings 
         {
