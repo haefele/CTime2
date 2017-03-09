@@ -137,30 +137,26 @@ namespace CTime2.Views.Statistics
         #region Methods
         private async Task<ReactiveList<StatisticItem>> LoadStatisticsImpl()
         {
-            this._tileService.StartDateForStatistics = this.StartDate.LocalDateTime;
-            this._tileService.EndDateForStatistics = this.EndDate.LocalDateTime;
-
-#pragma warning disable 4014
-            this._tileService.UpdateLiveTileAsync();
-#pragma warning restore 4014
-
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var allTimes = TimesByDay.Create(times).ToList();
-
-            var timeToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today);
-
+            
             //If "IncludeToday" is NULL, we have to set it to either true or false
             //NULL is the default value when the first time the LoadStatistics command is executed
             if (this.IncludeToday.HasValue == false)
             {
-                var completedTimesToday = timeToday?.Times.Count(f => f.ClockInTime != null && f.ClockOutTime != null);
-
-                var hasAtLeastTwoCompletedTimesToday = completedTimesToday.HasValue && completedTimesToday.Value >= 2;
-                var lastTimeIsCompleted = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault()?.ClockOutTime != null;
-
-                this.IncludeToday = hasAtLeastTwoCompletedTimesToday && lastTimeIsCompleted;
+                this.IncludeToday = this._statisticsService.ShouldIncludeToday(allTimes);
             }
+
+            #region Update ITileService
+            this._tileService.StartDateForStatistics = this.StartDate.LocalDateTime;
+            this._tileService.EndDateForStatistics = this.EndDate.LocalDateTime;
+            this._tileService.IncludeTodayForStatistics = this.IncludeToday.Value;
+
+#pragma warning disable 4014
+            this._tileService.UpdateLiveTileAsync();
+#pragma warning restore 4014
+            #endregion
 
             var timesByDay = allTimes
                 .Where(f => f.Day.Date != DateTime.Today || this.IncludeToday.Value)

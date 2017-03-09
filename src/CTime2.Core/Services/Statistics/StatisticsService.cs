@@ -19,6 +19,18 @@ namespace CTime2.Core.Services.Statistics
             this._applicationStateService = applicationStateService;
         }
 
+        public bool ShouldIncludeToday(List<TimesByDay> times)
+        {
+            var timeToday = times.FirstOrDefault(f => f.Day.Date == DateTime.Today);
+
+            var completedTimesToday = timeToday?.Times.Count(f => f.ClockInTime != null && f.ClockOutTime != null);
+
+            var hasAtLeastTwoCompletedTimesToday = completedTimesToday.HasValue && completedTimesToday.Value >= 2;
+            var lastTimeIsCompleted = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault()?.ClockOutTime != null;
+
+            return hasAtLeastTwoCompletedTimesToday && lastTimeIsCompleted;
+        }
+
         public TimeSpan CalculateAverageWorkTime(List<TimesByDay> times, bool onlyWorkDays)
         {
             var sum = times.Where(f => this.FilterOnlyWorkDays(f, onlyWorkDays)).Sum(f => f.Hours.TotalMinutes);

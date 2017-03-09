@@ -38,13 +38,19 @@ namespace CTime2.Core.Services.Tile
             set { this._applicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
+        public bool IncludeTodayForStatistics
+        {
+            get { return this._applicationStateService.Get<bool?>("IncludeTodayForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? false; }
+            set { this._applicationStateService.Set("IncludeTodayForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+        }
+
         public TileService(IApplicationStateService applicationStateService, ICTimeService cTimeService, IStatisticsService statisticsService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
 
-            this._applicationStateService = applicationStateService;
+            this._applicationStateService = applicationStateService.GetStateServiceFor(typeof(TileService));
             this._cTimeService = cTimeService;
             this._statisticsService = statisticsService;
         }
@@ -69,6 +75,11 @@ namespace CTime2.Core.Services.Tile
             var timesToday = TimesByDay.Create(await timesTodayTask).FirstOrDefault();
             var currentTime = await currentTimeTask;
             var statistics = TimesByDay.Create(await statisticsTask).ToList();
+
+            if (this._statisticsService.ShouldIncludeToday(statistics) == false)
+            {
+                statistics = statistics.Where(f => f.Day != DateTime.Today).ToList();
+            }
 
             TileContent content = new TileContent
             {
