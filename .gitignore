@@ -198,6 +198,14 @@ FakesAssemblies/
 
 # NuGet
 project.lock.json
+/src/CTime2/CTime2.nuget.targets
+/src/CTime2/CTime2.nuget.props
+/src/CTime2.VoiceCommandService/CTime2.VoiceCommandService.nuget.targets
+/src/CTime2.VoiceCommandService/CTime2.VoiceCommandService.nuget.props
+/src/CTime2.LiveTileService/CTime2.LiveTileService.nuget.targets
+/src/CTime2.LiveTileService/CTime2.LiveTileService.nuget.props
+/src/CTime2.Core/CTime2.Core.nuget.targets
+/src/CTime2.Core/CTime2.Core.nuget.props
 
 # Cake Build Tools
 /scripts/tools/
