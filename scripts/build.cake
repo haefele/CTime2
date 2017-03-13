@@ -59,7 +59,8 @@ Task("Build")
         {
             Configuration = "Release",
             Verbosity = verbosity,
-            ToolVersion = MSBuildToolVersion.VS2015,
+			MSBuildPlatform = MSBuildPlatform.x86,
+			ToolVersion = MSBuildToolVersion.VS2017,
             EnvironmentVariables = new Dictionary<string, string> 
             {
                 { "AppxBundlePlatforms", "x86|x64|ARM" },
@@ -75,7 +76,8 @@ Task("Build")
         {
             Configuration = "Debug",
             Verbosity = verbosity,
-            ToolVersion = MSBuildToolVersion.VS2015,
+			MSBuildPlatform = MSBuildPlatform.x86,
+			ToolVersion = MSBuildToolVersion.VS2017,
         };
     }
 
