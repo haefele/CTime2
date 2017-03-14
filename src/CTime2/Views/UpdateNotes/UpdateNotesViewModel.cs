@@ -44,7 +44,7 @@ namespace CTime2.Views.UpdateNotes
         {
             try
             {
-                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Views/UpdateNotes/German.md"));
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Views/UpdateNotes/{CTime2Resources.Get("UpdateNotesFileName")}.md"));
                 var content = await file.ReadBytesAsync();
 
                 return Encoding.UTF8.GetString(content);

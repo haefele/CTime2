@@ -389,18 +389,6 @@ You just have to authenticate yourself.</value>
   <data name="Loading.CurrentTime" xml:space="preserve">
     <value>Loading time...</value>
   </data>
-  <data name="UpdateToNewCTimeApiContent1Run.Text" xml:space="preserve">
-    <value>This app now uses the new c-time API.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiContent2Run.Text" xml:space="preserve">
-    <value>That means the login is more secure now, your password will not be sent to the server.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiContent3Run.Text" xml:space="preserve">
-    <value>Also, the attendance list will load much faster.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiHeaderRun.Text" xml:space="preserve">
-    <value>Update to use the new c-time API!</value>
-  </data>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>My times from {0:d} to {1:d}</value>
   </data>
@@ -585,39 +573,6 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="ZoomAppBarButton.Label" xml:space="preserve">
     <value>zoom</value>
   </data>
-  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
-    <value>The attendance list now shows how someone is checked in or checked out.</value>
-  </data>
-  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
-    <value>You can see it now, if someone is checked-in in home-office.</value>
-  </data>
-  <data name="ExtendedAttendanceListContent3Run.Text" xml:space="preserve">
-    <value>Also, theres a new search feature in the attendance list.</value>
-  </data>
-  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
-    <value>Extended attendance list</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent1Run.Text" xml:space="preserve">
-    <value>The about area was completely reworked as well.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent2Run.Text" xml:space="preserve">
-    <value>For example, you can now give feedback using the feedback hub.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent3Run.Text" xml:space="preserve">
-    <value>In the settings is a new setting for analytics.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsHeaderRun.Text" xml:space="preserve">
-    <value>About and settings</value>
-  </data>
-  <data name="ReworkedDiagramsContent1Run.Text" xml:space="preserve">
-    <value>The diagrams in the statistics have are completely reworked.</value>
-  </data>
-  <data name="ReworkedDiagramsContent2Run.Text" xml:space="preserve">
-    <value>They look much more modern now, and have a couple of new features.</value>
-  </data>
-  <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
-    <value>New diagrams</value>
-  </data>
   <data name="BreakTimeEndTimePart1TextBlock.Text" xml:space="preserve">
     <value>Until</value>
   </data>
@@ -654,49 +609,13 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="Statistics.AverageBreakTimeSubTitle" xml:space="preserve">
     <value>Only days with break</value>
   </data>
-  <data name="BreakTimeOnOverviewContent1Run.Text" xml:space="preserve">
-    <value>The overview now has a timer for your current breaktime.</value>
-  </data>
-  <data name="BreakTimeOnOverviewContent2Run.Text" xml:space="preserve">
-    <value>You can now see how long your current break is, and when it should end.</value>
-  </data>
-  <data name="BreakTimeOnOverviewHeaderRun.Text" xml:space="preserve">
-    <value>Breaktime in the overview</value>
-  </data>
-  <data name="FixedAttendanceListContent1Run.Text" xml:space="preserve">
-    <value>There was an error in the last version.</value>
-  </data>
-  <data name="FixedAttendanceListContent2Run.Text" xml:space="preserve">
-    <value>In the attendance list everyone was shown as "Away".</value>
-  </data>
-  <data name="FixedAttendanceListContent3Run.Text" xml:space="preserve">
-    <value>This is fixed now. The attendance list should work as expected again.</value>
-  </data>
-  <data name="FixedAttendanceListHeaderRun.Text" xml:space="preserve">
-    <value>Attendance list is working again</value>
-  </data>
-  <data name="NewSettingWorkDaysContent1Run.Text" xml:space="preserve">
-    <value>There is a new setting where you can specify which weekdays are your workdays.</value>
-  </data>
-  <data name="NewSettingWorkDaysContent2Run.Text" xml:space="preserve">
-    <value>This is used in the overtime statistics.</value>
-  </data>
-  <data name="NewSettingWorkDaysHeaderRun.Text" xml:space="preserve">
-    <value>New setting for workdays</value>
-  </data>
-  <data name="FixedTodaysWorkEndContent1Run.Text" xml:space="preserve">
-    <value>There was an error in the last version which lead to the todays workend not working correctly.</value>
-  </data>
-  <data name="FixedTodaysWorkEndContent2Run.Text" xml:space="preserve">
-    <value>That is fixed again in this version.</value>
-  </data>
-  <data name="FixedTodaysWorkEndHeaderRun.Text" xml:space="preserve">
-    <value>Bug with todays workend</value>
-  </data>
   <data name="BreakTimeAreaSettingsItem.Description" xml:space="preserve">
     <value>Break time</value>
   </data>
   <data name="UntilTextBlock.Text" xml:space="preserve">
     <value>until</value>
+  </data>
+  <data name="UpdateNotesFileName" xml:space="preserve">
+    <value>English</value>
   </data>
 </root>
