@@ -91,6 +91,8 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <Content Include="Views\UpdateNotes\German.md" />
+    <Content Include="Views\UpdateNotes\English.md" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>

@@ -1,5 +1,3 @@
-# Patchnotes
------
 ## Version 1.8.2.0
 -----
 ### Bug with todays workend
