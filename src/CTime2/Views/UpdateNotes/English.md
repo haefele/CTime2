@@ -3,7 +3,7 @@
 
 ### Bug with todays workend
 There was an error in the last version which lead to the todays workend not working correctly.  
-That is fixed again in this version.
+That is fixed again in this version.  
 
 -----
 ## Version 1.8.1.0
