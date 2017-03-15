@@ -84,6 +84,28 @@ Task("Build")
     MSBuild(slnPath, settings);
 });
 
+Task("SyncUpdateNotes")
+	.Does(() => 
+	{
+		var languages = new Dictionary<string, string> 
+		{
+			{ "de-DE", "German" },
+			{ "en-US", "English" },
+		};
+
+		foreach (var language in languages)
+		{
+			var sourceFile = string.Format("./../changelog/{0}.md", language.Key);
+			var targetFile = string.Format("./../src/CTime2/Views/UpdateNotes/{0}.md", language.Value);
+
+			CopyFile(sourceFile, targetFile);
+
+			var content = FileReadText(targetFile).Split(new [] { Environment.NewLine }, StringSplitOptions.None);
+			var updatedContent = content.Skip(3).ToList(); //Throw away the first 3 lines
+			FileWriteText(targetFile, string.Join(Environment.NewLine, updatedContent));
+		}
+	});
+
 Task("Default")
     .IsDependentOn("Build");
 
