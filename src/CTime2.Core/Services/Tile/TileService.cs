@@ -23,25 +23,26 @@ namespace CTime2.Core.Services.Tile
     public class TileService : ITileService, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>, IHandleWithTask<ShellModeEntered>
     {
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IApplicationStateService _myApplicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IStatisticsService _statisticsService;
 
         public DateTime StartDateForStatistics
         {
-            get { return this._applicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
-            set { this._applicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+            get { return this._myApplicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
+            set { this._myApplicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
         public DateTime EndDateForStatistics
         {
-            get { return this._applicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.WithoutTime().LocalDateTime; }
-            set { this._applicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+            get { return this._myApplicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.WithoutTime().LocalDateTime; }
+            set { this._myApplicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
         public bool IncludeTodayForStatistics
         {
-            get { return this._applicationStateService.Get<bool?>("IncludeTodayForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? false; }
-            set { this._applicationStateService.Set("IncludeTodayForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+            get { return this._myApplicationStateService.Get<bool?>("IncludeTodayForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? false; }
+            set { this._myApplicationStateService.Set("IncludeTodayForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
         public TileService(IApplicationStateService applicationStateService, ICTimeService cTimeService, IStatisticsService statisticsService)
@@ -49,8 +50,9 @@ namespace CTime2.Core.Services.Tile
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
-
-            this._applicationStateService = applicationStateService.GetStateServiceFor(typeof(TileService));
+            
+            this._applicationStateService = applicationStateService;
+            this._myApplicationStateService = applicationStateService.GetStateServiceFor(typeof(TileService));
             this._cTimeService = cTimeService;
             this._statisticsService = statisticsService;
         }
@@ -263,10 +265,10 @@ namespace CTime2.Core.Services.Tile
 
         private AdaptiveSubgroup CreateStatisticsGroup(Time currentTime, TimesByDay today, List<TimesByDay> statistics)
         {
-            var overTime = this._statisticsService.CalculateOverTime(statistics, onlyWorkDays:false);
+            var overTime = this._statisticsService.CalculateOverTime(statistics, onlyWorkDays: false);
             var todaysWorkEnd = this._statisticsService.CalculateTodaysWorkEnd(today, statistics, onlyWorkDays: false);
 
-            return new AdaptiveSubgroup
+            var result = new AdaptiveSubgroup
             {
                 Children =
                 {
@@ -283,26 +285,31 @@ namespace CTime2.Core.Services.Tile
                     {
                         Text = $"{overTime.TotalMinutes} min",
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
-                    },
-
-                    new AdaptiveText
-                    {
-                        Text = CTime2CoreResources.Get("LiveTile.TodaysWorkEnd")
-                    },
-                    new AdaptiveText
-                    {
-                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithOvertimeFormat", todaysWorkEnd.WithOvertime.ToString("t")),
-                        HintStyle = AdaptiveTextStyle.CaptionSubtle
-                    },
-                    new AdaptiveText
-                    {
-                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithoutOvertimeFormat", todaysWorkEnd.WithoutOvertime.ToString("t")),
-                        HintStyle = AdaptiveTextStyle.CaptionSubtle
                     }
                 }
             };
+
+            if (todaysWorkEnd != null)
+            {
+                result.Children.Add(new AdaptiveText
+                {
+                    Text = CTime2CoreResources.Get("LiveTile.TodaysWorkEnd")
+                });
+                result.Children.Add(new AdaptiveText
+                {
+                    Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithOvertimeFormat", todaysWorkEnd.WithOvertime.ToString("t")),
+                    HintStyle = AdaptiveTextStyle.CaptionSubtle
+                });
+                result.Children.Add(new AdaptiveText
+                {
+                    Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithoutOvertimeFormat", todaysWorkEnd.WithoutOvertime.ToString("t")),
+                    HintStyle = AdaptiveTextStyle.CaptionSubtle
+                });
+            }
+
+            return result;
         }
-        
+
         private int RoundDownTo5(int value)
         {
             return (value / 5) * 5;
