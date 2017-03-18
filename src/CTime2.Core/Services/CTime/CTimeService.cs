@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Devices.Geolocation;
@@ -20,6 +21,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime.RequestCache;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Strings;
+using Polly;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 
@@ -343,8 +345,13 @@ namespace CTime2.Core.Services.CTime
                     Content = new HttpFormUrlEncodedContent(data)
                 };
 
-                var response = await this._client.SendRequestAsync(request);
+                var retryPolicy = Policy
+                    .Handle<Exception>()
+                    .OrResult<HttpResponseMessage>(f => f.StatusCode != HttpStatusCode.Ok)
+                    .WaitAndRetryAsync(5, _ => TimeSpan.FromSeconds(1));
 
+                var response = await retryPolicy.ExecuteAsync(token => this._client.SendRequestAsync(request).AsTask(token), CancellationToken.None, continueOnCapturedContext:true);
+                
                 if (response.StatusCode != HttpStatusCode.Ok)
                     return null;
 
