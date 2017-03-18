@@ -265,10 +265,10 @@ namespace CTime2.Core.Services.Tile
 
         private AdaptiveSubgroup CreateStatisticsGroup(Time currentTime, TimesByDay today, List<TimesByDay> statistics)
         {
-            var overTime = this._statisticsService.CalculateOverTime(statistics, onlyWorkDays:false);
+            var overTime = this._statisticsService.CalculateOverTime(statistics, onlyWorkDays: false);
             var todaysWorkEnd = this._statisticsService.CalculateTodaysWorkEnd(today, statistics, onlyWorkDays: false);
 
-            return new AdaptiveSubgroup
+            var result = new AdaptiveSubgroup
             {
                 Children =
                 {
@@ -285,26 +285,31 @@ namespace CTime2.Core.Services.Tile
                     {
                         Text = $"{overTime.TotalMinutes} min",
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
-                    },
-
-                    new AdaptiveText
-                    {
-                        Text = CTime2CoreResources.Get("LiveTile.TodaysWorkEnd")
-                    },
-                    new AdaptiveText
-                    {
-                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithOvertimeFormat", todaysWorkEnd.WithOvertime.ToString("t")),
-                        HintStyle = AdaptiveTextStyle.CaptionSubtle
-                    },
-                    new AdaptiveText
-                    {
-                        Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithoutOvertimeFormat", todaysWorkEnd.WithoutOvertime.ToString("t")),
-                        HintStyle = AdaptiveTextStyle.CaptionSubtle
                     }
                 }
             };
+
+            if (todaysWorkEnd != null)
+            {
+                result.Children.Add(new AdaptiveText
+                {
+                    Text = CTime2CoreResources.Get("LiveTile.TodaysWorkEnd")
+                });
+                result.Children.Add(new AdaptiveText
+                {
+                    Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithOvertimeFormat", todaysWorkEnd.WithOvertime.ToString("t")),
+                    HintStyle = AdaptiveTextStyle.CaptionSubtle
+                });
+                result.Children.Add(new AdaptiveText
+                {
+                    Text = CTime2CoreResources.GetFormatted("LiveTile.TodaysWorkEndWithoutOvertimeFormat", todaysWorkEnd.WithoutOvertime.ToString("t")),
+                    HintStyle = AdaptiveTextStyle.CaptionSubtle
+                });
+            }
+
+            return result;
         }
-        
+
         private int RoundDownTo5(int value)
         {
             return (value / 5) * 5;
