@@ -23,25 +23,26 @@ namespace CTime2.Core.Services.Tile
     public class TileService : ITileService, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>, IHandleWithTask<ShellModeEntered>
     {
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IApplicationStateService _myApplicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IStatisticsService _statisticsService;
 
         public DateTime StartDateForStatistics
         {
-            get { return this._applicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
-            set { this._applicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+            get { return this._myApplicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
+            set { this._myApplicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
         public DateTime EndDateForStatistics
         {
-            get { return this._applicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.WithoutTime().LocalDateTime; }
-            set { this._applicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+            get { return this._myApplicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.WithoutTime().LocalDateTime; }
+            set { this._myApplicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
         public bool IncludeTodayForStatistics
         {
-            get { return this._applicationStateService.Get<bool?>("IncludeTodayForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? false; }
-            set { this._applicationStateService.Set("IncludeTodayForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
+            get { return this._myApplicationStateService.Get<bool?>("IncludeTodayForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? false; }
+            set { this._myApplicationStateService.Set("IncludeTodayForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
         public TileService(IApplicationStateService applicationStateService, ICTimeService cTimeService, IStatisticsService statisticsService)
@@ -49,8 +50,9 @@ namespace CTime2.Core.Services.Tile
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
-
-            this._applicationStateService = applicationStateService.GetStateServiceFor(typeof(TileService));
+            
+            this._applicationStateService = applicationStateService;
+            this._myApplicationStateService = applicationStateService.GetStateServiceFor(typeof(TileService));
             this._cTimeService = cTimeService;
             this._statisticsService = statisticsService;
         }
