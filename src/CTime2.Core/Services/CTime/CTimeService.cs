@@ -17,6 +17,7 @@ using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.CTime.RequestCache;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Strings;
 using UwCore.Common;
@@ -28,18 +29,21 @@ namespace CTime2.Core.Services.CTime
     {
         private static readonly ILog Logger = LogManager.GetLog(typeof(CTimeService));
 
+        private readonly ICTimeRequestCache _requestCache;
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IGeoLocationService _geoLocationService;
 
         private readonly HttpClient _client;
 
-        public CTimeService(IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService)
+        public CTimeService(ICTimeRequestCache requestCache, IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService)
         {
+            Guard.NotNull(requestCache, nameof(requestCache));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(geoLocationService, nameof(geoLocationService));
 
+            this._requestCache = requestCache;
             this._eventAggregator = eventAggregator;
             this._applicationStateService = applicationStateService;
             this._geoLocationService = geoLocationService;
@@ -51,12 +55,13 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("V2/LoginV2.php", new Dictionary<string, string>
+                var data = new Dictionary<string, string>
                 {
                     {"Password", this.GetHashedPassword(password)},
                     {"LoginName", emailAddress},
                     {"Crypt", 1.ToString()}
-                });
+                };
+                var responseJson = await this.SendRequestAsync("V2/LoginV2.php", data, canBeCached:false);
 
                 var user = responseJson?
                     .GetNamedArray("Result", new JsonArray())
@@ -146,7 +151,7 @@ namespace CTime2.Core.Services.CTime
                     ? await this._geoLocationService.TryGetGeoLocationAsync()
                     : null;
 
-                var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", new Dictionary<string, string>
+                var data = new Dictionary<string, string>
                 {
                     {"TimerKind", ((int) state).ToString()},
                     {"TimerText", string.Empty},
@@ -156,11 +161,14 @@ namespace CTime2.Core.Services.CTime
                     {"RFID", rfidKey},
                     {"lat", location?.Position.Latitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
                     {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
-                });
-                
+                };
+
+                var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false);
                 if (responseJson?.GetInt("State") == 0)
                 {
                     this._eventAggregator.PublishOnCurrentThread(new UserStamped());
+
+                    this._requestCache.Clear();
                 }
             }
             catch (Exception exception)
@@ -324,19 +332,30 @@ namespace CTime2.Core.Services.CTime
             return hashedPasswordString.Replace("-", string.Empty).ToLower();
         }
 
-        private async Task<JsonObject> SendRequestAsync(string function, Dictionary<string, string> data)
+        private async Task<JsonObject> SendRequestAsync(string function, Dictionary<string, string> data, bool canBeCached = true)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri(function))
+            string responseContentAsString;
+
+            if (canBeCached == false || this._requestCache.TryGetCached(function, data, out responseContentAsString) == false)
             {
-                Content = new HttpFormUrlEncodedContent(data)
-            };
+                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri(function))
+                {
+                    Content = new HttpFormUrlEncodedContent(data)
+                };
 
-            var response = await this._client.SendRequestAsync(request);
+                var response = await this._client.SendRequestAsync(request);
 
-            if (response.StatusCode != HttpStatusCode.Ok)
-                return null;
+                if (response.StatusCode != HttpStatusCode.Ok)
+                    return null;
 
-            var responseContentAsString = await response.Content.ReadAsStringAsync();
+                responseContentAsString = await response.Content.ReadAsStringAsync();
+
+                this._requestCache.Cache(function, data, responseContentAsString);
+            }
+            else
+            {
+                await Task.Delay(TimeSpan.FromSeconds(0.1));
+            }
 
             var responseJson = JsonObject.Parse(responseContentAsString);
             var responseState = (int) responseJson.GetNamedNumber("State", 0);
