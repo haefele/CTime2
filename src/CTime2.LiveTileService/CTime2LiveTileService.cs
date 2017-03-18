@@ -9,6 +9,7 @@ using Windows.ApplicationModel.VoiceCommands;
 using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.CTime.RequestCache;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Statistics;
 using CTime2.Core.Services.Tile;
@@ -40,7 +41,8 @@ namespace CTime2.LiveTileService
 
                 var geoLocationService = new GeoLocationService();
                 var eventAggregator = new EventAggregator();
-                var ctimeService = new CTimeService(eventAggregator, applicationStateService, geoLocationService);
+                var ctimeRequestCache = new NullCTimeRequestCache();
+                var ctimeService = new CTimeService(ctimeRequestCache, eventAggregator, applicationStateService, geoLocationService);
                 var statisticsService = new StatisticsService(applicationStateService);
                 var liveTileService = new TileService(applicationStateService, ctimeService, statisticsService);
 
