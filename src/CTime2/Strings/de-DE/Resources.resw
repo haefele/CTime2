@@ -398,9 +398,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="AddAttendingUserToContacts.Title" xml:space="preserve">
     <value>Kontakt angelegt!</value>
   </data>
-  <data name="CallButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Anrufen</value>
-  </data>
   <data name="EmailAddressTextBlock.Text" xml:space="preserve">
     <value>E-Mail Adresse</value>
   </data>
@@ -409,9 +406,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="PhoneNumberTextBlock.Text" xml:space="preserve">
     <value>Telefonnummer</value>
-  </data>
-  <data name="SendMailButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>E-Mail senden</value>
   </data>
   <data name="GeoLocationHowToDeactivateRun.Text" xml:space="preserve">
     <value>Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</value>
@@ -617,5 +611,14 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   </data>
   <data name="UpdateNotesFileName" xml:space="preserve">
     <value>German</value>
+  </data>
+  <data name="AddToContactsAppBarButton.Label" xml:space="preserve">
+    <value>Zu Kontakte hinzufügen</value>
+  </data>
+  <data name="CallAppBarButton.Label" xml:space="preserve">
+    <value>Anrufen</value>
+  </data>
+  <data name="SendMailAppBarButton.Label" xml:space="preserve">
+    <value>E-Mail senden</value>
   </data>
 </root>

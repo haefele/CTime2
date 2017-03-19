@@ -9,101 +9,81 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d"
     
-    MaxWidth="320"
-    MaxHeight="373">
+    MaxHeight="380"
+    MaxWidth="320">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Padding="20">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="32" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <controls:UserImage Grid.Row="0"
-                            Image="{x:Bind ViewModel.AttendingUser.ImageAsPng, Mode=OneWay}"
-                            Margin="30, 0, 30, 10"
-                            Width="130"
-                            Height="130">
-            <controls:UserImage.BorderBrush>
-                <SolidColorBrush Color="{x:Bind ViewModel.AttendingUser.AttendanceState.Color, Mode=OneWay}" />
-            </controls:UserImage.BorderBrush>
-        </controls:UserImage>
 
-        <Viewbox Grid.Row="1"
-                 StretchDirection="DownOnly" >
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                       HorizontalAlignment="Center">
-                <Run Text="{x:Bind ViewModel.AttendingUser.FirstName, Mode=OneWay}" />
-                <Run />
-                <Run Text="{x:Bind ViewModel.AttendingUser.Name, Mode=OneWay}" />
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="32" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <controls:UserImage Grid.Row="0"
+                                Image="{x:Bind ViewModel.AttendingUser.ImageAsPng, Mode=OneWay}"
+                                Margin="30, 0, 30, 10"
+                                Width="130"
+                                Height="130">
+                <controls:UserImage.BorderBrush>
+                    <SolidColorBrush Color="{x:Bind ViewModel.AttendingUser.AttendanceState.Color, Mode=OneWay}" />
+                </controls:UserImage.BorderBrush>
+            </controls:UserImage>
+
+            <Viewbox Grid.Row="1"
+                     StretchDirection="DownOnly" >
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                           HorizontalAlignment="Center">
+                    <Run Text="{x:Bind ViewModel.AttendingUser.FirstName, Mode=OneWay}" />
+                    <Run />
+                    <Run Text="{x:Bind ViewModel.AttendingUser.Name, Mode=OneWay}" />
+                </TextBlock>
+            </Viewbox>
+
+            <TextBlock Grid.Row="2"
+                       HorizontalAlignment="Center"
+                       FontSize="14"
+                       Text="{x:Bind ViewModel.AttendingUser.AttendanceState.Name, Mode=OneWay}">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{x:Bind ViewModel.AttendingUser.AttendanceState.Color, Mode=OneWay}" />
+                </TextBlock.Foreground>
             </TextBlock>
-        </Viewbox>
 
-        <TextBlock Grid.Row="2"
-                   HorizontalAlignment="Center"
-                   FontSize="14"
-                   Text="{x:Bind ViewModel.AttendingUser.AttendanceState.Name, Mode=OneWay}">
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="{x:Bind ViewModel.AttendingUser.AttendanceState.Color, Mode=OneWay}" />
-            </TextBlock.Foreground>
-        </TextBlock>
-        
-        <TextBlock Grid.Row="3"
-                   x:Uid="EmailAddressTextBlock"
-                   Margin="0, 10, 0, 0"
-                   Text="~E-Mail Adresse" 
-                   Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+            <TextBlock Grid.Row="3"
+                       x:Uid="EmailAddressTextBlock"
+                       Margin="0, 10, 0, 0"
+                       Text="~E-Mail Adresse" 
+                       Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
 
-        <TextBlock Grid.Row="4" 
-                   Text="{x:Bind ViewModel.AttendingUser.EmailAddress, Mode=OneWay}" />
-        
-        <Button Grid.Row="3"
-                Grid.RowSpan="2"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Width="40"
-                Height="40"
-                x:Uid="SendMailButton"
-                ToolTipService.ToolTip="~E-Mail senden"
-                Command="{x:Bind ViewModel.SendMail}">
-            <SymbolIcon Symbol="Mail" />
-        </Button>
+            <TextBlock Grid.Row="4" 
+                       Text="{x:Bind ViewModel.AttendingUser.EmailAddress, Mode=OneWay}" />
 
-        <TextBlock Grid.Row="5" 
-                   x:Uid="PhoneNumberTextBlock"
-                   Text="~Telefonnummer" 
-                   Margin="0, 10, 0, 0"
-                   Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+            <TextBlock Grid.Row="5" 
+                       x:Uid="PhoneNumberTextBlock"
+                       Text="~Telefonnummer" 
+                       Margin="0, 10, 0, 0"
+                       Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
 
-        <TextBlock Grid.Row="6" 
-                   Text="{x:Bind ViewModel.AttendingUser.PhoneNumber, Mode=OneWay}" />
+            <TextBlock Grid.Row="6" 
+                       Text="{x:Bind ViewModel.AttendingUser.PhoneNumber, Mode=OneWay}" />
+        </Grid>
 
-        <Button Grid.Row="5"
-                Grid.RowSpan="2"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Width="40"
-                Height="40"
-                x:Uid="CallButton"
-                ToolTipService.ToolTip="~Anrufen"
-                Command="{x:Bind ViewModel.Call}">
-            <SymbolIcon Symbol="Phone" />
-        </Button>
-        
-        <Button Grid.Row="7" 
-                Margin="0, 10, 0, 0"
-                HorizontalAlignment="Stretch"
-                Command="{x:Bind ViewModel.AddAsContact, Mode=OneWay}">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Contact" Margin="0, 0, 5, 0" />
-                <TextBlock x:Uid="AddAsContactTextBlock" Text="~Als Kontakt anlegen" />
-            </StackPanel>
-        </Button>
+        <CommandBar Grid.Row="1">
+            <AppBarButton Icon="Add" Label="~Zu Kontakte hinzufügen" Command="{x:Bind ViewModel.AddAsContact}" x:Uid="AddToContactsAppBarButton" />
+            <AppBarButton Icon="Mail" Label="~E-Mail senden" Command="{x:Bind ViewModel.SendMail}" x:Uid="SendMailAppBarButton" />
+            <AppBarButton Icon="Phone" Label="~Anrufen" Command="{x:Bind ViewModel.Call}" x:Uid="CallAppBarButton" />
+        </CommandBar>
+
     </Grid>
+    
 </Page>
