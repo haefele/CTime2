@@ -621,4 +621,7 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="SendMailAppBarButton.Label" xml:space="preserve">
     <value>send mail</value>
   </data>
+  <data name="NotifyAppBarToggleButton.Label" xml:space="preserve">
+    <value>notify</value>
+  </data>
 </root>

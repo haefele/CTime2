@@ -621,4 +621,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="SendMailAppBarButton.Label" xml:space="preserve">
     <value>E-Mail senden</value>
   </data>
+  <data name="NotifyAppBarToggleButton.Label" xml:space="preserve">
+    <value>Benachrichtigen</value>
+  </data>
 </root>

@@ -12,6 +12,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Contacts;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Email;
+using CTime2.Core.Services.EmployeeNotification;
 using CTime2.Core.Services.Phone;
 using CTime2.Strings;
 using ReactiveUI;
@@ -31,9 +32,16 @@ namespace CTime2.Views.AttendanceList
         private readonly IDialogService _dialogService;
         private readonly IPhoneService _phoneService;
         private readonly IEmailService _emailService;
+        private readonly IEmployeeNotificationService _employeeNotificationService;
 
+        private bool _notify;
         private readonly ObservableAsPropertyHelper<AttendingUser> _attendingUserHelper;
-        
+
+        public bool Notify
+        {
+            get { return this._notify; }
+            set { this.RaiseAndSetIfChanged(ref this._notify, value); }
+        }
         public AttendingUser AttendingUser => this._attendingUserHelper.Value;
 
         public Parameters Parameter { get; set; }
@@ -42,8 +50,10 @@ namespace CTime2.Views.AttendanceList
         public UwCoreCommand<Unit> Call { get; }
         public UwCoreCommand<Unit> SendMail { get; }
         public UwCoreCommand<Unit> AddAsContact { get; }
+        public UwCoreCommand<Unit> AddNotify { get; }
+        public UwCoreCommand<Unit> RemoveNotify { get; }
 
-        public AttendingUserDetailsViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IContactsService contactsService, IDialogService dialogService, IPhoneService phoneService, IEmailService emailService)
+        public AttendingUserDetailsViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IContactsService contactsService, IDialogService dialogService, IPhoneService phoneService, IEmailService emailService, IEmployeeNotificationService employeeNotificationService)
         {
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
@@ -51,6 +61,7 @@ namespace CTime2.Views.AttendanceList
             Guard.NotNull(dialogService, nameof(dialogService));
             Guard.NotNull(phoneService, nameof(phoneService));
             Guard.NotNull(emailService, nameof(emailService));
+            Guard.NotNull(employeeNotificationService, nameof(employeeNotificationService));
 
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
@@ -58,6 +69,7 @@ namespace CTime2.Views.AttendanceList
             this._dialogService = dialogService;
             this._phoneService = phoneService;
             this._emailService = emailService;
+            this._employeeNotificationService = employeeNotificationService;
 
             this.LoadAttendingUser = UwCoreCommand.Create(this.LoadAttendingUserImpl)
                 .HandleExceptions()
@@ -77,6 +89,13 @@ namespace CTime2.Views.AttendanceList
 
             this.AddAsContact = UwCoreCommand.Create(this.AddAsContactImpl)
                 .HandleExceptions();
+            
+            var canNotify = this.WhenAnyValue(f => f.AttendingUser, (AttendingUser user) => user != null);
+            this.AddNotify = UwCoreCommand.Create(canNotify, this.AddNotifyImpl)
+                .HandleExceptions();
+
+            this.RemoveNotify = UwCoreCommand.Create(canNotify, this.RemoveNotifyImpl)
+                .HandleExceptions();
         }
 
         private async Task<AttendingUser> LoadAttendingUserImpl()
@@ -84,7 +103,14 @@ namespace CTime2.Views.AttendanceList
             var currentUser = this._applicationStateService.GetCurrentUser();
             var allAttendingUsers = await this._cTimeService.GetAttendingUsers(currentUser.CompanyId, currentUser.CompanyImageAsPng);
 
-            return allAttendingUsers.FirstOrDefault(f => f.Id == this.Parameter.AttendingUserId);
+            var user = allAttendingUsers.FirstOrDefault(f => f.Id == this.Parameter.AttendingUserId);
+
+            if (user != null)
+            {
+                this.Notify = this._employeeNotificationService.ShouldNotify(user.Id);
+            }
+
+            return user;
         }
 
         private async Task SendMailImpl()
@@ -113,6 +139,20 @@ namespace CTime2.Views.AttendanceList
             var caption = CTime2Resources.Get("AddAttendingUserToContacts.Title");
 
             await this._dialogService.ShowAsync(message, caption);
+        }
+
+        private Task AddNotifyImpl()
+        {
+            this._employeeNotificationService.Add(this.AttendingUser.Id);
+
+            return Task.CompletedTask;
+        }
+
+        private Task RemoveNotifyImpl()
+        {
+            this._employeeNotificationService.Remove(this.AttendingUser.Id);
+
+            return Task.CompletedTask;
         }
 
         protected override async void OnActivate()

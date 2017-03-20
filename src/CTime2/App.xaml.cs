@@ -21,6 +21,7 @@ using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.CTime.RequestCache;
 using CTime2.Core.Services.Email;
 using CTime2.Core.Services.EmployeeGroups;
+using CTime2.Core.Services.EmployeeNotification;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.Core.Services.Licenses;
 using CTime2.Core.Services.Phone;
@@ -180,6 +181,9 @@ namespace CTime2
 
             yield return typeof(ICTimeRequestCache);
             yield return typeof(CTimeRequestCache);
+
+            yield return typeof(IEmployeeNotificationService);
+            yield return typeof(EmployeeNotificationService);
         }
 
         public override bool IsHockeyAppEnabled()

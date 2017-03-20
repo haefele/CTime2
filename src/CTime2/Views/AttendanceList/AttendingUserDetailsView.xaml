@@ -79,6 +79,12 @@
         </Grid>
 
         <CommandBar Grid.Row="1">
+            <AppBarToggleButton Icon="Clock" 
+                                Label="~Benachrichtigen" 
+                                IsChecked="{Binding Notify, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                Checked="ToggleButton_OnChecked" 
+                                Unchecked="ToggleButton_OnUnchecked"
+                                x:Uid="NotifyAppBarToggleButton" />
             <AppBarButton Icon="Add" Label="~Zu Kontakte hinzufügen" Command="{x:Bind ViewModel.AddAsContact}" x:Uid="AddToContactsAppBarButton" />
             <AppBarButton Icon="Mail" Label="~E-Mail senden" Command="{x:Bind ViewModel.SendMail}" x:Uid="SendMailAppBarButton" />
             <AppBarButton Icon="Phone" Label="~Anrufen" Command="{x:Bind ViewModel.Call}" x:Uid="CallAppBarButton" />
