@@ -385,6 +385,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CTime2.EmployeeNotificationService\CTime2.EmployeeNotificationService.csproj">
+      <Project>{80ad7337-7f17-4d93-bfcf-72f21cea2c3d}</Project>
+      <Name>CTime2.EmployeeNotificationService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CTime2.LiveTileService\CTime2.LiveTileService.csproj">
       <Project>{b2811e7c-362e-447e-889f-4fc4ace40abd}</Project>
       <Name>CTime2.LiveTileService</Name>

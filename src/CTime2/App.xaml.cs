@@ -28,6 +28,7 @@ using CTime2.Core.Services.Phone;
 using CTime2.Core.Services.Sharing;
 using CTime2.Core.Services.Statistics;
 using CTime2.Core.Services.Tile;
+using CTime2.EmployeeNotificationService;
 using CTime2.LiveTileService;
 using CTime2.Strings;
 using CTime2.Views.About;
@@ -71,7 +72,7 @@ namespace CTime2
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
             this.ConfigureJumpList();
-            this.ConfigureLiveTileService();
+            this.ConfigureBackgroungTasks();
         }
 
         public override void CustomizeShell(IShell shell)
@@ -183,7 +184,7 @@ namespace CTime2
             yield return typeof(CTimeRequestCache);
 
             yield return typeof(IEmployeeNotificationService);
-            yield return typeof(EmployeeNotificationService);
+            yield return typeof(Core.Services.EmployeeNotification.EmployeeNotificationService);
         }
 
         public override bool IsHockeyAppEnabled()
@@ -242,7 +243,7 @@ namespace CTime2
             }
         }
 
-        private async void ConfigureLiveTileService()
+        private async void ConfigureBackgroungTasks()
         {
             var access = await BackgroundExecutionManager.RequestAccessAsync();
             
@@ -258,6 +259,13 @@ namespace CTime2
             {
                 BackgroundTaskHelper.Register(
                     typeof(CTime2LiveTileService),
+                    new TimeTrigger(15, false),
+                    forceRegister: true,
+                    enforceConditions: true,
+                    conditions: new SystemCondition(SystemConditionType.InternetAvailable));
+
+                BackgroundTaskHelper.Register(
+                    typeof(CTime2EmployeeNotificationService),
                     new TimeTrigger(15, false),
                     forceRegister: true,
                     enforceConditions: true,
