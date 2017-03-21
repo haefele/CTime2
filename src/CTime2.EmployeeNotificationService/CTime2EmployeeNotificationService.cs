@@ -42,6 +42,8 @@ namespace CTime2.EmployeeNotificationService
                 var employeeNotificationService = new EmpNotificationService(applicationStateService, ctimeService);
 
                 await employeeNotificationService.SendNotificationsAsync();
+
+                await applicationStateService.SaveStateAsync();
             }
             catch (Exception exception)
             {
