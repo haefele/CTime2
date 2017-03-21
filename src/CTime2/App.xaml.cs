@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
@@ -60,6 +61,10 @@ namespace CTime2
 {
     sealed partial class App
     {
+        private static readonly ILog Logger = LogManager.GetLog(typeof(App));
+
+        private Timer _appTimer;
+
         public App()
         {
             this.InitializeComponent();
@@ -94,9 +99,19 @@ namespace CTime2
                 : IoC.Get<LoggedOutApplicationMode>();
         }
 
-        public override async void AppStartupFinished()
+        public override void AppStartupFinished()
         {
-            await IoC.Get<ITileService>().UpdateLiveTileAsync();
+            async void Tick()
+            {
+                Logger.Info("AppTimer Tick Begin!");
+
+                await IoC.Get<ITileService>().UpdateLiveTileAsync();
+                await IoC.Get<IEmployeeNotificationService>().SendNotificationsAsync();
+
+                Logger.Info("AppTimer Tick Finish!");
+            }
+
+            this._appTimer = new Timer(_ => Tick(), null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
         }
 
         public override string GetErrorTitle()
@@ -212,10 +227,8 @@ namespace CTime2
             }
             catch (Exception exception)
             {
-                var log = LogManager.GetLog(typeof(App));
-
-                log.Warn($"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
-                log.Error(exception);
+                Logger.Warn($"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
+                Logger.Error(exception);
             }
         }
 
