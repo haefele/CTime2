@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Windows.ApplicationModel;
@@ -56,20 +57,31 @@ using UwCore.Extensions;
 using UwCore.Hamburger;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Dialog;
 
 namespace CTime2
 {
     sealed partial class App
     {
+        #region Logging
         private static readonly ILog Logger = LogManager.GetLog(typeof(App));
+        #endregion
 
+        #region Fields
         private Timer _appTimer;
+        #endregion
 
+        #region Constructors
         public App()
         {
             this.InitializeComponent();
-        }
 
+            this.Suspending += this.App_OnSuspending;
+            this.Resuming += this.App_OnResuming;
+        }
+        #endregion
+
+        #region Configuration
         public override void Configure()
         {
             base.Configure();
@@ -77,7 +89,44 @@ namespace CTime2
             this.ConfigureVoiceCommands();
             this.ConfigureWindowMinSize();
             this.ConfigureJumpList();
-            this.ConfigureBackgroungTasks();
+        }
+
+        private async void ConfigureVoiceCommands()
+        {
+            try
+            {
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///CTime2.VoiceCommandService/CTime2VoiceCommands.xml"));
+                await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
+            }
+            catch (Exception exception)
+            {
+                Logger.Warn($"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
+                Logger.Error(exception);
+            }
+        }
+
+        private void ConfigureWindowMinSize()
+        {
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(380, 500));
+        }
+
+        private async void ConfigureJumpList()
+        {
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 2, 0) && JumpList.IsSupported())
+            {
+                JumpList jumpList = await JumpList.LoadCurrentAsync();
+                jumpList.Items.Clear();
+
+                var checkInArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkin };
+                var checkInItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkInArguments), CTime2Resources.Get("StampHelper.CheckIn"));
+                jumpList.Items.Add(checkInItem);
+
+                var checkOutArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkout };
+                var checkOutItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkOutArguments), CTime2Resources.Get("StampHelper.CheckOut"));
+                jumpList.Items.Add(checkOutItem);
+
+                await jumpList.SaveAsync();
+            }
         }
 
         public override void CustomizeShell(IShell shell)
@@ -91,7 +140,9 @@ namespace CTime2
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }
+        #endregion
 
+        #region Lifecycle
         public override ShellMode GetCurrentMode()
         {
             return IoC.Get<IApplicationStateService>().GetCurrentUser() != null
@@ -112,8 +163,25 @@ namespace CTime2
             }
 
             this._appTimer = new Timer(_ => Tick(), null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
+            
+            this.UnRegisterBackgroundTasks();
         }
 
+        private void App_OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            this.RegisterBackgroungTasks();
+        }
+
+        private async void App_OnResuming(object sender, object e)
+        {
+            this.UnRegisterBackgroundTasks();
+
+            var applicationStateService = IoC.Get<IApplicationStateService>();
+            await applicationStateService.RestoreStateAsync();
+        }
+        #endregion
+
+        #region Errors
         public override string GetErrorTitle()
         {
             return CTime2Resources.Get("ExceptionHandler.ErrorTitle");
@@ -128,7 +196,9 @@ namespace CTime2
         {
             return typeof(CTimeException);
         }
+        #endregion
 
+        #region Dependency Injection
         public override IEnumerable<Type> GetViewModelTypes()
         {
             yield return typeof(LoginViewModel);
@@ -201,7 +271,9 @@ namespace CTime2
             yield return typeof(IEmployeeNotificationService);
             yield return typeof(Core.Services.EmployeeNotification.EmployeeNotificationService);
         }
+        #endregion
 
+        #region HockeyApp
         public override bool IsHockeyAppEnabled()
         {
             return base.IsHockeyAppEnabled() &&
@@ -212,51 +284,17 @@ namespace CTime2
         {
             return "16f525b1f6c04b6b987253bd8801dc20";
         }
+        #endregion
 
+        #region Update Notes
         public override Type GetUpdateNotesViewModelType()
         {
             return typeof(UpdateNotesViewModel);
         }
+        #endregion
 
-        private async void ConfigureVoiceCommands()
-        {
-            try
-            {
-                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///CTime2.VoiceCommandService/CTime2VoiceCommands.xml"));
-                await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
-            }
-            catch (Exception exception)
-            {
-                Logger.Warn($"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
-                Logger.Error(exception);
-            }
-        }
-
-        private void ConfigureWindowMinSize()
-        {
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(380, 500));
-        }
-        
-        private async void ConfigureJumpList()
-        {
-            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 2, 0) && JumpList.IsSupported())
-            {
-                JumpList jumpList = await JumpList.LoadCurrentAsync();
-                jumpList.Items.Clear();
-
-                var checkInArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkin };
-                var checkInItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkInArguments), CTime2Resources.Get("StampHelper.CheckIn"));
-                jumpList.Items.Add(checkInItem);
-
-                var checkOutArguments = new CTimeStartupArguments { Action = CTimeStartupAction.Checkout };
-                var checkOutItem = JumpListItem.CreateWithArguments(StartupArguments.AsString(checkOutArguments), CTime2Resources.Get("StampHelper.CheckOut"));
-                jumpList.Items.Add(checkOutItem);
-
-                await jumpList.SaveAsync();
-            }
-        }
-
-        private async void ConfigureBackgroungTasks()
+        #region Background Tasks
+        private async void RegisterBackgroungTasks()
         {
             var access = await BackgroundExecutionManager.RequestAccessAsync();
             
@@ -285,5 +323,12 @@ namespace CTime2
                     conditions: new SystemCondition(SystemConditionType.InternetAvailable));
             }
         }
+
+        private void UnRegisterBackgroundTasks()
+        {
+            BackgroundTaskHelper.Unregister(typeof(CTime2LiveTileService));
+            BackgroundTaskHelper.Unregister(typeof(CTime2EmployeeNotificationService));
+        }
+        #endregion
     }
 }
