@@ -6,6 +6,7 @@ using Windows.UI.Notifications;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Strings;
 using Microsoft.Toolkit.Uwp.Notifications;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
@@ -117,7 +118,6 @@ namespace CTime2.Core.Services.EmployeeNotification
         }
 
         #region Private Methods
-
         private ToastContent GetToastFor(AttendingUser user)
         {
             return new ToastContent
@@ -130,8 +130,12 @@ namespace CTime2.Core.Services.EmployeeNotification
                         {
                             new AdaptiveText
                             {
-                                Text = $"{user.FirstName} {user.Name} ist jetzt anwesend!"
-                            }
+                                Text = $"{user.FirstName} {user.Name}"
+                            },
+                            new AdaptiveText
+                            {
+                                Text = CTime2CoreResources.Get("Notification.EmployeeJustCheckedIn"),
+                            },
                         }
                     }
                 }
