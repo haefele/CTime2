@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
@@ -167,9 +168,13 @@ namespace CTime2
             this.UnRegisterBackgroundTasks();
         }
 
-        private void App_OnSuspending(object sender, SuspendingEventArgs e)
+        private async void App_OnSuspending(object sender, SuspendingEventArgs e)
         {
-            this.RegisterBackgroungTasks();
+            var deferral = e.SuspendingOperation.GetDeferral();
+
+            await this.RegisterBackgroungTasks();
+
+            deferral.Complete();
         }
 
         private async void App_OnResuming(object sender, object e)
@@ -294,7 +299,7 @@ namespace CTime2
         #endregion
 
         #region Background Tasks
-        private async void RegisterBackgroungTasks()
+        private async Task RegisterBackgroungTasks()
         {
             var access = await BackgroundExecutionManager.RequestAccessAsync();
             
