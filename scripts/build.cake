@@ -86,27 +86,43 @@ Task("Build")
 
 Task("SyncUpdateNotes")
 	.Does(() => 
+{
+	var languages = new Dictionary<string, string> 
 	{
-		var languages = new Dictionary<string, string> 
-		{
-			{ "de-DE", "German" },
-			{ "en-US", "English" },
-		};
+		{ "de-DE", "German" },
+		{ "en-US", "English" },
+	};
 
-		foreach (var language in languages)
-		{
-			var sourceFile = string.Format("./../changelog/{0}.md", language.Key);
-			var targetFile = string.Format("./../src/CTime2/Views/UpdateNotes/{0}.md", language.Value);
+	foreach (var language in languages)
+	{
+		var sourceFile = string.Format("./../changelog/{0}.md", language.Key);
+		var targetFile = string.Format("./../src/CTime2/Views/UpdateNotes/{0}.md", language.Value);
 
-			CopyFile(sourceFile, targetFile);
+		CopyFile(sourceFile, targetFile);
 
-			var content = FileReadText(targetFile).Split(new [] { Environment.NewLine }, StringSplitOptions.None);
-			var updatedContent = content.Skip(3).ToList(); //Throw away the first 3 lines
-			FileWriteText(targetFile, string.Join(Environment.NewLine, updatedContent));
-		}
-	});
+		var content = FileReadText(targetFile).Split(new [] { Environment.NewLine }, StringSplitOptions.None);
+		var updatedContent = content.Skip(3).ToList(); //Throw away the first 3 lines
+		FileWriteText(targetFile, string.Join(Environment.NewLine, updatedContent));
+	}
+});
+
+Task("UploadArtifacts")
+	.IsDependentOn("Build")	
+    .WithCriteria(() => buildInAppveyor && manualBuild && isNotForPullRequest)
+	.Does(() => 
+{	
+	var appxUploadPath = string.Format("./../src/CTime2/AppPackages/CTime2_{0}_x86_x64_ARM_bundle.appxupload", versionNumber);
+	var bundlePath = string.Format("./../src/CTime2/AppPackages/CTime2_{0}_Test", versionNumber);
+	var bundleZipPath = string.Format("./../src/CTime2/AppPackages/CTime2_{0}.zip", versionNumber);
+
+	BuildSystem.AppVeyor.UploadArtifact(appxUploadPath);
+	
+	Zip(bundlePath, bundleZipPath);
+	BuildSystem.AppVeyor.UploadArtifact(bundleZipPath);
+
+});
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("UploadArtifacts");
 
 RunTarget(target);
