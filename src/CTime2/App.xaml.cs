@@ -177,12 +177,9 @@ namespace CTime2
             deferral.Complete();
         }
 
-        private async void App_OnResuming(object sender, object e)
+        private void App_OnResuming(object sender, object e)
         {
             this.UnRegisterBackgroundTasks();
-
-            var applicationStateService = IoC.Get<IApplicationStateService>();
-            await applicationStateService.RestoreStateAsync();
         }
         #endregion
 
