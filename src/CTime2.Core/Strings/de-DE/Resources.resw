@@ -183,4 +183,7 @@
   <data name="Trip" xml:space="preserve">
     <value>Reise</value>
   </data>
+  <data name="Notification.EmployeeJustCheckedIn" xml:space="preserve">
+    <value>hat gerade eingestempelt!</value>
+  </data>
 </root>

@@ -410,12 +410,6 @@ You just have to authenticate yourself.</value>
   <data name="EmailAddressTextBlock.Text" xml:space="preserve">
     <value>Email address</value>
   </data>
-  <data name="SendMailButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Send email</value>
-  </data>
-  <data name="CallButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Call</value>
-  </data>
   <data name="PhoneNumberTextBlock.Text" xml:space="preserve">
     <value>Phone number</value>
   </data>
@@ -617,5 +611,17 @@ This data will only be used to contact you, it will not be given to a third part
   </data>
   <data name="UpdateNotesFileName" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="AddToContactsAppBarButton.Label" xml:space="preserve">
+    <value>add to contacts</value>
+  </data>
+  <data name="CallAppBarButton.Label" xml:space="preserve">
+    <value>call</value>
+  </data>
+  <data name="SendMailAppBarButton.Label" xml:space="preserve">
+    <value>send mail</value>
+  </data>
+  <data name="NotifyAppBarToggleButton.Label" xml:space="preserve">
+    <value>notify</value>
   </data>
 </root>

@@ -183,4 +183,7 @@
   <data name="LiveTile.TodaysWorkEndWithOvertimeFormat" xml:space="preserve">
     <value>{0}</value>
   </data>
+  <data name="Notification.EmployeeJustCheckedIn" xml:space="preserve">
+    <value>just checked in!</value>
+  </data>
 </root>

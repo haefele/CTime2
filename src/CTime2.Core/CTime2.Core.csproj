@@ -150,6 +150,8 @@
     <Compile Include="Services\Email\IEmailService.cs" />
     <Compile Include="Services\EmployeeGroups\EmployeeGroupService.cs" />
     <Compile Include="Services\EmployeeGroups\IEmployeeGroupService.cs" />
+    <Compile Include="Services\EmployeeNotification\EmployeeReminderService.cs" />
+    <Compile Include="Services\EmployeeNotification\IEmployeeNotificationService.cs" />
     <Compile Include="Services\GeoLocation\GeoLocationService.cs" />
     <Compile Include="Services\GeoLocation\GeoLocationState.cs" />
     <Compile Include="Services\GeoLocation\IGeoLocationService.cs" />
