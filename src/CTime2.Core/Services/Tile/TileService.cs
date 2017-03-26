@@ -6,6 +6,7 @@ using Windows.UI.Notifications;
 using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Statistics;
@@ -29,7 +30,7 @@ namespace CTime2.Core.Services.Tile
 
         public DateTime StartDateForStatistics
         {
-            get { return this._myApplicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
+            get { return this._myApplicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().RoundDownToFullWeek().LocalDateTime; }
             set { this._myApplicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 

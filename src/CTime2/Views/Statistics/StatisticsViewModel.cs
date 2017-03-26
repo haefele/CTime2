@@ -16,6 +16,7 @@ using UwCore.Services.Dialog;
 using System.Reactive;
 using System.Text;
 using CTime2.Core.Data;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.Sharing;
 using CTime2.Core.Services.Statistics;
 using CTime2.Core.Services.Tile;
@@ -99,7 +100,7 @@ namespace CTime2.Views.Statistics
                 .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
                 .Subscribe(name => this.DisplayName = name);
             
-            this.StartDate = DateTimeOffset.Now.StartOfMonth();
+            this.StartDate = DateTimeOffset.Now.StartOfMonth().RoundDownToFullWeek();
             this.EndDate = DateTimeOffset.Now.WithoutTime();
         }
         #endregion
@@ -118,7 +119,9 @@ namespace CTime2.Views.Statistics
 
             var startDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.StartDate), ApplicationState.Temp);
             if (startDate != null)
+            {
                 this.StartDate = startDate.Value;
+            }
 
             var endDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.EndDate), ApplicationState.Temp);
             if (endDate != null)
