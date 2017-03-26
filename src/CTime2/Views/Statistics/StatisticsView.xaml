@@ -6,6 +6,7 @@
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:uwCoreConverter="using:UwCore.Converter"
       xmlns:uwp="using:FontAwesome.UWP"
+      xmlns:behaviors="using:CTime2.Behaviors"
       
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -96,28 +97,42 @@
                           x:Uid="StartDateAppBarButton"
                           Label="~Startdatum">
                 <AppBarButton.Flyout>
-                    <DatePickerFlyout Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
-                                      Placement="Top">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="DatePicked">
-                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </DatePickerFlyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterWithoutPadding}">
+                        <CalendarView x:Name="StartDateCalendarView">
+                            <interactivity:Interaction.Behaviors>
+                                <!-- x:Bind will lead to some errors because the SelectedDateChanged will be fired, before the SelectedDate is updated in the view-model -->
+                                <behaviors:CalendarViewBindingHelper SelectedDate="{Binding StartDate, Mode=TwoWay}">
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="SelectedDateChanged">
+                                            <behaviors:CloseFlyoutAction Control="{Binding ElementName=StartDateCalendarView}" />
+                                            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                </behaviors:CalendarViewBindingHelper>
+                            </interactivity:Interaction.Behaviors>
+                        </CalendarView>
+                    </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Filter"
                           x:Uid="EndDateAppBarButton"
                           Label="~Enddatum">
                 <AppBarButton.Flyout>
-                    <DatePickerFlyout Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
-                                      Placement="Top">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="DatePicked">
-                                <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </DatePickerFlyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterWithoutPadding}">
+                        <CalendarView x:Name="EndDateCalendarView">
+                            <interactivity:Interaction.Behaviors>
+                                <!-- x:Bind will lead to some errors because the SelectedDateChanged will be fired, before the SelectedDate is updated in the view-model -->
+                                <behaviors:CalendarViewBindingHelper SelectedDate="{Binding ViewModel.EndDate, Mode=TwoWay}">
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="SelectedDateChanged">
+                                            <behaviors:CloseFlyoutAction Control="{Binding ElementName=EndDateCalendarView}" />
+                                            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadStatistics}" />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                </behaviors:CalendarViewBindingHelper>
+                            </interactivity:Interaction.Behaviors>
+                        </CalendarView>
+                    </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
 
