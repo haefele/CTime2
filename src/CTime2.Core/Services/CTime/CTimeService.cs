@@ -168,9 +168,10 @@ namespace CTime2.Core.Services.CTime
                 var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false);
                 if (responseJson?.GetInt("State") == 0)
                 {
-                    this._eventAggregator.PublishOnCurrentThread(new UserStamped());
-
+                    //Make sure to clear the cache before we fire the UserStamped event
                     this._requestCache.Clear();
+
+                    this._eventAggregator.PublishOnCurrentThread(new UserStamped());
                 }
             }
             catch (Exception exception)
