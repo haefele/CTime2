@@ -341,17 +341,21 @@ namespace CTime2.Core.Services.CTime
 
             if (canBeCached == false || this._requestCache.TryGetCached(function, data, out responseContentAsString) == false)
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri(function))
-                {
-                    Content = new HttpFormUrlEncodedContent(data)
-                };
-
                 var retryPolicy = Policy
                     .Handle<Exception>()
                     .OrResult<HttpResponseMessage>(f => f.StatusCode != HttpStatusCode.Ok)
                     .WaitAndRetryAsync(5, _ => TimeSpan.FromSeconds(1));
 
-                var response = await retryPolicy.ExecuteAsync(token => this._client.SendRequestAsync(request).AsTask(token), CancellationToken.None, continueOnCapturedContext:true);
+                var response = await retryPolicy.ExecuteAsync(token =>
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Post, this.BuildUri(function))
+                    {
+                        Content = new HttpFormUrlEncodedContent(data)
+                    };
+
+                    return this._client.SendRequestAsync(request).AsTask(token);
+
+                }, CancellationToken.None, continueOnCapturedContext:true);
                 
                 if (response.StatusCode != HttpStatusCode.Ok)
                     return null;
