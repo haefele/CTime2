@@ -157,8 +157,15 @@ namespace CTime2
             {
                 Logger.Info("AppTimer Tick Begin!");
 
-                await IoC.Get<ITileService>().UpdateLiveTileAsync();
-                await IoC.Get<IEmployeeNotificationService>().SendNotificationsAsync();
+                try
+                {
+                    await IoC.Get<ITileService>().UpdateLiveTileAsync();
+                    await IoC.Get<IEmployeeNotificationService>().SendNotificationsAsync();
+                }
+                catch (Exception exception)
+                {
+                    Logger.Error(exception);
+                }
 
                 Logger.Info("AppTimer Tick Finish!");
             }
