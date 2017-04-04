@@ -2,26 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CTime2.Core.Data;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Core.Services.Statistics
 {
     public class StatisticsService : IStatisticsService
     {
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IClock _clock;
 
-        public StatisticsService(IApplicationStateService applicationStateService)
+        public StatisticsService(IApplicationStateService applicationStateService, IClock clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(clock, nameof(clock));
 
             this._applicationStateService = applicationStateService;
+            this._clock = clock;
         }
 
         public bool ShouldIncludeToday(List<TimesByDay> times)
         {
-            var timeToday = times.FirstOrDefault(f => f.Day.Date == DateTime.Today);
+            var timeToday = times.FirstOrDefault(f => f.Day.Date == this._clock.Today());
 
             var completedTimesToday = timeToday?.Times.Count(f => f.ClockInTime != null && f.ClockOutTime != null);
 
@@ -133,7 +138,7 @@ namespace CTime2.Core.Services.Statistics
                                                    + (latestTimeToday.Duration ?? TimeSpan.Zero);
             var hadBreakAlready = timeToday?.Times.Count >= 2;
 
-            var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? DateTime.Now)
+            var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? this._clock.Now().DateTime)
                                   + (hadBreakAlready ? TimeSpan.Zero : workDayBreak)
                                   + workTimeTodayToUseUpOverTimePool;
             var expectedWorkEndWithoutOverTime = expectedWorkEnd + overtime;
@@ -154,7 +159,7 @@ namespace CTime2.Core.Services.Statistics
             if (currentTime == null)
                 return new CurrentTime(TimeSpan.Zero, null, null, false);
 
-            var now = DateTime.Now;
+            var now = this._clock.Now().DateTime;
 
             //Only take the timeToday if the time is either
             // - from today

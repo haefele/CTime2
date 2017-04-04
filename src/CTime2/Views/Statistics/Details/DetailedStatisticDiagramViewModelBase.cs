@@ -6,11 +6,15 @@ using CTime2.Core.Data;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore;
+using UwCore.Common;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.Statistics.Details
 {
     public abstract class DetailedStatisticDiagramViewModelBase : UwCoreScreen
     {
+        private readonly IClock _clock;
+
         private double _zoomFactor;
         private bool _hideLabels;
 
@@ -28,8 +32,12 @@ namespace CTime2.Views.Statistics.Details
             set { this.RaiseAndSetIfChanged(ref this._hideLabels, value); }
         }
 
-        public DetailedStatisticDiagramViewModelBase()
+        public DetailedStatisticDiagramViewModelBase(IClock clock)
         {
+            Guard.NotNull(clock, nameof(clock));
+
+            this._clock = clock;
+            
             this.ZoomFactor = 1;
             this.HideLabels = false;
         }
@@ -38,15 +46,13 @@ namespace CTime2.Views.Statistics.Details
         
         protected void EnsureAllDatesAreThere(ICollection<StatisticChartItem> result, double valueForFilledDates)
         {
-            var parent = (DetailedStatisticViewModel)this.Parent;
-
             var endDate = new DateTimeOffset(result.Max(f => f.Date));
-            if (parent.Parameter.EndDate >= DateTimeOffset.Now)
+            if (this.Owner.Parameter.EndDate >= this._clock.Now())
             {
-                endDate = DateTimeOffset.Now;
+                endDate = this._clock.Now();
             }
 
-            for (var date = parent.Parameter.StartDate; date <= endDate; date = date.AddDays(1))
+            for (var date = this.Owner.Parameter.StartDate; date <= endDate; date = date.AddDays(1))
             {
                 var dateIsMissing = result.Any(f => f.Date.Date == date.Date) == false; //Ignore time-zone when checking if a date is missing
                 if (dateIsMissing)

@@ -10,6 +10,7 @@ using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.Statistics.Details.WorkTime
 {
@@ -40,7 +41,8 @@ namespace CTime2.Views.Statistics.Details.WorkTime
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
         }
 
-        public WorkTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService)
+        public WorkTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService, IClock clock)
+            : base(clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(statisticsService, nameof(statisticsService));

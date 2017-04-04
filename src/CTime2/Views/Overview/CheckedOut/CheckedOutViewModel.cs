@@ -7,6 +7,7 @@ using ReactiveUI;
 using UwCore;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.Overview.CheckedOut
 {
@@ -18,8 +19,8 @@ namespace CTime2.Views.Overview.CheckedOut
         public UwCoreCommand<Unit> CheckInHomeOffice { get; }
         public UwCoreCommand<Unit> CheckInTrip { get; }
 
-        public CheckedOutViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
-            : base(cTimeService, applicationStateService)
+        public CheckedOutViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IClock clock)
+            : base(cTimeService, applicationStateService, clock)
         {
             this.CheckIn = UwCoreCommand.Create(this.CheckInImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.CheckIn"))

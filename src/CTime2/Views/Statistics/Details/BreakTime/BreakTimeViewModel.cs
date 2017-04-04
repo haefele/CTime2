@@ -9,6 +9,7 @@ using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.Statistics.Details.BreakTime
 {
@@ -39,7 +40,8 @@ namespace CTime2.Views.Statistics.Details.BreakTime
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
         }
 
-        public BreakTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService)
+        public BreakTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService, IClock clock)
+            : base(clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(statisticsService, nameof(statisticsService));

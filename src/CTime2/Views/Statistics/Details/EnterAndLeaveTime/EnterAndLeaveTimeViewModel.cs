@@ -7,12 +7,14 @@ using CTime2.Strings;
 using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore.Common;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
 {
     public class EnterAndLeaveTimeViewModel : DetailedStatisticDiagramViewModelBase
     {
         private readonly IStatisticsService _statisticsService;
+
         private double _averageBeginTime;
         private ReactiveList<StatisticChartItem> _beginChartItems;
         private double _averageEndTime;
@@ -42,7 +44,8 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
             set { this.RaiseAndSetIfChanged(ref this._endChartItems, value); }
         }
 
-        public EnterAndLeaveTimeViewModel(IStatisticsService statisticsService)
+        public EnterAndLeaveTimeViewModel(IStatisticsService statisticsService, IClock clock)
+            : base(clock)
         {
             Guard.NotNull(statisticsService, nameof(statisticsService));
 

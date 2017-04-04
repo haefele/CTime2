@@ -10,6 +10,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Statistics;
 using ReactiveUI;
 using UwCore.Common;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.Statistics.Details.OverTime
 {
@@ -33,7 +34,8 @@ namespace CTime2.Views.Statistics.Details.OverTime
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
         }
 
-        public OverTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService)
+        public OverTimeViewModel(IApplicationStateService applicationStateService, IStatisticsService statisticsService, IClock clock)
+            : base(clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(statisticsService, nameof(statisticsService));

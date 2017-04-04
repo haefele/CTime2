@@ -24,6 +24,7 @@ using CTime2.Core.Strings;
 using Polly;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Core.Services.CTime
 {
@@ -35,20 +36,23 @@ namespace CTime2.Core.Services.CTime
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IGeoLocationService _geoLocationService;
+        private readonly IClock _clock;
 
         private readonly HttpClient _client;
 
-        public CTimeService(ICTimeRequestCache requestCache, IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService)
+        public CTimeService(ICTimeRequestCache requestCache, IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService, IClock clock)
         {
             Guard.NotNull(requestCache, nameof(requestCache));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(geoLocationService, nameof(geoLocationService));
+            Guard.NotNull(clock, nameof(clock));
 
             this._requestCache = requestCache;
             this._eventAggregator = eventAggregator;
             this._applicationStateService = applicationStateService;
             this._geoLocationService = geoLocationService;
+            this._clock = clock;
 
             this._client = new HttpClient();
         }
@@ -133,7 +137,7 @@ namespace CTime2.Core.Services.CTime
 
                         return f;
                     })
-                    .Where(f => f.Day <= DateTime.Today || f.ClockInTime != null || f.ClockOutTime != null)
+                    .Where(f => f.Day <= this._clock.Today() || f.ClockInTime != null || f.ClockOutTime != null)
                     .ToList();
             }
             catch (Exception exception)
@@ -187,7 +191,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                IList<Time> timesForToday = await this.GetTimes(employeeGuid, DateTime.Today.AddDays(-1), DateTime.Today);
+                IList<Time> timesForToday = await this.GetTimes(employeeGuid, this._clock.Today().AddDays(-1), this._clock.Today());
 
                 return timesForToday
                     .OrderByDescending(f => f.ClockInTime)

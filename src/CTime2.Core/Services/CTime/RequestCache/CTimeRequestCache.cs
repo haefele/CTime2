@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using UwCore.Common;
+using UwCore.Services.Clock;
 
 namespace CTime2.Core.Services.CTime.RequestCache
 {
@@ -10,10 +11,16 @@ namespace CTime2.Core.Services.CTime.RequestCache
     {
         private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(1);
 
+        private readonly IClock _clock;
+
         private readonly ConcurrentDictionary<string, ValueHolder> _cache;
 
-        public CTimeRequestCache()
+        public CTimeRequestCache(IClock clock)
         {
+            Guard.NotNull(clock, nameof(clock));
+
+            this._clock = clock;
+
             this._cache = new ConcurrentDictionary<string, ValueHolder>();
         }
 
@@ -23,7 +30,7 @@ namespace CTime2.Core.Services.CTime.RequestCache
             Guard.NotNull(data, nameof(data));
 
             var key = this.ComputeKey(function, data);
-            var holder = ValueHolder.Create(response);
+            var holder = ValueHolder.Create(response, this._clock.Now());
 
             this._cache.AddOrUpdate(key, holder, (_, __) => holder);
         }
@@ -42,7 +49,7 @@ namespace CTime2.Core.Services.CTime.RequestCache
             if (this._cache.TryGetValue(key, out holder) == false)
                 return false;
             
-            if (holder.Time.Add(CacheDuration) <= DateTimeOffset.Now)
+            if (holder.Time.Add(CacheDuration) <= this._clock.Now())
             {
                 //Value timed out, remove it from the cache
                 this._cache.TryRemove(key, out holder);
@@ -74,17 +81,17 @@ namespace CTime2.Core.Services.CTime.RequestCache
 
         private class ValueHolder
         {
-            public static ValueHolder Create(string value)
+            public static ValueHolder Create(string value, DateTimeOffset time)
             {
                 return new ValueHolder
                 {
-                    Time = DateTimeOffset.Now,
-                    CachedValue = value
+                    CachedValue = value,
+                    Time = time
                 };
             }
 
-            public DateTimeOffset Time { get; private set; }
             public string CachedValue { get; private set; }
+            public DateTimeOffset Time { get; private set; }
         }
     }
 }

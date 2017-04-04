@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
+using UwCore.Common;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Core.Services.CTime
 {
@@ -17,18 +19,26 @@ namespace CTime2.Core.Services.CTime
         #region Fields
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
+        private readonly IClock _clock;
         #endregion
 
         #region Constructors
-        public CTimeStampHelper(IApplicationStateService applicationStateService, ICTimeService cTimeService)
+        public CTimeStampHelper(IApplicationStateService applicationStateService, ICTimeService cTimeService, IClock clock)
         {
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+            Guard.NotNull(clock, nameof(clock));
+
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
+            this._clock = clock;
         }
         #endregion
 
         public async Task Stamp(ICTimeStampHelperCallback callback, TimeState timeState)
         {
+            Guard.NotNull(callback, nameof(callback));
+
             await this._applicationStateService.RestoreStateAsync();
 
             if (this._applicationStateService.GetCurrentUser() == null)
@@ -96,6 +106,7 @@ namespace CTime2.Core.Services.CTime
             Logger.Info("Saving the timer.");
             await this._cTimeService.SaveTimer(
                 this._applicationStateService.GetCurrentUser(),
+                this._clock.Now().DateTime,
                 timeState);
 
             Logger.Info("Finished voice command.");
