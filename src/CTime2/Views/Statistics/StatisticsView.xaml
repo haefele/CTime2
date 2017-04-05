@@ -122,7 +122,7 @@
                         <CalendarView x:Name="EndDateCalendarView">
                             <interactivity:Interaction.Behaviors>
                                 <!-- x:Bind will lead to some errors because the SelectedDateChanged will be fired, before the SelectedDate is updated in the view-model -->
-                                <behaviors:CalendarViewBindingHelper SelectedDate="{Binding ViewModel.EndDate, Mode=TwoWay}">
+                                <behaviors:CalendarViewBindingHelper SelectedDate="{Binding EndDate, Mode=TwoWay}">
                                     <interactivity:Interaction.Behaviors>
                                         <core:EventTriggerBehavior EventName="SelectedDateChanged">
                                             <behaviors:CloseFlyoutAction Control="{Binding ElementName=EndDateCalendarView}" />
