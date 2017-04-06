@@ -101,7 +101,26 @@ Task("SyncUpdateNotes")
 		CopyFile(sourceFile, targetFile);
 
 		var content = FileReadText(targetFile).Split(new [] { Environment.NewLine }, StringSplitOptions.None);
-		var updatedContent = content.Skip(3).ToList(); //Throw away the first 3 lines
+		var updatedContent = new List<string>();
+		
+		bool firstLine = true;
+		foreach (var line in content.Skip(2)) //Throw away the first 2 lines
+		{
+			//Add lines before and after the version numbers (they always start with "## ")
+			if (line.StartsWith("## ") && firstLine == false)
+			{
+				updatedContent.Add("-----");
+			}
+
+			updatedContent.Add(line);
+			
+			if (line.StartsWith("## "))
+			{
+				updatedContent.Add("-----");
+			}
+
+			firstLine = false;
+		}
 		FileWriteText(targetFile, string.Join(Environment.NewLine, updatedContent));
 	}
 });
