@@ -1,5 +1,25 @@
 # Versionshinweis
 
+## Version 1.9.0.0
+
+### Live-Tile
+Diese App unterstützt nun die Windows 10 Live-Tiles.  
+Das heißt, wenn man die App auf dem Start-Screen angepinnt hat, kann man direkt auf der Kachel einige Informationen aus c-time sehen.  
+Zum Beispiel wie lange man heute schon gearbeitet hat, oder welche Zeiten man heute schon erfasst hat.
+
+### Benachrichtigung wenn jemand einstempelt
+Das ist gerade morgens oder nach der Mittagspause hilfreich.  
+Wenn man auf einen Arbeitskollegen wartet bekommt man hiermit nun einfach eine Benachrichtigung wenn dieser eingestempelt hat.
+
+### Verbesserte kommunikation mit c-time
+Beim Aufrufen der c-time API gibt es zwei kleine Verbesserungen.  
+Zum Einen wurde ein kleine Cache eingebaut. Wenn man also schnell in der App hin- und herwechselt, ist die App wesentlich performanter.  
+Zum Anderen wird bei einem Fehler die c-time API erneut angesprochen. Das hilft gerade bei schlechter Verbindung.
+
+### Fehler in Statistiken behoben
+In den Statistiken kam es zu einem Fehler, wenn man in der ausgewählten Zeitspanne bisher keine Zeiten hatte.  
+Dieser Fehler wurde behoben.
+
 ## Version 1.8.2.0
 
 ### Fehler mit heutigem Arbeitsende
