@@ -16,10 +16,12 @@ using UwCore.Services.Dialog;
 using System.Reactive;
 using System.Text;
 using CTime2.Core.Data;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.Sharing;
 using CTime2.Core.Services.Statistics;
 using CTime2.Core.Services.Tile;
 using CTime2.Views.Statistics.Details;
+using UwCore.Services.Clock;
 using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Statistics
@@ -34,6 +36,7 @@ namespace CTime2.Views.Statistics
         private readonly ISharingService _sharingService;
         private readonly IStatisticsService _statisticsService;
         private readonly ITileService _tileService;
+        private readonly IClock _clock;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
@@ -67,7 +70,7 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService, IStatisticsService statisticsService, ITileService tileService)
+        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService, IStatisticsService statisticsService, ITileService tileService, IClock clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
@@ -76,6 +79,7 @@ namespace CTime2.Views.Statistics
             Guard.NotNull(sharingService, nameof(sharingService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
             Guard.NotNull(tileService, nameof(tileService));
+            Guard.NotNull(clock, nameof(clock));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
@@ -84,6 +88,7 @@ namespace CTime2.Views.Statistics
             this._sharingService = sharingService;
             this._statisticsService = statisticsService;
             this._tileService = tileService;
+            this._clock = clock;
 
             this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
@@ -99,8 +104,8 @@ namespace CTime2.Views.Statistics
                 .Select(f => CTime2Resources.GetFormatted("Statistics.TitleFormat", this.StartDate, this.EndDate))
                 .Subscribe(name => this.DisplayName = name);
             
-            this.StartDate = DateTimeOffset.Now.StartOfMonth();
-            this.EndDate = DateTimeOffset.Now.WithoutTime();
+            this.StartDate = this._clock.Now().StartOfMonth().RoundDownToFullWeek();
+            this.EndDate = this._clock.Now().WithoutTime();
         }
         #endregion
 
@@ -118,7 +123,9 @@ namespace CTime2.Views.Statistics
 
             var startDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.StartDate), ApplicationState.Temp);
             if (startDate != null)
+            {
                 this.StartDate = startDate.Value;
+            }
 
             var endDate = applicationStateService.Get<DateTimeOffset?>(nameof(this.EndDate), ApplicationState.Temp);
             if (endDate != null)
@@ -159,7 +166,7 @@ namespace CTime2.Views.Statistics
             #endregion
 
             var timesByDay = allTimes
-                .Where(f => f.Day.Date != DateTime.Today || this.IncludeToday.Value)
+                .Where(f => f.Day.Date != this._clock.Today() || this.IncludeToday.Value)
                 .ToList();
             
             if (times.Count == 0 || timesByDay.Count == 0 || timesByDay.Count(f => f.Hours != TimeSpan.Zero) == 0)
@@ -176,7 +183,7 @@ namespace CTime2.Views.Statistics
             var averageBreakTime = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: false);
             var averageBreakTimeOnDaysWithBreak = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: true);
             var overtime = this._statisticsService.CalculateOverTime(timesByDay, onlyWorkDays:false);
-            var workEnd = this._statisticsService.CalculateTodaysWorkEnd(allTimes.FirstOrDefault(f => f.Day == DateTime.Today), timesByDay, onlyWorkDays:false);
+            var workEnd = this._statisticsService.CalculateTodaysWorkEnd(allTimes.FirstOrDefault(f => f.Day == this._clock.Today()), timesByDay, onlyWorkDays:false);
             
             var statisticItems = new List<StatisticItem>
             {

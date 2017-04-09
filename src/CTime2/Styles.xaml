@@ -11,6 +11,11 @@
     <SolidColorBrush x:Key="CTimeRed" Color="{StaticResource CTimeRedColor}" />
     <SolidColorBrush x:Key="CTimeOrange" Color="{StaticResource CTimeOrangeColor}" />
 
+    <Style TargetType="FlyoutPresenter" x:Key="FlyoutPresenterWithoutPadding">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush x:Key="BorderBrush" Color="#7A7A7A" />

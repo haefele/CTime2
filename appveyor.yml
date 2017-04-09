@@ -17,6 +17,3 @@ build_script:
     cd scripts
 
     ./build.ps1
-artifacts:
-- path: '**\*.appxupload'
-  name: App Package

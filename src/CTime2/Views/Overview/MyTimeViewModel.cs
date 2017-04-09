@@ -17,6 +17,7 @@ using UwCore.Application.Events;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Overview
@@ -27,6 +28,7 @@ namespace CTime2.Views.Overview
         private readonly ICTimeService _cTimeService;
         private readonly INavigationService _navigationService;
         private readonly IStatisticsService _statisticsService;
+        private readonly IClock _clock;
 
         private readonly Timer _timer;
         
@@ -65,18 +67,20 @@ namespace CTime2.Views.Overview
 
         public UwCoreCommand<Unit> GoToMyTimes { get; }
 
-        public MyTimeViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, INavigationService navigationService, IStatisticsService statisticsService)
+        public MyTimeViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, INavigationService navigationService, IStatisticsService statisticsService, IClock clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(navigationService, nameof(navigationService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
+            Guard.NotNull(clock, nameof(clock));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._navigationService = navigationService;
             this._statisticsService = statisticsService;
+            this._clock = clock;
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
 
@@ -119,8 +123,8 @@ namespace CTime2.Views.Overview
         private Task GoToMyTimesImpl()
         {
             this._navigationService.For<YourTimesViewModel>()
-                .WithParam(f => f.Parameter.StartDate, DateTimeOffset.Now.WithoutTime())
-                .WithParam(f => f.Parameter.EndDate, DateTimeOffset.Now.WithoutTime())
+                .WithParam(f => f.Parameter.StartDate, this._clock.Now().WithoutTime())
+                .WithParam(f => f.Parameter.EndDate, this._clock.Now().WithoutTime())
                 .Navigate();
 
             return Task.CompletedTask;

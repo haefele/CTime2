@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -14,7 +15,7 @@ namespace CTime2.Views.AttendanceList
             this.InitializeComponent();
             
             //Fix flyout not working on anniversary update
-            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 3))
+            if (ApiInformation.IsApiContractPresent(typeof(UniversalApiContract).FullName, 3))
             {
                 this.SaveGroupAppBarButton.AllowFocusOnInteraction = true;
                 this.SearchAppBarButton.AllowFocusOnInteraction = true;

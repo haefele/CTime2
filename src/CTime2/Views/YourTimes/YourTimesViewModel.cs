@@ -13,6 +13,7 @@ using UwCore;
 using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.YourTimes
 {
@@ -21,7 +22,8 @@ namespace CTime2.Views.YourTimes
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly ISharingService _sharingService;
-        
+        private readonly IClock _clock;
+
         private readonly ObservableAsPropertyHelper<ReactiveList<TimesByDay>> _timesHelper;
 
         private DateTimeOffset _startDate;
@@ -46,15 +48,17 @@ namespace CTime2.Views.YourTimes
         public UwCoreCommand<ReactiveList<TimesByDay>> LoadTimes { get; }
         public UwCoreCommand<Unit> Share { get; }
 
-        public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, ISharingService sharingService)
+        public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, ISharingService sharingService, IClock clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(sharingService, nameof(sharingService));
+            Guard.NotNull(clock, nameof(clock));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._sharingService = sharingService;
+            this._clock = clock;
 
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("MyTimes.TitleFormat", this.StartDate, this.EndDate))
@@ -70,8 +74,8 @@ namespace CTime2.Views.YourTimes
                 .HandleExceptions()
                 .TrackEvent("ShareMyTimes");
 
-            this.StartDate = DateTimeOffset.Now.StartOfMonth();
-            this.EndDate = DateTimeOffset.Now.WithoutTime();
+            this.StartDate = this._clock.Now().StartOfMonth();
+            this.EndDate = this._clock.Now().WithoutTime();
         }
 
         protected override void SaveState(IApplicationStateService applicationStateService)

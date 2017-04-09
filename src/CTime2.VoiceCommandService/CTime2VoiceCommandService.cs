@@ -11,6 +11,7 @@ using CTime2.Core.Services.GeoLocation;
 using CTime2.VoiceCommandService.Strings;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.VoiceCommandService
 {
@@ -46,11 +47,12 @@ namespace CTime2.VoiceCommandService
 
                     Logger.Info($"Executing voice command '{voiceCommand.CommandName}'.");
 
+                    var clock = new RealtimeClock();
                     var applicationStateService = new ApplicationStateService();
                     await applicationStateService.RestoreStateAsync();
-                    var cTimeService = new CTimeService(new NullCTimeRequestCache(), new EventAggregator(), applicationStateService, new GeoLocationService());
+                    var cTimeService = new CTimeService(new NullCTimeRequestCache(), new EventAggregator(), applicationStateService, new GeoLocationService(), clock);
 
-                    var stampHelper = new CTimeStampHelper(applicationStateService, cTimeService);
+                    var stampHelper = new CTimeStampHelper(applicationStateService, cTimeService, clock);
                     var stampHelperCallback = new CTimeStampHelperCallback(
                         this.OnNotLoggedIn, 
                         this.SupportsQuestions, 

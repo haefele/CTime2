@@ -8,9 +8,21 @@ namespace CTime2.Behaviors
 {
     public class CloseFlyoutAction : DependencyObject, IAction
     {
+        public static readonly DependencyProperty ControlProperty = DependencyProperty.Register(
+            nameof(Control), 
+            typeof(object), 
+            typeof(CloseFlyoutAction), 
+            new PropertyMetadata(default(object)));
+
+        public object Control
+        {
+            get { return (object)this.GetValue(ControlProperty); }
+            set { this.SetValue(ControlProperty, value); }
+        }
+
         object IAction.Execute(object sender, object parameter)
         {
-            var element = sender as FrameworkElement;
+            var element = (this.Control ?? sender) as FrameworkElement;
             if (element == null)
                 return null;
 

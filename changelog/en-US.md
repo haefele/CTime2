@@ -1,16 +1,12 @@
 # Patchnotes
 
------
 ## Version 1.8.2.0
------
 
 ### Bug with todays workend
 There was an error in the last version which lead to the todays workend not working correctly.  
 That is fixed again in this version.  
 
------
 ## Version 1.8.1.0
------
 
 ### Breaktime in the overview
 The overview now has, just like the overtime, a timer for your current breaktime.  
@@ -25,9 +21,7 @@ This is fixed now. The attendance list should work as expected again.
 There is a new setting where you can specify which weekdays are your workdays.  
 This is used in the overtime statistics. 
 
------
 ## Version 1.8.0.0
------
 
 ### Extended attendance list
 The attendance list now shows how someone is checked in or checked out.  
@@ -43,9 +37,7 @@ In the settings is a new setting for analytics.
 The diagrams in the statistics have are completely reworked.  
 They look much more modern now, and have a couple of new features.  
 
------
 ## Version 1.7.1.0
------
 
 ### Crash at startup
 This app was crashing on some systems. It should be fixed now.  
@@ -53,9 +45,7 @@ This app was crashing on some systems. It should be fixed now.
 ### See patchnotes again
 In the area "About" you can see these patchnotes again.  
 
------
 ## Version 1.7.0.0
------
 
 ### Custom employee groups!
 To get a better overview in the attendance list, you can now create your own groups of employees.  
@@ -67,9 +57,7 @@ In your times and the statistics the start- and enddate will now be remembered.
 Some information from this app can now be shared with other apps.  
 You can use this to send your times per email for example.  
 
------
 ## Version 1.6.1.0
------
 
 ### Improved attendance list!
 In the attendance list you can now click on an employee to see more infos about him.  
@@ -85,9 +73,7 @@ There is a new statistic for todays workende without overtime.
 Also, the positioning especially with large names has been improved.  
 In the last version has been a little bug, which is why the buttons for "This month", "Last month", and "Last 7 days" did not work. That is fixed.  
 
------
 ## Version 1.6.0.0
------
 
 ### Stamp with geolocation!
 c-time has had this feature for a while now, but finally this app supports geolocation as well.  

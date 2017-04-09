@@ -6,6 +6,7 @@ using Windows.UI.Notifications;
 using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Statistics;
@@ -16,6 +17,7 @@ using UwCore.Common;
 using UwCore.Events;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Core.Services.Tile
 {
@@ -26,16 +28,17 @@ namespace CTime2.Core.Services.Tile
         private readonly IApplicationStateService _myApplicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IStatisticsService _statisticsService;
+        private readonly IClock _clock;
 
         public DateTime StartDateForStatistics
         {
-            get { return this._myApplicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.StartOfMonth().LocalDateTime; }
+            get { return this._myApplicationStateService.Get<DateTime?>("StartDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? this._clock.Now().StartOfMonth().RoundDownToFullWeek().LocalDateTime; }
             set { this._myApplicationStateService.Set("StartDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
         public DateTime EndDateForStatistics
         {
-            get { return this._myApplicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? DateTimeOffset.Now.WithoutTime().LocalDateTime; }
+            get { return this._myApplicationStateService.Get<DateTime?>("EndDateForStatistics", UwCore.Services.ApplicationState.ApplicationState.Local) ?? this._clock.Now().WithoutTime().LocalDateTime; }
             set { this._myApplicationStateService.Set("EndDateForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
@@ -45,16 +48,18 @@ namespace CTime2.Core.Services.Tile
             set { this._myApplicationStateService.Set("IncludeTodayForStatistics", value, UwCore.Services.ApplicationState.ApplicationState.Local); }
         }
 
-        public TileService(IApplicationStateService applicationStateService, ICTimeService cTimeService, IStatisticsService statisticsService)
+        public TileService(IApplicationStateService applicationStateService, ICTimeService cTimeService, IStatisticsService statisticsService, IClock clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
+            Guard.NotNull(clock, nameof(clock));
             
             this._applicationStateService = applicationStateService;
             this._myApplicationStateService = applicationStateService.GetStateServiceFor(typeof(TileService));
             this._cTimeService = cTimeService;
             this._statisticsService = statisticsService;
+            this._clock = clock;
         }
         
         public async Task UpdateLiveTileAsync()
@@ -68,7 +73,7 @@ namespace CTime2.Core.Services.Tile
                 return;
             }
 
-            var timesTodayTask = this._cTimeService.GetTimes(currentUser.Id, DateTime.Today, DateTime.Today);
+            var timesTodayTask = this._cTimeService.GetTimes(currentUser.Id, this._clock.Today(), this._clock.Today());
             var currentTimeTask = this._cTimeService.GetCurrentTime(currentUser.Id);
             var statisticsTask = this._cTimeService.GetTimes(currentUser.Id, this.StartDateForStatistics, this.EndDateForStatistics);
 
@@ -78,9 +83,9 @@ namespace CTime2.Core.Services.Tile
             var currentTime = await currentTimeTask;
             var statistics = TimesByDay.Create(await statisticsTask).ToList();
 
-            if (this._statisticsService.ShouldIncludeToday(statistics) == false)
+            if (this.IncludeTodayForStatistics)
             {
-                statistics = statistics.Where(f => f.Day != DateTime.Today).ToList();
+                statistics = statistics.Where(f => f.Day != this._clock.Today()).ToList();
             }
 
             TileContent content = new TileContent
@@ -95,7 +100,7 @@ namespace CTime2.Core.Services.Tile
             };
 
             var notification = new TileNotification(content.GetXml());
-            notification.ExpirationTime = DateTimeOffset.Now.AddMinutes(30);
+            notification.ExpirationTime = this._clock.Now().AddMinutes(30);
 
             updateManager.Update(notification);
         }

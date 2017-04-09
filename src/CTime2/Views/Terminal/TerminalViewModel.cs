@@ -13,6 +13,7 @@ using UwCore;
 using UwCore.Common;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 
 namespace CTime2.Views.Terminal
 {
@@ -28,6 +29,7 @@ namespace CTime2.Views.Terminal
     {
         private readonly ICTimeService _cTimeService;
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IClock _clock;
 
         private readonly Timer _timer;
         private readonly Timer _resetModeTimer;
@@ -56,13 +58,15 @@ namespace CTime2.Views.Terminal
 
         public UwCoreCommand<Unit> Stamp { get; }
 
-        public TerminalViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService)
+        public TerminalViewModel(ICTimeService cTimeService, IApplicationStateService applicationStateService, IClock clock)
         {
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(clock, nameof(clock));
 
             this._cTimeService = cTimeService;
             this._applicationStateService = applicationStateService;
+            this._clock = clock;
 
             var canStamp = this.WhenAnyValue(f => f.RfidKey, (string rfidKey) => string.IsNullOrWhiteSpace(rfidKey) == false);
             this.Stamp = UwCoreCommand.Create(canStamp, this.StampImpl)
@@ -95,7 +99,7 @@ namespace CTime2.Views.Terminal
         {
             Execute.OnUIThread(() =>
             {
-                this.CurrentTime = DateTimeOffset.Now.TimeOfDay;
+                this.CurrentTime = this._clock.Now().TimeOfDay;
             });
         }
 
@@ -118,7 +122,7 @@ namespace CTime2.Views.Terminal
             await this._cTimeService.SaveTimer(
                 string.Empty, 
                 this.RfidKey, 
-                DateTime.Now, 
+                this._clock.Now().DateTime, 
                 this._applicationStateService.GetCompanyId(), 
                 TimeState.Entered,
                 true);

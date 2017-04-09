@@ -130,6 +130,8 @@
     <Compile Include="Events\EmployeeGroupCreated.cs" />
     <Compile Include="Events\EmployeeGroupDeleted.cs" />
     <Compile Include="Events\UserStamped.cs" />
+    <Compile Include="Extensions\ClockExtensions.cs" />
+    <Compile Include="Extensions\DateTimeOffsetExtensions.cs" />
     <Compile Include="Extensions\JsonObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

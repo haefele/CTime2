@@ -157,8 +157,15 @@ namespace CTime2
             {
                 Logger.Info("AppTimer Tick Begin!");
 
-                await IoC.Get<ITileService>().UpdateLiveTileAsync();
-                await IoC.Get<IEmployeeNotificationService>().SendNotificationsAsync();
+                try
+                {
+                    await IoC.Get<ITileService>().UpdateLiveTileAsync();
+                    await IoC.Get<IEmployeeNotificationService>().SendNotificationsAsync();
+                }
+                catch (Exception exception)
+                {
+                    Logger.Error(exception);
+                }
 
                 Logger.Info("AppTimer Tick Finish!");
             }
@@ -177,12 +184,9 @@ namespace CTime2
             deferral.Complete();
         }
 
-        private async void App_OnResuming(object sender, object e)
+        private void App_OnResuming(object sender, object e)
         {
             this.UnRegisterBackgroundTasks();
-
-            var applicationStateService = IoC.Get<IApplicationStateService>();
-            await applicationStateService.RestoreStateAsync();
         }
         #endregion
 

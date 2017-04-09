@@ -16,9 +16,9 @@ namespace CTime2.Core.Services.CTime
 
     public static class CTimeServiceExtensions
     {
-        public static async Task SaveTimer(this ICTimeService self, User user, TimeState state)
+        public static async Task SaveTimer(this ICTimeService self, User user, DateTime time, TimeState state)
         {
-            await self.SaveTimer(user.Id, string.Empty, DateTime.Now, user.CompanyId, state, user.SupportsGeoLocation);
+            await self.SaveTimer(user.Id, string.Empty, time, user.CompanyId, state, user.SupportsGeoLocation);
         }
 
         public static async Task<bool> IsCurrentlyCheckedIn(this ICTimeService self, string employeeGuid)
