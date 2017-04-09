@@ -104,7 +104,7 @@ namespace CTime2.Views.AttendanceList
                 .Throttle(TimeSpan.FromMilliseconds(250))
                 .InvokeCommand(this.FilterUsers);
 
-            var canShowDetails = this.WhenAnyValue(f => f.SelectedUsers).Select(f => f.Any());
+            var canShowDetails = this.SelectedUsers.Changed.Select(f => this.SelectedUsers.Any());
             this.ShowDetails = UwCoreCommand.Create(canShowDetails, this.ShowDetailsImpl)
                 .HandleExceptions()
                 .TrackEvent("ShowAttendingUserDetails");
