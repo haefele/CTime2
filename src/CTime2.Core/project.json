@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
-    "Microsoft.Toolkit.Uwp.Notifications": "1.4.0",
-    "Polly": "5.0.6",
+    "Microsoft.Toolkit.Uwp.Notifications": "1.4.1",
+    "Polly": "5.1.0",
     "UwCore": "0.1.91"
   },
   "frameworks": {
