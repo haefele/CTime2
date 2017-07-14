@@ -38,7 +38,7 @@
             <uwCoreControls:SettingsGroup x:Uid="LoginSettingsGroup" 
                                           Header="~Anmeldung">
                 <uwCoreControls:SettingsItem x:Uid="RememberLoginSettingsItem" 
-                                             Description="~Du kannst deine aktuelle Anmeldung merken lassen.&#xD;&#xA;Dazu musst du dich dich einmal authentifizieren.">
+                                             Description="~Du kannst deine aktuelle Anmeldung merken lassen.&#xD;&#xA;Dazu musst du dich einmal authentifizieren.">
                     <Button x:Uid="RememberLoginButton"
                             Content="~Anmeldung merken" 
                             Command="{x:Bind ViewModel.RememberLogin}" />

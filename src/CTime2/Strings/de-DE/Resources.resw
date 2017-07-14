@@ -239,7 +239,7 @@
   </data>
   <data name="RememberLoginSettingsItem.Description" xml:space="preserve">
     <value>Du kannst deine aktuelle Anmeldung merken lassen.
-Dazu musst du dich dich einmal authentifizieren.</value>
+Dazu musst du dich einmal authentifizieren.</value>
   </data>
   <data name="StartDateAppBarButton.Label" xml:space="preserve">
     <value>Startdatum</value>
