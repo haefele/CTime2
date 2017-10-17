@@ -2,6 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Microsoft.Xaml.Interactivity;
 
 namespace CTime2.Behaviors
@@ -26,7 +27,7 @@ namespace CTime2.Behaviors
             if (element == null)
                 return null;
 
-            var flyoutPresenter = element.FindVisualAscendant<FlyoutPresenter>();
+            var flyoutPresenter = element.FindAscendant<FlyoutPresenter>();
             if (flyoutPresenter == null)
                 return null;
 

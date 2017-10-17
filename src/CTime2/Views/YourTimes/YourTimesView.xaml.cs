@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Media;
 using CTime2.Common;
 using CTime2.Core.Data;
 using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 
 namespace CTime2.Views.YourTimes
 {
@@ -30,7 +31,7 @@ namespace CTime2.Views.YourTimes
 
         private void UpdateBackground(FrameworkElement frameworkElement)
         {
-            var headerItem = frameworkElement.FindVisualAscendant<ListViewHeaderItem>();
+            var headerItem = frameworkElement.FindAscendant<ListViewHeaderItem>();
 
             if (headerItem == null)
                 return;

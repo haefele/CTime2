@@ -5,6 +5,7 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using CTime2.Strings;
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using ReactiveUI;
 using UwCore;
 using UwCore.Extensions;

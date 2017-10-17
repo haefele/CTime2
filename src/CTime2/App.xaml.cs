@@ -53,6 +53,7 @@ using CTime2.Views.Terminal;
 using CTime2.Views.UpdateNotes;
 using CTime2.Views.YourTimes;
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using UwCore.Application;
 using UwCore.Extensions;
 using UwCore.Hamburger;
