@@ -17,6 +17,7 @@ Task("CleanFolders")
         "./../src/CTime2.Core/",
         "./../src/CTime2.LiveTileService/",
         "./../src/CTime2.VoiceCommandService/",
+		"./../src/CTime2.EmployeeNotificationService/"
     };
 
     foreach (var path in paths)
@@ -45,11 +46,12 @@ Task("NuGetRestore")
     .IsDependentOn("UpdateAppxManifestVersion")
     .Does(() => 
 {
-    NuGetRestore(slnPath);
+	var settings = new MSBuildSettings().WithTarget("restore");
+	MSBuild(slnPath, settings);
 });
 
 Task("Build")
-    .IsDependentOn("NugetRestore")
+    .IsDependentOn("NuGetRestore")
     .Does(() => 
 {
     MSBuildSettings settings;
