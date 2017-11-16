@@ -12,7 +12,7 @@ namespace CTime2.Core.Services.Statistics
         int CalculateWorkDayCount(List<TimesByDay> times, bool onlyWorkDays);
         TimeSpan CalculateAverageEnterTime(List<TimesByDay> times, bool onlyWorkDays);
         TimeSpan CalculateAverageLeaveTime(List<TimesByDay> times, bool onlyWorkDays);
-        TimeSpan CalculateAverageBreakTime(List<TimesByDay> times, bool onlyWorkDays, bool onlyDaysWithBreak);
+        TimeSpan CalculateAverageBreakTime(List<TimesByDay> times, bool onlyWorkDays);
         TimeSpan CalculateOverTime(List<TimesByDay> times, bool onlyWorkDays);
         TodaysWorkEnd CalculateTodaysWorkEnd(TimesByDay timeToday, List<TimesByDay> times, bool onlyWorkDays);
         TimeSpan CalculateAverageOverTime(List<TimesByDay> times, bool onlyWorkDays);

@@ -97,18 +97,55 @@ namespace CTime2.Core.Services.Statistics
             return TimeSpan.FromMinutes(sum / count);
         }
 
-        public TimeSpan CalculateAverageBreakTime(List<TimesByDay> times, bool onlyWorkDays, bool onlyDaysWithBreak)
+        public TimeSpan CalculateAverageBreakTime(List<TimesByDay> times, bool onlyWorkDays)
         {
-            var filteredTimes = times
+            var breakTimes = times
                 .Where(f => this.FilterOnlyWorkDays(f, onlyWorkDays))
-                .Where(f => onlyDaysWithBreak == false || f.Times.Count >= 2)
+                .Select(f => this.GetBreakDurationOnDay(f.Times.OrderBy(d => d.ClockInTime).ToList()))
+                .Where(f => f != null)
+                .Select(f => f.Value)
                 .ToList();
 
-            var leaveTime = this.CalculateAverageLeaveTime(filteredTimes, onlyWorkDays);
-            var enterTime = this.CalculateAverageEnterTime(filteredTimes, onlyWorkDays);
-            var workTime = this.CalculateAverageWorkTime(filteredTimes, onlyWorkDays);
+            if (breakTimes.Count == 0)
+                return TimeSpan.Zero;
 
-            return leaveTime - enterTime - workTime;
+            var averageBreakTime = breakTimes.Sum(f => f.TotalMinutes) / breakTimes.Count;
+            return TimeSpan.FromMinutes(averageBreakTime);
+        }
+
+        private TimeSpan? GetBreakDurationOnDay(List<TimeForGrouping> times)
+        {
+            if (times.Count < 2)
+                return null;
+
+            var breakTimeBegin = this._applicationStateService.GetBreakTimeBegin();
+            var breakTimeEnd = this._applicationStateService.GetBreakTimeEnd();
+
+            TimeSpan breakTimeSum = TimeSpan.Zero;
+
+            for (int i = 0; i < times.Count; i++)
+            {
+                var currentTime = times[i];
+                var nextTime = times.Count > i + 1 ? times[i + 1] : null;
+
+                if (nextTime == null)
+                    continue;
+
+                if (currentTime.ClockOutTime == null || nextTime.ClockInTime == null)
+                    continue;
+
+                if (currentTime.ClockOutTime.Value.TimeOfDay >= breakTimeBegin &&
+                    currentTime.ClockOutTime.Value.TimeOfDay <= breakTimeEnd &&
+                    nextTime.ClockInTime.Value.TimeOfDay <= breakTimeEnd &&
+                    currentTime.ClockOutTime.Value.TimeOfDay <= nextTime.ClockInTime.Value.TimeOfDay)
+                {
+                    breakTimeSum += nextTime.ClockInTime.Value.TimeOfDay - currentTime.ClockOutTime.Value.TimeOfDay;
+                }
+            }
+
+            return breakTimeSum == TimeSpan.Zero 
+                ? (TimeSpan?) null 
+                : breakTimeSum;
         }
 
         public TimeSpan CalculateOverTime(List<TimesByDay> times, bool onlyWorkDays)

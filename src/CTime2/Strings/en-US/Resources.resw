@@ -600,9 +600,6 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="WorkDaysSettingsGroup.Header" xml:space="preserve">
     <value>Working days</value>
   </data>
-  <data name="Statistics.AverageBreakTimeSubTitle" xml:space="preserve">
-    <value>Only days with break</value>
-  </data>
   <data name="BreakTimeAreaSettingsItem.Description" xml:space="preserve">
     <value>Break time</value>
   </data>

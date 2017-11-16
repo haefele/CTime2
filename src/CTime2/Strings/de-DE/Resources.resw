@@ -591,9 +591,6 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="WorkDaysSettingsGroup.Header" xml:space="preserve">
     <value>Arbeitstage</value>
   </data>
-  <data name="Statistics.AverageBreakTimeSubTitle" xml:space="preserve">
-    <value>Nur Tage mit Pause</value>
-  </data>
   <data name="BreakTimeEndTimePart1TextBlock.Text" xml:space="preserve">
     <value>Bis </value>
   </data>
