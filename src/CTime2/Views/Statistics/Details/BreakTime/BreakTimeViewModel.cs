@@ -65,7 +65,7 @@ namespace CTime2.Views.Statistics.Details.BreakTime
             this.EnsureAllDatesAreThere(items, 0);
 
             this.ExpectedBreakTimePerDay = this._applicationStateService.GetWorkDayBreak().TotalMinutes;
-            this.AverageBreakTimePerDay = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays:true, onlyDaysWithBreak:false).TotalMinutes;
+            this.AverageBreakTimePerDay = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays:true).TotalMinutes;
             this.ChartItems = new ReactiveList<StatisticChartItem>(items.OrderBy(f => f.Date));
 
             return Task.CompletedTask;

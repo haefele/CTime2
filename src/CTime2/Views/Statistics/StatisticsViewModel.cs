@@ -180,8 +180,7 @@ namespace CTime2.Views.Statistics
             var averageWorkTime = this._statisticsService.CalculateAverageWorkTime(timesByDay, onlyWorkDays:true);
             var averageEnterTime = this._statisticsService.CalculateAverageEnterTime(timesByDay, onlyWorkDays:true);
             var averageLeaveTime = this._statisticsService.CalculateAverageLeaveTime(timesByDay, onlyWorkDays:true);
-            var averageBreakTime = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: false);
-            var averageBreakTimeOnDaysWithBreak = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: true);
+            var averageBreakTime = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true);
             var overtime = this._statisticsService.CalculateOverTime(timesByDay, onlyWorkDays:false);
             var workEnd = this._statisticsService.CalculateTodaysWorkEnd(allTimes.FirstOrDefault(f => f.Day == this._clock.Today()), timesByDay, onlyWorkDays:false);
             
@@ -202,15 +201,7 @@ namespace CTime2.Views.Statistics
                     timesByDay.Count > 1
                         ? () => this.ShowDetails(StatisticChartKind.BreakTime)
                         : (Action)null),
-
-                new StatisticItem(
-                    CTime2Resources.Get("Statistics.AverageBreakTime"),
-                    CTime2Resources.Get("Statistics.AverageBreakTimeSubTitle"),
-                    averageBreakTimeOnDaysWithBreak.TrimMilliseconds().ToString("T"),
-                    timesByDay.Count > 1
-                        ? () => this.ShowDetails(StatisticChartKind.BreakTime)
-                        : (Action)null),
-
+                
                 new StatisticItem(
                     CTime2Resources.Get("Statistics.AverageEnterTime"),
                     null,
