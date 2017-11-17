@@ -117,6 +117,7 @@
     <Compile Include="Converter\MinutesToTimeStringConverter.cs" />
     <Compile Include="Converter\NumberAboveConverter.cs" />
     <Compile Include="Converter\TimeSpanToTimeStringConverter.cs" />
+    <Compile Include="Converter\ZeroToVisibilityCollapsedConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Views\About\MoreInfoTextFromResources.cs" />
     <Compile Include="Views\About\ThisAppIsOpenSourceTextFromResourceses.cs" />
