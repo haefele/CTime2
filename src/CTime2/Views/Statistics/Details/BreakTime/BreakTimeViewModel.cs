@@ -59,7 +59,7 @@ namespace CTime2.Views.Statistics.Details.BreakTime
                 .Select(f => new StatisticChartItem
                 {
                     Date = f.Day,
-                    Value = (f.DayEndTime.Value - f.DayStartTime.Value).TotalMinutes - f.Hours.TotalMinutes
+                    Value = this._statisticsService.CalculateBreakTime(f).TotalMinutes
                 })
                 .ToList();
             this.EnsureAllDatesAreThere(items, 0);
