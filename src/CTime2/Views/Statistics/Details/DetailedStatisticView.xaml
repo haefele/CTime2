@@ -47,25 +47,26 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <SymbolIcon Grid.Column="0" 
-                                        Symbol="ZoomOut"
-                                        VerticalAlignment="Center"
-                                        Margin="0, 0, 0, 6" />
+                            <Button Grid.Column="0" 
+                                    VerticalAlignment="Center"
+                                    Click="ZoomOutButton_OnClick">
+                                <SymbolIcon Symbol="ZoomOut" />
+                            </Button>
 
                             <Slider Grid.Column="1"
-                                    Margin="10, 0"
-                                    Width="200"
+                                    Margin="10, 0, 10, -6"
+                                    Width="300"
                                     IsThumbToolTipEnabled="False"
                                     Minimum="1"
-                                    Maximum="5"
+                                    Maximum="10"
                                     StepFrequency="0.2"
                                     Value="{Binding ActiveItem.ZoomFactor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-
-                            <SymbolIcon Grid.Column="2" 
-                                        Symbol="ZoomIn"
-                                        VerticalAlignment="Center"
-                                        Margin="0, 0, 0, 6" />
+                            <Button Grid.Column="2" 
+                                    VerticalAlignment="Center"
+                                    Click="ZoomInButton_OnClick">
+                                <SymbolIcon Symbol="ZoomIn" />
+                            </Button>
                         </Grid>
                     </Flyout>
                 </AppBarButton.Flyout>

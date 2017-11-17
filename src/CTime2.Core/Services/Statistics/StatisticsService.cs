@@ -97,6 +97,11 @@ namespace CTime2.Core.Services.Statistics
             return TimeSpan.FromMinutes(sum / count);
         }
 
+        public TimeSpan CalculateBreakTime(TimesByDay time)
+        {
+            return this.GetBreakDurationOnDay(time.Times.OrderBy(f => f.ClockInTime).ToList()) ?? TimeSpan.Zero;
+        }
+
         public TimeSpan CalculateAverageBreakTime(List<TimesByDay> times, bool onlyWorkDays)
         {
             var breakTimes = times

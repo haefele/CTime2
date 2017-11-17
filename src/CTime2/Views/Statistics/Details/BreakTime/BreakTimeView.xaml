@@ -28,6 +28,7 @@
 
             <chart:RadCartesianChart.HorizontalAxis>
                 <chart:DateTimeContinuousAxis LabelFormat="{}{0:dd. MMM.}" 
+                                              MaximumTicks="{x:Bind ViewModel.ChartItems.Count, Mode=OneWay}"
                                               PlotMode="OnTicksPadded" />
             </chart:RadCartesianChart.HorizontalAxis>
 
