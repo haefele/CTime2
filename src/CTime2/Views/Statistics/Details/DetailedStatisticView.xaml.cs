@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
@@ -41,6 +42,17 @@ namespace CTime2.Views.Statistics.Details
             await encoder.FlushAsync();
 
             return RandomAccessStreamReference.CreateFromStream(randomAccessStream);
+        }
+
+        private void ZoomOutButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            // Dont let the zoom factor become less than 1
+            this.ViewModel.ActiveItem.ZoomFactor = Math.Max(1, this.ViewModel.ActiveItem.ZoomFactor - 1);
+        }
+
+        private void ZoomInButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.ActiveItem.ZoomFactor += 1;
         }
     }
 
