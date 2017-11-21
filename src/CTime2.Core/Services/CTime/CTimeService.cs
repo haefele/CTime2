@@ -171,7 +171,7 @@ namespace CTime2.Core.Services.CTime
 
                 var expectedState = state.HasFlag(TimeState.Entered) ? 1 : 0;
 
-                var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false, expectedState:expectedState);
+                var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false);
                 if (responseJson?.GetInt("State") == expectedState)
                 {
                     //Make sure to clear the cache before we fire the UserStamped event
@@ -341,7 +341,7 @@ namespace CTime2.Core.Services.CTime
             return hashedPasswordString.Replace("-", string.Empty).ToLower();
         }
 
-        private async Task<JsonObject> SendRequestAsync(string function, Dictionary<string, string> data, bool canBeCached = true, int expectedState = 0)
+        private async Task<JsonObject> SendRequestAsync(string function, Dictionary<string, string> data, bool canBeCached = true)
         {
             string responseContentAsString;
 
@@ -376,13 +376,7 @@ namespace CTime2.Core.Services.CTime
                 await Task.Delay(TimeSpan.FromSeconds(0.1));
             }
 
-            var responseJson = JsonObject.Parse(responseContentAsString);
-            var responseState = (int) responseJson.GetNamedNumber("State", 0);
-
-            if (responseState != expectedState)
-                return null;
-
-            return responseJson;
+            return JsonObject.Parse(responseContentAsString);
         }
 
         private Uri BuildUri(string path)
