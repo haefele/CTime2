@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Email;
 using CTime2.Core.Data;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.Email;
 using CTime2.Core.Services.Sharing;
 using CTime2.Strings;
 using ReactiveUI;
@@ -23,6 +26,7 @@ namespace CTime2.Views.YourTimes
         private readonly ICTimeService _cTimeService;
         private readonly ISharingService _sharingService;
         private readonly IClock _clock;
+        private readonly IEmailService _emailService;
 
         private readonly ObservableAsPropertyHelper<ReactiveList<TimesByDay>> _timesHelper;
 
@@ -47,18 +51,21 @@ namespace CTime2.Views.YourTimes
 
         public UwCoreCommand<ReactiveList<TimesByDay>> LoadTimes { get; }
         public UwCoreCommand<Unit> Share { get; }
+        public UwCoreCommand<Unit> ReportMissingTimes { get; }
 
-        public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, ISharingService sharingService, IClock clock)
+        public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, ISharingService sharingService, IClock clock, IEmailService emailService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(sharingService, nameof(sharingService));
             Guard.NotNull(clock, nameof(clock));
+            Guard.NotNull(emailService, nameof(emailService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._sharingService = sharingService;
             this._clock = clock;
+            this._emailService = emailService;
 
             this.WhenAnyValue(f => f.StartDate, f => f.EndDate)
                 .Select(f => CTime2Resources.GetFormatted("MyTimes.TitleFormat", this.StartDate, this.EndDate))
@@ -73,6 +80,15 @@ namespace CTime2.Views.YourTimes
             this.Share = UwCoreCommand.Create(this.ShareImpl)
                 .HandleExceptions()
                 .TrackEvent("ShareMyTimes");
+
+            var canReportMissingTimes = this.WhenAnyValue(f => f.Times)
+                .Where(f => f != null)
+                .Where(f => f.Any(d => d.IsMissing))
+                .Any();
+            this.ReportMissingTimes = UwCoreCommand.Create(canReportMissingTimes, this.ReportMissingTimesImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.ReportMissingTimes"))
+                .HandleExceptions()
+                .TrackEvent("ReportMissingTimes");
 
             this.StartDate = this._clock.Now().StartOfMonth();
             this.EndDate = this._clock.Now().WithoutTime();
@@ -112,8 +128,10 @@ namespace CTime2.Views.YourTimes
         
         private async Task<ReactiveList<TimesByDay>> LoadTimesImpl()
         {
+            var workDays = this._applicationStateService.GetWorkDays();
+
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
-            return new ReactiveList<TimesByDay>(TimesByDay.Create(times));
+            return new ReactiveList<TimesByDay>(TimesByDay.Create(times, workDays));
         }
         
         private Task ShareImpl()
@@ -131,6 +149,19 @@ namespace CTime2.Views.YourTimes
             });
 
             return Task.CompletedTask;
+        }
+
+        private async Task ReportMissingTimesImpl()
+        {
+            var missingDays = this.Times
+                .Where(f => f.IsMissing)
+                .Select(f => f.Day.ToString("d"));
+            
+            var email = new EmailMessage();
+            email.Subject = CTime2Resources.Get("ReportMissingDaysEmail.Subject");
+            email.Body = Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, missingDays);
+
+            await this._emailService.SendEmailAsync(email);
         }
 
         #region Internal

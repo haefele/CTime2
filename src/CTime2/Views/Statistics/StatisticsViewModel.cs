@@ -144,9 +144,10 @@ namespace CTime2.Views.Statistics
         #region Methods
         private async Task<ReactiveList<StatisticItem>> LoadStatisticsImpl()
         {
+            var workDays = this._applicationStateService.GetWorkDays();
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
-            var allTimes = TimesByDay.Create(times).ToList();
+            var allTimes = TimesByDay.Create(times, workDays).ToList();
             
             //If "IncludeToday" is NULL, we have to set it to either true or false
             //NULL is the default value when the first time the LoadStatistics command is executed
