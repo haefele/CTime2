@@ -635,4 +635,10 @@ Click on "Report missing days" to automatically create an email with all missing
   <data name="ReportMissingDaysEmail.Subject" xml:space="preserve">
     <value>c-time missing days</value>
   </data>
+  <data name="MissingDaysTextBlock.Text" xml:space="preserve">
+    <value>Missing days!</value>
+  </data>
+  <data name="MissingDaysTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>There are workdays in the last 2 weeks without any times.</value>
+  </data>
 </root>
