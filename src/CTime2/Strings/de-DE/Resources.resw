@@ -635,6 +635,12 @@ Sie können über den Button "Fehlende Tage melden" automatisch eine E-Mail mit 
   <data name="ReportMissingDaysEmail.Subject" xml:space="preserve">
     <value>c-time fehlende Tage</value>
   </data>
+  <data name="MissingDaysEmailReceiverSettingsItem.Description" xml:space="preserve">
+    <value>Wer soll die E-Mail bezüglich Arbeitstage ohne erfasste Zeiten bekommen?</value>
+  </data>
+  <data name="MissingDaysSettingsGroup.Header" xml:space="preserve">
+    <value>Fehlende Tage</value>
+  </data>
   <data name="MissingDaysTextBlock.Text" xml:space="preserve">
     <value>Fehlende Tage!</value>
   </data>

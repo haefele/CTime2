@@ -161,6 +161,10 @@ namespace CTime2.Views.YourTimes
             email.Subject = CTime2Resources.Get("ReportMissingDaysEmail.Subject");
             email.Body = Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, missingDays);
 
+            var missingDaysEmailReceiver = this._applicationStateService.GetMissingDaysEmailReceiver();
+            if (string.IsNullOrWhiteSpace(missingDaysEmailReceiver) == false)
+                email.To.Add(new EmailRecipient(missingDaysEmailReceiver));
+            
             await this._emailService.SendEmailAsync(email);
         }
 

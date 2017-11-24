@@ -635,6 +635,12 @@ Click on "Report missing days" to automatically create an email with all missing
   <data name="ReportMissingDaysEmail.Subject" xml:space="preserve">
     <value>c-time missing days</value>
   </data>
+  <data name="MissingDaysEmailReceiverSettingsItem.Description" xml:space="preserve">
+    <value>Who should receive the email for workdays without any times?</value>
+  </data>
+  <data name="MissingDaysSettingsGroup.Header" xml:space="preserve">
+    <value>Missing days</value>
+  </data>
   <data name="MissingDaysTextBlock.Text" xml:space="preserve">
     <value>Missing days!</value>
   </data>

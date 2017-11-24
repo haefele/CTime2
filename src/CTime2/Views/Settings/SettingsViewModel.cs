@@ -37,6 +37,7 @@ namespace CTime2.Views.Settings
         private TimeSpan _breakTimeEnd;
         private ReactiveList<DayOfWeek> _workDays;
         private ElementTheme _theme;
+        private string _missingDaysEmailReceiver;
         private bool _includeContactInfoInErrorReports;
         private string _companyId;
 
@@ -94,6 +95,12 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._theme, value); }
         }
 
+        public string MissingDaysEmailReceiver
+        {
+            get { return this._missingDaysEmailReceiver; }
+            set { this.RaiseAndSetIfChanged(ref this._missingDaysEmailReceiver, value); }
+        }
+
         public bool IncludeContactInfoInErrorReports
         {
             get { return this._includeContactInfoInErrorReports; }
@@ -135,8 +142,9 @@ namespace CTime2.Views.Settings
             this.BreakTimeBegin = this._applicationStateService.GetBreakTimeBegin();
             this.BreakTimeEnd = this._applicationStateService.GetBreakTimeEnd();
             this.WorkDays = new ReactiveList<DayOfWeek>(this._applicationStateService.GetWorkDays());
-            this.CompanyId = this._applicationStateService.GetCompanyId();
+            this.MissingDaysEmailReceiver = this._applicationStateService.GetMissingDaysEmailReceiver();
             this.IncludeContactInfoInErrorReports = this._applicationStateService.GetIncludeContactInfoInErrorReports();
+            this.CompanyId = this._applicationStateService.GetCompanyId();
 
             this.WhenAnyValue(f => f.Theme)
                 .Subscribe(theme =>
@@ -169,10 +177,16 @@ namespace CTime2.Views.Settings
                     this._applicationStateService.SetBreakTimeEnd(breakTimeEnd);
                 });
 
-            this.WhenAnyValue(f => f.CompanyId)
-                .Subscribe(companyId =>
+            this.WorkDays.Changed
+                .Subscribe(_ =>
                 {
-                    this._applicationStateService.SetCompanyId(companyId);
+                    this._applicationStateService.SetWorkDays(this.WorkDays.ToArray());
+                });
+
+            this.WhenAnyValue(f => f.MissingDaysEmailReceiver)
+                .Subscribe(receiver =>
+                {
+                    this._applicationStateService.SetMissingDaysEmailReceiver(receiver);
                 });
 
             this.WhenAnyValue(f => f.IncludeContactInfoInErrorReports)
@@ -184,10 +198,10 @@ namespace CTime2.Views.Settings
                     this._hockeyClient.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
                 });
 
-            this.WorkDays.Changed
-                .Subscribe(_ =>
+            this.WhenAnyValue(f => f.CompanyId)
+                .Subscribe(companyId =>
                 {
-                    this._applicationStateService.SetWorkDays(this.WorkDays.ToArray());
+                    this._applicationStateService.SetCompanyId(companyId);
                 });
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
