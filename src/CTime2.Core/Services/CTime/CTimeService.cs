@@ -169,8 +169,10 @@ namespace CTime2.Core.Services.CTime
                     {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
                 };
 
+                var expectedState = state.HasFlag(TimeState.Entered) ? 1 : 0;
+
                 var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false);
-                if (responseJson?.GetInt("State") == 0)
+                if (responseJson?.GetInt("State") == expectedState)
                 {
                     //Make sure to clear the cache before we fire the UserStamped event
                     this._requestCache.Clear();
@@ -366,20 +368,15 @@ namespace CTime2.Core.Services.CTime
 
                 responseContentAsString = await response.Content.ReadAsStringAsync();
 
-                this._requestCache.Cache(function, data, responseContentAsString);
+                if (canBeCached)
+                    this._requestCache.Cache(function, data, responseContentAsString);
             }
             else
             {
                 await Task.Delay(TimeSpan.FromSeconds(0.1));
             }
 
-            var responseJson = JsonObject.Parse(responseContentAsString);
-            var responseState = (int) responseJson.GetNamedNumber("State", 0);
-
-            if (responseState != 0)
-                return null;
-
-            return responseJson;
+            return JsonObject.Parse(responseContentAsString);
         }
 
         private Uri BuildUri(string path)
