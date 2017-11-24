@@ -121,6 +121,7 @@ namespace CTime2.Core.Services.CTime
                         Day = f.GetDateTime("DayDate"),
                         Hours = f.GetTimeSpan("TimeHour_IST_HR"),
                         State = f.GetNullableEnum<TimeState>("TimeTrackTypePure"),
+                        StateDescription = f.GetString("TimeTrackTypeDescription"),
                         ClockInTime = f.GetNullableDateTime("TimeTrackIn"),
                         ClockOutTime = f.GetNullableDateTime("TimeTrackOut"),
                     })
@@ -133,6 +134,11 @@ namespace CTime2.Core.Services.CTime
                         else if (f.ClockInTime != null)
                         {
                             f.State = (f.State ?? 0) | TimeState.Entered;
+                        }
+
+                        if (f.State == TimeState.Entered || f.State == TimeState.Left)
+                        {
+                            f.StateDescription = null;
                         }
 
                         return f;

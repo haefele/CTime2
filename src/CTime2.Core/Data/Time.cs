@@ -7,6 +7,7 @@ namespace CTime2.Core.Data
         public DateTime Day { get; set; }
         public TimeSpan Hours { get; set; }
         public TimeState? State { get; set; }
+        public string StateDescription { get; set; }
         public DateTime? ClockInTime { get; set; }
         public DateTime? ClockOutTime { get; set; }
     }
