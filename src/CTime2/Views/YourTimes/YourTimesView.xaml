@@ -9,7 +9,8 @@
     xmlns:uwCoreConverter="using:UwCore.Converter"
     xmlns:data="using:CTime2.Core.Data"
     xmlns:behaviors="using:CTime2.Behaviors"
-
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -19,8 +20,8 @@
                               Source="{x:Bind ViewModel.Times, Mode=OneWay}"
                               IsSourceGrouped="True"
                               ItemsPath="Times" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <uwCoreConverter:FormatStringConverter x:Key="DateTimeToDayNumberConverter" FormatString="ddd dd. MMMM" />
-        
         <uwCoreConverter:FormatStringConverter x:Key="DateTimeToStringConverter" FormatString="t" PlaceholderString="?" />
         <Style x:Key="DefaultListViewHeaderItemStyle" 
                TargetType="ListViewHeaderItem">
@@ -55,10 +56,26 @@
                         <DataTemplate x:DataType="data:TimesByDay">
                             <Grid Loaded="FrameworkElement_OnLoaded" 
                                   DataContextChanged="FrameworkElement_OnDataContextChanged">
-                                <TextBlock Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, Mode=OneWay}" />
-                                <TextBlock Text="{x:Bind Hours, Mode=OneWay}" 
-                                           HorizontalAlignment="Right"
-                                           />
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <SymbolIcon Grid.Column="0"
+                                            x:Uid="MissingTimeSymbolIcon"
+                                            Margin="0, 0, 10, 0"
+                                            HorizontalAlignment="Center"
+                                            ToolTipService.ToolTip="~An diesem Arbeitstag sind keine Zeiten erfasst. Sie können über den Button 'Fehlende Zeiten melden' automatisch eine E-Mail mit allen fehlenden Tagen generieren lassen."
+                                            Visibility="{x:Bind IsMissing, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
+                                            Symbol="ReportHacked"
+                                            Foreground="Red" />
+                                
+                                <TextBlock Grid.Column="1" 
+                                           Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, Mode=OneWay}" />
+                                
+                                <TextBlock Grid.Column="2" 
+                                           Text="{x:Bind Hours, Mode=OneWay}" HorizontalAlignment="Right" />
                             </Grid>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
@@ -99,6 +116,15 @@
         </ListView>
 
         <CommandBar Grid.Row="1">
+            <AppBarButton x:Uid="ReportMissingDaysAppBarButton"
+                          Label="~Fehlende Tage melden"
+                          Command="{x:Bind ViewModel.ReportMissingTimes}"
+                          Visibility="{x:Bind ViewModel.ReportMissingTimes.CanExecute, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="ReportHacked" />
+                </AppBarButton.Icon>
+                
+            </AppBarButton>
             <AppBarButton x:Uid="ShareAppBarButton" 
                           Label="~Teilen"
                           Command="{x:Bind ViewModel.Share}" >

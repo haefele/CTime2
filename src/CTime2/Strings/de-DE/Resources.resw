@@ -621,4 +621,30 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="NotifyAppBarToggleButton.Label" xml:space="preserve">
     <value>Benachrichtigen</value>
   </data>
+  <data name="Loading.ReportMissingTimes" xml:space="preserve">
+    <value>Melde fehlende Tage...</value>
+  </data>
+  <data name="MissingTimeSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>An diesem Arbeitstag sind keine Zeiten erfasst. 
+
+Sie können über den Button "Fehlende Tage melden" automatisch eine E-Mail mit allen fehlenden Tagen generieren lassen.</value>
+  </data>
+  <data name="ReportMissingDaysAppBarButton.Label" xml:space="preserve">
+    <value>Fehlende Tage melden</value>
+  </data>
+  <data name="ReportMissingDaysEmail.Subject" xml:space="preserve">
+    <value>c-time fehlende Tage</value>
+  </data>
+  <data name="MissingDaysEmailReceiverSettingsItem.Description" xml:space="preserve">
+    <value>Wer soll die E-Mail bezüglich Arbeitstage ohne erfasste Zeiten bekommen?</value>
+  </data>
+  <data name="MissingDaysSettingsGroup.Header" xml:space="preserve">
+    <value>Fehlende Tage</value>
+  </data>
+  <data name="MissingDaysTextBlock.Text" xml:space="preserve">
+    <value>Fehlende Tage!</value>
+  </data>
+  <data name="MissingDaysTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>In den letzten 2 Wochen gibt es Arbeitstage ohne erfasste Zeiten.</value>
+  </data>
 </root>

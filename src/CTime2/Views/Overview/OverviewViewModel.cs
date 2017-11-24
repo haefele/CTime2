@@ -1,7 +1,11 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using System.Reactive;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using CTime2.Core.Common;
+using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
@@ -10,6 +14,7 @@ using CTime2.Strings;
 using CTime2.Views.GeoLocationInfo;
 using CTime2.Views.Overview.CheckedIn;
 using CTime2.Views.Overview.CheckedOut;
+using CTime2.Views.YourTimes;
 using ReactiveUI;
 using UwCore;
 using UwCore.Application.Events;
@@ -31,6 +36,7 @@ namespace CTime2.Views.Overview
         private byte[] _myImage;
         private GeoLocationState _geoLocationState;
         private MyTimeViewModel _myTimeViewModel;
+        private bool _warnForMissingDays;
 
         public string WelcomeMessage
         {
@@ -56,8 +62,15 @@ namespace CTime2.Views.Overview
             set { this.RaiseAndSetIfChanged(ref this._myTimeViewModel, value); }
         }
 
+        public bool WarnForMissingDays
+        {
+            get { return this._warnForMissingDays; }
+            set { this.RaiseAndSetIfChanged(ref this._warnForMissingDays, value); }
+        }
+
         public UwCoreCommand<Unit> RefreshCurrentState { get; }
         public UwCoreCommand<Unit> ShowGeoLocationInfo { get; }
+        public UwCoreCommand<Unit> GoToMyTimesWithMissingDays { get; }
 
         public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IGeoLocationService geoLocationService, INavigationService navigationService)
         {
@@ -83,6 +96,10 @@ namespace CTime2.Views.Overview
                 .HandleExceptions()
                 .TrackEvent("GeoLocationInfo");
 
+            this.GoToMyTimesWithMissingDays = UwCoreCommand.Create(this.WhenAnyValue(f => f.WarnForMissingDays), this.GoToMyTimesWithMissingDaysImpl)
+                .HandleExceptions()
+                .TrackEvent("GoToMyTimesWithMissingDays");
+
             this.MyTimeViewModel = IoC.Get<MyTimeViewModel>();
             this.MyTimeViewModel.ConductWith(this);
 
@@ -105,25 +122,64 @@ namespace CTime2.Views.Overview
         
         private async Task RefreshCurrentStateImpl()
         {
-            var checkedIn = await this._cTimeService.IsCurrentlyCheckedIn(this._applicationStateService.GetCurrentUser().Id);
-            
-            StampTimeStateViewModelBase currentState;
+            await Task.WhenAll(
+                this.RefreshCurrentlyCheckedIn(), 
+                this.RefreshWarningForMissingDays());
+        }
 
-            if (checkedIn)
-            {
-                currentState = IoC.Get<CheckedInViewModel>();
-            }
-            else
-            {
-                currentState = IoC.Get<CheckedOutViewModel>();
-            }
+        private async Task RefreshWarningForMissingDays()
+        {
+            var employeeGuid = this._applicationStateService.GetCurrentUser().Id;
+            var workDays = this._applicationStateService.GetWorkDays();
+
+            var times = await this._cTimeService.GetTimes(employeeGuid, this.GetStartOfTwoWeeksAgo(), DateTime.Today);
+
+            this.WarnForMissingDays = TimesByDay.Create(times, workDays).Any(f => f.IsMissing);
+        }
+
+        private async Task RefreshCurrentlyCheckedIn()
+        {
+            var employeeGuid = this._applicationStateService.GetCurrentUser().Id;
+
+            var currentState = await this._cTimeService.IsCurrentlyCheckedIn(employeeGuid)
+                ? (StampTimeStateViewModelBase)IoC.Get<CheckedInViewModel>()
+                : IoC.Get<CheckedOutViewModel>();
 
             this.ActivateItem(currentState);
+        }
+
+        private DateTime GetStartOfTwoWeeksAgo()
+        {
+            // Looks ugly, is ugly, BUT IT WORKS!
+
+            var current = DateTime.Today;
+
+            // One week ago
+            while (current.DayOfWeek != DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek)
+                current = current.AddDays(-1);
+
+            current = current.AddDays(-1);
+
+            // Two weeks ago
+            while (current.DayOfWeek != DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek)
+                current = current.AddDays(-1);
+
+            return current;
         }
 
         private Task ShowGeoLocationInfoImpl()
         {
             this._navigationService.Popup.For<GeoLocationInfoViewModel>().Navigate();
+
+            return Task.CompletedTask;
+        }
+
+        private Task GoToMyTimesWithMissingDaysImpl()
+        {
+            this._navigationService.For<YourTimesViewModel>()
+                .WithParam(f => f.Parameter.StartDate, this.GetStartOfTwoWeeksAgo())
+                .WithParam(f => f.Parameter.EndDate, DateTime.Today)
+                .Navigate();
 
             return Task.CompletedTask;
         }

@@ -13,8 +13,9 @@ namespace CTime2.Core.Data
         public BindableCollection<TimeForGrouping> Times { get; }
         public DateTime? DayStartTime { get; }
         public DateTime? DayEndTime { get; }
+        public bool IsMissing { get; }
 
-        private TimesByDay(DateTime day, BindableCollection<TimeForGrouping> times)
+        private TimesByDay(DateTime day, BindableCollection<TimeForGrouping> times, DayOfWeek[] workDays)
         {
             this.Day = day;
             this.Times = times;
@@ -25,15 +26,17 @@ namespace CTime2.Core.Data
 
             var clockOutTimes = times.Where(f => f.ClockOutTime != null).Select(f => f.ClockOutTime.Value).ToList();
             this.DayEndTime = clockOutTimes.Any() ? clockOutTimes.Max(): (DateTime?)null;
+
+            this.IsMissing = this.DayStartTime == null && this.DayEndTime == null && workDays.Contains(this.Day.DayOfWeek);
         }
 
-        public static IEnumerable<TimesByDay> Create(IEnumerable<Time> times)
+        public static IEnumerable<TimesByDay> Create(IEnumerable<Time> times, DayOfWeek[] workDays)
         {
             var result =
                 from time in times
                 orderby time.Day descending
                 group time by time.Day into g
-                select new TimesByDay(g.Key, new BindableCollection<TimeForGrouping>(g.OrderByDescending(f => f.ClockInTime).Select(f => new TimeForGrouping(f))));
+                select new TimesByDay(g.Key, new BindableCollection<TimeForGrouping>(g.OrderByDescending(f => f.ClockInTime).Select(f => new TimeForGrouping(f))), workDays);
 
             return result;
         }

@@ -621,4 +621,30 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="NotifyAppBarToggleButton.Label" xml:space="preserve">
     <value>notify</value>
   </data>
+  <data name="Loading.ReportMissingTimes" xml:space="preserve">
+    <value>Reporting missing days...</value>
+  </data>
+  <data name="MissingTimeSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>There are no times on this workday.
+
+Click on "Report missing days" to automatically create an email with all missing days in it.</value>
+  </data>
+  <data name="ReportMissingDaysAppBarButton.Label" xml:space="preserve">
+    <value>Report missing days</value>
+  </data>
+  <data name="ReportMissingDaysEmail.Subject" xml:space="preserve">
+    <value>c-time missing days</value>
+  </data>
+  <data name="MissingDaysEmailReceiverSettingsItem.Description" xml:space="preserve">
+    <value>Who should receive the email for workdays without any times?</value>
+  </data>
+  <data name="MissingDaysSettingsGroup.Header" xml:space="preserve">
+    <value>Missing days</value>
+  </data>
+  <data name="MissingDaysTextBlock.Text" xml:space="preserve">
+    <value>Missing days!</value>
+  </data>
+  <data name="MissingDaysTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>There are workdays in the last 2 weeks without any times.</value>
+  </data>
 </root>

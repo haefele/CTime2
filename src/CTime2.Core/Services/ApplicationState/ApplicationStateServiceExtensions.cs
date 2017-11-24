@@ -87,6 +87,16 @@ namespace CTime2.Core.Services.ApplicationState
             self.Set("CompanyId", companyId, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
 
+        public static string GetMissingDaysEmailReceiver(this IApplicationStateService self)
+        {
+            return self.Get<string>("MissingDaysEmailReceiver", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? string.Empty;
+        }
+
+        public static void SetMissingDaysEmailReceiver(this IApplicationStateService self, string missingDaysEmailReceiver)
+        {
+            self.Set("MissingDaysEmailReceiver", missingDaysEmailReceiver, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
+
         public static bool GetIncludeContactInfoInErrorReports(this IApplicationStateService self)
         {
             return self.Get<bool?>("IncludeContactInfoInErrorReports", UwCore.Services.ApplicationState.ApplicationState.Roaming) ?? true;

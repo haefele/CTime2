@@ -121,6 +121,13 @@
                     </StackPanel>
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
+            <uwCoreControls:SettingsGroup Header="~Fehlende Tage"
+                                          x:Uid="MissingDaysSettingsGroup">
+                <uwCoreControls:SettingsItem Description="~Wer soll die E-Mail bezüglich Arbeitstage ohne erfasste Zeiten bekommen?"
+                                             x:Uid="MissingDaysEmailReceiverSettingsItem">
+                    <TextBox Width="240" HorizontalAlignment="Left" Text="{Binding MissingDaysEmailReceiver, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </uwCoreControls:SettingsItem>
+            </uwCoreControls:SettingsGroup>
             <uwCoreControls:SettingsGroup Header="~Analytik"
                                           x:Uid="AnalyticsSettingsGroup">
                 <uwCoreControls:SettingsItem Description="~Fehlermeldungen und Abstürze werden an die Entwicklung von c-time Universal übertragen.&#13;&#10;Du hast hier die Möglichkeit einzustellen, ob dein Name und deine E-Mail Adresse auch übertragen werden sollen.&#13;&#10;&#13;&#10;Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten weitergegeben."
