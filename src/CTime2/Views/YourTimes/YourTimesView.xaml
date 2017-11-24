@@ -75,6 +75,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="60" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
@@ -87,8 +88,11 @@
                         <TextBlock Text="{x:Bind ClockOutTime, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}"
                                    Grid.Column="2"
                                    HorizontalAlignment="Left" />
+                        <TextBlock Text="{x:Bind StateDescription, Mode=OneWay}"
+                                   Grid.Column="3"
+                                   HorizontalAlignment="Left" />
                         <TextBlock Text="{x:Bind Duration, Mode=OneWay}"
-                                   Grid.Column="3"/>
+                                   Grid.Column="4"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

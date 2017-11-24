@@ -9,6 +9,7 @@ namespace CTime2.Core.Data
         public DateTime? ClockInTime { get; }
         public DateTime? ClockOutTime { get; }
         public TimeSpan? Duration { get; }
+        public string StateDescription { get; }
 
         public TimeForGrouping(Time time)
         {
@@ -16,6 +17,7 @@ namespace CTime2.Core.Data
 
             this.ClockInTime = time.ClockInTime;
             this.ClockOutTime = time.ClockOutTime;
+            this.StateDescription = time.StateDescription;
 
             if (this.ClockInTime != null && this.ClockOutTime != null)
             {
@@ -34,8 +36,11 @@ namespace CTime2.Core.Data
             string duration = this.Duration != null
                 ? $" ({this.Duration.Value:g})"
                 : string.Empty;
+            string state = string.IsNullOrWhiteSpace(this.StateDescription) == false
+                ? $" ({this.StateDescription})"
+                : string.Empty;
 
-            return $"{clockInTime} - {clockOutTime}{duration}";
+            return $"{clockInTime} - {clockOutTime}{duration}{state}";
         }
     }
 }
