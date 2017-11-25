@@ -3,11 +3,11 @@
 Diese Datenschutzerklärung beschreibt welche Personenbezogenen Daten von c-time Universal verwendet werden, und auch wofür.
 
 ## Analytik
-c-time Universal verwendet die Dienste von HockeyApp (https://hockeyapp.net). Zum Einen um anonymisierte Nutzungsdaten der App zu sammeln.
+c-time Universal verwendet die Dienste von Visual Studio App Center (https://www.visualstudio.com/app-center/). Zum Einen um anonymisierte Nutzungsdaten der App zu sammeln.
 Das heißt, wie häufig die App verwendet wird, wie viele Personen die App verwenden, und auch wie häufig Funktionen in der App verwendet werden.
 Zum Anderen werden Infos zu Abstürzen und Fehlern in der App gesammelt. Diese sind mit dem Namen und der E-Mail Adresse des Benutzers versehen.
 (Dies lässt sich in den Einstellungen der App deaktivieren.)
-Datenschutzbestimmung von HockeyApp: https://privacy.microsoft.com/en-us/privacystatement
+Datenschutzbestimmung von Visual Studio App Center: https://privacy.microsoft.com/de-DE/privacystatement
 
 ## c-time API
 Damit die App funktionieren kann wird die öffentliche c-time API verwendet.
