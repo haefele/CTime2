@@ -28,11 +28,17 @@ namespace CTime2.Views.YourTimes
         private readonly IClock _clock;
         private readonly IEmailService _emailService;
 
+        private TimesByDay _selectedDayForReportMissingTime;
         private readonly ObservableAsPropertyHelper<ReactiveList<TimesByDay>> _timesHelper;
-
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
-        
+
+        public TimesByDay SelectedDayForReportMissingTime
+        {
+            get { return this._selectedDayForReportMissingTime; }
+            set { this.RaiseAndSetIfChanged(ref this._selectedDayForReportMissingTime, value); }
+        }
+
         public ReactiveList<TimesByDay> Times => this._timesHelper.Value;
 
         public DateTimeOffset StartDate
@@ -52,6 +58,7 @@ namespace CTime2.Views.YourTimes
         public UwCoreCommand<ReactiveList<TimesByDay>> LoadTimes { get; }
         public UwCoreCommand<Unit> Share { get; }
         public UwCoreCommand<Unit> ReportMissingTimes { get; }
+        public UwCoreCommand<Unit> ReportMissingTimeForSelectedDay { get; }
 
         public YourTimesViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, ISharingService sharingService, IClock clock, IEmailService emailService)
         {
@@ -89,6 +96,13 @@ namespace CTime2.Views.YourTimes
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.ReportMissingTimes"))
                 .HandleExceptions()
                 .TrackEvent("ReportMissingTimes");
+
+            var canReportMissingTimesSelectedDay = this.WhenAnyValue(f => f.SelectedDayForReportMissingTime)
+                .Select(f => f != null);
+            this.ReportMissingTimeForSelectedDay = UwCoreCommand.Create(canReportMissingTimesSelectedDay, this.ReportMissingTimeForSelectedDayImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.ReportMissingTimes"))
+                .HandleExceptions()
+                .TrackEvent("ReportMissingTimesSelectedDay");
 
             this.StartDate = this._clock.Now().StartOfMonth();
             this.EndDate = this._clock.Now().WithoutTime();
@@ -153,10 +167,20 @@ namespace CTime2.Views.YourTimes
 
         private async Task ReportMissingTimesImpl()
         {
-            var missingDays = this.Times
+            await this.ReportMissingTimesInternal(this.Times.ToArray());
+        }
+
+        private async Task ReportMissingTimeForSelectedDayImpl()
+        {
+            await this.ReportMissingTimesInternal(this.SelectedDayForReportMissingTime);
+        }
+
+        private async Task ReportMissingTimesInternal(params TimesByDay[] times)
+        {
+            var missingDays = times
                 .Where(f => f.IsMissing)
                 .Select(f => f.Day.ToString("d"));
-            
+
             var email = new EmailMessage();
             email.Subject = CTime2Resources.Get("ReportMissingDaysEmail.Subject");
             email.Body = Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, missingDays);
@@ -164,7 +188,7 @@ namespace CTime2.Views.YourTimes
             var missingDaysEmailReceiver = this._applicationStateService.GetMissingDaysEmailReceiver();
             if (string.IsNullOrWhiteSpace(missingDaysEmailReceiver) == false)
                 email.To.Add(new EmailRecipient(missingDaysEmailReceiver));
-            
+
             await this._emailService.SendEmailAsync(email);
         }
 
