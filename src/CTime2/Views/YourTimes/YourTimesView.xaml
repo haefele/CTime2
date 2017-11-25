@@ -69,7 +69,9 @@
                                             ToolTipService.ToolTip="~An diesem Arbeitstag sind keine Zeiten erfasst. Sie können über den Button 'Fehlende Zeiten melden' automatisch eine E-Mail mit allen fehlenden Tagen generieren lassen."
                                             Visibility="{x:Bind IsMissing, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
                                             Symbol="ReportHacked"
-                                            Foreground="Red" />
+                                            Foreground="Red"
+                                            PointerPressed="WarnMissingDaysSymbolIcon_OnPointerPressed"
+                                            />
                                 
                                 <TextBlock Grid.Column="1" 
                                            Text="{x:Bind Day, Converter={StaticResource DateTimeToDayNumberConverter}, Mode=OneWay}" />

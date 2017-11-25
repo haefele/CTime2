@@ -15,7 +15,6 @@ using CTime2.Views.AttendanceList;
 using CTime2.Views.Overview;
 using CTime2.Views.Statistics;
 using CTime2.Views.YourTimes;
-using Microsoft.HockeyApp;
 using UwCore.Application;
 using UwCore.Common;
 using UwCore.Events;
@@ -24,6 +23,7 @@ using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using CTime2.Extensions;
 using UwCore.Extensions;
+using UwCore.Services.Analytics;
 using UwCore.Services.Clock;
 using UwCore.Services.Loading;
 
@@ -36,9 +36,9 @@ namespace CTime2.ApplicationModes
         private readonly IDialogService _dialogService;
         private readonly ICTimeService _cTimeService;
         private readonly IEmployeeGroupService _employeeGroupService;
-        private readonly IHockeyClient _hockeyClient;
         private readonly ILoadingService _loadingService;
         private readonly IClock _clock;
+        private readonly IAnalyticsService _analyticsService;
 
         private readonly HamburgerItem _overviewHamburgerItem;
         private readonly HamburgerItem _myTimesHamburgerItem;
@@ -47,23 +47,23 @@ namespace CTime2.ApplicationModes
         private readonly HamburgerItem _statisticsItem;
         private readonly HamburgerItem _logoutHamburgerItem;
 
-        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService, ICTimeService cTimeService, IEmployeeGroupService employeeGroupService, IHockeyClient hockeyClient, ILoadingService loadingService, IClock clock)
+        public LoggedInApplicationMode(IApplicationStateService applicationStateService, IDialogService dialogService, ICTimeService cTimeService, IEmployeeGroupService employeeGroupService, ILoadingService loadingService, IClock clock, IAnalyticsService analyticsService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(dialogService, nameof(dialogService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(employeeGroupService, nameof(employeeGroupService));
-            Guard.NotNull(hockeyClient, nameof(hockeyClient));
             Guard.NotNull(loadingService, nameof(loadingService));
             Guard.NotNull(clock, nameof(clock));
+            Guard.NotNull(analyticsService, nameof(analyticsService));
 
             this._applicationStateService = applicationStateService;
             this._dialogService = dialogService;
             this._cTimeService = cTimeService;
             this._employeeGroupService = employeeGroupService;
-            this._hockeyClient = hockeyClient;
             this._loadingService = loadingService;
             this._clock = clock;
+            this._analyticsService = analyticsService;
 
             this._overviewHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Overview"), Symbol.Globe, typeof(OverviewViewModel));
             this._myTimesHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar, typeof(YourTimesViewModel));
@@ -79,8 +79,8 @@ namespace CTime2.ApplicationModes
             await base.OnEnter();
 
             var currentUser = this._applicationStateService.GetCurrentUser();
-            this._hockeyClient.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
-
+            this._analyticsService.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
+            
             this._overviewHamburgerItem.Execute();
         }
         

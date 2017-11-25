@@ -20,6 +20,10 @@ Zum Anderen wird bei einem Fehler die c-time API erneut angesprochen. Das hilft 
 In den Statistiken kam es zu einem Fehler, wenn man in der ausgewählten Zeitspanne bisher keine Zeiten hatte.  
 Dieser Fehler wurde behoben.
 
+### Verbesserte "Meine Zeiten"
+Unter "Meine Zeiten" sieht man jetzt auch was für eine Zeit das war, Urlaub oder Home-Office zum Beispiel.  
+Außerdem bekommt man eine Warnung wenn bei an einem Arbeitstag keine Zeiten eingetragen sind.
+
 ## Version 1.8.2.0
 
 ### Fehler mit heutigem Arbeitsende

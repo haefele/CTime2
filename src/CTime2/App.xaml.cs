@@ -52,12 +52,15 @@ using CTime2.Views.Statistics.Details.WorkTime;
 using CTime2.Views.Terminal;
 using CTime2.Views.UpdateNotes;
 using CTime2.Views.YourTimes;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.Helpers;
 using UwCore.Application;
 using UwCore.Extensions;
 using UwCore.Hamburger;
 using UwCore.Logging;
+using UwCore.Services.Analytics;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 
@@ -134,13 +137,18 @@ namespace CTime2
         public override void CustomizeShell(IShell shell)
         {
             base.CustomizeShell(shell);
-            
+
             shell.Theme = IoC.Get<IApplicationStateService>().GetApplicationTheme();
 
             shell.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
 
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
+        }
+
+        public override bool UseNewShellIfPossible()
+        {
+            return false;
         }
         #endregion
 
@@ -172,7 +180,7 @@ namespace CTime2
             }
 
             this._appTimer = new Timer(_ => Tick(), null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
-            
+
             this.UnRegisterBackgroundTasks();
         }
 
@@ -247,7 +255,7 @@ namespace CTime2
 
             yield return typeof(ILicensesService);
             yield return typeof(LicensesService);
-            
+
             yield return typeof(IBiometricsService);
             yield return typeof(BiometricsService);
 
@@ -283,16 +291,22 @@ namespace CTime2
         }
         #endregion
 
-        #region HockeyApp
-        public override bool IsHockeyAppEnabled()
+        #region Analytics
+        public override IAnalyticsService GetAnalyticsService()
         {
-            return base.IsHockeyAppEnabled() &&
-                   Package.Current.Id.Version.ToVersion() != new Version("9999.9999.9999.0");
+#if DEBUG
+            string appCenterSecret = "47d68127-8259-42ba-9449-e971c0bbabb3";
+#else
+            string appCenterSecret = "26792bb8-2428-4009-9ea2-573c46d15a77";
+#endif
+
+            return new AppCenterAnalyticsService(appCenterSecret, typeof(Analytics), typeof(Crashes));
         }
 
-        public override string GetHockeyAppId()
+        public override bool IsAnalyticsServiceEnabled()
         {
-            return "16f525b1f6c04b6b987253bd8801dc20";
+            return base.IsAnalyticsServiceEnabled() &&
+                   Package.Current.Id.Version.ToVersion() != new Version("9999.9999.9999.0");
         }
         #endregion
 
@@ -307,13 +321,13 @@ namespace CTime2
         private async Task RegisterBackgroungTasks()
         {
             var access = await BackgroundExecutionManager.RequestAccessAsync();
-            
+
             var validStatus = new[]
             {
-                BackgroundAccessStatus.AlwaysAllowed, 
-                BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity, 
-                BackgroundAccessStatus.AllowedSubjectToSystemPolicy, 
-                BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity, 
+                BackgroundAccessStatus.AlwaysAllowed,
+                BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity,
+                BackgroundAccessStatus.AllowedSubjectToSystemPolicy,
+                BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity,
             };
 
             if (validStatus.Contains(access))

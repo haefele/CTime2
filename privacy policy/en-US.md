@@ -3,11 +3,11 @@
 This privacy policy governs the manner which personal information is collected by the c-time Universal App and how they are used.
 
 ## Analytic
-c-time Universal uses HockeyApp (https://hockeyapp.net) to collect anonymous usage information from the App.
+c-time Universal uses Visual Studio App Center (https://www.visualstudio.com/app-center/) to collect anonymous usage information from the App.
 In detail this means: How often the App is used, how many people are using the App, and how often a specific feature from the App is used.
-HockeyApp is also used to collect information about crashes and errors. These are combined with the name and the email address from the user of the app.
+Visual Studio App Center is also used to collect information about crashes and errors. These are combined with the name and the email address from the user of the app.
 (You can disable that in the settings of the app.)
-HockeyApp's privacy policy: https://privacy.microsoft.com/en-us/privacystatement
+Visual Studio App Center's privacy policy: https://privacy.microsoft.com/en-us/privacystatement
 
 ## c-time API
 The App is using the c-time public API.

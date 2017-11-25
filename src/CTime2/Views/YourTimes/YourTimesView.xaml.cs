@@ -2,6 +2,7 @@
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using CTime2.Common;
 using CTime2.Core.Data;
@@ -50,6 +51,15 @@ namespace CTime2.Views.YourTimes
             {
                 headerItem.Style = (Style)this.Resources["DefaultListViewHeaderItemStyle"];
             }
+        }
+
+        private async void WarnMissingDaysSymbolIcon_OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            var symbolIcon = (SymbolIcon) sender;
+            var day = (TimesByDay) symbolIcon.DataContext;
+
+            this.ViewModel.SelectedDayForReportMissingTime = day;
+            await this.ViewModel.ReportMissingTimeForSelectedDay.ExecuteAsync();
         }
     }
 }

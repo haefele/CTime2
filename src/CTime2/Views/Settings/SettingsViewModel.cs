@@ -5,19 +5,17 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
-using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Biometrics;
 using CTime2.Strings;
-using Microsoft.HockeyApp;
 using ReactiveUI;
 using UwCore;
 using UwCore.Application;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 using CTime2.Extensions;
-using Microsoft.Toolkit.Uwp.Notifications;
+using UwCore.Services.Analytics;
 
 namespace CTime2.Views.Settings
 {
@@ -26,7 +24,7 @@ namespace CTime2.Views.Settings
         private readonly IBiometricsService _biometricsService;
         private readonly IApplicationStateService _applicationStateService;
         private readonly IShell _shell;
-        private readonly IHockeyClient _hockeyClient;
+        private readonly IAnalyticsService _analyticsService;
 
         private ReactiveList<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
@@ -115,17 +113,17 @@ namespace CTime2.Views.Settings
         
         public UwCoreCommand<Unit> RememberLogin { get; }
 
-        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell, IHockeyClient hockeyClient)
+        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell, IAnalyticsService analyticsService)
         {
             Guard.NotNull(biometricsService, nameof(biometricsService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(shell, nameof(shell));
-            Guard.NotNull(hockeyClient, nameof(hockeyClient));
+            Guard.NotNull(analyticsService, nameof(analyticsService));
 
             this._biometricsService = biometricsService;
             this._applicationStateService = applicationStateService;
             this._shell = shell;
-            this._hockeyClient = hockeyClient;
+            this._analyticsService = analyticsService;
 
             var hasUser = new ReplaySubject<bool>(1);
             hasUser.OnNext(this._applicationStateService.GetCurrentUser() != null);
@@ -195,7 +193,7 @@ namespace CTime2.Views.Settings
                     this._applicationStateService.SetIncludeContactInfoInErrorReports(include);
 
                     var currentUser = this._applicationStateService.GetCurrentUser();
-                    this._hockeyClient.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
+                    this._analyticsService.UpdateContactInfo(include ? currentUser : null);
                 });
 
             this.WhenAnyValue(f => f.CompanyId)
