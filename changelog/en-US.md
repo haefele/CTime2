@@ -20,6 +20,10 @@ Second, if there is an error calling the c-time API, we will retry the request. 
 An error would occur in the statistics, if in the selected timespan no times were found.  
 This is fixed now.
 
+### Improved "My times"
+You can now see what kind of time it is, vacation or home-office for example.  
+There is a warning now for workdays without any times.
+
 ## Version 1.8.2.0
 
 ### Bug with todays workend

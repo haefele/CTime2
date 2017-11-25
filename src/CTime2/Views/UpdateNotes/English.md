@@ -1,3 +1,29 @@
+## Version 1.9.0.0
+-----
+
+### Live-Tile
+This app now supports the windows 10 live-tiles.  
+This means, if you pinned this app to your start-screen, then you can see some c-time data on the tile itself.  
+For example how long you have worked today already, or when you checked-in or -out.
+
+### Notifications when someone checks in
+This is especially useful in the morning or after break.  
+If you wait for a coworker, then you receive a nice notification once he checks in.
+
+### Improved communication with c-time
+There are to tiny improvements how we call the c-time API.  
+First, there is now a little cache in place. So if you navigate around very much, the performance of this App is greatly improved.  
+Second, if there is an error calling the c-time API, we will retry the request. This helps a lot on bad connections.
+
+### Bug in statistics
+An error would occur in the statistics, if in the selected timespan no times were found.  
+This is fixed now.
+
+### Improved "My times"
+You can now see what kind of time it is, vacation or home-office for example.  
+There is a warning now for workdays without any times.
+
+-----
 ## Version 1.8.2.0
 -----
 
