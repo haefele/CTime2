@@ -392,9 +392,6 @@ You just have to authenticate yourself.</value>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>My times from {0:d} to {1:d}</value>
   </data>
-  <data name="Statistics.OverTimePoolSubTitle" xml:space="preserve">
-    <value>in minutes</value>
-  </data>
   <data name="Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle" xml:space="preserve">
     <value>without overtime</value>
   </data>

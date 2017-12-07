@@ -386,9 +386,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="Statistics.CalculatedLeaveTimeTodayWithoutOvertimeSubTitle" xml:space="preserve">
     <value>ohne Überstunden</value>
   </data>
-  <data name="Statistics.OverTimePoolSubTitle" xml:space="preserve">
-    <value>in Minuten</value>
-  </data>
   <data name="AddAsContactTextBlock.Text" xml:space="preserve">
     <value>Als Kontakt anlegen</value>
   </data>

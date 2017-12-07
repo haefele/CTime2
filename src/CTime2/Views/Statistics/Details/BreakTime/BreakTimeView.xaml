@@ -13,6 +13,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Page.Resources>
+        <ctimeConverter:MinutesToTimeStringConverter x:Key="MinutesToTimeStringConverter" />
         <ctimeConverter:MinutesToTimeStringConverter x:Key="AverageMinutesToTimeStringConverter" Prefix="⌀ " />
         <ctimeConverter:NumberAboveConverter x:Key="AboveExpectedBreakTimePerDay" EqualOrBigger="{StaticResource CTimeGreen}" Less="{StaticResource CTimeRed}" CompareTo="{Binding ExpectedBreakTimePerDay, Mode=OneWay}" />
         <ctimeConverter:DoubleToHorizontalSizeConverter x:Key="DecimalToHorizontalSizeConverter" />
@@ -75,10 +76,8 @@
                     <chart:ChartSeriesLabelDefinition HorizontalAlignment="Center" VerticalAlignment="Top">
                         <chart:ChartSeriesLabelDefinition.Template>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Visibility="{Binding DataItem.Value, Converter={StaticResource ZeroToVisibilityCollapsedConverter}}">
-                                    <TextBlock Text="{Binding DataItem.Value}" />
-                                    <TextBlock Text=" min" />
-                                </StackPanel>
+                                <TextBlock Visibility="{Binding DataItem.Value, Converter={StaticResource ZeroToVisibilityCollapsedConverter}}"
+                                           Text="{Binding DataItem.Value, Converter={StaticResource MinutesToTimeStringConverter}}" />
                             </DataTemplate>
                         </chart:ChartSeriesLabelDefinition.Template>
                     </chart:ChartSeriesLabelDefinition>

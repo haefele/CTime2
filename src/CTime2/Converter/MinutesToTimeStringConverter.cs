@@ -1,5 +1,6 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
+using CTime2.Extensions;
 
 namespace CTime2.Converter
 {
@@ -18,7 +19,7 @@ namespace CTime2.Converter
             if (t == TimeSpan.Zero)
                 return string.Empty;
 
-            return this.Prefix + Math.Round(t.TotalMinutes) + " min";
+            return this.Prefix + t.ToFormattedString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
