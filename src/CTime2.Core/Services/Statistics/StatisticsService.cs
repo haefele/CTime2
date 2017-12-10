@@ -99,14 +99,14 @@ namespace CTime2.Core.Services.Statistics
 
         public TimeSpan CalculateBreakTime(TimesByDay time)
         {
-            return this.GetBreakDurationOnDay(time.Times.OrderBy(f => f.ClockInTime).ToList()) ?? TimeSpan.Zero;
+            return this.GetBreakDurationOnDay(time.Times) ?? TimeSpan.Zero;
         }
 
         public TimeSpan CalculateAverageBreakTime(List<TimesByDay> times, bool onlyWorkDays)
         {
             var breakTimes = times
                 .Where(f => this.FilterOnlyWorkDays(f, onlyWorkDays))
-                .Select(f => this.GetBreakDurationOnDay(f.Times.OrderBy(d => d.ClockInTime).ToList()))
+                .Select(f => this.GetBreakDurationOnDay(f.Times))
                 .Where(f => f != null)
                 .Select(f => f.Value)
                 .ToList();
@@ -118,10 +118,12 @@ namespace CTime2.Core.Services.Statistics
             return TimeSpan.FromMinutes(averageBreakTime);
         }
 
-        private TimeSpan? GetBreakDurationOnDay(List<TimeForGrouping> times)
+        private TimeSpan? GetBreakDurationOnDay(IList<TimeForGrouping> times)
         {
             if (times.Count < 2)
                 return null;
+
+            times = times.OrderBy(f => f.ClockInTime).ToList();
 
             var breakTimeBegin = this._applicationStateService.GetBreakTimeBegin();
             var breakTimeEnd = this._applicationStateService.GetBreakTimeEnd();
@@ -178,7 +180,7 @@ namespace CTime2.Core.Services.Statistics
                                                    - overtime
                                                    - timeToday.Hours
                                                    + (latestTimeToday.Duration ?? TimeSpan.Zero);
-            var hadBreakAlready = timeToday?.Times.Count >= 2;
+            var hadBreakAlready = this.GetBreakDurationOnDay(timeToday.Times) != null;
 
             var expectedWorkEnd = (latestTimeToday?.ClockInTime ?? this._clock.Now().DateTime)
                                   + (hadBreakAlready ? TimeSpan.Zero : workDayBreak)

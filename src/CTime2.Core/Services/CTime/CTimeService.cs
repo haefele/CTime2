@@ -113,6 +113,9 @@ namespace CTime2.Core.Services.CTime
                 if (responseJson == null)
                     return new List<Time>();
 
+                if (responseJson.GetNamedValue("Result", JsonValue.CreateNullValue()).ValueType != JsonValueType.Array)
+                    return new List<Time>();
+
                 return responseJson
                     .GetNamedArray("Result", new JsonArray())
                     .Select(f => f.GetObject())
