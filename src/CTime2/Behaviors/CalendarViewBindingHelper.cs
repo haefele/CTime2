@@ -61,7 +61,7 @@ namespace CTime2.Behaviors
 
         private void SynchronizeToCalendarView()
         {
-            if (this._alreadySynchronizing)
+            if (this._alreadySynchronizing || this.AssociatedObject == null)
                 return;
 
             this._alreadySynchronizing = true;
@@ -74,7 +74,7 @@ namespace CTime2.Behaviors
 
         private void SynchronizeFromCalendarView()
         {
-            if (this._alreadySynchronizing)
+            if (this._alreadySynchronizing || this.AssociatedObject == null)
                 return;
 
             this._alreadySynchronizing = true;
