@@ -148,7 +148,7 @@ namespace CTime2
 
         public override bool UseNewShellIfPossible()
         {
-            return false;
+            return true;
         }
         #endregion
 
