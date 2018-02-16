@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutMessageTextBlock.Text" xml:space="preserve">
-    <value>c-time Universal is an unofficial app for the attendance software c-time.</value>
+    <value>c-Time Universal is an unofficial app for the attendance software c-Time.</value>
   </data>
   <data name="AppNameTextBlock.Text" xml:space="preserve">
-    <value>c-time Universal</value>
+    <value>c-Time Universal</value>
   </data>
   <data name="CurrentMonthAppBarButton.Label" xml:space="preserve">
     <value>Current month</value>
@@ -241,7 +241,7 @@
     <value>logs.zip</value>
   </data>
   <data name="Feedback.Subject" xml:space="preserve">
-    <value>Feedback on the c-time universal app</value>
+    <value>Feedback on the c-Time universal app</value>
   </data>
   <data name="CheckInStampButton.Content" xml:space="preserve">
     <value>Checkin</value>
@@ -323,7 +323,7 @@ This app may not work completely.</value>
     <value>{0} m</value>
   </data>
   <data name="UpdateForCtimeUniversalTextBlock.Text" xml:space="preserve">
-    <value>Update for c-time Universal!</value>
+    <value>Update for c-Time Universal!</value>
   </data>
   <data name="TheNewVersionFormat" xml:space="preserve">
     <value>The new version {0} has been installed.</value>
@@ -338,7 +338,7 @@ This app may not work completely.</value>
     <value>This gives your company the opportunity to see where you have been when you checked-in or -out.</value>
   </data>
   <data name="GeoLocationCanBeActivatedRun.Text" xml:space="preserve">
-    <value>c-time can be adjusted so that the current position should be transferred if you stamp.</value>
+    <value>c-Time can be adjusted so that the current position should be transferred if you stamp.</value>
   </data>
   <data name="GeoLocationInfoTitleTextBlock.Text" xml:space="preserve">
     <value>Transfer position</value>
@@ -450,7 +450,7 @@ You just have to authenticate yourself.</value>
     <value>Terminal</value>
   </data>
   <data name="TerminalSettingsGroup.Description" xml:space="preserve">
-    <value>If you want to use this app on a terminal to stamp with RFID-chips, you have to enter your c-time Company-ID here.
+    <value>If you want to use this app on a terminal to stamp with RFID-chips, you have to enter your c-Time Company-ID here.
 Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   </data>
   <data name="CompanyIdSettingsItem.Description" xml:space="preserve">
@@ -460,7 +460,7 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
     <value>Analytics</value>
   </data>
   <data name="IncludeContactInfoInErrorReportsSettingsItem.Description" xml:space="preserve">
-    <value>Errors and crashes will be transferred to the development of c-time Universal.
+    <value>Errors and crashes will be transferred to the development of c-Time Universal.
 You have the option whether your name and your email address will be transferred as well.
 
 This data will only be used to contact you, it will not be given to a third party.</value>
@@ -476,7 +476,7 @@ This data will only be used to contact you, it will not be given to a third part
 &lt;Run Text="."&gt;&lt;/Run&gt;</value>
   </data>
   <data name="MoreInfo" xml:space="preserve">
-    <value>&lt;Run Text="More information on c-time at"&gt;&lt;/Run&gt;
+    <value>&lt;Run Text="More information on c-Time at"&gt;&lt;/Run&gt;
 &lt;Hyperlink Name="CTimeWebsiteHyperlink"&gt;
     &lt;Run Text="c-time.net"&gt;&lt;/Run&gt;
 &lt;/Hyperlink&gt;
@@ -493,7 +493,7 @@ This data will only be used to contact you, it will not be given to a third part
     <value>Patch notes</value>
   </data>
   <data name="VersionRun.Text" xml:space="preserve">
-    <value>c-time Universal Version</value>
+    <value>c-Time Universal Version</value>
   </data>
   <data name="FeedbackHyperlinkButton.Content" xml:space="preserve">
     <value>Feedback</value>
@@ -630,7 +630,7 @@ Click on "Report missing days" to automatically create an email with all missing
     <value>Report missing days</value>
   </data>
   <data name="ReportMissingDaysEmail.Subject" xml:space="preserve">
-    <value>c-time missing days</value>
+    <value>c-Time missing days</value>
   </data>
   <data name="MissingDaysEmailReceiverSettingsItem.Description" xml:space="preserve">
     <value>Who should receive the email for workdays without any times?</value>

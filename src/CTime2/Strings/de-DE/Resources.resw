@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutMessageTextBlock.Text" xml:space="preserve">
-    <value>c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time.</value>
+    <value>c-Time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-Time.</value>
   </data>
   <data name="AppNameTextBlock.Text" xml:space="preserve">
-    <value>c-time Universal</value>
+    <value>c-Time Universal</value>
   </data>
   <data name="CheckInStampButton.Content" xml:space="preserve">
     <value>Einstempeln</value>
@@ -154,7 +154,7 @@
     <value>Logs.zip</value>
   </data>
   <data name="Feedback.Subject" xml:space="preserve">
-    <value>Feedback zur c-time Universal App</value>
+    <value>Feedback zur c-Time Universal App</value>
   </data>
   <data name="HomeOfficeCheckInStampButton.Content" xml:space="preserve">
     <value>Home-Office Einstempeln</value>
@@ -333,7 +333,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
     <value>Die neue Version {0} wurde installiert.</value>
   </data>
   <data name="UpdateForCtimeUniversalTextBlock.Text" xml:space="preserve">
-    <value>Update für c-time Universal!</value>
+    <value>Update für c-Time Universal!</value>
   </data>
   <data name="GeoLocationAvailableTextSetter.Value" xml:space="preserve">
     <value>Position wird übertragen</value>
@@ -342,7 +342,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
     <value>Das gibt deiner Firma die Möglichkeit zu sehen, wo du dich befunden hast, als du dich ein- bzw. ausgestempelt hast.</value>
   </data>
   <data name="GeoLocationCanBeActivatedRun.Text" xml:space="preserve">
-    <value>c-time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</value>
+    <value>c-Time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</value>
   </data>
   <data name="IncludeTodayAppBarToggleButton.Label" xml:space="preserve">
     <value>Mit Heute</value>
@@ -450,7 +450,7 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
     <value>Firmen-ID</value>
   </data>
   <data name="TerminalSettingsGroup.Description" xml:space="preserve">
-    <value>Um diese App an einem Terminal zum Stempeln mit RFID-Chips zu verwenden, musst du deine Firmen-ID von c-time hier eintragen.
+    <value>Um diese App an einem Terminal zum Stempeln mit RFID-Chips zu verwenden, musst du deine Firmen-ID von c-Time hier eintragen.
 Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   </data>
   <data name="TerminalSettingsGroup.Header" xml:space="preserve">
@@ -460,7 +460,7 @@ Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
     <value>Analytik</value>
   </data>
   <data name="IncludeContactInfoInErrorReportsSettingsItem.Description" xml:space="preserve">
-    <value>Fehlermeldungen und Abstürze werden an die Entwicklung von c-time Universal übertragen.
+    <value>Fehlermeldungen und Abstürze werden an die Entwicklung von c-Time Universal übertragen.
 Du hast hier die Möglichkeit einzustellen, ob dein Name und deine E-Mail Adresse auch übertragen werden sollen.
 
 Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten weitergegeben.</value>
@@ -505,7 +505,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
     <value>https://github.com/haefele</value>
   </data>
   <data name="MoreInfo" xml:space="preserve">
-    <value>&lt;Run Text="Weitere Informationen zu c-time gibts auf" /&gt;
+    <value>&lt;Run Text="Weitere Informationen zu c-Time gibts auf" /&gt;
 &lt;Hyperlink Name="CTimeWebsiteHyperlink"&gt;
     &lt;Run Text="c-time.net" /&gt;
 &lt;/Hyperlink&gt;
@@ -541,7 +541,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
     <value>https://twitter.com/haefeledev</value>
   </data>
   <data name="VersionRun.Text" xml:space="preserve">
-    <value>c-time Universal Version</value>
+    <value>c-Time Universal Version</value>
   </data>
   <data name="SearchAppBarButton.Label" xml:space="preserve">
     <value>Suchen</value>
@@ -630,7 +630,7 @@ Sie können über den Button "Fehlende Tage melden" automatisch eine E-Mail mit 
     <value>Fehlende Tage melden</value>
   </data>
   <data name="ReportMissingDaysEmail.Subject" xml:space="preserve">
-    <value>c-time fehlende Tage</value>
+    <value>c-Time fehlende Tage</value>
   </data>
   <data name="MissingDaysEmailReceiverSettingsItem.Description" xml:space="preserve">
     <value>Wer soll die E-Mail bezüglich Arbeitstage ohne erfasste Zeiten bekommen?</value>

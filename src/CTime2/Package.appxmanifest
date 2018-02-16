@@ -3,7 +3,7 @@
   <Identity Name="16761DanielHaefele.c-timeUniversal" Publisher="CN=3400925E-5738-4A72-80AF-310AF3876A38" Version="9999.9999.9999.0" />
   <mp:PhoneIdentity PhoneProductId="2784a954-b9c1-4045-b74d-b2f57348533d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>c-time Universal</DisplayName>
+    <DisplayName>c-Time Universal</DisplayName>
     <PublisherDisplayName>Daniel Häfele</PublisherDisplayName>
     <Logo>Assets\NewStoreLogo.png</Logo>
   </Properties>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="CTime2.App">
-      <uap:VisualElements DisplayName="c-time Universal" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="c-time Universal" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="c-Time Universal" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="c-Time Universal" BackgroundColor="transparent">
         <uap:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
           <uap:ShowNameOnTiles>

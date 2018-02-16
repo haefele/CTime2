@@ -24,7 +24,7 @@
 
         <Viewbox Grid.Row="1" StretchDirection="DownOnly" HorizontalAlignment="Left">
             <TextBlock x:Uid="UpdateForCtimeUniversalTextBlock"
-                       Text="~Update for c-time Universal!" 
+                       Text="~Update for c-Time Universal!" 
                        Style="{StaticResource TitleTextBlockStyle}"
                        Foreground="{StaticResource SystemControlHighlightAccentBrush}" />
         </Viewbox>

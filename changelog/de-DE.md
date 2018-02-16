@@ -4,17 +4,17 @@
 
 ### Live-Tile
 Diese App unterstützt nun die Windows 10 Live-Tiles.  
-Das heißt, wenn man die App auf dem Start-Screen angepinnt hat, kann man direkt auf der Kachel einige Informationen aus c-time sehen.  
+Das heißt, wenn man die App auf dem Start-Screen angepinnt hat, kann man direkt auf der Kachel einige Informationen aus c-Time sehen.  
 Zum Beispiel wie lange man heute schon gearbeitet hat, oder welche Zeiten man heute schon erfasst hat.
 
 ### Benachrichtigung wenn jemand einstempelt
 Das ist gerade morgens oder nach der Mittagspause hilfreich.  
 Wenn man auf einen Arbeitskollegen wartet bekommt man hiermit nun einfach eine Benachrichtigung wenn dieser eingestempelt hat.
 
-### Verbesserte kommunikation mit c-time
-Beim Aufrufen der c-time API gibt es zwei kleine Verbesserungen.  
+### Verbesserte kommunikation mit c-Time
+Beim Aufrufen der c-Time API gibt es zwei kleine Verbesserungen.  
 Zum Einen wurde ein kleine Cache eingebaut. Wenn man also schnell in der App hin- und herwechselt, ist die App wesentlich performanter.  
-Zum Anderen wird bei einem Fehler die c-time API erneut angesprochen. Das hilft gerade bei schlechter Verbindung.
+Zum Anderen wird bei einem Fehler die c-Time API erneut angesprochen. Das hilft gerade bei schlechter Verbindung.
 
 ### Fehler in Statistiken behoben
 In den Statistiken kam es zu einem Fehler, wenn man in der ausgewählten Zeitspanne bisher keine Zeiten hatte.  
@@ -100,16 +100,16 @@ In der letzten Version hat sich ein kleiner Fehler eingeschlichen, weshalb die B
 ## Version 1.6.0.0
 
 ### Geolokalisierung beim Stempeln!
-c-time hat diese Funktion schon länger unterstützt, jetzt unterstützt auch diese App die Geolokalisierung beim Stempeln.  
-Dabei wird, wenn man ein- oder ausstempelt, die eigene Position an c-time übertragen.  
+c-Time hat diese Funktion schon länger unterstützt, jetzt unterstützt auch diese App die Geolokalisierung beim Stempeln.  
+Dabei wird, wenn man ein- oder ausstempelt, die eigene Position an c-Time übertragen.  
 In der Übersicht wird dafür nun ein eigenes Icon angezeigt.  
 
 ### Verbesserungen in der Übersicht
 Wenn man seine heutige Arbeitszeit voll hat, werden die Überstunden separat hochgezählt.  
 Klick auf seine Zeit, wechselt man automatisch zu "Meine Zeiten" für den heutigen Tag.  
 
-### Update auf die neue c-time API!
-Diese App verwendet nun die neue c-time API.  
+### Update auf die neue c-Time API!
+Diese App verwendet nun die neue c-Time API.  
 Dadurch ist die Anmeldung sicherer geworden, das Passwort wird jetzt nicht mehr an den Server übertragen.  
 Außerdem wird die Anwesenheitsliste nun viel schneller geladen.  
 

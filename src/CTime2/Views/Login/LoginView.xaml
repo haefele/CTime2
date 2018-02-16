@@ -39,7 +39,7 @@
                        HorizontalAlignment="Center"
                        Style="{ThemeResource SubheaderTextBlockStyle}" 
                        Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-                       Text="c-time Universal"
+                       Text="c-Time Universal"
                        Margin="0, 20, 0, 20"/>
 
             <TextBox Header="~E-Mail-Adresse" 
