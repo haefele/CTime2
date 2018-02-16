@@ -80,11 +80,12 @@ namespace CTime2.Views.Statistics.Details
             var diagramViewModel = this.GetDiagramViewModel();
             this.ActivateItem(diagramViewModel);
 
+            var today = this._clock.Today();
             var workDays = this._applicationStateService.GetWorkDays();
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.Parameter.StartDate.LocalDateTime, this.Parameter.EndDate.LocalDateTime);
 
-            var timesByDay = TimesByDay.Create(times, workDays)
-                .Where(f => f.Day.Date != this._clock.Today() || this.Parameter.IncludeToday)
+            var timesByDay = TimesByDay.Create(times, workDays, today)
+                .Where(f => f.Day.Date != today || this.Parameter.IncludeToday)
                 .OrderBy(f => f.Day)
                 .ToList();
 

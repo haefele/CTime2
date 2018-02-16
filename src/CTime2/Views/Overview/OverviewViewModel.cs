@@ -7,6 +7,7 @@ using Caliburn.Micro;
 using CTime2.Core.Common;
 using CTime2.Core.Data;
 using CTime2.Core.Events;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.GeoLocation;
@@ -19,19 +20,23 @@ using ReactiveUI;
 using UwCore;
 using UwCore.Application.Events;
 using UwCore.Common;
+using UwCore.Events;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Clock;
 using UwCore.Services.Navigation;
 
 namespace CTime2.Views.Overview
 {
+    [AutoSubscribeEventsForScreen]
     public class OverviewViewModel : UwCoreConductor<StampTimeStateViewModelBase>, IHandleWithTask<ApplicationResumed>, IHandleWithTask<UserStamped>
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly IGeoLocationService _geoLocationService;
         private readonly INavigationService _navigationService;
-        
+        private readonly IClock _clock;
+
         private string _welcomeMessage;
         private byte[] _myImage;
         private GeoLocationState _geoLocationState;
@@ -72,18 +77,19 @@ namespace CTime2.Views.Overview
         public UwCoreCommand<Unit> ShowGeoLocationInfo { get; }
         public UwCoreCommand<Unit> GoToMyTimesWithMissingDays { get; }
 
-        public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, IGeoLocationService geoLocationService, INavigationService navigationService)
+        public OverviewViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IGeoLocationService geoLocationService, INavigationService navigationService, IClock clock)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
-            Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(geoLocationService, nameof(geoLocationService));
             Guard.NotNull(navigationService, nameof(navigationService));
+            Guard.NotNull(clock, nameof(clock));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._geoLocationService = geoLocationService;
             this._navigationService = navigationService;
+            this._clock = clock;
 
             this.DisplayName = CTime2Resources.Get("Navigation.Overview");
 
@@ -102,8 +108,6 @@ namespace CTime2.Views.Overview
 
             this.MyTimeViewModel = IoC.Get<MyTimeViewModel>();
             this.MyTimeViewModel.ConductWith(this);
-
-            eventAggregator.SubscribeScreen(this);
         }
 
         protected override async void OnActivate()
@@ -132,9 +136,9 @@ namespace CTime2.Views.Overview
             var employeeGuid = this._applicationStateService.GetCurrentUser().Id;
             var workDays = this._applicationStateService.GetWorkDays();
 
-            var times = await this._cTimeService.GetTimes(employeeGuid, this.GetStartOfTwoWeeksAgo(), DateTime.Today);
+            var times = await this._cTimeService.GetTimes(employeeGuid, this.GetStartOfTwoWeeksAgo(), this._clock.Today());
 
-            this.WarnForMissingDays = TimesByDay.Create(times, workDays).Any(f => f.IsMissing);
+            this.WarnForMissingDays = TimesByDay.Create(times, workDays, this._clock.Today()).Any(f => f.IsMissing);
         }
 
         private async Task RefreshCurrentlyCheckedIn()
@@ -151,8 +155,7 @@ namespace CTime2.Views.Overview
         private DateTime GetStartOfTwoWeeksAgo()
         {
             // Looks ugly, is ugly, BUT IT WORKS!
-
-            var current = DateTime.Today;
+            var current = this._clock.Today();
 
             // One week ago
             while (current.DayOfWeek != DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek)
@@ -178,7 +181,7 @@ namespace CTime2.Views.Overview
         {
             this._navigationService.For<YourTimesViewModel>()
                 .WithParam(f => f.Parameter.StartDate, this.GetStartOfTwoWeeksAgo())
-                .WithParam(f => f.Parameter.EndDate, DateTime.Today)
+                .WithParam(f => f.Parameter.EndDate, this._clock.Today())
                 .Navigate();
 
             return Task.CompletedTask;

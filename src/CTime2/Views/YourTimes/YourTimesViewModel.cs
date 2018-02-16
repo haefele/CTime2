@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
 using CTime2.Core.Data;
+using CTime2.Core.Extensions;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
 using CTime2.Core.Services.Email;
@@ -142,10 +143,11 @@ namespace CTime2.Views.YourTimes
         
         private async Task<ReactiveList<TimesByDay>> LoadTimesImpl()
         {
+            var today = this._clock.Today();
             var workDays = this._applicationStateService.GetWorkDays();
 
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
-            return new ReactiveList<TimesByDay>(TimesByDay.Create(times, workDays));
+            return new ReactiveList<TimesByDay>(TimesByDay.Create(times, workDays, today));
         }
         
         private Task ShareImpl()
