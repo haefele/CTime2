@@ -21,7 +21,7 @@ c-Time's privacy policy: http://www.c-time.net/?page_id=24
 You are able to create contacts from the people in the attendance list.
 
 ### Internet
-To communicate with the c-Time API and HockeyApp.
+To communicate with the c-Time API and Visual Studio App Center.
 
 ### Location
 In c-Time is a setting, if you check-in or check-out whether you want to transfer the location of the device.

@@ -21,7 +21,7 @@ Datenschutzbestimmung von c-Time: http://www.c-time.net/?page_id=24
 Es ist möglich Personen in der Anwesenheitsliste als Kontakt anzulegen.
 
 ### Internet
-Zur Kommunikation mit der c-Time API und HockeyApp.
+Zur Kommunikation mit der c-Time API und Visual Studio App Center.
 
 ### Position
 In c-Time gibt es eine Einstellung, dass beim Stempeln die Position des Gerätes übertragen werden soll.
