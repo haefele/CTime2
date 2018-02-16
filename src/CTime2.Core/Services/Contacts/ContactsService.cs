@@ -8,7 +8,7 @@ namespace CTime2.Core.Services.Contacts
 {
     public class ContactsService : IContactsService
     {
-        private const string ContactListDisplayName = "c-time";
+        private const string ContactListDisplayName = "c-Time";
 
         public async Task CreateContactAsync(AttendingUser contact)
         {

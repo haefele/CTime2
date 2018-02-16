@@ -20,9 +20,9 @@
                 <StackPanel>
                     <TextBlock x:Uid="AboutMessageTextBlock"
                                TextWrapping="Wrap" 
-                               Text="~c-time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-time." />
+                               Text="~c-Time Universal ist eine inoffizielle App für die Zeiterfassungs-Software c-Time." />
                     
-                    <TextBlock TextWrapping="Wrap" Text="~Weitere Informationen zu c-time gibts auf c-time.net oder per E-Mail an vertrieb@c-entron.de.">
+                    <TextBlock TextWrapping="Wrap" Text="~Weitere Informationen zu c-Time gibts auf c-time.net oder per E-Mail an vertrieb@c-entron.de.">
                         <interactivity:Interaction.Behaviors>
                             <about:MoreInfoTextFromResources />
                         </interactivity:Interaction.Behaviors>
@@ -40,7 +40,7 @@
 
             <controls:SettingsItem>
                 <TextBlock>
-                    <Run Text="~c-time Universal Version" x:Uid="VersionRun" />
+                    <Run Text="~c-Time Universal Version" x:Uid="VersionRun" />
                     <Run Text="{x:Bind ViewModel.CurrentVersion}" />
                 </TextBlock>
             </controls:SettingsItem>

@@ -35,7 +35,7 @@
                    Margin="0, 10, 0, 10" />
         
         <RichTextBlock Grid.Row="2" IsTextSelectionEnabled="False">
-            <Paragraph><Run x:Uid="GeoLocationCanBeActivatedRun">~c-time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</Run></Paragraph>
+            <Paragraph><Run x:Uid="GeoLocationCanBeActivatedRun">~c-Time kann so eingestellt werden, dass beim Stempeln die aktuelle Position mit übertragen werden soll.</Run></Paragraph>
             <Paragraph Margin="0, 10, 0, 0"><Run x:Uid="GeoLocationAdvantagesRun">~Das gibt deiner Firma die Möglichkeit zu sehen, wo du dich befunden hast, als du dich ein- bzw. ausgestemplt hast.</Run></Paragraph>
             <Paragraph Margin="0, 10, 0, 0"><Run x:Uid="GeoLocationHowToDeactivateRun">~Natürlich kannst du die Positionserkennung in den Einstellungen entweder global, oder nur für diese App deaktivieren.</Run></Paragraph>
         </RichTextBlock>
