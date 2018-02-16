@@ -15,7 +15,7 @@ namespace CTime2.Core.Data
         public DateTime? DayEndTime { get; }
         public bool IsMissing { get; }
 
-        private TimesByDay(DateTime day, BindableCollection<TimeForGrouping> times, DayOfWeek[] workDays)
+        private TimesByDay(DateTime day, BindableCollection<TimeForGrouping> times, DayOfWeek[] workDays, DateTime today)
         {
             this.Day = day;
             this.Times = times;
@@ -27,16 +27,16 @@ namespace CTime2.Core.Data
             var clockOutTimes = times.Where(f => f.ClockOutTime != null).Select(f => f.ClockOutTime.Value).ToList();
             this.DayEndTime = clockOutTimes.Any() ? clockOutTimes.Max(): (DateTime?)null;
 
-            this.IsMissing = this.DayStartTime == null && this.DayEndTime == null && workDays.Contains(this.Day.DayOfWeek);
+            this.IsMissing = this.DayStartTime == null && this.DayEndTime == null && workDays.Contains(this.Day.DayOfWeek) && this.Day != today;
         }
 
-        public static IEnumerable<TimesByDay> Create(IEnumerable<Time> times, DayOfWeek[] workDays)
+        public static IEnumerable<TimesByDay> Create(IEnumerable<Time> times, DayOfWeek[] workDays, DateTime today)
         {
             var result =
                 from time in times
                 orderby time.Day descending
                 group time by time.Day into g
-                select new TimesByDay(g.Key, new BindableCollection<TimeForGrouping>(g.OrderByDescending(f => f.ClockInTime).Select(f => new TimeForGrouping(f))), workDays);
+                select new TimesByDay(g.Key, new BindableCollection<TimeForGrouping>(g.OrderByDescending(f => f.ClockInTime).Select(f => new TimeForGrouping(f))), workDays, today);
 
             return result;
         }

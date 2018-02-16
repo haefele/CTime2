@@ -74,16 +74,17 @@ namespace CTime2.Core.Services.Tile
             }
 
             var workDays = this._applicationStateService.GetWorkDays();
+            var today = this._clock.Today();
 
-            var timesTodayTask = this._cTimeService.GetTimes(currentUser.Id, this._clock.Today(), this._clock.Today());
+            var timesTodayTask = this._cTimeService.GetTimes(currentUser.Id, today, today);
             var currentTimeTask = this._cTimeService.GetCurrentTime(currentUser.Id);
             var statisticsTask = this._cTimeService.GetTimes(currentUser.Id, this.StartDateForStatistics, this.EndDateForStatistics);
 
             await Task.WhenAll(timesTodayTask, currentTimeTask, statisticsTask);
 
-            var timesToday = TimesByDay.Create(await timesTodayTask, workDays).FirstOrDefault();
+            var timesToday = TimesByDay.Create(await timesTodayTask, workDays, today).FirstOrDefault();
             var currentTime = await currentTimeTask;
-            var statistics = TimesByDay.Create(await statisticsTask, workDays).ToList();
+            var statistics = TimesByDay.Create(await statisticsTask, workDays, today).ToList();
 
             if (this.IncludeTodayForStatistics)
             {
