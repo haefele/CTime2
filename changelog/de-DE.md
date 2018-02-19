@@ -1,5 +1,15 @@
 # Versionshinweis
 
+## Version 1.9.1.0
+
+### Schniekere Oberfläche
+Es gibt hier und da jetzt ein paar schöne Animationen.  
+Und wenn man das Fall Creators Update von Windows 10 hat, gibt es sogar eine neue Navigation.
+
+### Kleinere Anpassungen
+c-time wurde umbenannt zu c-Time, man beachte das großte T.
+Und sonst gab es auch nur kleinere Anpassungen und Fehlerbehebungen.
+
 ## Version 1.9.0.0
 
 ### Live-Tile

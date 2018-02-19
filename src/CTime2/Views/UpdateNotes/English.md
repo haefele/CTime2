@@ -1,19 +1,31 @@
+## Version 1.9.1.0
+-----
+
+### Fluent Design
+I added some nice animations all over the place.
+And if you have the Fall Creators Update for Windows 10, there is also a new navigation.
+
+### Smaller adjustments
+c-time was renamed to c-Time, the capital T makes all the difference.
+Other than that, there were just smaller adjustments and error corrections.
+
+-----
 ## Version 1.9.0.0
 -----
 
 ### Live-Tile
 This app now supports the windows 10 live-tiles.  
-This means, if you pinned this app to your start-screen, then you can see some c-time data on the tile itself.  
+This means, if you pinned this app to your start-screen, then you can see some c-Time data on the tile itself.  
 For example how long you have worked today already, or when you checked-in or -out.
 
 ### Notifications when someone checks in
 This is especially useful in the morning or after break.  
 If you wait for a coworker, then you receive a nice notification once he checks in.
 
-### Improved communication with c-time
-There are to tiny improvements how we call the c-time API.  
+### Improved communication with c-Time
+There are to tiny improvements how we call the c-Time API.  
 First, there is now a little cache in place. So if you navigate around very much, the performance of this App is greatly improved.  
-Second, if there is an error calling the c-time API, we will retry the request. This helps a lot on bad connections.
+Second, if there is an error calling the c-Time API, we will retry the request. This helps a lot on bad connections.
 
 ### Bug in statistics
 An error would occur in the statistics, if in the selected timespan no times were found.  
@@ -113,16 +125,16 @@ In the last version has been a little bug, which is why the buttons for "This mo
 -----
 
 ### Stamp with geolocation!
-c-time has had this feature for a while now, but finally this app supports geolocation as well.  
-That means, if you check-in or -out, your position will be send to c-time.  
+c-Time has had this feature for a while now, but finally this app supports geolocation as well.  
+That means, if you check-in or -out, your position will be send to c-Time.  
 the overview you will see a icon for that.  
 
 ### Improvements in the overview
 If you have worked long enough today, your overtime will be in a separate counter.  
 If you click on your time, you will switch automatically to "My times" for today.  
 
-### Update to use the new c-time API!
-This app now uses the new c-time API.  
+### Update to use the new c-Time API!
+This app now uses the new c-Time API.  
 That means the login is more secure now, your password will not be sent to the server.  
 Also, the attendance list will load much faster.  
 
