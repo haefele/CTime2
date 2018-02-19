@@ -443,7 +443,7 @@
       <Version>1.0.0.9</Version>
     </PackageReference>
     <PackageReference Include="UwCore">
-      <Version>0.1.106</Version>
+      <Version>0.1.107</Version>
     </PackageReference>
     <PackageReference Include="WindowsStateTriggers">
       <Version>1.1.0</Version>
