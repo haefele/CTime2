@@ -2,11 +2,11 @@
 -----
 
 ### Fluent Design
-I added some nice animations all over the place.
+I added some nice animations all over the place.  
 And if you have the Fall Creators Update for Windows 10, there is also a new navigation.
 
 ### Smaller adjustments
-c-time was renamed to c-Time, the capital T makes all the difference.
+c-time was renamed to c-Time, the capital T makes all the difference.  
 Other than that, there were just smaller adjustments and error corrections.
 
 -----
