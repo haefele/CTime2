@@ -306,7 +306,8 @@ namespace CTime2
         public override bool IsAnalyticsServiceEnabled()
         {
             return base.IsAnalyticsServiceEnabled() &&
-                   Package.Current.Id.Version.ToVersion() != new Version("9999.9999.9999.0");
+                   Package.Current.Id.Version.ToVersion() != new Version("9999.9999.9999.0") &&
+                   Package.Current.Id.Version.ToVersion().Revision == 0;
         }
         #endregion
 
