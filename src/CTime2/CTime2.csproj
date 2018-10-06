@@ -12,7 +12,7 @@
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -137,8 +137,8 @@
     <Compile Include="Features.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\CTime2Resources.cs" />
-    <Compile Include="Styles.xaml.cs">
-      <DependentUpon>Styles.xaml</DependentUpon>
+    <Compile Include="CTimeStyles.xaml.cs">
+      <DependentUpon>CTimeStyles.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AttendanceList\AttendanceListState.cs" />
     <Compile Include="Views\AttendanceList\AttendingUserDetailsView.xaml.cs">
@@ -297,7 +297,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles.xaml">
+    <Page Include="CTimeStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
