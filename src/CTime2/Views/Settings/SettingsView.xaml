@@ -150,6 +150,13 @@
                              Width="288" />
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
+            <uwCoreControls:SettingsGroup x:Uid="OnPremisesSettingsGroup"
+                                          Header="~c-Time on Premises"
+                                          Description="Blablub">
+                <uwCoreControls:SettingsItem Description="Url">
+                    <TextBox Width="240" Text="{Binding OnPremisesServerUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </uwCoreControls:SettingsItem>
+            </uwCoreControls:SettingsGroup>
         </uwCoreControls:SettingsControl>
     </ScrollViewer>
 </Page>

@@ -390,7 +390,26 @@ namespace CTime2.Core.Services.CTime
 
         private Uri BuildUri(string path)
         {
-            return new Uri($"https://app.c-time.net/php/{path}");
+            var baseUri = this.GetBaseUri();
+            return new Uri($"{baseUri}{path}");
+        }
+
+        private string GetBaseUri()
+        {
+            var onPremisesServerUrl = this._applicationStateService.GetOnPremisesServerUrl();
+
+            if (string.IsNullOrWhiteSpace(onPremisesServerUrl))
+                return "https://app.c-time.net/php/";
+
+            onPremisesServerUrl = onPremisesServerUrl.TrimEnd('/');
+
+            if (onPremisesServerUrl.EndsWith("/") == false)
+                onPremisesServerUrl += "/";
+
+            if (onPremisesServerUrl.EndsWith("php/") == false)
+                onPremisesServerUrl += "php/";
+
+            return onPremisesServerUrl;
         }
 
         #region Internal

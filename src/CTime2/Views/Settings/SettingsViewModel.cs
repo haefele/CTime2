@@ -38,6 +38,7 @@ namespace CTime2.Views.Settings
         private string _missingDaysEmailReceiver;
         private bool _includeContactInfoInErrorReports;
         private string _companyId;
+        private string _onPremisesServerUrl;
 
         public ReactiveList<TimeSpan> WorkTimes
         {
@@ -110,7 +111,13 @@ namespace CTime2.Views.Settings
             get { return this._companyId; }
             set { this.RaiseAndSetIfChanged(ref this._companyId, value); }
         }
-        
+
+        public string OnPremisesServerUrl
+        {
+            get { return this._onPremisesServerUrl; }
+            set { this.RaiseAndSetIfChanged(ref this._onPremisesServerUrl, value); }
+        }
+
         public UwCoreCommand<Unit> RememberLogin { get; }
 
         public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell, IAnalyticsService analyticsService)
@@ -143,6 +150,7 @@ namespace CTime2.Views.Settings
             this.MissingDaysEmailReceiver = this._applicationStateService.GetMissingDaysEmailReceiver();
             this.IncludeContactInfoInErrorReports = this._applicationStateService.GetIncludeContactInfoInErrorReports();
             this.CompanyId = this._applicationStateService.GetCompanyId();
+            this.OnPremisesServerUrl = this._applicationStateService.GetOnPremisesServerUrl();
 
             this.WhenAnyValue(f => f.Theme)
                 .Subscribe(theme =>
@@ -200,6 +208,12 @@ namespace CTime2.Views.Settings
                 .Subscribe(companyId =>
                 {
                     this._applicationStateService.SetCompanyId(companyId);
+                });
+
+            this.WhenAnyValue(f => f.OnPremisesServerUrl)
+                .Subscribe(onPremisesServerUrl =>
+                {
+                    this._applicationStateService.SetOnPremisesServerUrl(onPremisesServerUrl);
                 });
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");

@@ -126,5 +126,15 @@ namespace CTime2.Core.Services.ApplicationState
         {
             self.Set("BreakTimeEnd", breakTimeBegin, UwCore.Services.ApplicationState.ApplicationState.Roaming);
         }
+
+        public static string GetOnPremisesServerUrl(this IApplicationStateService self)
+        {
+            return self.Get<string>("OnPremisesServerUrl", UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
+
+        public static void SetOnPremisesServerUrl(this IApplicationStateService self, string onPremisesServerUrl)
+        {
+            self.Set("OnPremisesServerUrl", onPremisesServerUrl, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+        }
     }
 }
