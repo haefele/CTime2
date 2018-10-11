@@ -151,10 +151,15 @@
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
             <uwCoreControls:SettingsGroup x:Uid="OnPremisesSettingsGroup"
-                                          Header="~c-Time on Premises"
-                                          Description="Blablub">
-                <uwCoreControls:SettingsItem Description="Url">
-                    <TextBox Width="240" Text="{Binding OnPremisesServerUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                          Header="c-Time On-Premises"
+                                          Description="Gib hier die URL zu deiner c-Time Installation an, um diese App mit deiner On-Premises Version von c-Time zu verwenden.&#10;&#10;Lass das Feld leer um dich mit der Cloud Version von c-Time zu verbinden.&#10;&#10;Die URL für die Cloud Version von c-Time ist https://app.c-time.net&#10;">
+                <uwCoreControls:SettingsItem Description="c-Time URL">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="240" Text="{Binding OnPremisesServerUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Margin="5, 0, 0, 0" Width="32" Height="32">
+                            <SymbolIcon Symbol="Forward" ToolTipService.ToolTip="Verbindung testen" Margin="-4" />
+                        </Button>
+                    </StackPanel>
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
         </uwCoreControls:SettingsControl>
