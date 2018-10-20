@@ -2,9 +2,9 @@
 
 namespace CTime2
 {
-    partial class Styles : ResourceDictionary
+    partial class CTimeStyles : ResourceDictionary
     {
-        public Styles()
+        public CTimeStyles()
         {
             this.InitializeComponent();
         }

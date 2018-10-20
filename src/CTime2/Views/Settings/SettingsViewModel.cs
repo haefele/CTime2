@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Biometrics;
+using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
@@ -25,6 +26,7 @@ namespace CTime2.Views.Settings
         private readonly IApplicationStateService _applicationStateService;
         private readonly IShell _shell;
         private readonly IAnalyticsService _analyticsService;
+        private readonly ICTimeService _cTimeService;
 
         private ReactiveList<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
@@ -38,6 +40,8 @@ namespace CTime2.Views.Settings
         private string _missingDaysEmailReceiver;
         private bool _includeContactInfoInErrorReports;
         private string _companyId;
+        private string _onPremisesServerUrl;
+        private bool? _onPremisesServerUrlTestResult;
 
         public ReactiveList<TimeSpan> WorkTimes
         {
@@ -110,20 +114,35 @@ namespace CTime2.Views.Settings
             get { return this._companyId; }
             set { this.RaiseAndSetIfChanged(ref this._companyId, value); }
         }
-        
-        public UwCoreCommand<Unit> RememberLogin { get; }
 
-        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell, IAnalyticsService analyticsService)
+        public string OnPremisesServerUrl
+        {
+            get { return this._onPremisesServerUrl; }
+            set { this.RaiseAndSetIfChanged(ref this._onPremisesServerUrl, value); }
+        }
+
+        public bool? OnPremisesServerUrlTestResult
+        {
+            get => this._onPremisesServerUrlTestResult;
+            set => this.RaiseAndSetIfChanged(ref this._onPremisesServerUrlTestResult, value);
+        }
+
+        public UwCoreCommand<Unit> RememberLogin { get; }
+        public UwCoreCommand<Unit> TestConnection { get; }
+
+        public SettingsViewModel(IBiometricsService biometricsService, IApplicationStateService applicationStateService, IShell shell, IAnalyticsService analyticsService, ICTimeService cTimeService)
         {
             Guard.NotNull(biometricsService, nameof(biometricsService));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(shell, nameof(shell));
             Guard.NotNull(analyticsService, nameof(analyticsService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
 
             this._biometricsService = biometricsService;
             this._applicationStateService = applicationStateService;
             this._shell = shell;
             this._analyticsService = analyticsService;
+            this._cTimeService = cTimeService;
 
             var hasUser = new ReplaySubject<bool>(1);
             hasUser.OnNext(this._applicationStateService.GetCurrentUser() != null);
@@ -133,6 +152,13 @@ namespace CTime2.Views.Settings
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.RememberedLogin"))
                 .HandleExceptions()
                 .TrackEvent("SetupRememberLogin");
+
+            var canTestConnection = this.WhenAnyValue(f => f.OnPremisesServerUrl)
+                .Select(f => string.IsNullOrWhiteSpace(f) == false);
+            this.TestConnection = UwCoreCommand.Create(canTestConnection, this.TestConnectionImpl)
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.TestConnection"))
+                .HandleExceptions()
+                .TrackEvent("TestOnPremisesConnection");
             
             this.Theme = this._applicationStateService.GetApplicationTheme();
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
@@ -143,6 +169,7 @@ namespace CTime2.Views.Settings
             this.MissingDaysEmailReceiver = this._applicationStateService.GetMissingDaysEmailReceiver();
             this.IncludeContactInfoInErrorReports = this._applicationStateService.GetIncludeContactInfoInErrorReports();
             this.CompanyId = this._applicationStateService.GetCompanyId();
+            this.OnPremisesServerUrl = this._applicationStateService.GetOnPremisesServerUrl();
 
             this.WhenAnyValue(f => f.Theme)
                 .Subscribe(theme =>
@@ -202,6 +229,13 @@ namespace CTime2.Views.Settings
                     this._applicationStateService.SetCompanyId(companyId);
                 });
 
+            this.WhenAnyValue(f => f.OnPremisesServerUrl)
+                .Subscribe(onPremisesServerUrl =>
+                {
+                    this._applicationStateService.SetOnPremisesServerUrl(onPremisesServerUrl);
+                    this.OnPremisesServerUrlTestResult = null;
+                });
+
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
 
             this.WorkTimes = new ReactiveList<TimeSpan>(Enumerable
@@ -221,6 +255,11 @@ namespace CTime2.Views.Settings
         {
             var user = this._applicationStateService.GetCurrentUser();
             await this._biometricsService.RememberUserForBiometricAuthAsync(user);
+        }
+
+        private async Task TestConnectionImpl()
+        {
+            this.OnPremisesServerUrlTestResult = await this._cTimeService.CheckConnection();
         }
     }
 }

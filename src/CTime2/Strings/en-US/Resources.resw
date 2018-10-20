@@ -644,4 +644,26 @@ Click on "Report missing days" to automatically create an email with all missing
   <data name="MissingDaysTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>There are workdays in the last 2 weeks without any times.</value>
   </data>
+  <data name="FailedConnectionSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Connection failed.</value>
+  </data>
+  <data name="Loading.TestConnection" xml:space="preserve">
+    <value>Test connection...</value>
+  </data>
+  <data name="OnPremisesSettingsGroup.Description" xml:space="preserve">
+    <value>Enter the URL to your c-Time installation here to use this app with your on-premises version of c-Time.
+Leave the textbox empty to connect with the cloud version of c-Time.
+
+The URL for the cloud version of c-Time is https://app.c-time.net
+</value>
+  </data>
+  <data name="OnPremisesSettingsItem.Description" xml:space="preserve">
+    <value>c-Time URL</value>
+  </data>
+  <data name="SuccessfullConnectionSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Connection successfull.</value>
+  </data>
+  <data name="TestConnectionSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Test connection.</value>
+  </data>
 </root>

@@ -8,8 +8,8 @@
     <application:UwCoreApp.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                
-                <cTime2:Styles />
+
+                <cTime2:CTimeStyles />
                 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
