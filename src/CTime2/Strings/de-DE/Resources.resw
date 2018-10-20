@@ -644,4 +644,29 @@ Sie können über den Button "Fehlende Tage melden" automatisch eine E-Mail mit 
   <data name="MissingDaysTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>In den letzten 2 Wochen gibt es Arbeitstage ohne erfasste Zeiten.</value>
   </data>
+  <data name="FailedConnectionSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Verbindung ist fehlgeschlagen.</value>
+  </data>
+  <data name="Loading.TestConnection" xml:space="preserve">
+    <value>Verbindung testen...</value>
+  </data>
+  <data name="OnPremisesSettingsGroup.Description" xml:space="preserve">
+    <value>Gib hier die URL zu deiner c-Time Installation an, um diese App mit deiner On-Premises Version von c-Time zu verwenden.
+Lass das Feld leer um dich mit der Cloud Version von c-Time zu verbinden.
+
+Die URL für die Cloud Version von c-Time ist https://app.c-time.net
+</value>
+  </data>
+  <data name="OnPremisesSettingsGroup.Header" xml:space="preserve">
+    <value>c-Time On-Premises</value>
+  </data>
+  <data name="OnPremisesSettingsItem.Description" xml:space="preserve">
+    <value>c-Time URL</value>
+  </data>
+  <data name="SuccessfullConnectionSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Verbindung erfolgreich hergestellt.</value>
+  </data>
+  <data name="TestConnectionSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Verbindung testen.</value>
+  </data>
 </root>

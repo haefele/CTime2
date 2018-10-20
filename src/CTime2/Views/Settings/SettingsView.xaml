@@ -173,27 +173,29 @@
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
             <uwCoreControls:SettingsGroup x:Uid="OnPremisesSettingsGroup"
-                                          Header="c-Time On-Premises"
-                                          Description="Gib hier die URL zu deiner c-Time Installation an, um diese App mit deiner On-Premises Version von c-Time zu verwenden.&#10;&#10;Lass das Feld leer um dich mit der Cloud Version von c-Time zu verbinden.&#10;&#10;Die URL für die Cloud Version von c-Time ist https://app.c-time.net&#10;">
-                <uwCoreControls:SettingsItem Description="c-Time URL">
+                                          Header="~c-Time On-Premises"
+                                          Description="~Gib hier die URL zu deiner c-Time Installation an, um diese App mit deiner On-Premises Version von c-Time zu verwenden.&#10;&#10;Lass das Feld leer um dich mit der Cloud Version von c-Time zu verbinden.&#10;&#10;Die URL für die Cloud Version von c-Time ist https://app.c-time.net&#10;">
+                <uwCoreControls:SettingsItem x:Uid="OnPremisesSettingsItem" Description="~c-Time URL">
                     <StackPanel Orientation="Horizontal">
                         <TextBox Width="240" Text="{Binding OnPremisesServerUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Button Margin="5, 0, 0, 0" Width="32" Height="32" Command="{x:Bind ViewModel.TestConnection}">
-                            <SymbolIcon Symbol="Forward" ToolTipService.ToolTip="Verbindung testen" Margin="-4" />
+                            <SymbolIcon x:Uid="TestConnectionSymbolIcon" Symbol="Forward" ToolTipService.ToolTip="~Verbindung testen." Margin="-4" />
                         </Button>
 
                         <SymbolIcon Symbol="Accept" 
+                                    x:Uid="SuccessfullConnectionSymbolIcon"
                                     Foreground="Green" 
-                                    ToolTipService.ToolTip="Verbindung erfolgreich hergestellt." 
+                                    ToolTipService.ToolTip="~Verbindung erfolgreich hergestellt." 
                                     Visibility="{x:Bind ViewModel.OnPremisesServerUrlTestResult, Converter={StaticResource TestConnectionToSuccessVisibilityConverter}, Mode=OneWay}" 
                                     Width="32"
                                     Height="32"
                                     Margin="5, 0, 0, 0" />
 
                         <SymbolIcon Symbol="Cancel"
+                                    x:Uid="FailedConnectionSymbolIcon"
                                     Foreground="Red"
-                                    ToolTipService.ToolTip="Verbindung ist fehlgeschlagen." 
+                                    ToolTipService.ToolTip="~Verbindung ist fehlgeschlagen." 
                                     Visibility="{x:Bind ViewModel.OnPremisesServerUrlTestResult, Converter={StaticResource TestConnectionToFailedVisibilityConverter}, Mode=OneWay}"
                                     Width="32" 
                                     Height="32" 

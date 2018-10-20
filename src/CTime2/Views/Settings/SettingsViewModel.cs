@@ -156,7 +156,7 @@ namespace CTime2.Views.Settings
             var canTestConnection = this.WhenAnyValue(f => f.OnPremisesServerUrl)
                 .Select(f => string.IsNullOrWhiteSpace(f) == false);
             this.TestConnection = UwCoreCommand.Create(canTestConnection, this.TestConnectionImpl)
-                .ShowLoadingOverlay("Teste Verbindung")
+                .ShowLoadingOverlay(CTime2Resources.Get("Loading.TestConnection"))
                 .HandleExceptions()
                 .TrackEvent("TestOnPremisesConnection");
             
