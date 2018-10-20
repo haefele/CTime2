@@ -1,3 +1,11 @@
+## Version 2.0.0.0
+-----
+
+### c-Time on-premises support
+This app now supports c-Time on-premises, hosted on your own server.  
+Just enter the URL for your c-Time installation in the settings and you're ready to use this app with your own version of c-Time.
+
+-----
 ## Version 1.9.1.0
 -----
 

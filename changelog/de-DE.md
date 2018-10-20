@@ -1,5 +1,11 @@
 # Versionshinweis
 
+## Version 2.0.0.0
+
+### c-Time On-Premises Unterstützung
+Diese App unterstützt nun c-Time On-Premises, also gehostet auf deinem eigenen Server.  
+Dafür musst du einfach nur in den Einstellungen die URL für deine c-Time Installation hinterlegen und schon kannst du diese App mit deiner eigenen c-Time Version verwenden.
+
 ## Version 1.9.1.0
 
 ### Schniekere Oberfläche
