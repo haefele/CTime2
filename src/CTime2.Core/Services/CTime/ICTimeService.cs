@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CTime2.Core.Common;
 using CTime2.Core.Data;
 
 namespace CTime2.Core.Services.CTime
@@ -16,6 +17,19 @@ namespace CTime2.Core.Services.CTime
 
     public static class CTimeServiceExtensions
     {
+        public static async Task<bool> CheckConnection(this ICTimeService self)
+        {
+            try
+            {
+                await self.Login(string.Empty, string.Empty);
+                return true;
+            }
+            catch (CTimeException)
+            {
+                return false;
+            }
+        }
+
         public static async Task SaveTimer(this ICTimeService self, User user, DateTime time, TimeState state)
         {
             await self.SaveTimer(user.Id, string.Empty, time, user.CompanyId, state, user.SupportsGeoLocation);

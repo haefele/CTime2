@@ -31,6 +31,28 @@
         </DataTemplate>
         <ctimeConverter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         <ctimeConverter:FeatureToVisibilityConverter x:Key="TerminalEnabledToVisibilityConverter" FeatureName="Terminal" />
+        <uwCoreConverter:BooleanToObjectConverter x:Key="TestConnectionToSuccessVisibilityConverter">
+            <uwCoreConverter:BooleanToObjectConverter.TrueValue>
+                <Visibility>Visible</Visibility>
+            </uwCoreConverter:BooleanToObjectConverter.TrueValue>
+            <uwCoreConverter:BooleanToObjectConverter.FalseValue>
+                <Visibility>Collapsed</Visibility>
+            </uwCoreConverter:BooleanToObjectConverter.FalseValue>
+            <uwCoreConverter:BooleanToObjectConverter.NullValue>
+                <Visibility>Collapsed</Visibility>
+            </uwCoreConverter:BooleanToObjectConverter.NullValue>
+        </uwCoreConverter:BooleanToObjectConverter>
+        <uwCoreConverter:BooleanToObjectConverter x:Key="TestConnectionToFailedVisibilityConverter">
+            <uwCoreConverter:BooleanToObjectConverter.TrueValue>
+                <Visibility>Collapsed</Visibility>
+            </uwCoreConverter:BooleanToObjectConverter.TrueValue>
+            <uwCoreConverter:BooleanToObjectConverter.FalseValue>
+                <Visibility>Visible</Visibility>
+            </uwCoreConverter:BooleanToObjectConverter.FalseValue>
+            <uwCoreConverter:BooleanToObjectConverter.NullValue>
+                <Visibility>Collapsed</Visibility>
+            </uwCoreConverter:BooleanToObjectConverter.NullValue>
+        </uwCoreConverter:BooleanToObjectConverter>
     </Page.Resources>
 
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalScrollBarVisibility="Auto">
@@ -156,9 +178,26 @@
                 <uwCoreControls:SettingsItem Description="c-Time URL">
                     <StackPanel Orientation="Horizontal">
                         <TextBox Width="240" Text="{Binding OnPremisesServerUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Margin="5, 0, 0, 0" Width="32" Height="32">
+
+                        <Button Margin="5, 0, 0, 0" Width="32" Height="32" Command="{x:Bind ViewModel.TestConnection}">
                             <SymbolIcon Symbol="Forward" ToolTipService.ToolTip="Verbindung testen" Margin="-4" />
                         </Button>
+
+                        <SymbolIcon Symbol="Accept" 
+                                    Foreground="Green" 
+                                    ToolTipService.ToolTip="Verbindung erfolgreich hergestellt." 
+                                    Visibility="{x:Bind ViewModel.OnPremisesServerUrlTestResult, Converter={StaticResource TestConnectionToSuccessVisibilityConverter}, Mode=OneWay}" 
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5, 0, 0, 0" />
+
+                        <SymbolIcon Symbol="Cancel"
+                                    Foreground="Red"
+                                    ToolTipService.ToolTip="Verbindung ist fehlgeschlagen." 
+                                    Visibility="{x:Bind ViewModel.OnPremisesServerUrlTestResult, Converter={StaticResource TestConnectionToFailedVisibilityConverter}, Mode=OneWay}"
+                                    Width="32" 
+                                    Height="32" 
+                                    Margin="5, 0, 0, 0" />
                     </StackPanel>
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
