@@ -6,6 +6,7 @@
     xmlns:local="using:CTime2.Views.HeaderDetails"
     xmlns:windowsStateTriggers="using:WindowsStateTriggers"
     xmlns:controls="using:CTime2.Controls"
+    xmlns:converter="using:UwCore.Converter"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,12 +14,18 @@
     
     Height="46"
     Width="46">
+    <UserControl.Resources>
+        <converter:BooleanToObjectConverter x:Name="CheckedInToBrushConverter" 
+                                            TrueValue="{StaticResource CTimeGreen}"
+                                            FalseValue="{StaticResource CTimeRed}" />
+    </UserControl.Resources>
+
     <Grid>
 
         <controls:UserImage Width="40"
                             Height="40"
-                            Image="{x:Bind ViewModel.CurrentUserImage, Mode=OneWay}"
-                            BorderBrush="LightGray"
+                            Image="{x:Bind ViewModel.UserImage, Mode=OneWay}"
+                            BorderBrush="{x:Bind ViewModel.IsCheckedIn, Mode=OneWay, Converter={StaticResource CheckedInToBrushConverter}}"
                             BorderThickness="2" />
 
     </Grid>

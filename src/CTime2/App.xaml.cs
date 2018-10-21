@@ -139,9 +139,7 @@ namespace CTime2
             base.CustomizeShell(shell);
 
             shell.Theme = IoC.Get<IApplicationStateService>().GetApplicationTheme();
-
-            shell.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
-
+            
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.About"), Symbol.ContactInfo, typeof(AboutViewModel)));
             shell.SecondaryActions.Add(new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Settings"), Symbol.Setting, typeof(SettingsViewModel)));
         }

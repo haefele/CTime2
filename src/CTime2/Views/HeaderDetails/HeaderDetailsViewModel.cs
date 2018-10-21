@@ -1,60 +1,83 @@
 ﻿using System;
 using System.Reactive;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using CTime2.ApplicationModes;
+using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
 using UwCore.Application;
+using UwCore.Application.Events;
 using UwCore.Common;
+using UwCore.Events;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 
 namespace CTime2.Views.HeaderDetails
 {
-    public class HeaderDetailsViewModel : UwCoreScreen
+    [AutoSubscribeEventsForScreen]
+    public class HeaderDetailsViewModel : UwCoreScreen, IHandleWithTask<UserStamped>, IHandleWithTask<ApplicationResumed>
     {
         private readonly IDialogService _dialogService;
-        private readonly IShell _shell;
         private readonly IApplicationStateService _applicationStateService;
+        private readonly ICTimeService _cTimeService;
 
-        private readonly ObservableAsPropertyHelper<byte[]> _currentUserImageHelper;
+        private byte[] _userImage;
+        private bool _isCheckedIn;
 
-        public byte[] CurrentUserImage => this._currentUserImageHelper.Value;
-
-        public UwCoreCommand<byte[]> RefreshCurrentUserImage { get; }
-
-        public HeaderDetailsViewModel(IDialogService dialogService, IShell shell, IApplicationStateService applicationStateService)
+        public byte[] UserImage
         {
-            Guard.NotNull(dialogService, nameof(dialogService));
-            Guard.NotNull(shell, nameof(shell));
-            Guard.NotNull(applicationStateService, nameof(applicationStateService));
-            
-            this._dialogService = dialogService;
-            this._shell = shell;
-            this._applicationStateService = applicationStateService;
-
-            this.RefreshCurrentUserImage = UwCoreCommand.Create(this.RefreshCurrentUserImageImpl)
-                .HandleExceptions();
-            this.RefreshCurrentUserImage.ToProperty(this, f => f.CurrentUserImage, out this._currentUserImageHelper);
-
-            shell.ObservableForProperty(f => f.CurrentMode)
-                .InvokeCommand(this.RefreshCurrentUserImage);
+            get => this._userImage;
+            set => this.RaiseAndSetIfChanged(ref this._userImage, value, nameof(this.UserImage));
+        }
+        public bool IsCheckedIn
+        {
+            get => this._isCheckedIn;
+            set => this.RaiseAndSetIfChanged(ref this._isCheckedIn, value, nameof(this.IsCheckedIn));
         }
 
-        private Task<byte[]> RefreshCurrentUserImageImpl()
+        public UwCoreCommand<Unit> RefreshCurrentState { get; }
+
+        public HeaderDetailsViewModel(IDialogService dialogService, IApplicationStateService applicationStateService, ICTimeService cTimeService)
         {
-            var user = this._applicationStateService.GetCurrentUser();
-            return Task.FromResult(user?.ImageAsPng);
+            Guard.NotNull(dialogService, nameof(dialogService));
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
+            
+            this._dialogService = dialogService;
+            this._applicationStateService = applicationStateService;
+            this._cTimeService = cTimeService;
+
+            this.RefreshCurrentState = UwCoreCommand.Create(this.RefreshCurrentStateImpl)
+                .HandleExceptions();
         }
 
         protected override async void OnInitialize()
         {
             base.OnInitialize();
 
-            await this.RefreshCurrentUserImage.ExecuteAsync();
+            await this.RefreshCurrentState.ExecuteAsync();
+        }
+
+        private async Task RefreshCurrentStateImpl()
+        {
+            var user = this._applicationStateService.GetCurrentUser();
+
+            this.IsCheckedIn = await this._cTimeService.IsCurrentlyCheckedIn(user.Id);
+            this.UserImage = user.ImageAsPng;
+        }
+        
+        async Task IHandleWithTask<UserStamped>.Handle(UserStamped message)
+        {
+            await this.RefreshCurrentState.ExecuteAsync();
+        }
+        async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
+        {
+            await this.RefreshCurrentState.ExecuteAsync();
         }
     }
 }
