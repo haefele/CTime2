@@ -110,6 +110,7 @@
     <Compile Include="Behaviors\MarkWeeks.cs" />
     <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
+    <Compile Include="Controls\UserImageButton.cs" />
     <Compile Include="Converter\DoubleToHorizontalSizeConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
     <Compile Include="Converter\HoursToDurationStringConverter.cs" />

@@ -22,11 +22,11 @@
 
     <Grid>
 
-        <controls:UserImage Width="40"
-                            Height="40"
-                            Image="{x:Bind ViewModel.UserImage, Mode=OneWay}"
-                            BorderBrush="{x:Bind ViewModel.IsCheckedIn, Mode=OneWay, Converter={StaticResource CheckedInToBrushConverter}}"
-                            BorderThickness="2" />
+        <controls:UserImageButton Width="40"
+                                  Height="40"
+                                  Image="{x:Bind ViewModel.UserImage, Mode=OneWay}"
+                                  BorderBrush="{x:Bind ViewModel.IsCheckedIn, Mode=OneWay, Converter={StaticResource CheckedInToBrushConverter}}"
+                                  BorderThickness="2" />
 
     </Grid>
 </UserControl>
