@@ -1,6 +1,6 @@
 # Patchnotes
 
-## Version 2.0.0.0
+## Version 1.9.2.0
 
 ### c-Time on-premises support
 This app now supports c-Time on-premises, hosted on your own server.  
