@@ -475,7 +475,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
     <value>Kontakt</value>
   </data>
   <data name="CopyrightTextBlock.Text" xml:space="preserve">
-    <value>© 2016-2018 - Daniel Häfele</value>
+    <value>© 2016-2019 - Daniel Häfele</value>
   </data>
   <data name="CTimeMailAddress" xml:space="preserve">
     <value>vertrieb@c-entron.de</value>
