@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CTime2.Controls"
     xmlns:converter="using:CTime2.Converter"
-    xmlns:uwCoreConverter="using:UwCore.Converter">
+    xmlns:uwCoreConverter="using:UwCore.Converter"
+    xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     
     <Style TargetType="controls:StampButton">
         <Setter Property="Height" Value="40" />
@@ -61,6 +62,72 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style TargetType="controls:UserImageButton">
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:UserImageButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0" Storyboard.TargetProperty="ShadowOpacity" Duration="00:00:00.2" Storyboard.TargetName="DropShadowPanel" EnableDependentAnimation="True"  />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.7" Storyboard.TargetProperty="ShadowOpacity" Duration="00:00:00.2" Storyboard.TargetName="DropShadowPanel" EnableDependentAnimation="True"  />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation To="1" Storyboard.TargetProperty="ShadowOpacity" Duration="00:00:00.2" Storyboard.TargetName="DropShadowPanel" EnableDependentAnimation="True"  />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <converter:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+                                <converter:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Light">
+                                        <Color x:Key="ShadowBrush">Black</Color>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <Color x:Key="ShadowBrush">LightGray</Color>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Grid.Resources>
+
+                        <toolkitControls:DropShadowPanel HorizontalContentAlignment="Stretch"
+                                                         VerticalContentAlignment="Stretch"
+                                                         Color="{ThemeResource ShadowBrush}"
+                                                         ShadowOpacity="0"
+                                                         BlurRadius="10"
+                                                         OffsetY="1"                                                             
+                                                         x:Name="DropShadowPanel">
+                            <Ellipse Stroke="{TemplateBinding BorderBrush}"
+                                     StrokeThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessToDoubleConverter}}">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Image, Mode=OneWay, Converter={StaticResource ByteArrayToImageSourceConverter}, RelativeSource={RelativeSource TemplatedParent}}"  
+                                                Stretch="UniformToFill"
+                                                AlignmentX="Center"  
+                                                AlignmentY="Center" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </toolkitControls:DropShadowPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
 

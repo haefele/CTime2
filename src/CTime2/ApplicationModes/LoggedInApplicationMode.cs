@@ -22,6 +22,7 @@ using UwCore.Hamburger;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using CTime2.Extensions;
+using CTime2.Views.HeaderDetails;
 using UwCore.Extensions;
 using UwCore.Services.Analytics;
 using UwCore.Services.Clock;
@@ -80,10 +81,19 @@ namespace CTime2.ApplicationModes
 
             var currentUser = this._applicationStateService.GetCurrentUser();
             this._analyticsService.UpdateContactInfo(this._applicationStateService.GetIncludeContactInfoInErrorReports() ? currentUser : null);
+
+            this.Shell.HeaderDetailsViewModel = IoC.Get<HeaderDetailsViewModel>();
             
             this._overviewHamburgerItem.Execute();
         }
-        
+
+        protected override async Task OnLeave()
+        {
+            await base.OnLeave();
+
+            this.Shell.HeaderDetailsViewModel = null;
+        }
+
         protected override async Task AddActions()
         {
             await base.AddActions();

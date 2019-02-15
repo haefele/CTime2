@@ -1,37 +1,83 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
 using System.Threading.Tasks;
+using Caliburn.Micro;
+using CTime2.ApplicationModes;
+using CTime2.Core.Events;
+using CTime2.Core.Services.ApplicationState;
+using CTime2.Core.Services.CTime;
 using CTime2.Strings;
 using ReactiveUI;
 using UwCore;
+using UwCore.Application;
+using UwCore.Application.Events;
 using UwCore.Common;
+using UwCore.Events;
 using UwCore.Extensions;
+using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 
 namespace CTime2.Views.HeaderDetails
 {
-    public class HeaderDetailsViewModel : UwCoreScreen
+    [AutoSubscribeEventsForScreen]
+    public class HeaderDetailsViewModel : UwCoreScreen, IHandleWithTask<UserStamped>, IHandleWithTask<ApplicationResumed>
     {
         private readonly IDialogService _dialogService;
+        private readonly IApplicationStateService _applicationStateService;
+        private readonly ICTimeService _cTimeService;
 
-        public UwCoreCommand<Unit> ShowNoInternetConnection { get; }
+        private byte[] _userImage;
+        private bool _isCheckedIn;
 
-        public HeaderDetailsViewModel(IDialogService dialogService)
+        public byte[] UserImage
+        {
+            get => this._userImage;
+            set => this.RaiseAndSetIfChanged(ref this._userImage, value, nameof(this.UserImage));
+        }
+        public bool IsCheckedIn
+        {
+            get => this._isCheckedIn;
+            set => this.RaiseAndSetIfChanged(ref this._isCheckedIn, value, nameof(this.IsCheckedIn));
+        }
+
+        public UwCoreCommand<Unit> RefreshCurrentState { get; }
+
+        public HeaderDetailsViewModel(IDialogService dialogService, IApplicationStateService applicationStateService, ICTimeService cTimeService)
         {
             Guard.NotNull(dialogService, nameof(dialogService));
+            Guard.NotNull(applicationStateService, nameof(applicationStateService));
+            Guard.NotNull(cTimeService, nameof(cTimeService));
             
             this._dialogService = dialogService;
+            this._applicationStateService = applicationStateService;
+            this._cTimeService = cTimeService;
 
-            this.ShowNoInternetConnection = UwCoreCommand
-                .Create(this.ShowNoInternetConnectionImpl)
+            this.RefreshCurrentState = UwCoreCommand.Create(this.RefreshCurrentStateImpl)
                 .HandleExceptions();
         }
 
-        private Task ShowNoInternetConnectionImpl()
+        protected override async void OnInitialize()
         {
-            var message = CTime2Resources.Get("NoInternetConnection.Message");
-            var title = CTime2Resources.Get("NoInternetConnection.Title");
+            base.OnInitialize();
 
-            return this._dialogService.ShowAsync(message, title);
+            await this.RefreshCurrentState.ExecuteAsync();
+        }
+
+        private async Task RefreshCurrentStateImpl()
+        {
+            var user = this._applicationStateService.GetCurrentUser();
+
+            this.IsCheckedIn = await this._cTimeService.IsCurrentlyCheckedIn(user.Id);
+            this.UserImage = user.ImageAsPng;
+        }
+        
+        async Task IHandleWithTask<UserStamped>.Handle(UserStamped message)
+        {
+            await this.RefreshCurrentState.ExecuteAsync();
+        }
+        async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)
+        {
+            await this.RefreshCurrentState.ExecuteAsync();
         }
     }
 }

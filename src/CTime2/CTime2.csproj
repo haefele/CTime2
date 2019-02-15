@@ -18,6 +18,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>CTime2_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F111E1F0D2F0CB3FF462302F4A2ED709AE1D9385</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -110,6 +111,7 @@
     <Compile Include="Behaviors\MarkWeeks.cs" />
     <Compile Include="Behaviors\ShowAttachedFlyout.cs" />
     <Compile Include="Behaviors\TextBlockTextFromResources.cs" />
+    <Compile Include="Controls\UserImageButton.cs" />
     <Compile Include="Converter\DoubleToHorizontalSizeConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
     <Compile Include="Converter\HoursToDurationStringConverter.cs" />
