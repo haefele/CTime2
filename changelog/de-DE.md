@@ -1,6 +1,6 @@
 # Versionshinweis
 
-## Version 2.0.0.0
+## Version 1.9.2.0
 
 ### c-Time On-Premises Unterstützung
 Diese App unterstützt nun c-Time On-Premises, also gehostet auf deinem eigenen Server.  
