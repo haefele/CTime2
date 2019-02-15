@@ -91,17 +91,28 @@
                         </VisualStateManager.VisualStateGroups>
 
                         <Grid.Resources>
-                            <converter:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-                            <converter:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+                            <ResourceDictionary>
+                                <converter:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+                                <converter:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Light">
+                                        <Color x:Key="ShadowBrush">Black</Color>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <Color x:Key="ShadowBrush">LightGray</Color>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
                         </Grid.Resources>
 
                         <toolkitControls:DropShadowPanel HorizontalContentAlignment="Stretch"
-                                                   VerticalContentAlignment="Stretch"
-                                                   Color="Black"
-                                                   ShadowOpacity="0"
-                                                   BlurRadius="10"
-                                                   OffsetY="1"                                                             
-                                                   x:Name="DropShadowPanel">
+                                                         VerticalContentAlignment="Stretch"
+                                                         Color="{ThemeResource ShadowBrush}"
+                                                         ShadowOpacity="0"
+                                                         BlurRadius="10"
+                                                         OffsetY="1"                                                             
+                                                         x:Name="DropShadowPanel">
                             <Ellipse Stroke="{TemplateBinding BorderBrush}"
                                      StrokeThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessToDoubleConverter}}">
                                 <Ellipse.Fill>
