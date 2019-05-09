@@ -89,7 +89,7 @@ namespace CTime2.Core.Services.CTime
                     CompanyImageAsPng = user.GetBase64ByteArray("CompanyImage"),
                 };
             }
-            catch (Exception exception)
+            catch (Exception exception) when (exception is CTimeException == false)
             {
                 Logger.Warn($"Exception in method {nameof(this.Login)}. Email address: {emailAddress}");
                 Logger.Error(exception);
@@ -149,7 +149,7 @@ namespace CTime2.Core.Services.CTime
                     .Where(f => f.Day <= this._clock.Today() || f.ClockInTime != null || f.ClockOutTime != null)
                     .ToList();
             }
-            catch (Exception exception)
+            catch (Exception exception) when (exception is CTimeException == false)
             {
                 Logger.Warn($"Exception in method {nameof(this.GetTimes)}. Employee: {employeeGuid}, Start: {start}, End: {end}");
                 Logger.Error(exception);
@@ -177,19 +177,18 @@ namespace CTime2.Core.Services.CTime
                     {"lat", location?.Position.Latitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
                     {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
                 };
-
-                var expectedState = state.HasFlag(TimeState.Entered) ? 1 : 0;
-
+                
                 var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false);
-                if (responseJson?.GetInt("State") == expectedState)
-                {
-                    //Make sure to clear the cache before we fire the UserStamped event
-                    this._requestCache.Clear();
 
-                    this._eventAggregator.PublishOnCurrentThread(new UserStamped());
-                }
+                if (string.IsNullOrWhiteSpace(responseJson?.GetNamedString("Greeting")))
+                    throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"));
+
+                //Make sure to clear the cache before we fire the UserStamped event
+                this._requestCache.Clear();
+
+                this._eventAggregator.PublishOnCurrentThread(new UserStamped());
             }
-            catch (Exception exception)
+            catch (Exception exception) when (exception is CTimeException == false)
             {
                 Logger.Warn($"Exception in method {nameof(this.SaveTimer)}. Employee: {employeeGuid}, Time: {time}, Company Id: {companyId}, State: {(int)state}");
                 Logger.Error(exception);
@@ -208,7 +207,7 @@ namespace CTime2.Core.Services.CTime
                     .OrderByDescending(f => f.ClockInTime)
                     .FirstOrDefault();
             }
-            catch (Exception exception)
+            catch (Exception exception) when (exception is CTimeException == false)
             {
                 Logger.Warn($"Exception in method {nameof(this.GetCurrentTime)}. Employee: {employeeGuid}");
                 Logger.Error(exception);
@@ -280,7 +279,7 @@ namespace CTime2.Core.Services.CTime
 
                 return result.Select(f => f.Value).ToList();
             }
-            catch (Exception exception)
+            catch (Exception exception) when (exception is CTimeException == false)
             {
                 Logger.Warn($"Exception in method {nameof(this.GetAttendingUsers)}. Company Id: {companyId}");
                 Logger.Error(exception);
