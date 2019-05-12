@@ -203,3 +203,6 @@ project.lock.json
 
 # Cake Build Tools
 /scripts/tools/
+
+# Build Tools
+/dotnettools
