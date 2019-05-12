@@ -14,9 +14,6 @@ namespace CTime2.Scripts
         {
             Target("clean", () =>
             {
-                RunGit($"reset HEAD \"Directory.Build.props\"");
-                RunGit($"checkout -- \"Directory.Build.props\"");
-
                 RunGit($"reset HEAD \"{CTime2App.AppxManifest}\"");
                 RunGit($"checkout -- \"{CTime2App.AppxManifest}\"");
 
@@ -44,13 +41,15 @@ namespace CTime2.Scripts
             Target("setup-versioning", DependsOn("clean"), () =>
             {
                 RunDotNetTool($"install nbgv --tool-path \"{DotNetToolsDirectory}\"");
-                RunNbgv("install");
                 RunNbgv("cloud");
             });
 
             Target("update-appxmanifest-version", DependsOn("setup-versioning"), () =>
             {
-                var version = ReadNbgv("get-version");
+                var a = ReadNbgv("get-version");
+
+                var version = Version.Parse(ReadNbgv("get-version -v Version"));
+                UpdateAppxmanifestVersion(CTime2App.AppxManifest, version);
             });
 
             Target("build", DependsOn("update-appxmanifest-version"), () =>

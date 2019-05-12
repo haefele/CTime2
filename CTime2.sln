@@ -34,13 +34,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{72EE1CB6-A730-4F92-901C-5CAC74E9575F}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		Directory.Build.props = Directory.Build.props
 		README.md = README.md
 		version.json = version.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.EmployeeNotificationService", "src\CTime2.EmployeeNotificationService\CTime2.EmployeeNotificationService.csproj", "{80AD7337-7F17-4D93-BFCF-72F21CEA2C3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.Scripts", "scripts\CTime2.Scripts\CTime2.Scripts.csproj", "{CDE1472C-8689-43E2-A186-5196F006567C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTime2.Scripts", "scripts\CTime2.Scripts\CTime2.Scripts.csproj", "{CDE1472C-8689-43E2-A186-5196F006567C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

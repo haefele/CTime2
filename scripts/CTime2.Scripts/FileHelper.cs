@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
+using System.Xml.Linq;
 
 namespace CTime2.Scripts
 {
@@ -50,6 +52,20 @@ namespace CTime2.Scripts
             Directory.CreateDirectory(outputDirectory);
 
             ZipFile.CreateFromDirectory(directory, outputFilePath);
+        }
+
+        public static void UpdateAppxmanifestVersion(string path, Version version)
+        {
+            var xmlns = "http://schemas.microsoft.com/appx/manifest/foundation/windows10";
+
+            var manifest = XDocument.Load(path);
+
+            manifest.Root
+                .Element(XName.Get("Identity", xmlns))
+                .Attribute("Version")
+                .SetValue(version.ToString(3) + ".0");
+
+            manifest.Save(path);
         }
     }
 }
