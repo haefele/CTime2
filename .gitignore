@@ -206,3 +206,5 @@ project.lock.json
 
 # Build Tools
 /dotnettools
+/src/CTime2/BundleArtifacts
+/src/CTime2/_pkginfo.txt

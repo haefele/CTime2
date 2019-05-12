@@ -46,15 +46,14 @@ namespace CTime2.Scripts
 
             Target("update-appxmanifest-version", DependsOn("setup-versioning"), () =>
             {
-                var a = ReadNbgv("get-version");
-
                 var version = Version.Parse(ReadNbgv("get-version -v Version"));
                 UpdateAppxmanifestVersion(CTime2App.AppxManifest, version);
             });
 
             Target("build", DependsOn("update-appxmanifest-version"), () =>
             {
-
+                RunMsBuild($"\"{CTime2App.CsProj}\" /t:Restore");
+                RunMsBuild($"\"{CTime2App.CsProj}\" /p:Configuration=Release /p:AppxPackageDir=AppPackages /p:AppxBundlePlatforms=\"x86|x64|ARM\" /p:UapAppxPackageBuildMode=StoreUpload /p:AppxBundle=Always");
             });
 
             Target("default", DependsOn("build"));
