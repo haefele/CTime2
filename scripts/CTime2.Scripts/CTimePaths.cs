@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace CTime2.Scripts
@@ -59,6 +60,20 @@ namespace CTime2.Scripts
 
             public static string TestPackageArtifactPath => Path.Combine(ArtifactsDirectory, "TestPackage.zip");
             public static string StorePackageArtifactPath => Path.Combine(ArtifactsDirectory, "StorePackage.zip");
+        }
+        
+        public static class UpdateNotes
+        {
+            private static Dictionary<string, string> LanguagePairs => new Dictionary<string, string>
+            {
+                ["de-DE"] = "German",
+                ["en-US"] = "English"
+            };
+
+            public static string[] Languages => LanguagePairs.Keys.ToArray();
+
+            public static string GetSourceFilePath(string language) => Path.Combine(SlnDirectory, "changelog", language + ".md");
+            public static string GetTargetFilePath(string language) => Path.Combine(SlnDirectory, "src", "CTime2", "Views", "UpdateNotes", LanguagePairs[language] + ".md");
         }
     }
 }

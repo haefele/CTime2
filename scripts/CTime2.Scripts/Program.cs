@@ -4,6 +4,8 @@ using static CTime2.Scripts.FileHelper;
 using static Bullseye.Targets;
 using static CTime2.Scripts.CTimePaths;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CTime2.Scripts
 {
@@ -14,6 +16,10 @@ namespace CTime2.Scripts
             Target("clean", () =>
             {
                 GitResetFile(CTime2App.AppxManifest);
+                foreach (var language in UpdateNotes.Languages)
+                {
+                    GitResetFile(UpdateNotes.GetTargetFilePath(language));
+                }
 
                 DeleteDirectory(ArtifactsDirectory);
                 DeleteDirectory(DotNetToolsDirectory);
@@ -48,7 +54,41 @@ namespace CTime2.Scripts
                 UpdateAppxmanifestVersion(CTime2App.AppxManifest, version);
             });
 
-            Target("build", DependsOn("update-appxmanifest-version"), () =>
+            Target("sync-update-notes", DependsOn("clean"), () =>
+            {
+                foreach (var language in UpdateNotes.Languages)
+                {
+                    var sourceFile = UpdateNotes.GetSourceFilePath(language);
+                    var targetFile = UpdateNotes.GetTargetFilePath(language);
+                                       
+                    CopyFile(sourceFile, targetFile);
+
+                    var content = FileReadLines(targetFile);
+                    var updatedContent = new List<string>();
+
+                    bool firstLine = true;
+                    foreach (var line in content.Skip(2)) //Throw away the first 2 lines
+                    {
+                        //Add lines before and after the version numbers (they always start with "## ")
+                        if (line.StartsWith("## ") && firstLine == false)
+                        {
+                            updatedContent.Add("-----");
+                        }
+
+                        updatedContent.Add(line);
+
+                        if (line.StartsWith("## "))
+                        {
+                            updatedContent.Add("-----");
+                        }
+
+                        firstLine = false;
+                    }
+                    FileWriteLines(targetFile, updatedContent);
+                }
+            });
+
+            Target("build", DependsOn("update-appxmanifest-version", "sync-update-notes"), () =>
             {
                 RunMsBuild($"\"{CTime2App.CsProj}\" /t:Restore");
                 RunMsBuild($"\"{CTime2App.CsProj}\" /p:Configuration=Release /p:AppxPackageDir=AppPackages /p:AppxBundlePlatforms=\"x86|x64|ARM\" /p:UapAppxPackageBuildMode=StoreUpload /p:AppxBundle=Always");

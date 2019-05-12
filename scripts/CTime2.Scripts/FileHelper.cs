@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using System.Xml.Linq;
 
 namespace CTime2.Scripts
@@ -36,6 +38,23 @@ namespace CTime2.Scripts
             {
                 File.Delete(file);
             }
+        }
+
+        public static void CopyFile(string from, string to)
+        {
+            File.Delete(to);
+            File.Copy(from, to);
+        }
+
+        public static string[] FileReadLines(string filePath)
+        {
+            return File.ReadAllLines(filePath, Encoding.UTF8);
+        }
+
+        public static void FileWriteLines(string filePath, List<string> lines)
+        {
+            File.Delete(filePath);
+            File.WriteAllLines(filePath, lines, Encoding.UTF8);
         }
 
         public static void RenameFile(string directory, string fileName, string newFileName)
