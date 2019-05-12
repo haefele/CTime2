@@ -20,10 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.LiveTileService", "src\CTime2.LiveTileService\CTime2.LiveTileService.csproj", "{B2811E7C-362E-447E-889F-4FC4ACE40ABD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{BD7A0E77-C5AE-4ACC-9738-BE53342977FE}"
-	ProjectSection(SolutionItems) = preProject
-		scripts\build.cake = scripts\build.cake
-		scripts\build.ps1 = scripts\build.ps1
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{CB275C9C-1B95-4975-B9DB-0DCB2F85FA55}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,8 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{72EE1CB6-A730-4F92-901C-5CAC74E9575F}"
 	ProjectSection(SolutionItems) = preProject
-		appveyor.yml = appveyor.yml
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
+		nuget.config = nuget.config
 		README.md = README.md
 		version.json = version.json
 	EndProjectSection
