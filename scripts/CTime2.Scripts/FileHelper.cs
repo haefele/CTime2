@@ -67,5 +67,17 @@ namespace CTime2.Scripts
 
             manifest.Save(path);
         }
+
+        public static void GitResetFile(string file)
+        {
+            try
+            {
+                RunHelper.RunGit($"reset HEAD \"{file}\"");
+                RunHelper.RunGit($"checkout -- \"{file}\"");
+            }
+            catch (SimpleExec.NonZeroExitCodeException)
+            {
+            }
+        }
     }
 }

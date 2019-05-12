@@ -30,14 +30,7 @@ namespace CTime2.Scripts
         }
         public static void RunGit(string arguments)
         {
-            try
-            {
-                Run("git", arguments, workingDirectory: CTimePaths.SlnDirectory, noEcho: true);
-            }
-            catch (SimpleExec.NonZeroExitCodeException e)
-            {
-
-            }
+            Run("git", arguments, workingDirectory: CTimePaths.SlnDirectory, noEcho: true);
         }
         public static void RunNbgv(string arguments)
         {
