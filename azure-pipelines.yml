@@ -8,10 +8,10 @@ trigger:
 
 stages:
 - stage: Build
-  pool:
-    vmImage: 'windows-2019'
   jobs:
   - job: Build
+    pool:
+      vmImage: 'vs2017-win2016'
     steps:
     - script: 'dotnet run --project "./scripts/CTime2.Scripts/CTime2.Scripts.csproj"'
       displayName: Build
