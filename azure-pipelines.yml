@@ -1,0 +1,30 @@
+trigger:
+  branches:
+    include:
+    - master
+  tags:
+    include:
+    - v*
+
+pool:
+  vmImage: 'windows-2019'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - script: 'dotnet run --project "./scripts/CTime2.Scripts/CTime2.Scripts.csproj"'
+      displayName: Build
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: Test Package'
+      inputs:
+        PathtoPublish: 'artifacts/TestPackage.zip'
+        ArtifactName: 'Test Package'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: Store Package'
+      inputs:
+        PathtoPublish: 'artifacts/StorePackage.zip'
+        ArtifactName: 'StorePackage'

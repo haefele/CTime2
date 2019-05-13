@@ -203,3 +203,9 @@ project.lock.json
 
 # Cake Build Tools
 /scripts/tools/
+
+# Build Tools
+/dotnettools
+/src/CTime2/BundleArtifacts
+/src/CTime2/_pkginfo.txt
+/artifacts
