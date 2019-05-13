@@ -13,7 +13,19 @@ namespace CTime2.Scripts
             var vsWhere = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Microsoft Visual Studio", "Installer", "vswhere.exe");
             var path = Read(vsWhere, "-products * -requires Microsoft.Component.MSBuild -property installationPath").Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).First();
 
-            return Path.Combine(path, "MSBuild", "15.0", "Bin", "MSBuild.exe");
+            var msBuildPaths = new string[] 
+            {
+                Path.Combine(path, "MSBuild", "15.0", "Bin", "MSBuild.exe"),
+                Path.Combine(path, "MSBuild", "Current", "Bin", "MSBuild.exe"),
+            };
+
+            foreach (var msBuildPath in msBuildPaths)
+            {
+                if (File.Exists(msBuildPath))
+                    return msBuildPath;
+            }
+
+            throw new Exception("MSBuild.exe not found.");
         }
 
         public static void RunDotNet(string arguments)
