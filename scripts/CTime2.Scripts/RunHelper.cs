@@ -11,7 +11,7 @@ namespace CTime2.Scripts
         private static string GetMsBuildPath()
         {
             var vsWhere = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Microsoft Visual Studio", "Installer", "vswhere.exe");
-            var path = Read(vsWhere, "-version 15.0 -products * -requires Microsoft.Component.MSBuild -property installationPath").Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).First();
+            var path = Read(vsWhere, "-products * -requires Microsoft.Component.MSBuild -property installationPath").Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).First();
 
             return Path.Combine(path, "MSBuild", "Current", "Bin", "MSBuild.exe");
         }
