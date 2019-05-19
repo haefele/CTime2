@@ -294,10 +294,10 @@ namespace CTime2
         #region Analytics
         public override IAnalyticsService GetAnalyticsService()
         {
-#if DEBUG
-            string appCenterSecret = "47d68127-8259-42ba-9449-e971c0bbabb3";
-#else
+#if STORE
             string appCenterSecret = "26792bb8-2428-4009-9ea2-573c46d15a77";
+#else
+            string appCenterSecret = "47d68127-8259-42ba-9449-e971c0bbabb3";
 #endif
 
             return new AppCenterAnalyticsService(appCenterSecret, typeof(Analytics), typeof(Crashes));
@@ -306,7 +306,6 @@ namespace CTime2
         public override bool IsAnalyticsServiceEnabled()
         {
             return base.IsAnalyticsServiceEnabled() &&
-                   Package.Current.Id.Version.ToVersion() != new Version("9999.9999.9999.0") &&
                    Package.Current.Id.Version.ToVersion().Revision == 0;
         }
         #endregion
