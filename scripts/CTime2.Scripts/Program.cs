@@ -102,7 +102,7 @@ namespace CTime2.Scripts
             Target("build", DependsOn("update-appxmanifest-version", "sync-update-notes"), () =>
             {
                 RunMsBuild($"\"{CTime2App.CsProj}\" /t:Restore");
-                RunMsBuild($"\"{CTime2App.CsProj}\" /p:Configuration=Store");
+                RunMsBuild($"\"{CTime2App.CsProj}\" /p:Configuration=Debug");
             });
 
             Target("default", DependsOn("build"));
