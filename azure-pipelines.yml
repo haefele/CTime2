@@ -9,7 +9,7 @@ trigger:
 stages:
 - stage: Build
   jobs:
-  - job: Build Store Package
+  - job: Build_Store_Packages
     pool:
       vmImage: 'vs2017-win2016'
     condition: ne(variables['Build.Reason'], 'PullRequest')
@@ -29,7 +29,7 @@ stages:
         PathtoPublish: 'artifacts/StorePackage.zip'
         ArtifactName: 'StorePackage'
 
-  - job: Build PR
+  - job: Build_PR
     pool:
       vmImage: 'vs2017-win2016'
     condition: eq(variables['Build.Reason'], 'PullRequest')
