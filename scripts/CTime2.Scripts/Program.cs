@@ -88,7 +88,7 @@ namespace CTime2.Scripts
                 }
             });
 
-            Target("build", DependsOn("update-appxmanifest-version", "sync-update-notes"), () =>
+            Target("build-store-package", DependsOn("update-appxmanifest-version", "sync-update-notes"), () =>
             {
                 RunMsBuild($"\"{CTime2App.CsProj}\" /t:Restore");
                 RunMsBuild($"\"{CTime2App.CsProj}\" /p:Configuration=Store /p:AppxPackageDir=AppPackages /p:AppxBundlePlatforms=\"x86|x64|ARM\" /p:UapAppxPackageBuildMode=StoreUpload /p:AppxBundle=Always");
@@ -97,6 +97,12 @@ namespace CTime2.Scripts
                 DeleteDirectory(CTime2App.TestPackageDirectory);
 
                 ZipDirectory(CTime2App.AppPackagesDirectory, CTime2App.StorePackageArtifactPath);
+            });
+
+            Target("build", DependsOn("update-appxmanifest-version", "sync-update-notes"), () =>
+            {
+                RunMsBuild($"\"{CTime2App.CsProj}\" /t:Restore");
+                RunMsBuild($"\"{CTime2App.CsProj}\" /p:Configuration=Debug");
             });
 
             Target("default", DependsOn("build"));
