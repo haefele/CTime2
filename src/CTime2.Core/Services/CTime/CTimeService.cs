@@ -390,25 +390,40 @@ namespace CTime2.Core.Services.CTime
         private Uri BuildUri(string function)
         {
             var baseUri = this.GetBaseUri();
-            return new Uri($"{baseUri}V2/{function}"); //baseUri is something like "https://app.c-time.net/php/" and path is something like "LoginV2.php" -> "https://app.c-time.net/php/V2/LoginV2.php"
+            return new Uri($"{baseUri}{function}");
         }
 
         private string GetBaseUri()
         {
+            var cloudUrl = "https://api.c-time.net/";
             var onPremisesServerUrl = this._applicationStateService.GetOnPremisesServerUrl();
 
-            if (string.IsNullOrWhiteSpace(onPremisesServerUrl))
-                return "https://app.c-time.net/php/";
+            // If the user entered the cloud URL for testing purposes, we don't want to format the url for on-premises use
+            // on-premise URLs end with /php/V2/, but the cloud version does not
+            if (string.Equals(cloudUrl, this.TrimOnPremisesUrl(onPremisesServerUrl)))
+                return cloudUrl;
 
-            onPremisesServerUrl = onPremisesServerUrl.TrimEnd('/');
+            return string.IsNullOrWhiteSpace(onPremisesServerUrl) == false 
+                ? this.TrimOnPremisesUrl(onPremisesServerUrl) + "php/V2/" 
+                : cloudUrl;
+        }
 
-            if (onPremisesServerUrl.EndsWith("/") == false)
-                onPremisesServerUrl += "/";
+        private string TrimOnPremisesUrl(string url)
+        {
+            string[] knownEndings =
+            {
+                "/",
+                "php",
+                "V2",
+            };
 
-            if (onPremisesServerUrl.EndsWith("php/") == false)
-                onPremisesServerUrl += "php/";
+            while (knownEndings.Any(f => url.EndsWith(f, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                var matchingEnding = knownEndings.First(f => url.EndsWith(f, StringComparison.InvariantCultureIgnoreCase));
+                url = url.Remove(url.Length - matchingEnding.Length);
+            }
 
-            return onPremisesServerUrl;
+            return url + "/";
         }
 
         #region Internal
