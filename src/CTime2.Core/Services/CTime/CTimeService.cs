@@ -67,7 +67,7 @@ namespace CTime2.Core.Services.CTime
                     {"LoginName", emailAddress},
                     {"Crypt", 1.ToString()}
                 };
-                var responseJson = await this.SendRequestAsync("V2/LoginV2.php", data, canBeCached:false);
+                var responseJson = await this.SendRequestAsync("LoginV2.php", data, canBeCached:false);
 
                 var user = responseJson?
                     .GetNamedArray("Result", new JsonArray())
@@ -102,7 +102,7 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("V2/GetTimerListV2.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("GetTimerListV2.php", new Dictionary<string, string>
                 {
                     {"EmployeeGUID", employeeGuid},
                     {"DateTill", end.ToString("yyyy-MM-dd")},
@@ -178,7 +178,7 @@ namespace CTime2.Core.Services.CTime
                     {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
                 };
                 
-                var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false);
+                var responseJson = await this.SendRequestAsync("SaveTimerV2.php", data, canBeCached:false);
 
                 if (string.IsNullOrWhiteSpace(responseJson?.GetNamedString("Greeting")))
                     throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"));
@@ -222,7 +222,7 @@ namespace CTime2.Core.Services.CTime
             {
                 var cacheEtag = this._applicationStateService.GetAttendanceListImageCacheEtag();
 
-                var responseJson = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("GetPresenceListV2.php", new Dictionary<string, string>
                 {
                     {"GUID", companyId},
                     {"cacheDate", cacheEtag ?? string.Empty }
@@ -387,10 +387,10 @@ namespace CTime2.Core.Services.CTime
             return JsonObject.Parse(responseContentAsString);
         }
 
-        private Uri BuildUri(string path)
+        private Uri BuildUri(string function)
         {
             var baseUri = this.GetBaseUri();
-            return new Uri($"{baseUri}{path}");
+            return new Uri($"{baseUri}V2/{function}"); //baseUri is something like "https://app.c-time.net/php/" and path is something like "LoginV2.php" -> "https://app.c-time.net/php/V2/LoginV2.php"
         }
 
         private string GetBaseUri()
