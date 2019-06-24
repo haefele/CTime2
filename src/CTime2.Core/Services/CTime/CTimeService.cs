@@ -30,6 +30,8 @@ namespace CTime2.Core.Services.CTime
 {
     public class CTimeService : ICTimeService, IDisposable
     {
+        private const string CTimeUniversalAppGuid = "0C86E131-7ABB-4AC4-AA5E-29B8F00E7F2B";
+
         private static readonly ILog Logger = LogManager.GetLog(typeof(CTimeService));
 
         private readonly ICTimeRequestCache _requestCache;
@@ -65,7 +67,8 @@ namespace CTime2.Core.Services.CTime
                 {
                     {"Password", this.GetHashedPassword(password)},
                     {"LoginName", emailAddress},
-                    {"Crypt", 1.ToString()}
+                    {"Crypt", 1.ToString()},
+                    {"APPGUID", CTimeUniversalAppGuid },
                 };
                 var responseJson = await this.SendRequestAsync("LoginV2.php", data, canBeCached:false);
 
@@ -107,7 +110,8 @@ namespace CTime2.Core.Services.CTime
                     {"EmployeeGUID", employeeGuid},
                     {"DateTill", end.ToString("yyyy-MM-dd")},
                     {"DateFrom", start.ToString("yyyy-MM-dd")},
-                    {"Summary", 1.ToString()}
+                    {"Summary", 1.ToString()},
+                    {"APPGUID", CTimeUniversalAppGuid },
                 });
 
                 if (responseJson == null)
@@ -175,7 +179,8 @@ namespace CTime2.Core.Services.CTime
                     {"GUID", companyId},
                     {"RFID", rfidKey},
                     {"lat", location?.Position.Latitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
-                    {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
+                    {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
+                    {"APPGUID", CTimeUniversalAppGuid },
                 };
                 
                 var responseJson = await this.SendRequestAsync("SaveTimerV2.php", data, canBeCached:false);
@@ -225,7 +230,8 @@ namespace CTime2.Core.Services.CTime
                 var responseJson = await this.SendRequestAsync("GetPresenceListV2.php", new Dictionary<string, string>
                 {
                     {"GUID", companyId},
-                    {"cacheDate", cacheEtag ?? string.Empty }
+                    {"cacheDate", cacheEtag ?? string.Empty },
+                    {"APPGUID", CTimeUniversalAppGuid },
                 });
 
                 if (responseJson == null)
