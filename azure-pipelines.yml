@@ -11,7 +11,7 @@ stages:
   jobs:
   - job: Build_Store_Packages
     pool:
-      vmImage: 'vs2017-win2016'
+      vmImage: 'windows-2019'
     condition: ne(variables['Build.Reason'], 'PullRequest')
     steps:
     - script: 'dotnet run --project "./scripts/CTime2.Scripts/CTime2.Scripts.csproj" -- build-store-package'
@@ -31,7 +31,7 @@ stages:
 
   - job: Build_PR
     pool:
-      vmImage: 'vs2017-win2016'
+      vmImage: 'windows-2019'
     condition: eq(variables['Build.Reason'], 'PullRequest')
     steps:
     - script: 'dotnet run --project "./scripts/CTime2.Scripts/CTime2.Scripts.csproj" -- build'
