@@ -208,8 +208,21 @@ namespace CTime2.Core.Services.CTime
             {
                 IList<Time> timesForToday = await this.GetTimes(employeeGuid, this._clock.Today().AddDays(-1), this._clock.Today());
 
+                bool IsFinishedTimeInFuture(Time time)
+                {
+                    if (time.ClockOutTime == null)
+                        return false;
+
+                    if (time.ClockOutTime <= this._clock.Now().AddMinutes(5))
+                        return false;
+
+                    // Time is completed, and is further in the future than 5 minutes
+                    return true;
+                }
+
                 return timesForToday
                     .OrderByDescending(f => f.ClockInTime)
+                    .Where(f => IsFinishedTimeInFuture(f) == false) // For example, if you have a half day off in the afternoon
                     .FirstOrDefault();
             }
             catch (Exception exception) when (exception is CTimeException == false)
