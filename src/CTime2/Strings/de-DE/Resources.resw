@@ -654,7 +654,7 @@ Sie können über den Button "Fehlende Tage melden" automatisch eine E-Mail mit 
     <value>Gib hier die URL zu deiner c-Time Installation an, um diese App mit deiner On-Premises Version von c-Time zu verwenden.
 Lass das Feld leer um dich mit der Cloud Version von c-Time zu verbinden.
 
-Die URL für die Cloud Version von c-Time ist https://app.c-time.net
+Die URL für die Cloud Version von c-Time ist https://api.c-time.net
 </value>
   </data>
   <data name="OnPremisesSettingsGroup.Header" xml:space="preserve">

@@ -30,6 +30,8 @@ namespace CTime2.Core.Services.CTime
 {
     public class CTimeService : ICTimeService, IDisposable
     {
+        private const string CTimeUniversalAppGuid = "0C86E131-7ABB-4AC4-AA5E-29B8F00E7F2B";
+
         private static readonly ILog Logger = LogManager.GetLog(typeof(CTimeService));
 
         private readonly ICTimeRequestCache _requestCache;
@@ -65,9 +67,10 @@ namespace CTime2.Core.Services.CTime
                 {
                     {"Password", this.GetHashedPassword(password)},
                     {"LoginName", emailAddress},
-                    {"Crypt", 1.ToString()}
+                    {"Crypt", 1.ToString()},
+                    {"APPGUID", CTimeUniversalAppGuid },
                 };
-                var responseJson = await this.SendRequestAsync("V2/LoginV2.php", data, canBeCached:false);
+                var responseJson = await this.SendRequestAsync("LoginV2.php", data, canBeCached:false);
 
                 var user = responseJson?
                     .GetNamedArray("Result", new JsonArray())
@@ -102,12 +105,13 @@ namespace CTime2.Core.Services.CTime
         {
             try
             {
-                var responseJson = await this.SendRequestAsync("V2/GetTimerListV2.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("GetTimerListV2.php", new Dictionary<string, string>
                 {
                     {"EmployeeGUID", employeeGuid},
                     {"DateTill", end.ToString("yyyy-MM-dd")},
                     {"DateFrom", start.ToString("yyyy-MM-dd")},
-                    {"Summary", 1.ToString()}
+                    {"Summary", 1.ToString()},
+                    {"APPGUID", CTimeUniversalAppGuid },
                 });
 
                 if (responseJson == null)
@@ -175,10 +179,11 @@ namespace CTime2.Core.Services.CTime
                     {"GUID", companyId},
                     {"RFID", rfidKey},
                     {"lat", location?.Position.Latitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
-                    {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty }
+                    {"long", location?.Position.Longitude.ToString(CultureInfo.InvariantCulture) ?? string.Empty },
+                    {"APPGUID", CTimeUniversalAppGuid },
                 };
                 
-                var responseJson = await this.SendRequestAsync("V2/SaveTimerV2.php", data, canBeCached:false);
+                var responseJson = await this.SendRequestAsync("SaveTimerV2.php", data, canBeCached:false);
 
                 if (string.IsNullOrWhiteSpace(responseJson?.GetNamedString("Greeting")))
                     throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"));
@@ -203,8 +208,21 @@ namespace CTime2.Core.Services.CTime
             {
                 IList<Time> timesForToday = await this.GetTimes(employeeGuid, this._clock.Today().AddDays(-1), this._clock.Today());
 
+                bool IsFinishedTimeInFuture(Time time)
+                {
+                    if (time.ClockOutTime == null)
+                        return false;
+
+                    if (time.ClockOutTime <= this._clock.Now().AddMinutes(5))
+                        return false;
+
+                    // Time is completed, and is further in the future than 5 minutes
+                    return true;
+                }
+
                 return timesForToday
                     .OrderByDescending(f => f.ClockInTime)
+                    .Where(f => IsFinishedTimeInFuture(f) == false) // For example, if you have a half day off in the afternoon
                     .FirstOrDefault();
             }
             catch (Exception exception) when (exception is CTimeException == false)
@@ -222,10 +240,11 @@ namespace CTime2.Core.Services.CTime
             {
                 var cacheEtag = this._applicationStateService.GetAttendanceListImageCacheEtag();
 
-                var responseJson = await this.SendRequestAsync("V2/GetPresenceListV2.php", new Dictionary<string, string>
+                var responseJson = await this.SendRequestAsync("GetPresenceListV2.php", new Dictionary<string, string>
                 {
                     {"GUID", companyId},
-                    {"cacheDate", cacheEtag ?? string.Empty }
+                    {"cacheDate", cacheEtag ?? string.Empty },
+                    {"APPGUID", CTimeUniversalAppGuid },
                 });
 
                 if (responseJson == null)
@@ -387,28 +406,43 @@ namespace CTime2.Core.Services.CTime
             return JsonObject.Parse(responseContentAsString);
         }
 
-        private Uri BuildUri(string path)
+        private Uri BuildUri(string function)
         {
             var baseUri = this.GetBaseUri();
-            return new Uri($"{baseUri}{path}");
+            return new Uri($"{baseUri}{function}");
         }
 
         private string GetBaseUri()
         {
+            var cloudUrl = "https://api.c-time.net/";
             var onPremisesServerUrl = this._applicationStateService.GetOnPremisesServerUrl();
 
-            if (string.IsNullOrWhiteSpace(onPremisesServerUrl))
-                return "https://app.c-time.net/php/";
+            // If the user entered the cloud URL for testing purposes, we don't want to format the url for on-premises use
+            // on-premise URLs end with /php/V2/, but the cloud version does not
+            if (string.Equals(cloudUrl, this.TrimOnPremisesUrl(onPremisesServerUrl)))
+                return cloudUrl;
 
-            onPremisesServerUrl = onPremisesServerUrl.TrimEnd('/');
+            return string.IsNullOrWhiteSpace(onPremisesServerUrl) == false 
+                ? this.TrimOnPremisesUrl(onPremisesServerUrl) + "php/V2/" 
+                : cloudUrl;
+        }
 
-            if (onPremisesServerUrl.EndsWith("/") == false)
-                onPremisesServerUrl += "/";
+        private string TrimOnPremisesUrl(string url)
+        {
+            string[] knownEndings =
+            {
+                "/",
+                "php",
+                "V2",
+            };
 
-            if (onPremisesServerUrl.EndsWith("php/") == false)
-                onPremisesServerUrl += "php/";
+            while (knownEndings.Any(f => url.EndsWith(f, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                var matchingEnding = knownEndings.First(f => url.EndsWith(f, StringComparison.InvariantCultureIgnoreCase));
+                url = url.Remove(url.Length - matchingEnding.Length);
+            }
 
-            return onPremisesServerUrl;
+            return url + "/";
         }
 
         #region Internal

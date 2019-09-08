@@ -1,5 +1,12 @@
 # Versionshinweis
 
+## Version 1.9.3.0
+
+### c-Time API Verbesserungen
+Größtenteils enthält dieses Update Verbesserungen und Anpassungen wie die c-Time API aufgerufen wird.  
+Das ist komplett transparent für die User, und sollte keine negativen Auswirkungen haben.  
+Wenn man Nachmittags einen halben Tag Urlaub hat, und der halbe Tag schon im vorraus eingetragen wurde, dann sollte man jetzt auch mit dieser App noch ein- und ausstempeln können.
+
 ## Version 1.9.2.0
 
 ### c-Time On-Premises Unterstützung

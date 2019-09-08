@@ -94,7 +94,7 @@ namespace CTime2.Scripts
                 RunHelper.RunGit($"reset HEAD \"{file}\"");
                 RunHelper.RunGit($"checkout -- \"{file}\"");
             }
-            catch (SimpleExec.NonZeroExitCodeException)
+            catch (Exception)
             {
             }
         }
