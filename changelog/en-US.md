@@ -1,5 +1,12 @@
 # Patchnotes
 
+## Version 1.9.3.0
+
+### c-Time API improvements
+This update mostly contains improvements and changes on how the c-Time API is called.  
+These changes are completely transparent for the users, everything should still behave as expected.  
+If you have a half day off in the afternoon, and this half day is entered into c-Time in advance, you should now be able to still use this App to checkin and -out.
+
 ## Version 1.9.2.0
 
 ### c-Time on-premises support
