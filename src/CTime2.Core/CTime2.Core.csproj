@@ -167,6 +167,7 @@
     <Compile Include="Data\AttendanceState.cs" />
     <Compile Include="Data\AttendingUser.cs" />
     <Compile Include="Data\EmployeeGroup.cs" />
+    <Compile Include="Data\HolidayKind.cs" />
     <Compile Include="Data\License.cs" />
     <Compile Include="Data\Time.cs" />
     <Compile Include="Data\TimeForGrouping.cs" />

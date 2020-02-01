@@ -307,6 +307,32 @@ namespace CTime2.Core.Services.CTime
             }
         }
 
+        public async Task SaveHolidayRequest(string employeeGuid, DateTime from, DateTime to, HolidayKind holidayKind, bool specialHoliday, string note)
+        {
+            try
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {"GUID", employeeGuid},
+                    {"DateFrom", from.ToString("yyyy-MM-dd")},
+                    {"DateTill", to.ToString("yyyy-MM-dd")},
+                    {"HolidayKind", ((int)holidayKind).ToString()},
+                    {"HolidaySpecial", (specialHoliday ? 1 : 0).ToString()},
+                    {"Notice", note},
+                    {"APPGUID", CTimeUniversalAppGuid },
+                };
+
+                var responseJson = await this.SendRequestAsync("SaveHolidayRequest.php", data, canBeCached: false);
+            }
+            catch (Exception exception) when (exception is CTimeException == false)
+            {
+                //Logger.Warn($"Exception in method {nameof(this.SaveTimer)}. Employee: {employeeGuid}, Time: {time}, Company Id: {companyId}, State: {(int)state}");
+                //Logger.Error(exception);
+
+                throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"), exception);
+            }
+        }
+
         public void Dispose()
         {
             this._client.Dispose();

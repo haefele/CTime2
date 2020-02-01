@@ -13,6 +13,7 @@ namespace CTime2.Core.Services.CTime
         Task SaveTimer(string employeeGuid, string rfidKey, DateTime time, string companyId, TimeState state, bool withGeolocation);
         Task<Time> GetCurrentTime(string employeeGuid);
         Task<IList<AttendingUser>> GetAttendingUsers(string companyId, byte[] defaultImage);
+        Task SaveHolidayRequest(string employeeGuid, DateTime from, DateTime to, HolidayKind holidayKind, bool specialHoliday, string note);
     }
 
     public static class CTimeServiceExtensions

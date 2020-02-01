@@ -63,6 +63,7 @@ using UwCore.Logging;
 using UwCore.Services.Analytics;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
+using CTime2.Views.AddVacation;
 
 namespace CTime2
 {
@@ -239,6 +240,7 @@ namespace CTime2
             yield return typeof(EnterAndLeaveTimeViewModel);
             yield return typeof(OverTimeViewModel);
             yield return typeof(WorkTimeViewModel);
+            yield return typeof(AddVacationViewModel);
         }
 
         public override IEnumerable<Type> GetShellModeTypes()

@@ -26,6 +26,7 @@ using UwCore.Extensions;
 using UwCore.Services.Analytics;
 using UwCore.Services.Clock;
 using UwCore.Services.Loading;
+using CTime2.Views.AddVacation;
 
 namespace CTime2.ApplicationModes
 {
@@ -44,6 +45,7 @@ namespace CTime2.ApplicationModes
         private readonly HamburgerItem _myTimesHamburgerItem;
         private readonly HamburgerItem _attendanceListHamburgerItem;
         private readonly IList<HamburgerItem> _employeeGroupHamburgerItems;
+        private readonly HamburgerItem _vacationItem;
         private readonly HamburgerItem _statisticsItem;
         private readonly HamburgerItem _logoutHamburgerItem;
 
@@ -69,11 +71,12 @@ namespace CTime2.ApplicationModes
             this._myTimesHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.MyTimes"), Symbol.Calendar, typeof(YourTimesViewModel));
             this._attendanceListHamburgerItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.AttendanceList"), SymbolEx.AttendanceList, typeof(AttendanceListViewModel));
             this._employeeGroupHamburgerItems = new List<HamburgerItem>();
+            this._vacationItem = new NavigatingHamburgerItem("Urlaubsantrag", Symbol.AddFriend, typeof(AddVacationViewModel));
             this._statisticsItem = new NavigatingHamburgerItem(CTime2Resources.Get("Navigation.Statistics"), SymbolEx.Statistics, typeof(StatisticsViewModel));
 
             this._logoutHamburgerItem = new ClickableHamburgerItem(CTime2Resources.Get("Navigation.Logout"), SymbolEx.Logout, this.Logout);
         }
-        
+
         protected override async Task OnEnter()
         {
             await base.OnEnter();
@@ -103,6 +106,7 @@ namespace CTime2.ApplicationModes
                 this.Shell.Actions.Add(hamburgerItem);
             }
 
+            this.Shell.Actions.Add(this._vacationItem);
             this.Shell.Actions.Add(this._statisticsItem);
             this.Shell.SecondaryActions.Add(this._logoutHamburgerItem);
         }
@@ -115,6 +119,7 @@ namespace CTime2.ApplicationModes
             this.Shell.Actions.Remove(this._myTimesHamburgerItem);
             this.Shell.Actions.Remove(this._attendanceListHamburgerItem);
             this.Shell.Actions.RemoveAll(this._employeeGroupHamburgerItems);
+            this.Shell.Actions.Remove(this._vacationItem);
             this.Shell.Actions.Remove(this._statisticsItem);
             this.Shell.SecondaryActions.Remove(this._logoutHamburgerItem);
         }
