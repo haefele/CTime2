@@ -11,6 +11,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        
+        <Button Content="Click me" Command="{x:Bind ViewModel.EnterVacation}" />
     </Grid>
 </Page>

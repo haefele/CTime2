@@ -322,7 +322,7 @@ namespace CTime2.Core.Services.CTime
                     {"APPGUID", CTimeUniversalAppGuid },
                 };
 
-                var responseJson = await this.SendRequestAsync("SaveHolidayRequest.php", data, canBeCached: false);
+                var responseJson = await this.SendRequestAsync("SaveHolidayRequestNew.php", data, canBeCached: false);
             }
             catch (Exception exception) when (exception is CTimeException == false)
             {
