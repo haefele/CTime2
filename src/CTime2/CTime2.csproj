@@ -18,7 +18,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>CTime2_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>AA73186194E8C1CE23CAE97DB086346E058A52AE</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>33F3A788BDF4247535DD0EA22216CEFB7AA55BD4</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
