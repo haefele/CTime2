@@ -6,16 +6,17 @@ on:
   pull_request:
 
 jobs:
-  build:
-
+  Build:
     runs-on: windows-latest
-
     steps: 
-    - name: 'Checkout code'
+
+    - name: Checkout code
       uses: actions/checkout@v1
       with:
         fetch-depth: 0
-    - name: 'Add MSBuild to path'
-      uses: microsoft/setup-msbuild@v1.0.0
-    - name: 'Build'
-      run: 'dotnet run --project "./scripts/CTime2.Scripts/CTime2.Scripts.csproj" -- build'
+
+    - name: Disable dotnet welcome message
+      run: New-Item -Force "$env:USERPROFILE/.dotnet/$(dotnet --version).dotnetFirstUseSentinel" | Out-Null
+
+    - name: Build
+      run: dotnet run --project "./scripts/CTime2.Scripts/CTime2.Scripts.csproj" -- build

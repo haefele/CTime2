@@ -50,7 +50,7 @@ namespace CTime2.Scripts
             {
                 Run(CTimePaths.Nbgv, arguments, workingDirectory: CTimePaths.SlnDirectory);
             }
-            catch (Exception e) when (arguments == "cloud")
+            catch (Exception) when (arguments == "cloud")
             {
                 // No cloud environment detected
             }
