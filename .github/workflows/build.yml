@@ -1,0 +1,21 @@
+name: Build
+
+on:
+  push: 
+    branches: master
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps: 
+    - name: 'Checkout code'
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 0
+    - name: 'Add MSBuild to path'
+      uses: microsoft/setup-msbuild@v1.0.0
+    - name: 'Build'
+      run: 'dotnet run --project "./scripts/CTime2.Scripts/CTime2.Scripts.csproj" -- build'
