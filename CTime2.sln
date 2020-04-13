@@ -42,6 +42,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.EmployeeNotification
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTime2.Scripts", "scripts\CTime2.Scripts\CTime2.Scripts.csproj", "{CDE1472C-8689-43E2-A186-5196F006567C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{6BE0D048-F895-4803-9700-ECA633A91D68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{E6B0339A-21A9-40A1-863C-723CD628B4FB}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +232,7 @@ Global
 		{B2811E7C-362E-447E-889F-4FC4ACE40ABD} = {C77BC0A8-5F43-42AC-A81B-77DE483C3791}
 		{80AD7337-7F17-4D93-BFCF-72F21CEA2C3D} = {C77BC0A8-5F43-42AC-A81B-77DE483C3791}
 		{CDE1472C-8689-43E2-A186-5196F006567C} = {BD7A0E77-C5AE-4ACC-9738-BE53342977FE}
+		{E6B0339A-21A9-40A1-863C-723CD628B4FB} = {6BE0D048-F895-4803-9700-ECA633A91D68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1999B2EB-F418-495B-A980-BB4471B34560}
