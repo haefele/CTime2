@@ -11,6 +11,7 @@ using CTime2.Core.Services.Statistics;
 using ReactiveUI;
 using UwCore.Common;
 using UwCore.Services.Clock;
+using DynamicData.Binding;
 
 namespace CTime2.Views.Statistics.Details.OverTime
 {
@@ -19,7 +20,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
         private readonly IApplicationStateService _applicationStateService;
         private readonly IStatisticsService _statisticsService;
 
-        private ReactiveList<StatisticChartItem> _chartItems;
+        private ObservableCollectionExtended<StatisticChartItem> _chartItems;
         private double _averageOverTimePerDay;
 
         public double AverageOverTimePerDay
@@ -28,7 +29,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
             set { this.RaiseAndSetIfChanged(ref this._averageOverTimePerDay, value); }
         }
 
-        public ReactiveList<StatisticChartItem> ChartItems
+        public ObservableCollectionExtended<StatisticChartItem> ChartItems
         {
             get { return this._chartItems; }
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
@@ -70,7 +71,7 @@ namespace CTime2.Views.Statistics.Details.OverTime
             this.EnsureAllDatesAreThere(result, valueForFilledDates: result.Last().Value);
 
             this.AverageOverTimePerDay = this._statisticsService.CalculateAverageOverTime(timesByDay, onlyWorkDays: false).TotalMinutes;
-            this.ChartItems = new ReactiveList<StatisticChartItem>(result.OrderBy(f => f.Date));
+            this.ChartItems = new ObservableCollectionExtended<StatisticChartItem>(result.OrderBy(f => f.Date));
 
             return Task.CompletedTask;
         }

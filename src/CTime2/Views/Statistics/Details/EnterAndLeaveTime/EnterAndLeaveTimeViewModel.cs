@@ -5,6 +5,7 @@ using CTime2.Core.Data;
 using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
+using DynamicData.Binding;
 using ReactiveUI;
 using UwCore.Common;
 using UwCore.Services.Clock;
@@ -16,9 +17,9 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
         private readonly IStatisticsService _statisticsService;
 
         private double _averageBeginTime;
-        private ReactiveList<StatisticChartItem> _beginChartItems;
+        private ObservableCollectionExtended<StatisticChartItem> _beginChartItems;
         private double _averageEndTime;
-        private ReactiveList<StatisticChartItem> _endChartItems;
+        private ObservableCollectionExtended<StatisticChartItem> _endChartItems;
 
         public double AverageBeginTime
         {
@@ -26,7 +27,7 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
             set { this.RaiseAndSetIfChanged(ref this._averageBeginTime, value); }
         }
 
-        public ReactiveList<StatisticChartItem> BeginChartItems
+        public ObservableCollectionExtended<StatisticChartItem> BeginChartItems
         {
             get { return this._beginChartItems; }
             set { this.RaiseAndSetIfChanged(ref this._beginChartItems, value); }
@@ -38,7 +39,7 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
             set { this.RaiseAndSetIfChanged(ref this._averageEndTime, value); }
         }
 
-        public ReactiveList<StatisticChartItem> EndChartItems
+        public ObservableCollectionExtended<StatisticChartItem> EndChartItems
         {
             get { return this._endChartItems; }
             set { this.RaiseAndSetIfChanged(ref this._endChartItems, value); }
@@ -67,7 +68,7 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
             this.EnsureAllDatesAreThere(begin, 0);
 
             this.AverageBeginTime = this._statisticsService.CalculateAverageEnterTime(timesByDay, onlyWorkDays:true).TotalHours;
-            this.BeginChartItems = new ReactiveList<StatisticChartItem>(begin.OrderBy(f => f.Date));
+            this.BeginChartItems = new ObservableCollectionExtended<StatisticChartItem>(begin.OrderBy(f => f.Date));
 
             var end = timesByDay
                 .Where(f => f.DayStartTime != null && f.DayEndTime != null)
@@ -80,7 +81,7 @@ namespace CTime2.Views.Statistics.Details.EnterAndLeaveTime
             this.EnsureAllDatesAreThere(end, 0);
 
             this.AverageEndTime = this._statisticsService.CalculateAverageLeaveTime(timesByDay, onlyWorkDays:true).TotalHours;
-            this.EndChartItems = new ReactiveList<StatisticChartItem>(end.OrderBy(f => f.Date));
+            this.EndChartItems = new ObservableCollectionExtended<StatisticChartItem>(end.OrderBy(f => f.Date));
 
             return Task.CompletedTask;
         }

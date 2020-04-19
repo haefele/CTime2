@@ -300,7 +300,7 @@ namespace CTime2
             string appCenterSecret = "47d68127-8259-42ba-9449-e971c0bbabb3";
 #endif
 
-            return new AppCenterAnalyticsService(appCenterSecret, typeof(Analytics), typeof(Crashes));
+            return new AppCenterAnalyticsService(appCenterSecret);
         }
 
         public override bool IsAnalyticsServiceEnabled()

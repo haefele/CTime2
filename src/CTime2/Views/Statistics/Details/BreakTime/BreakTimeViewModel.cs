@@ -6,6 +6,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
+using DynamicData.Binding;
 using ReactiveUI;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
@@ -20,7 +21,7 @@ namespace CTime2.Views.Statistics.Details.BreakTime
 
         private double _expectedBreakTimePerDay;
         private double _averageBreakTimePerDay;
-        private ReactiveList<StatisticChartItem> _chartItems;
+        private ObservableCollectionExtended<StatisticChartItem> _chartItems;
 
         public double ExpectedBreakTimePerDay
         {
@@ -34,7 +35,7 @@ namespace CTime2.Views.Statistics.Details.BreakTime
             set { this.RaiseAndSetIfChanged(ref this._averageBreakTimePerDay, value); }
         }
 
-        public ReactiveList<StatisticChartItem> ChartItems
+        public ObservableCollectionExtended<StatisticChartItem> ChartItems
         {
             get { return this._chartItems; }
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
@@ -66,7 +67,7 @@ namespace CTime2.Views.Statistics.Details.BreakTime
 
             this.ExpectedBreakTimePerDay = this._applicationStateService.GetWorkDayBreak().TotalMinutes;
             this.AverageBreakTimePerDay = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays:true).TotalMinutes;
-            this.ChartItems = new ReactiveList<StatisticChartItem>(items.OrderBy(f => f.Date));
+            this.ChartItems = new ObservableCollectionExtended<StatisticChartItem>(items.OrderBy(f => f.Date));
 
             return Task.CompletedTask;
         }

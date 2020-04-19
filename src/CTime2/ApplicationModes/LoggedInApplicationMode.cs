@@ -114,7 +114,10 @@ namespace CTime2.ApplicationModes
             this.Shell.Actions.Remove(this._overviewHamburgerItem);
             this.Shell.Actions.Remove(this._myTimesHamburgerItem);
             this.Shell.Actions.Remove(this._attendanceListHamburgerItem);
-            this.Shell.Actions.RemoveAll(this._employeeGroupHamburgerItems);
+            foreach (var group in this._employeeGroupHamburgerItems)
+            {
+                this.Shell.Actions.Remove(group);
+            }
             this.Shell.Actions.Remove(this._statisticsItem);
             this.Shell.SecondaryActions.Remove(this._logoutHamburgerItem);
         }
