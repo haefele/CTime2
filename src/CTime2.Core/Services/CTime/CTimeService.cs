@@ -290,6 +290,10 @@ namespace CTime2.Core.Services.CTime
                             ImageAsPng = Convert.FromBase64String(f.GetString("EmployeePhoto") ?? defaultImageAsBase64),
                             EmailAddress = f.GetString("EmployeeEmail"),
                             PhoneNumber = f.GetString("EmployeePhone"),
+                            Departments = f.GetString("EmployeeGroups")
+                                           .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                           .Select(d => d.Trim())
+                                           .ToArray()
                         }
                     })
                     .GroupBy(f => f.EmployeeI3D)

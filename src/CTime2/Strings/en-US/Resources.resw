@@ -666,4 +666,7 @@ The URL for the cloud version of c-Time is https://api.c-time.net
   <data name="TestConnectionSymbolIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Test connection.</value>
   </data>
+  <data name="DepartmentsTextBlock.Text" xml:space="preserve">
+    <value>Departments</value>
+  </data>
 </root>
