@@ -43,18 +43,10 @@ namespace CTime2.Views.UpdateNotes
 
         private async Task<string> RefreshUpdateNotesImpl()
         {
-            try
-            {
-                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Views/UpdateNotes/{CTime2Resources.Get("UpdateNotesFileName")}.md"));
-                var content = await file.ReadBytesAsync();
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Views/UpdateNotes/{CTime2Resources.Get("UpdateNotesFileName")}.md"));
+            var content = await file.ReadBytesAsync();
 
-                return Encoding.UTF8.GetString(content);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            return Encoding.UTF8.GetString(content);
         }
     }
 }

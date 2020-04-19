@@ -25,6 +25,7 @@ using Polly;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Clock;
+using UwCore.Services.Analytics;
 
 namespace CTime2.Core.Services.CTime
 {
@@ -39,23 +40,24 @@ namespace CTime2.Core.Services.CTime
         private readonly IApplicationStateService _applicationStateService;
         private readonly IGeoLocationService _geoLocationService;
         private readonly IClock _clock;
-
+        private readonly IAnalyticsService _analyticsService;
         private readonly HttpClient _client;
 
-        public CTimeService(ICTimeRequestCache requestCache, IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService, IClock clock)
+        public CTimeService(ICTimeRequestCache requestCache, IEventAggregator eventAggregator, IApplicationStateService applicationStateService, IGeoLocationService geoLocationService, IClock clock, IAnalyticsService analyticsService)
         {
             Guard.NotNull(requestCache, nameof(requestCache));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(geoLocationService, nameof(geoLocationService));
             Guard.NotNull(clock, nameof(clock));
+            Guard.NotNull(analyticsService, nameof(analyticsService));
 
             this._requestCache = requestCache;
             this._eventAggregator = eventAggregator;
             this._applicationStateService = applicationStateService;
             this._geoLocationService = geoLocationService;
             this._clock = clock;
-
+            this._analyticsService = analyticsService;
             this._client = new HttpClient();
         }
 
@@ -96,6 +98,8 @@ namespace CTime2.Core.Services.CTime
             {
                 Logger.Warn($"Exception in method {nameof(this.Login)}. Email address: {emailAddress}");
                 Logger.Error(exception);
+
+                this._analyticsService.TrackException(exception);
 
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLogin") , exception);
             }
@@ -158,6 +162,8 @@ namespace CTime2.Core.Services.CTime
                 Logger.Warn($"Exception in method {nameof(this.GetTimes)}. Employee: {employeeGuid}, Start: {start}, End: {end}");
                 Logger.Error(exception);
 
+                this._analyticsService.TrackException(exception);
+
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingTimes"), exception);
             }
         }
@@ -198,6 +204,8 @@ namespace CTime2.Core.Services.CTime
                 Logger.Warn($"Exception in method {nameof(this.SaveTimer)}. Employee: {employeeGuid}, Time: {time}, Company Id: {companyId}, State: {(int)state}");
                 Logger.Error(exception);
 
+                this._analyticsService.TrackException(exception);
+
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileStamp"), exception);
             }
         }
@@ -229,6 +237,8 @@ namespace CTime2.Core.Services.CTime
             {
                 Logger.Warn($"Exception in method {nameof(this.GetCurrentTime)}. Employee: {employeeGuid}");
                 Logger.Error(exception);
+
+                this._analyticsService.TrackException(exception);
 
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingCurrentTime"), exception);
             }
@@ -302,6 +312,8 @@ namespace CTime2.Core.Services.CTime
             {
                 Logger.Warn($"Exception in method {nameof(this.GetAttendingUsers)}. Company Id: {companyId}");
                 Logger.Error(exception);
+
+                this._analyticsService.TrackException(exception);
 
                 throw new CTimeException(CTime2CoreResources.Get("CTimeService.ErrorWhileLoadingAttendanceList"), exception);
             }

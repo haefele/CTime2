@@ -11,6 +11,7 @@ using CTime2.Core.Services.GeoLocation;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Clock;
 using EmpNotificationService = CTime2.Core.Services.EmployeeNotification.EmployeeNotificationService;
+using UwCore.Services.Analytics;
 
 namespace CTime2.EmployeeNotificationService
 {
@@ -38,9 +39,9 @@ namespace CTime2.EmployeeNotificationService
 
                 var clock = new RealtimeClock();
                 var eventAggregator = new EventAggregator();
-                var geoLocationService = new GeoLocationService();
+                var geoLocationService = new GeoLocationService(new NullAnalyticsService());
                 var requestCache = new NullCTimeRequestCache();
-                var ctimeService = new CTimeService(requestCache, eventAggregator, applicationStateService, geoLocationService, clock);
+                var ctimeService = new CTimeService(requestCache, eventAggregator, applicationStateService, geoLocationService, clock, new NullAnalyticsService());
                 var employeeNotificationService = new EmpNotificationService(applicationStateService, ctimeService);
 
                 await employeeNotificationService.SendNotificationsAsync();
