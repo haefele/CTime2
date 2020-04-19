@@ -107,6 +107,8 @@ namespace CTime2
             {
                 Logger.Warn($"For some reason the voice-command registration failed. {exception.GetFullMessage()}");
                 Logger.Error(exception);
+
+                IoC.Get<IAnalyticsService>().TrackException(exception);
             }
         }
 
@@ -174,6 +176,7 @@ namespace CTime2
                 catch (Exception exception)
                 {
                     Logger.Error(exception);
+                    IoC.Get<IAnalyticsService>().TrackException(exception);
                 }
 
                 Logger.Info("AppTimer Tick Finish!");

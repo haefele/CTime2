@@ -5,12 +5,23 @@ using Caliburn.Micro;
 using CTime2.Core.Data;
 using UwCore.Extensions;
 using UwCore.Logging;
+using UwCore.Services.Analytics;
+using UwCore.Common;
 
 namespace CTime2.Core.Services.GeoLocation
 {
     public class GeoLocationService : IGeoLocationService
     {
         private static readonly ILog Logger = LogManager.GetLog(typeof(GeoLocationService));
+
+        private readonly IAnalyticsService _analyticsService;
+
+        public GeoLocationService(IAnalyticsService analyticsService)
+        {
+            Guard.NotNull(analyticsService, nameof(analyticsService));
+
+            this._analyticsService = analyticsService;
+        }
 
         public async Task<GeoLocationState> GetGeoLocationStateAsync(User user)
         {
@@ -41,6 +52,8 @@ namespace CTime2.Core.Services.GeoLocation
                 {
                     Logger.Warn($"An error occured while getting the current geo-location. {exception.GetFullMessage()}");
                     Logger.Error(exception);
+
+                    this._analyticsService.TrackException(exception);
                 }
             }
 

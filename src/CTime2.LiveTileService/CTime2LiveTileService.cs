@@ -15,6 +15,7 @@ using CTime2.Core.Services.Statistics;
 using CTime2.Core.Services.Tile;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Clock;
+using UwCore.Services.Analytics;
 
 namespace CTime2.LiveTileService
 {
@@ -41,10 +42,10 @@ namespace CTime2.LiveTileService
                 await applicationStateService.RestoreStateAsync();
 
                 var clock = new RealtimeClock();
-                var geoLocationService = new GeoLocationService();
+                var geoLocationService = new GeoLocationService(new NullAnalyticsService());
                 var eventAggregator = new EventAggregator();
                 var ctimeRequestCache = new NullCTimeRequestCache();
-                var ctimeService = new CTimeService(ctimeRequestCache, eventAggregator, applicationStateService, geoLocationService, clock);
+                var ctimeService = new CTimeService(ctimeRequestCache, eventAggregator, applicationStateService, geoLocationService, clock, new NullAnalyticsService());
                 var statisticsService = new StatisticsService(applicationStateService, clock);
                 var liveTileService = new TileService(applicationStateService, ctimeService, statisticsService, clock);
 

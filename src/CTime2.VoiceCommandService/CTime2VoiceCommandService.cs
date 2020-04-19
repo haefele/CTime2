@@ -12,6 +12,7 @@ using CTime2.VoiceCommandService.Strings;
 using UwCore.Logging;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Clock;
+using UwCore.Services.Analytics;
 
 namespace CTime2.VoiceCommandService
 {
@@ -50,7 +51,7 @@ namespace CTime2.VoiceCommandService
                     var clock = new RealtimeClock();
                     var applicationStateService = new ApplicationStateService();
                     await applicationStateService.RestoreStateAsync();
-                    var cTimeService = new CTimeService(new NullCTimeRequestCache(), new EventAggregator(), applicationStateService, new GeoLocationService(), clock);
+                    var cTimeService = new CTimeService(new NullCTimeRequestCache(), new EventAggregator(), applicationStateService, new GeoLocationService(new NullAnalyticsService()), clock, new NullAnalyticsService());
 
                     var stampHelper = new CTimeStampHelper(applicationStateService, cTimeService, clock);
                     var stampHelperCallback = new CTimeStampHelperCallback(
