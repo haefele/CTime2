@@ -17,6 +17,7 @@ using UwCore.Common;
 using UwCore.Services.ApplicationState;
 using CTime2.Extensions;
 using UwCore.Services.Analytics;
+using DynamicData.Binding;
 
 namespace CTime2.Views.Settings
 {
@@ -28,14 +29,14 @@ namespace CTime2.Views.Settings
         private readonly IAnalyticsService _analyticsService;
         private readonly ICTimeService _cTimeService;
 
-        private ReactiveList<TimeSpan> _workTimes;
+        private ObservableCollectionExtended<TimeSpan> _workTimes;
         private TimeSpan _selectedWorkTime;
-        private ReactiveList<TimeSpan> _breakTimes;
+        private ObservableCollectionExtended<TimeSpan> _breakTimes;
         private TimeSpan _selectedBreakTime;
-        private ReactiveList<TimeSpan> _breakTimeAreas;
+        private ObservableCollectionExtended<TimeSpan> _breakTimeAreas;
         private TimeSpan _breakTimeBegin;
         private TimeSpan _breakTimeEnd;
-        private ReactiveList<DayOfWeek> _workDays;
+        private ObservableCollectionExtended<DayOfWeek> _workDays;
         private ElementTheme _theme;
         private string _missingDaysEmailReceiver;
         private bool _includeContactInfoInErrorReports;
@@ -43,7 +44,7 @@ namespace CTime2.Views.Settings
         private string _onPremisesServerUrl;
         private bool? _onPremisesServerUrlTestResult;
 
-        public ReactiveList<TimeSpan> WorkTimes
+        public ObservableCollectionExtended<TimeSpan> WorkTimes
         {
             get { return this._workTimes; }
             set { this.RaiseAndSetIfChanged(ref this._workTimes, value); }
@@ -55,7 +56,7 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._selectedWorkTime, value); }
         }
 
-        public ReactiveList<TimeSpan> BreakTimes
+        public ObservableCollectionExtended<TimeSpan> BreakTimes
         {
             get { return this._breakTimes; }
             set { this.RaiseAndSetIfChanged(ref this._breakTimes, value); }
@@ -67,7 +68,7 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._selectedBreakTime, value); }
         }
 
-        public ReactiveList<TimeSpan> BreakTimeAreas
+        public ObservableCollectionExtended<TimeSpan> BreakTimeAreas
         {
             get { return this._breakTimeAreas; }
             set { this.RaiseAndSetIfChanged(ref this._breakTimeAreas, value); }
@@ -85,7 +86,7 @@ namespace CTime2.Views.Settings
             set { this.RaiseAndSetIfChanged(ref this._breakTimeEnd, value); }
         }
 
-        public ReactiveList<DayOfWeek> WorkDays
+        public ObservableCollectionExtended<DayOfWeek> WorkDays
         {
             get { return this._workDays; }
             set { this.RaiseAndSetIfChanged(ref this._workDays, value); }
@@ -165,7 +166,7 @@ namespace CTime2.Views.Settings
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
             this.BreakTimeBegin = this._applicationStateService.GetBreakTimeBegin();
             this.BreakTimeEnd = this._applicationStateService.GetBreakTimeEnd();
-            this.WorkDays = new ReactiveList<DayOfWeek>(this._applicationStateService.GetWorkDays());
+            this.WorkDays = new ObservableCollectionExtended<DayOfWeek>(this._applicationStateService.GetWorkDays());
             this.MissingDaysEmailReceiver = this._applicationStateService.GetMissingDaysEmailReceiver();
             this.IncludeContactInfoInErrorReports = this._applicationStateService.GetIncludeContactInfoInErrorReports();
             this.CompanyId = this._applicationStateService.GetCompanyId();
@@ -202,7 +203,7 @@ namespace CTime2.Views.Settings
                     this._applicationStateService.SetBreakTimeEnd(breakTimeEnd);
                 });
 
-            this.WorkDays.Changed
+            this.WorkDays.ToObservableChangeSet()
                 .Subscribe(_ =>
                 {
                     this._applicationStateService.SetWorkDays(this.WorkDays.ToArray());
@@ -238,15 +239,15 @@ namespace CTime2.Views.Settings
 
             this.DisplayName = CTime2Resources.Get("Navigation.Settings");
 
-            this.WorkTimes = new ReactiveList<TimeSpan>(Enumerable
+            this.WorkTimes = new ObservableCollectionExtended<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
 
-            this.BreakTimes = new ReactiveList<TimeSpan>(Enumerable
+            this.BreakTimes = new ObservableCollectionExtended<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
 
-            this.BreakTimeAreas = new ReactiveList<TimeSpan>(Enumerable
+            this.BreakTimeAreas = new ObservableCollectionExtended<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
         }

@@ -7,6 +7,7 @@ using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.YourTimes;
+using DynamicData.Binding;
 using ReactiveUI;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
@@ -21,7 +22,7 @@ namespace CTime2.Views.Statistics.Details.WorkTime
 
         private double _expectedHoursPerDay;
         private double _averageHoursPerDay;
-        private ReactiveList<StatisticChartItem> _chartItems;
+        private ObservableCollectionExtended<StatisticChartItem> _chartItems;
 
         public double ExpectedHoursPerDay
         {
@@ -35,7 +36,7 @@ namespace CTime2.Views.Statistics.Details.WorkTime
             set { this.RaiseAndSetIfChanged(ref this._averageHoursPerDay, value); }
         }
 
-        public ReactiveList<StatisticChartItem> ChartItems
+        public ObservableCollectionExtended<StatisticChartItem> ChartItems
         {
             get { return this._chartItems; }
             set { this.RaiseAndSetIfChanged(ref this._chartItems, value); }
@@ -66,7 +67,7 @@ namespace CTime2.Views.Statistics.Details.WorkTime
 
             this.ExpectedHoursPerDay = this._applicationStateService.GetWorkDayHours().TotalHours;
             this.AverageHoursPerDay = this._statisticsService.CalculateAverageWorkTime(timesByDay, onlyWorkDays:true).TotalHours;
-            this.ChartItems = new ReactiveList<StatisticChartItem>(items.OrderBy(f => f.Date));
+            this.ChartItems = new ObservableCollectionExtended<StatisticChartItem>(items.OrderBy(f => f.Date));
 
             return Task.CompletedTask;
         }

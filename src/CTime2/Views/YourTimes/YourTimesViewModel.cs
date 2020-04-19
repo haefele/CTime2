@@ -18,6 +18,7 @@ using UwCore.Common;
 using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Clock;
+using DynamicData.Binding;
 
 namespace CTime2.Views.YourTimes
 {
@@ -30,7 +31,7 @@ namespace CTime2.Views.YourTimes
         private readonly IEmailService _emailService;
 
         private TimesByDay _selectedDayForReportMissingTime;
-        private readonly ObservableAsPropertyHelper<ReactiveList<TimesByDay>> _timesHelper;
+        private readonly ObservableAsPropertyHelper<ObservableCollectionExtended<TimesByDay>> _timesHelper;
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
 
@@ -40,7 +41,7 @@ namespace CTime2.Views.YourTimes
             set { this.RaiseAndSetIfChanged(ref this._selectedDayForReportMissingTime, value); }
         }
 
-        public ReactiveList<TimesByDay> Times => this._timesHelper.Value;
+        public ObservableCollectionExtended<TimesByDay> Times => this._timesHelper.Value;
 
         public DateTimeOffset StartDate
         {
@@ -56,7 +57,7 @@ namespace CTime2.Views.YourTimes
 
         public Parameters Parameter { get; set; }
 
-        public UwCoreCommand<ReactiveList<TimesByDay>> LoadTimes { get; }
+        public UwCoreCommand<ObservableCollectionExtended<TimesByDay>> LoadTimes { get; }
         public UwCoreCommand<Unit> Share { get; }
         public UwCoreCommand<Unit> ReportMissingTimes { get; }
         public UwCoreCommand<Unit> ReportMissingTimeForSelectedDay { get; }
@@ -141,13 +142,13 @@ namespace CTime2.Views.YourTimes
             await this.LoadTimes.ExecuteAsync();
         }
         
-        private async Task<ReactiveList<TimesByDay>> LoadTimesImpl()
+        private async Task<ObservableCollectionExtended<TimesByDay>> LoadTimesImpl()
         {
             var today = this._clock.Today();
             var workDays = this._applicationStateService.GetWorkDays();
 
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
-            return new ReactiveList<TimesByDay>(TimesByDay.Create(times, workDays, today));
+            return new ObservableCollectionExtended<TimesByDay>(TimesByDay.Create(times, workDays, today));
         }
         
         private Task ShareImpl()

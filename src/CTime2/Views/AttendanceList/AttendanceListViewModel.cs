@@ -19,6 +19,7 @@ using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.Dialog;
 using UwCore.Services.Navigation;
+using DynamicData.Binding;
 
 namespace CTime2.Views.AttendanceList
 {
@@ -30,20 +31,20 @@ namespace CTime2.Views.AttendanceList
         private readonly IEmployeeGroupService _employeeGroupService;
         private readonly IDialogService _dialogService;
 
-        private ReactiveList<AttendingUser> _selectedUsers;
-        private readonly ObservableAsPropertyHelper<ReactiveList<AttendingUserByIsAttending>> _usersHelper;
-        private readonly ObservableAsPropertyHelper<ReactiveList<AttendingUserByIsAttending>> _filteredUsersHelper;
+        private ObservableCollectionExtended<AttendingUser> _selectedUsers;
+        private readonly ObservableAsPropertyHelper<ObservableCollectionExtended<AttendingUserByIsAttending>> _usersHelper;
+        private readonly ObservableAsPropertyHelper<ObservableCollectionExtended<AttendingUserByIsAttending>> _filteredUsersHelper;
         private AttendanceListState _state;
         private string _groupName;
         private string _searchText;
 
-        public ReactiveList<AttendingUser> SelectedUsers
+        public ObservableCollectionExtended<AttendingUser> SelectedUsers
         {
             get { return this._selectedUsers; }
             set { this.RaiseAndSetIfChanged(ref this._selectedUsers, value); }
         }
-        public ReactiveList<AttendingUserByIsAttending> Users => this._usersHelper.Value;
-        public ReactiveList<AttendingUserByIsAttending> FilteredUsers => this._filteredUsersHelper.Value;
+        public ObservableCollectionExtended<AttendingUserByIsAttending> Users => this._usersHelper.Value;
+        public ObservableCollectionExtended<AttendingUserByIsAttending> FilteredUsers => this._filteredUsersHelper.Value;
         public AttendanceListState State
         {
             get { return this._state; }
@@ -60,8 +61,8 @@ namespace CTime2.Views.AttendanceList
             set { this.RaiseAndSetIfChanged(ref this._searchText, value); }
         }
 
-        public UwCoreCommand<ReactiveList<AttendingUserByIsAttending>> LoadUsers { get; }
-        public UwCoreCommand<ReactiveList<AttendingUserByIsAttending>> FilterUsers { get; }
+        public UwCoreCommand<ObservableCollectionExtended<AttendingUserByIsAttending>> LoadUsers { get; }
+        public UwCoreCommand<ObservableCollectionExtended<AttendingUserByIsAttending>> FilterUsers { get; }
         public UwCoreCommand<Unit> ShowDetails { get; }
         public UwCoreCommand<Unit> CreateGroup { get; }
         public UwCoreCommand<Unit> SaveGroup { get; }
@@ -87,7 +88,7 @@ namespace CTime2.Views.AttendanceList
             this._dialogService = dialogService;
 
             this.DisplayName = CTime2Resources.Get("Navigation.AttendanceList");
-            this.SelectedUsers = new ReactiveList<AttendingUser>();
+            this.SelectedUsers = new ObservableCollectionExtended<AttendingUser>();
             this.State = AttendanceListState.Loading;
 
             this.LoadUsers = UwCoreCommand.Create(this.LoadUsersImpl)
@@ -104,7 +105,7 @@ namespace CTime2.Views.AttendanceList
                 .Throttle(TimeSpan.FromMilliseconds(250))
                 .InvokeCommand(this.FilterUsers);
 
-            var canShowDetails = this.SelectedUsers.Changed.Select(f => this.SelectedUsers.Any());
+            var canShowDetails = this.SelectedUsers.ToObservableChangeSet().Select(f => this.SelectedUsers.Any());
             this.ShowDetails = UwCoreCommand.Create(canShowDetails, this.ShowDetailsImpl)
                 .HandleExceptions()
                 .TrackEvent("ShowAttendingUserDetails");
@@ -116,7 +117,7 @@ namespace CTime2.Views.AttendanceList
 
             var canSaveGroup = this
                 .WhenAnyValue(f => f.State, f => f.GroupName,  (mode, groupName) => mode == AttendanceListState.CreateGroup && string.IsNullOrWhiteSpace(groupName) == false)
-                .CombineLatest(this.SelectedUsers.Changed, (stateAndName, selectedUsers) => stateAndName && this.SelectedUsers.Any());
+                .CombineLatest(this.SelectedUsers.ToObservableChangeSet(), (stateAndName, selectedUsers) => stateAndName && this.SelectedUsers.Any());
             this.SaveGroup = UwCoreCommand.Create(canSaveGroup, this.SaveGroupImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.SaveEmployeeGroup"))
                 .HandleExceptions()
@@ -134,7 +135,7 @@ namespace CTime2.Views.AttendanceList
                 .TrackEvent("DeleteEmployeeGroup");
         }
 
-        private Task<ReactiveList<AttendingUserByIsAttending>> FilterUsersImpl()
+        private Task<ObservableCollectionExtended<AttendingUserByIsAttending>> FilterUsersImpl()
         {
             return Task.Run(() =>
             {
@@ -149,7 +150,7 @@ namespace CTime2.Views.AttendanceList
                                                     f.Name.Contains(s, StringComparison.OrdinalIgnoreCase) ||
                                                     f.EmailAddress.Contains(s, StringComparison.OrdinalIgnoreCase)));
 
-                var result = new ReactiveList<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(filteredUsers));
+                var result = new ObservableCollectionExtended<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(filteredUsers));
                 
                 //If the lists didn't change, just return the same value as before
                 return new ReactiveListOfAttendingUserByIsAttendingEqualityComparer().Equals(result, this.FilteredUsers)
@@ -166,7 +167,7 @@ namespace CTime2.Views.AttendanceList
             await this.FilterUsers.ExecuteAsync();
         }
 
-        private async Task<ReactiveList<AttendingUserByIsAttending>> LoadUsersImpl()
+        private async Task<ObservableCollectionExtended<AttendingUserByIsAttending>> LoadUsersImpl()
         {
             var currentUser = this._applicationStateService.GetCurrentUser();
 
@@ -190,7 +191,7 @@ namespace CTime2.Views.AttendanceList
                 this.State = AttendanceListState.View;
             }
 
-            return new ReactiveList<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(attendingUsers));
+            return new ObservableCollectionExtended<AttendingUserByIsAttending>(AttendingUserByIsAttending.Create(attendingUsers));
         }
 
         private Task ShowDetailsImpl()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DynamicData.Binding;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -38,7 +39,7 @@ namespace CTime2.Views.Settings
         {
             this.SyncWorkDaysToView();
 
-            this.ViewModel.WorkDays.Changed.Subscribe(_ =>
+            this.ViewModel.WorkDays.ToObservableChangeSet().Subscribe(_ =>
             {
                 this.SyncWorkDaysToView();
             });

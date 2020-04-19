@@ -24,6 +24,7 @@ using CTime2.Extensions;
 using CTime2.Views.Statistics.Details;
 using UwCore.Services.Clock;
 using UwCore.Services.Navigation;
+using DynamicData.Binding;
 
 namespace CTime2.Views.Statistics
 {
@@ -42,7 +43,7 @@ namespace CTime2.Views.Statistics
 		private DateTimeOffset _startDate;
 		private DateTimeOffset _endDate;
 		private bool? _includeToday;
-		private readonly ObservableAsPropertyHelper<ReactiveList<StatisticItem>> _statisticsHelper;
+		private readonly ObservableAsPropertyHelper<ObservableCollectionExtended<StatisticItem>> _statisticsHelper;
 		#endregion
 
 		#region Properties
@@ -62,11 +63,11 @@ namespace CTime2.Views.Statistics
 			set { this.RaiseAndSetIfChanged(ref this._includeToday, value); }
 		}
 
-		public ReactiveList<StatisticItem> Statistics => this._statisticsHelper.Value;
+		public ObservableCollectionExtended<StatisticItem> Statistics => this._statisticsHelper.Value;
 		#endregion
 
 		#region Commands
-		public UwCoreCommand<ReactiveList<StatisticItem>> LoadStatistics { get; }
+		public UwCoreCommand<ObservableCollectionExtended<StatisticItem>> LoadStatistics { get; }
 		public UwCoreCommand<Unit> Share { get; }
 		#endregion
 
@@ -143,7 +144,7 @@ namespace CTime2.Views.Statistics
 		}
 
 		#region Methods
-		private async Task<ReactiveList<StatisticItem>> LoadStatisticsImpl()
+		private async Task<ObservableCollectionExtended<StatisticItem>> LoadStatisticsImpl()
 		{
 		    var today = this._clock.Today();
 			var workDays = this._applicationStateService.GetWorkDays();
@@ -175,7 +176,7 @@ namespace CTime2.Views.Statistics
 			if (times.Count == 0 || timesByDay.Count == 0 || timesByDay.Count(f => f.Hours != TimeSpan.Zero) == 0)
 			{
 				await this._dialogService.ShowAsync(CTime2Resources.Get("Statistics.NoTimesBetweenStartAndEndDate"));
-				return new ReactiveList<StatisticItem>();
+				return new ObservableCollectionExtended<StatisticItem>();
 			}
 			
 			var totalWorkTime = this._statisticsService.CalculateTotalWorkTime(timesByDay, onlyWorkDays:false);    
@@ -254,7 +255,7 @@ namespace CTime2.Views.Statistics
 					: null,
 			};
 
-			return new ReactiveList<StatisticItem>(statisticItems.Where(f => f != null));
+			return new ObservableCollectionExtended<StatisticItem>(statisticItems.Where(f => f != null));
 		}
 		
 		private Task ShareImpl()
