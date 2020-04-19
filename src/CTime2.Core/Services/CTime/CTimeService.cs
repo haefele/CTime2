@@ -317,7 +317,7 @@ namespace CTime2.Core.Services.CTime
             if (state == (int)TimeState.Entered)
                 return CTime2CoreResources.Get("Entered");
 
-            if (state == (int)TimeState.Left || state == null)
+            if (state == (int)TimeState.Left || state == null || state == 0)
                 return CTime2CoreResources.Get("Left");
 
             if (state == (int)TimeState.HomeOffice)
@@ -342,7 +342,7 @@ namespace CTime2.Core.Services.CTime
             if (state == (int) TimeState.Entered)
                 return Color.FromArgb(255, 63, 195, 128);
 
-            if (state == (int) TimeState.Left || state == null)
+            if (state == (int) TimeState.Left || state == null || state == 0)
                 return Color.FromArgb(255, 231, 76, 60);
 
             if (string.IsNullOrWhiteSpace(color))
