@@ -358,7 +358,11 @@ namespace CTime2.Core.Services.CTime
             if (state == (int) TimeState.Entered)
                 return Color.FromArgb(255, 63, 195, 128);
 
-            if (state == (int) TimeState.Left || state == null || state == 0)
+            bool stateIsLeft = state == (int)TimeState.Left;
+            bool stateIsEmpty = state == null || state == 0;
+            bool stateIsExpected = state == -1; //There is a special -1 state, that is called "Erwartet" - you're expected to work today, but didn't start yet
+
+            if (stateIsLeft || stateIsEmpty || stateIsExpected)
                 return Color.FromArgb(255, 231, 76, 60);
 
             if (string.IsNullOrWhiteSpace(color))
