@@ -94,6 +94,10 @@ namespace CTime2.Core.Services.EmployeeNotification
                 return;
 
             var usersToCheck = this.GetUsers().ToList();
+
+            if (usersToCheck.Any() == false)
+                return;
+
             var attendingUsers = await this._ctimeService.GetAttendingUsers(currentUser.CompanyId, new byte[0]);
 
             foreach (var user in new List<string>(usersToCheck))
