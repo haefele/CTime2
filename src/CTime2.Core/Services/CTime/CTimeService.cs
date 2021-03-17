@@ -291,9 +291,9 @@ namespace CTime2.Core.Services.CTime
                             EmailAddress = f.GetString("EmployeeEmail"),
                             PhoneNumber = f.GetString("EmployeePhone"),
                             Departments = f.GetString("EmployeeGroups")
-                                           .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                           ?.Split(',', StringSplitOptions.RemoveEmptyEntries)
                                            .Select(d => d.Trim())
-                                           .ToArray()
+                                           .ToArray() ?? Array.Empty<string>(),
                         }
                     })
                     .GroupBy(f => f.EmployeeI3D)
