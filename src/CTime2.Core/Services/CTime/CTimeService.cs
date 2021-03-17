@@ -449,6 +449,9 @@ namespace CTime2.Core.Services.CTime
 
         private string TrimOnPremisesUrl(string url)
         {
+            if (string.IsNullOrWhiteSpace(url))
+                return null;
+
             string[] knownEndings =
             {
                 "/",
